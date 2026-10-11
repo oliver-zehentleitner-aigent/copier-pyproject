@@ -1,6 +1,6 @@
 {
  "state-json": 2,
- "generated": "2026-10-11T12:55:41Z",
+ "generated": "2026-10-11T13:02:12Z",
  "dashboard": "0.10.0",
  "linter": "0.20.1.0",
  "project": {
@@ -28,8 +28,8 @@
   "children": [],
   "git": {
    "available": true,
-   "head": "5bdf627",
-   "head_full": "5bdf627cefe6dabb2118a57679bb0eb9175bc182",
+   "head": "0b74d88",
+   "head_full": "0b74d8836480f30be1590a4837bac53632a26c92",
    "branch": "keep-the-why-context",
    "remote": "github.com/oliver-zehentleitner-aigent/copier-pyproject",
    "upstream": "github.com/hasansezertasan/copier-pyproject",
