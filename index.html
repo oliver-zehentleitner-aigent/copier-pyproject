@@ -1,0 +1,1609 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Copier template for a modern, typed Python package/CLI with uv, hatch, tox, and GitHub automation baked in.">
+      
+      
+      
+        <link rel="canonical" href="https://hasansezertasan.github.io/copier-pyproject/">
+      
+      
+      
+        <link rel="next" href="template-architecture/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>copier-pyproject</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="assets/extra.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#copier-pyproject" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="copier-pyproject" class="md-header__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            copier-pyproject
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Home
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="copier-pyproject" class="md-nav__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    copier-pyproject
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inputs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Inputs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preset
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scaffold-a-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scaffold a project
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scaffold a project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#claude-code-instruction-loading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Claude Code instruction loading
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adopt-into-an-existing-project-claude-code-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adopt into an existing project (Claude Code plugin)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Adopt into an existing project (Claude Code plugin)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-humans" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For humans
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For agents
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generated-project-quickstart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generated project quickstart
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#working-on-the-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Working on the template
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-automation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Release automation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Release automation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pypi-trusted-publishing-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PyPI Trusted Publishing setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coverage-reporting-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coverage reporting setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation-site-and-dependency-updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation site and dependency updates
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#container-image-publishing-if-include_web-is-enabled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Container image publishing (if include_web is enabled)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#release-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Release steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#release-workflow-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Release workflow structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#author" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Author
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disclaimer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disclaimer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        License
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="template-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="generated-project-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated project trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="hook-coverage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated-project check coverage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="template-adoption/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template adoption and update audits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture decision records
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture decision records
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why it is built this way
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Why it is built this way
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="context/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://hasansezertasan.github.io/copier-pyproject/dashboard/live/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard ↗
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inputs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Inputs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preset
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scaffold-a-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scaffold a project
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scaffold a project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#claude-code-instruction-loading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Claude Code instruction loading
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adopt-into-an-existing-project-claude-code-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adopt into an existing project (Claude Code plugin)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Adopt into an existing project (Claude Code plugin)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-humans" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For humans
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For agents
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generated-project-quickstart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generated project quickstart
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#working-on-the-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Working on the template
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-automation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Release automation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Release automation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pypi-trusted-publishing-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PyPI Trusted Publishing setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coverage-reporting-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coverage reporting setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation-site-and-dependency-updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation site and dependency updates
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#container-image-publishing-if-include_web-is-enabled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Container image publishing (if include_web is enabled)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#release-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Release steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#release-workflow-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Release workflow structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#author" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Author
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disclaimer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disclaimer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        License
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="copier-pyproject">copier-pyproject<a class="headerlink" href="#copier-pyproject" title="Permanent link">&para;</a></h1>
+<p><a href="https://keepthewhy.com"><img alt="Keep the Why" src="https://keepthewhy.com/assets/badge.svg" /></a></p>
+<p>Copier template for a modern, typed Python package/CLI with <code>uv</code>, <code>hatch</code>, <code>tox</code>, and GitHub automation baked in.</p>
+<h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
+<p>Always included in every generated project:</p>
+<ul>
+<li><strong>Packaging &amp; workflow</strong> — uv-first with dependency groups (dev, style, test, tool, prek — plus <code>docs</code> when <code>include_docs</code> is on) and tox-uv runners across Python 3.10–3.14; builds via <code>hatchling</code>/<code>hatch-vcs</code> with versions derived from Git tags.</li>
+<li><strong>Type safety</strong> — full type hints and a <code>py.typed</code> marker, checked by mypy, basedpyright, ty, pyrefly, and zuban.</li>
+<li><strong>Code quality</strong> — ruff linting/formatting and an always-on pylint gate, plus vulture, slotscheck, taplo, validate-pyproject, typos, actionlint, editorconfig-checker, and import-linter architecture-contract enforcement, plus a semgrep SAST pass over <code>src/</code> in the <code>style</code> env (<a href="adr/032-semgrep-sast-in-the-style-env/">ADR-032</a>).</li>
+<li><strong>Testing</strong> — pytest with coverage/xdist/reruns (and <code>.github/codecov.yml</code>) and parallel execution.</li>
+<li><strong>CI/CD &amp; release</strong> — matrix tests on macOS/Linux/Windows with per-component pytest markers and path-filtered CI jobs (unchanged components skip), trusted-publishing to PyPI, and release automation via release-please, with PR title linting, linked-issue enforcement, and a PR task-list completion check.</li>
+<li><strong>Security</strong> — CodeQL, OpenSSF Scorecard (with README badge), a dependency-review gate that blocks high-severity vulnerabilities, active scanning (gitleaks, pip-audit, and Trivy for web images), a local pre-commit <code>detect-secrets</code> gate with a committed <code>.secrets.baseline</code> (complementing gitleaks' history-spanning scan), GitHub Actions static analysis (zizmor + ghalint) enforcing least-privilege <code>permissions</code>, <code>persist-credentials: false</code>, per-job <code>timeout-minutes</code>, and full-length action SHA pins — a blocking prek/CI gate plus a zizmor Security-tab dashboard — and a CycloneDX SBOM attached to every release.</li>
+<li><strong>Repo hygiene</strong> — issue/PR templates, <code>SECURITY.md</code>, <code>SUPPORT.md</code>, <code>CODEOWNERS</code>, <code>FUNDING</code>, <code>LICENSE</code>, <code>.gitattributes</code>, <code>.dockerignore</code>, a badge-rich README, and VS Code launch configs (current file, tests, attach, entry points); always-on Commitizen and git hooks (run via prek) and an always-on <code>CITATION.cff</code> with a validation workflow.</li>
+<li><strong>Managed <code>.gitignore</code></strong> — kept in sync with the upstream <a href="https://github.com/github/gitignore">github/gitignore</a> templates by <a href="https://github.com/hasansezertasan/cobo">cobo</a>, with a weekly drift check.</li>
+<li><strong>Dependency &amp; template updates</strong> — Renovate manages dependencies and, via its copier manager, opens a <code>copier update</code> PR whenever this template publishes a new tag (see <a href="adr/015-template-self-versioning-and-copier-update-automation/">ADR-015</a>).</li>
+<li><strong>AI-agent onboarding</strong> — a concise <code>AGENTS.md</code> (the cross-tool standard), so coding agents share a single source of truth.</li>
+<li><strong>Modern Python</strong> — uv for dependency management, hatch for building, and a devcontainer for reproducible environments.</li>
+</ul>
+<p>On by default, opt-out: a <strong>Sphinx documentation site</strong> (<code>include_docs</code>) — the Shibuya theme, autodoc API reference, GitHub Pages deployment, live per-PR previews, and a build-warning allowlist gate (<code>docs/expected_warnings.txt</code> + <code>check_warnings.py</code>). Published docs are <strong>versioned</strong> — each release deploys under its version slug (<code>docs_version_granularity</code>: <code>minor</code> <code>X.Y</code>, <code>major</code> <code>X</code>, or <code>full</code> <code>X.Y.Z</code>) with an in-page version switcher and a <code>latest</code> alias, and every page footer shows its git "last updated" date (see ADR-027). With a Typer CLI, a CLI reference page is generated at build time straight from the live app (<code>typer ... utils docs</code>) so it never drifts from <code>--help</code>. Turn it off for a README-only project; the maintainer setup guide (<code>docs/maintaining/setup.rst</code>) ships regardless.</p>
+<p>Opt in per project (see <a href="#inputs">Inputs</a> for the full list): a Typer CLI, a FastAPI/Litestar web app (container-ready <code>Dockerfile</code>), a Tkinter GUI, a Textual TUI, an MCP server, a FastStream worker, Cython C extensions with multi-platform wheel building, profiling tools (py-spy, scalene, cProfile), CodSpeed-backed performance benchmarks, standalone-executable packaging (PyCrucible / Nuitka / PyInstaller), and extra quality integrations — SonarCloud, Sourcery, all-contributors, smokeshow (a tokenless, account-free coverage-HTML mirror for public repos), MegaLinter (adds gap checks — shellcheck, hadolint, jsonlint, jscpd clone-detection, and a <code>.md</code>-scoped cspell prose pass — not already covered by prek/tox), repository-settings-as-code (a <code>.github/settings.yml</code> syncing description/homepage/topics via the "Settings" GitHub App), and ai-rulez (agent instructions authored once under <code>.ai-rulez/</code> and generated into every AI coding host's native config — <code>CLAUDE.md</code>, <code>AGENTS.md</code>, <code>.github/copilot-instructions.md</code>, <code>.cursor/rules/</code>, … — instead of one hand-written file per tool).</p>
+<h2 id="inputs">Inputs<a class="headerlink" href="#inputs" title="Permanent link">&para;</a></h2>
+<h3 id="preset">Preset<a class="headerlink" href="#preset" title="Permanent link">&para;</a></h3>
+<p>The first component question, <code>preset</code>, seeds sensible defaults matching your
+project's shape:</p>
+<ul>
+<li><code>library</code> — a pure importable package (seeds an <code>examples/</code> folder). <strong>Default.</strong></li>
+<li><code>tool</code> — a CLI/TUI application distributed on PyPI (CLI + TUI + pydantic-settings).</li>
+<li><code>web</code> — a web app with a database and cache (web app + pydantic-settings +
+  PostgreSQL + Redis in the devcontainer).</li>
+<li><code>full</code> — every component and integration enabled.</li>
+</ul>
+<p>The preset only changes each toggle's <em>default</em> (which you can accept with
+Enter) — it never hides a question and never changes an existing project on
+<code>copier update</code>; every toggle is still written to <code>.copier-answers.yml</code>. A few
+sub-questions (the web framework, worker broker, Redis backend, and the
+PostgreSQL UIs) remain conditional on their parent toggle, independently of the
+preset.</p>
+<p>Copier will prompt for:</p>
+<ul>
+<li><code>github_user</code></li>
+<li><code>github_repo_name</code> (valid Python package name: lowercase letters/digits/underscores, starts with a letter, and not a Python reserved keyword — used verbatim as the import package name, so no dashes)</li>
+<li><code>author_full_name</code></li>
+<li><code>author_email</code></li>
+<li><code>short_description</code></li>
+<li><code>package_keywords</code> (extra comma-separated PyPI keywords; tooling/component keywords are added automatically)</li>
+<li><code>include_cli</code> (include Typer CLI)</li>
+<li><code>include_web</code> (include web API; its OpenAPI schema is generated into the docs, and the project gets <code>pkg run</code> / <code>pkg dev</code> launch verbs — see <a href="adr/032-uniform-run-dev-launch-verbs/">ADR-032</a>)</li>
+<li><code>web_framework</code> (fastapi/litestar - when <code>include_web</code> is enabled)</li>
+<li><code>include_gui</code> (include Tkinter GUI)</li>
+<li><code>include_tui</code> (include Textual TUI)</li>
+<li><code>include_mcp</code> (include MCP server support)</li>
+<li><code>include_worker</code> (include message queue worker using FastStream; its AsyncAPI message-interface schema is generated into the docs)</li>
+<li><code>worker_broker</code> (kafka/nats/rabbitmq/redis - when <code>include_worker</code> is enabled)</li>
+<li><code>async_style</code> (async test runner for generated tests: <code>none</code> / <code>asyncio</code> / <code>anyio</code>; defaults to <code>asyncio</code> when web/tui/mcp/worker is enabled, <code>none</code> otherwise — see <a href="adr/036-async-testing-style/">ADR-036</a>)</li>
+<li><code>include_c_extensions</code> (include C extensions support using Cython)</li>
+<li><code>include_profiling</code> (include profiling and performance tools)</li>
+<li><code>include_benchmarks</code> (include pytest-codspeed benchmarks and a non-blocking CodSpeed CI workflow)</li>
+<li><code>include_examples</code> (include an <code>examples/</code> folder with simple and advanced usage stubs)</li>
+<li><code>include_docs</code> (Sphinx docs site — <code>docs/</code> tree, <code>docs-*</code> tox envs, docs CI + versioned Pages deploy + version switcher; on by default)</li>
+<li><code>docs_version_granularity</code> (asked when <code>include_docs</code>: <code>minor</code> <code>X.Y</code> (default) / <code>major</code> <code>X</code> / <code>full</code> <code>X.Y.Z</code> — the per-release docs directory slug)</li>
+<li><code>include_launcher</code> (uv-bootstrap launcher via PyCrucible — small executable, downloads Python+deps on first run)</li>
+<li><code>include_compiler</code> (compiled native executable via Nuitka — source compiled to machine code)</li>
+<li><code>include_freezer</code> (offline freezer via PyInstaller — self-contained bundle, no Python on target)</li>
+<li><code>include_pypi_publish</code> (publish to PyPI via trusted publishing on each release; on by default — turn it off for a private project, a taken PyPI name, or GitHub-Releases-only distribution, see <a href="adr/039-optional-pypi-publishing/">ADR-039</a>)</li>
+<li><code>include_pydantic_settings</code> (use pydantic-settings for configuration; the docs build auto-generates a Configuration reference from the live settings model via autodoc-pydantic)</li>
+<li><code>include_megalinter</code> (opt-in extra CI quality layer; runs gap linters — shellcheck, hadolint, jsonlint, jscpd, and a <code>.md</code>-scoped cspell — not covered by prek/tox)</li>
+<li><code>include_smokeshow</code> (opt-in tokenless coverage-HTML host; publishes the combined report to an ephemeral public URL from the <code>coverage-report</code> CI job — public repos only, no account or secret)</li>
+<li><code>include_ai_rulez</code> (author the agent instructions once under <code>.ai-rulez/</code> and generate each AI coding host's native config from them via <a href="https://github.com/Goldziher/ai-rulez">ai-rulez</a>, instead of the hand-written <code>AGENTS.md</code>; the generated files are committed build output, written by <code>ai-rulez generate</code> — see <a href="adr/035-ai-rulez-as-the-agent-instruction-source/">ADR-035</a>)</li>
+<li><code>ai_rulez_presets</code> (asked when <code>include_ai_rulez</code>: which hosts to generate for — <code>codex</code>, <code>copilot</code> by default, plus <code>claude</code>/<code>cursor</code>/<code>windsurf</code>/<code>cline</code>/<code>continue-dev</code>/<code>amp</code>/<code>junie</code>/<code>opencode</code>/<code>hermes</code>/<code>antigravity</code>)</li>
+<li><code>include_repo_ruleset</code> (opt-in branch protection as code — a ruleset + App-free sync workflow enforcing squash-only merges, linear history, and the required CI checks; needs a <code>REPO_ADMIN_TOKEN</code> PAT)</li>
+<li><code>include_postgres</code> (include PostgreSQL service in devcontainer)</li>
+<li><code>include_redis</code> (include Redis/Valkey service in devcontainer)</li>
+<li><code>redis_backend</code> (redis/valkey - when <code>include_redis</code> is enabled, or when a
+  <code>redis</code> worker broker is used even with <code>include_redis</code> disabled)</li>
+<li><code>include_pgadmin</code> (include pgAdmin - when <code>include_postgres</code> is enabled)</li>
+<li><code>include_adminer</code> (include Adminer - when <code>include_postgres</code> is enabled)</li>
+<li><code>include_dbeaver</code> (include CloudBeaver database UI in devcontainer)</li>
+<li><code>include_vpn</code> (include OpenVPN sidecar in devcontainer)</li>
+</ul>
+<h2 id="scaffold-a-project">Scaffold a project<a class="headerlink" href="#scaffold-a-project" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Install Copier and uv (e.g., <code>uvx copier</code>).</li>
+<li>Run <code>copier copy https://github.com/hasansezertasan/copier-pyproject.git &lt;destination&gt;</code> (or <code>copier copy . &lt;destination&gt;</code> from a local clone). Use the <code>.git</code> HTTPS URL, <strong>not</strong> the <code>gh:hasansezertasan/copier-pyproject</code> shorthand — Copier records the argument verbatim as <code>_src_path</code>, and Renovate's copier manager only resolves template tags when <code>_src_path</code> is a real git URL (see <a href="adr/015-template-self-versioning-and-copier-update-automation/">ADR-015</a>).</li>
+<li>Optionally seed answers with <code>.example-input.yml</code> using <code>--data-file .example-input.yml --defaults</code>.</li>
+<li>Initialize git in the destination: <code>cd &lt;destination&gt; &amp;&amp; git init</code> (the template intentionally defines no Copier tasks, so it does not auto-init — see <a href="adr/015-template-self-versioning-and-copier-update-automation/">ADR-015</a>).</li>
+<li>Open the generated README (rendered from <code>template/README.md.jinja</code>) and clear the <code>TODO @...</code> markers in <code>README.md</code>, <code>pyproject.toml</code>, docs, and workflows.</li>
+</ol>
+<h3 id="claude-code-instruction-loading">Claude Code instruction loading<a class="headerlink" href="#claude-code-instruction-loading" title="Permanent link">&para;</a></h3>
+<p>The default generated project uses <code>AGENTS.md</code> without a <code>CLAUDE.md</code> wrapper.
+Direct loading requires Claude Code <strong>v2.1.277 or later</strong>; use <strong>v2.1.281 or
+later</strong> for sessions such as Amazon Bedrock or those with telemetry disabled.
+By default, a <code>CLAUDE.md</code>, <code>.claude/CLAUDE.md</code>, or <code>CLAUDE.local.md</code> in the
+working directory or an ancestor prevents automatic <code>AGENTS.md</code> loading.
+Your global <code>~/.claude/CLAUDE.md</code> does not prevent it.</p>
+<p>If you keep one of those project or ancestor files, open <code>/config</code> and set
+<strong>Project instructions</strong> to <code>claude-md-and-agents-md</code> to load both.
+For an older client or a session with AGENTS.md support disabled, add a local
+<code>CLAUDE.md</code> containing <code>@AGENTS.md</code> instead.
+See <a href="https://code.claude.com/docs/en/memory#when-claude-code-reads-agents-md">Claude Code's instruction-loading documentation</a>
+for the full rules. Opting into <code>include_ai_rulez</code> instead generates the
+selected hosts' native instruction files.</p>
+<p>A project first scaffolded from v1.6.0 or earlier carries a <code>CLAUDE.md</code> wrapper
+(v1.7.0 stopped rendering it but kept existing copies). <code>copier update</code> now
+deletes it, customized or not. Before updating, move any
+project-specific guidance from it into <code>AGENTS.md</code> (or, if the same update turns
+on <code>include_ai_rulez</code>, into a <code>.ai-rulez/</code> rule source, since <code>AGENTS.md</code> then
+becomes generated output).</p>
+<h2 id="adopt-into-an-existing-project-claude-code-plugin">Adopt into an existing project (Claude Code plugin)<a class="headerlink" href="#adopt-into-an-existing-project-claude-code-plugin" title="Permanent link">&para;</a></h2>
+<p>The <code>copier copy</code> flow above is for <strong>new</strong> projects. Adopting this template into an <strong>existing or already-published</strong> package is a different job: <code>copier copy</code> overwrites source, config, docs, and CI, so it must be run as a migrate-and-reconcile rather than a scaffold.</p>
+<p>Generated projects ship a <strong>template-adoption</strong> skill alongside <strong>repo-setup</strong>.
+In a session inside the generated project, ask: "Audit this template adoption/update and reconcile it with our existing
+behavior." It handles initial adoption, version updates, and post-update audits,
+compares custom behavior and overlapping workflows, and asks before consequential
+cleanup. The source lives in <code>.claude/skills/template-adoption/SKILL.md</code> by default,
+or <code>.ai-rulez/skills/template-adoption/SKILL.md</code> with <code>include_ai_rulez=true</code>;
+<code>ai-rulez generate</code> delivers it to the selected hosts. An agent can also read that
+file directly. See the <a href="template-adoption/">prek walkthrough</a>.</p>
+<p>This repository also doubles as a <a href="https://docs.claude.com/en/docs/claude-code/overview">Claude Code</a> <strong>plugin</strong> (<code>copier-pyproject</code>) that ships three skills covering the template's lifecycle:</p>
+<ul>
+<li><a href="https://github.com/hasansezertasan/copier-pyproject/blob/main/skills/adopt/SKILL.md"><code>copier-pyproject:adopt</code></a> — <strong>first-time adoption</strong> into an existing package: the source-skeleton collision, ruff auto-fix source corruption, the release-please/hatch-vcs version clash, and the placeholder prose the template plants in issue templates and docs.</li>
+<li><a href="https://github.com/hasansezertasan/copier-pyproject/blob/main/skills/update/SKILL.md"><code>copier-pyproject:update</code></a> — <strong>pulling later template changes</strong>: the <code>copier update</code> 3-way-merge flow, reviewing Renovate copier-update PRs, and approving newly-added template questions with a human in the loop.</li>
+<li><a href="https://github.com/hasansezertasan/copier-pyproject/blob/main/skills/setup/SKILL.md"><code>copier-pyproject:setup</code></a> — <strong>one-time repository wiring</strong>: trusted publishing, branch protection, required checks, secrets, and App installs.</li>
+</ul>
+<p>Plugin metadata lives in <a href="https://github.com/hasansezertasan/copier-pyproject/blob/main/.claude-plugin"><code>.claude-plugin/</code></a>.</p>
+<h3 id="for-humans">For humans<a class="headerlink" href="#for-humans" title="Permanent link">&para;</a></h3>
+<p>Install the plugin once from inside Claude Code:</p>
+<div class="highlight"><pre><span></span><code>/plugin marketplace add hasansezertasan/copier-pyproject
+/plugin install copier-pyproject@copier-pyproject
+</code></pre></div>
+<p>Then, in a Claude Code session opened <strong>inside the package you are adopting the template into</strong>, describe the task (e.g. "adopt copier-pyproject into this project"). Claude follows the skill's procedure and checks in with you at each decision it cannot make alone — the planted <code>TODO</code> markers, the issue-template example prose, and the release-please version manifest.</p>
+<h3 id="for-agents">For agents<a class="headerlink" href="#for-agents" title="Permanent link">&para;</a></h3>
+<p>Once the plugin is installed the skills are auto-discovered; no explicit invocation is needed. Each triggers on its own whenever a task matches its description: adopting <code>hasansezertasan/copier-pyproject</code> into an existing package (<code>adopt</code>), reconciling a <code>copier update</code> or a Renovate copier-update PR (<code>update</code>), or wiring up releases and repository settings (<code>setup</code>). Working directly from a clone (without installing the plugin), an agent can read the relevant <code>SKILL.md</code> under <a href="https://github.com/hasansezertasan/copier-pyproject/blob/main/skills"><code>skills/</code></a> and follow it as a checklist.</p>
+<blockquote>
+<p>[!NOTE]
+For a brand-new project, ignore the plugin and use <a href="#scaffold-a-project">Scaffold a project</a> above — the skill is only for adopting the template into code that already exists.</p>
+</blockquote>
+<h2 id="generated-project-quickstart">Generated project quickstart<a class="headerlink" href="#generated-project-quickstart" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Install dependencies: <code>uv sync</code></li>
+<li>Style gate: <code>uv run --locked tox run -e style</code></li>
+<li>Full test suite: <code>uv run --locked tox run</code></li>
+<li>Run the CLI (if included): <code>uv run --locked &lt;repo-name&gt; version</code></li>
+<li>Run the web app (if included): <code>uv run --locked &lt;repo-name&gt;-web</code></li>
+<li>Serve docs locally: <code>uv run --locked tox run -e docs-server</code> (deploys via GitHub Pages on release)</li>
+</ul>
+<p><code>.example-input.yml</code> supplies the required identity answers plus a starting
+<code>preset</code> (<code>library</code>), so the template can be rendered non-interactively (e.g.
+<code>mise run example</code>); every other toggle follows from the preset's defaults.</p>
+<h2 id="working-on-the-template">Working on the template<a class="headerlink" href="#working-on-the-template" title="Permanent link">&para;</a></h2>
+<p>Every render goes through one entrypoint, <code>tools/render.py</code>
+(<a href="adr/031-single-render-entrypoint/">ADR-031</a>) — the test harness, CI, the
+mise tasks and the generated docs all call it:</p>
+<ul>
+<li>Render once: <code>uv run tools/render.py render /tmp/x --data preset=full</code></li>
+<li>Render the example project: <code>mise run example</code></li>
+<li>Re-render on every save while editing: <code>mise run watch</code></li>
+<li>Render tests: <code>mise run test</code> (golden files: <code>mise run test-golden-update</code>)</li>
+<li>Rewrite the committed derived artifacts: <code>mise run regenerate</code></li>
+</ul>
+<p><a href="generated-project-trees/"><code>docs/generated-project-trees.md</code></a> is generated
+by that last command — the exact file set each preset produces, so the documented
+structure cannot drift from what the template actually renders.</p>
+<h2 id="release-automation">Release automation<a class="headerlink" href="#release-automation" title="Permanent link">&para;</a></h2>
+<p>Release automation is standardized on <a href="https://github.com/googleapis/release-please">release-please</a> (see <a href="adr/002-release-please-for-release-automation/">ADR-002</a>). A single unified workflow, <code>.github/workflows/release.yml</code>, orchestrates the whole release:</p>
+<ol>
+<li>On push to <code>main</code>, release-please opens a release PR derived from your Conventional Commits.</li>
+<li>Merging that PR creates the git tag and a <strong>draft</strong> GitHub Release.</li>
+<li>The same workflow then builds with uv, publishes to PyPI via trusted publishing (unless <code>include_pypi_publish</code> is off — then the release ships on GitHub Releases only), attaches the build artifacts to the draft, and only then <strong>un-drafts</strong> the release — so the release is never visible without its artifacts.</li>
+<li>Once the release is un-drafted, the workflow's <code>deploy-docs</code> job builds the Sphinx docs and publishes them with <code>JamesIves/github-pages-deploy-action</code>. Docs deploy inline here (rather than via a <code>release: published</code> trigger) because an event fired by <code>GITHUB_TOKEN</code> cannot start another workflow; <code>.github/workflows/gh-pages.yml</code> is kept for manual redeploys only.</li>
+</ol>
+<p>CI runs on macOS/Linux/Windows via <code>.github/workflows/ci.yml.jinja</code>.</p>
+<p>Versions are derived from git tags by hatch-vcs (<code>dynamic = ["version"]</code>), so release-please never edits a static version literal and <code>uv.lock</code> cannot desync. <code>bump-minor-pre-major</code> keeps pre-1.0 projects pre-1.0.</p>
+<p>Pause merges that change <code>.github/workflows/</code> (including Renovate action-pin updates) from merging a release PR until the entire Release run finishes. With <code>GITHUB_TOKEN</code>, workflow differences between the release commit and current <code>main</code> can block tag or release creation with a 403. The generated <a href="https://github.com/hasansezertasan/copier-pyproject/blob/main/template/docs/maintaining/setup.rst.jinja">repository setup guide</a> explains how to restore matching workflows, recover the release, and re-apply the changes. See <a href="https://github.com/hasansezertasan/copier-pyproject/issues/332">#332</a>.</p>
+<h3 id="pypi-trusted-publishing-setup">PyPI Trusted Publishing setup<a class="headerlink" href="#pypi-trusted-publishing-setup" title="Permanent link">&para;</a></h3>
+<p>Enable PyPI once per project for <code>.github/workflows/release.yml</code> (skip this when <code>include_pypi_publish</code> is off):</p>
+<ol>
+<li>Open <a href="https://pypi.org/manage/account/publishing/">Trusted Publisher Management</a>.</li>
+<li>Under "Add a new pending publisher", pick "GitHub".</li>
+<li>Set <code>PyPI Project Name</code> to your package name.</li>
+<li>Set <code>Owner</code> to your GitHub username.</li>
+<li>Set <code>Repository name</code> to your repo name.</li>
+<li>Set <code>Workflow name</code> to <code>release.yml</code>. The PyPI publish step lives in this workflow (not a reusable one), so this is the filename PyPI's OIDC check matches against.</li>
+<li>Set <code>Environment name</code> to <code>publish</code> (or your chosen env).</li>
+<li>Save.</li>
+</ol>
+<h3 id="coverage-reporting-setup">Coverage reporting setup<a class="headerlink" href="#coverage-reporting-setup" title="Permanent link">&para;</a></h3>
+<p>CI uploads coverage to Codecov after the test suite runs, integrated in
+<code>.github/workflows/ci.yml</code>. <strong>On a public repository this needs no setup</strong> — the
+codecov-action uploads tokenless, so owner pushes and fork PRs both report
+coverage out of the box.</p>
+<p>A <code>CODECOV_TOKEN</code> is only required for a <strong>private</strong> repository (or to avoid
+tokenless rate-limits):</p>
+<ol>
+<li>Open <a href="https://app.codecov.io/">Codecov</a> and add your repository.</li>
+<li>Copy the repository upload token from its Codecov settings.</li>
+<li>In your GitHub repository, add it as a repository secret named
+   <code>CODECOV_TOKEN</code> (Settings → Secrets and variables → Actions, or
+   <code>gh secret set CODECOV_TOKEN</code>).</li>
+</ol>
+<p>The upload is best-effort either way: on a private repo with no token, CI records
+a notice and skips the upload rather than failing the run. The generated
+<code>CONTRIBUTING.md</code> documents the same setup for contributors to your project.</p>
+<p>CI is split per component: a <code>changes</code> (path-filter) job lets each
+<code>test-&lt;component&gt;</code> job skip when its tree is untouched, and each component's
+coverage is gated <code>fail_under = 99</code> <strong>scoped to its own subtree</strong> (combined across
+that component's OS cells). A central <code>coverage-report</code> job merges whatever ran and
+performs the single Codecov upload. Enabling <code>include_smokeshow</code> additionally
+publishes the combined HTML report to a tokenless ephemeral URL (public repos
+only) — a browsable coverage report with no account. Locally, <code>pytest -m &lt;component&gt;</code>
+selects one component's tests; the default suite still runs everything minus
+<code>integration</code>.</p>
+<h3 id="documentation-site-and-dependency-updates">Documentation site and dependency updates<a class="headerlink" href="#documentation-site-and-dependency-updates" title="Permanent link">&para;</a></h3>
+<p>Two more one-time steps are needed after generating a project (both are
+documented in full, with copy-paste commands, in the generated
+<code>CONTRIBUTING.md</code> repository-setup section):</p>
+<ul>
+<li><strong>GitHub Pages</strong> — on release, the <code>deploy-docs</code> job pushes the built Sphinx
+  docs to a <code>gh-pages</code> branch. Enable Pages once (Source → <em>Deploy from a
+  branch</em> → <code>gh-pages</code> / root) after the first release creates the branch,
+  otherwise the docs build but are never served.</li>
+<li><strong>Renovate</strong> — <code>.github/renovate.json</code> is read by the hosted
+  <a href="https://github.com/apps/renovate">Renovate app</a>, which must be installed on
+  the repository once; until then dependency-update PRs never open.</li>
+</ul>
+<h3 id="container-image-publishing-if-include_web-is-enabled">Container image publishing (if <code>include_web</code> is enabled)<a class="headerlink" href="#container-image-publishing-if-include_web-is-enabled" title="Permanent link">&para;</a></h3>
+<p>On release, the workflow always publishes multi-arch images (amd64/arm64) to the
+GitHub Container Registry (<code>ghcr.io/&lt;owner&gt;/&lt;repo&gt;</code>) using the built-in
+<code>GITHUB_TOKEN</code> — no extra setup required.</p>
+<p>Docker Hub publishing is optional, opted into via a pair of repository secrets
+(integrated in <code>.github/workflows/release.yml</code>):</p>
+<ol>
+<li>Open <a href="https://app.docker.com/settings/personal-access-tokens">Personal access tokens</a>
+   in your Docker Hub account settings.</li>
+<li>Click "Generate new token", give it a recognizable description (e.g.
+   <code>&lt;repo&gt; release workflow</code>), set an expiration date, and select the
+   <strong>Read &amp; Write</strong> access permission — Write is required to push; do not
+   grant more.</li>
+<li>Copy the token; it is shown only once.</li>
+<li>In your GitHub repository, go to Settings → Secrets and variables →
+   Actions (or use <code>gh secret set</code>) and add two repository secrets:</li>
+<li><code>DOCKERHUB_USERNAME</code>: Your Docker Hub username</li>
+<li><code>DOCKERHUB_TOKEN</code>: The access token from step 3</li>
+<li>On release, the workflow will build and push multi-arch images
+   (amd64/arm64) to <code>docker.io/&lt;DOCKERHUB_USERNAME&gt;/&lt;repo&gt;</code> alongside GHCR.
+   The namespace follows the Docker Hub account, so it does not need to
+   match the GitHub owner.</li>
+</ol>
+<p>The secret pair is all-or-nothing: with neither set, the workflow skips Docker
+Hub with a notice and publishes to GHCR only; with exactly one set, a preflight
+job fails fast and blocks every publish channel (PyPI included) so a
+misconfiguration can never produce a partial release. The generated
+<code>CONTRIBUTING.md</code> documents the same setup for contributors to your project.</p>
+<h3 id="release-steps">Release steps<a class="headerlink" href="#release-steps" title="Permanent link">&para;</a></h3>
+<p>Releases are driven by Conventional Commits — you do not draft releases by hand:</p>
+<ol>
+<li>Land <code>feat:</code> / <code>fix:</code> commits on <code>main</code>. release-please opens (and keeps updating) a release PR with the computed version bump and changelog.</li>
+<li>Merge the release PR when you want to ship. This creates the git tag and a draft GitHub Release.</li>
+<li>The <code>release.yml</code> workflow then builds the wheel/sdist with uv, publishes to PyPI via trusted publishing, attaches artifacts to the draft, and un-drafts the release.</li>
+<li>If <code>include_web</code> is enabled it also builds and pushes multi-arch Docker images; if any of <code>include_launcher</code> (PyCrucible), <code>include_compiler</code> (Nuitka), or <code>include_freezer</code> (PyInstaller) is enabled it also builds standalone executables for Windows, macOS, and Linux and attaches them to the release.</li>
+</ol>
+<h3 id="release-workflow-structure">Release workflow structure<a class="headerlink" href="#release-workflow-structure" title="Permanent link">&para;</a></h3>
+<p>The unified <code>release.yml</code> orchestrates every release job; all jobs after <code>release-please</code> run only when a release was created:</p>
+<div class="highlight"><pre><span></span><code>release-please ─► build ─┬─► pypi-publish ────────┐
+                         ├─► build-launcher ──────┤
+                         ├─► build-freezer ───────┼─► attach-github-release ─┐
+                         ├─► build-compiler ──────┘                          │
+                         │   (if launcher / freezer / compiler)              ▼
+                         └─► docker-publish ───────────────────────────────► finalize-release        ► deploy-docs
+                             (if web)                                        (un-draft + reconcile)    (sphinx-build + pages-deploy)
+</code></pre></div>
+<ul>
+<li><strong>release-please</strong>: Opens/maintains the release PR; on merge, tags and creates the draft release</li>
+<li><strong>build</strong>: Builds the Python wheel/sdist with uv (matrix per-OS when <code>include_c_extensions</code>)</li>
+<li><strong>pypi-publish</strong>: Publishes to PyPI via trusted publishing</li>
+<li><strong>build-launcher</strong> / <strong>build-freezer</strong> / <strong>build-compiler</strong>: Build standalone executables for 3 platforms via PyCrucible / PyInstaller / Nuitka respectively (each conditional and independent)</li>
+<li><strong>docker-publish</strong>: Builds and pushes multi-arch Docker images (conditional)</li>
+<li><strong>attach-github-release</strong>: Attaches all artifacts to the still-draft release</li>
+<li><strong>finalize-release</strong>: Un-drafts the release and reconciles the next release PR</li>
+<li><strong>deploy-docs</strong>: Builds the Sphinx docs and publishes them with <code>JamesIves/github-pages-deploy-action</code> after the release is un-drafted (inline, since a <code>GITHUB_TOKEN</code>-fired <code>release: published</code> event can't trigger a separate workflow)</li>
+</ul>
+<h2 id="author">Author<a class="headerlink" href="#author" title="Permanent link">&para;</a></h2>
+<p>This project is maintained by <a href="https://github.com/hasansezertasan">Hasan Sezer Taşan</a>, It's me :wave:</p>
+<h2 id="disclaimer">Disclaimer<a class="headerlink" href="#disclaimer" title="Permanent link">&para;</a></h2>
+<p>This template is not intended to be used for malicious purposes. The author is not responsible for any damage caused by this template. Use at your own risk.</p>
+<h2 id="license">License<a class="headerlink" href="#license" title="Permanent link">&para;</a></h2>
+<p>This project is licensed under the MIT License - see the <a href="https://github.com/hasansezertasan/copier-pyproject/blob/main/LICENSE">LICENSE</a> file for details.</p>
+<!-- Refs -->
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+        
+          
+          <a href="template-architecture/" class="md-footer__link md-footer__link--next" aria-label="Next: Template architecture">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Template architecture
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.top", "navigation.footer", "content.code.copy", "search.suggest", "search.highlight"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

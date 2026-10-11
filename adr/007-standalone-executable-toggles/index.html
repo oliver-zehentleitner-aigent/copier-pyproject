@@ -1,0 +1,1014 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Copier template for a modern, typed Python package/CLI with uv, hatch, tox, and GitHub automation baked in.">
+      
+      
+      
+        <link rel="canonical" href="https://hasansezertasan.github.io/copier-pyproject/adr/007-standalone-executable-toggles/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>ADR-007: Three independent standalone-executable toggles (launcher / compiler / freezer) - copier-pyproject</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#adr-007-three-independent-standalone-executable-toggles-launcher-compiler-freezer" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="copier-pyproject" class="md-header__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            copier-pyproject
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ADR-007: Three independent standalone-executable toggles (launcher / compiler / freezer)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="copier-pyproject" class="md-nav__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    copier-pyproject
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../template-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generated-project-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated project trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hook-coverage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated-project check coverage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../template-adoption/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template adoption and update audits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture decision records
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture decision records
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why it is built this way
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Why it is built this way
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../context/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://hasansezertasan.github.io/copier-pyproject/dashboard/live/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard ↗
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Status
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Decision">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-architecture-named-booleans-instead-of-one-executable_tool-enum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why architecture-named booleans instead of one executable_tool enum
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-these-three-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why these three tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rejected-for-the-categories-we-cover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rejected for the categories we cover
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consequences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consequences
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="adr-007-three-independent-standalone-executable-toggles-launcher-compiler-freezer">ADR-007: Three independent standalone-executable toggles (launcher / compiler / freezer)<a class="headerlink" href="#adr-007-three-independent-standalone-executable-toggles-launcher-compiler-freezer" title="Permanent link">&para;</a></h1>
+<h2 id="status">Status<a class="headerlink" href="#status" title="Permanent link">&para;</a></h2>
+<p>Accepted (2026-06). Supersedes the original single <code>include_pycrucible</code> toggle.</p>
+<h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
+<p>The template originally shipped one optional standalone-executable path:
+<code>include_pycrucible</code>.
+<a href="https://github.com/razorblade23/PyCrucible">PyCrucible</a> is <strong>not</strong> a freezer in
+the PyInstaller sense — it produces a small (~2 MB) Rust <em>launcher</em> that embeds
+the project as a zip and bootstraps <a href="https://docs.astral.sh/uv/"><code>uv</code></a> at
+<strong>runtime</strong>. On first run it downloads a Python interpreter and the project's
+dependencies through <code>uv</code>; later runs start instantly from the populated cache.</p>
+<p>That single toggle conflated a brand with a capability, and it covered only one
+of the three architectures the standalone-executable ecosystem actually splits
+into (see
+<a href="https://github.com/hasansezertasan/awesome-python-standalone">awesome-python-standalone</a>):</p>
+<table>
+<thead>
+<tr>
+<th>Architecture</th>
+<th>Example tools</th>
+<th>Runtime promise</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>launcher</strong> (uv-bootstrap)</td>
+<td><strong>PyCrucible</strong>, PyApp, UVBox</td>
+<td>tiny binary; downloads Python+deps on first run; needs network once</td>
+</tr>
+<tr>
+<td><strong>compiler</strong> (source→machine code)</td>
+<td><strong>Nuitka</strong></td>
+<td>compiles to C/native; faster startup + some obfuscation; needs a C toolchain to build</td>
+</tr>
+<tr>
+<td><strong>freezer</strong> (bundle interpreter+deps)</td>
+<td><strong>PyInstaller</strong>, cx_Freeze, py2exe</td>
+<td>ships interpreter+stdlib+deps in one artifact; fully offline; no Python on target</td>
+</tr>
+</tbody>
+</table>
+<p>These are not substitutes — they make materially different promises (online
+launcher vs. compiled native binary vs. offline bundle), and a project may
+reasonably want more than one (a small launcher for connected users <em>and</em> an
+offline bundle for air-gapped distribution).</p>
+<h2 id="decision">Decision<a class="headerlink" href="#decision" title="Permanent link">&para;</a></h2>
+<p>Replace the single <code>include_pycrucible</code> toggle with <strong>three independent boolean
+toggles</strong>, one per architecture, each mapped to the strongest representative
+tool of its category:</p>
+<table>
+<thead>
+<tr>
+<th>Toggle</th>
+<th>Tool</th>
+<th>Category</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>include_launcher</code></td>
+<td><a href="https://github.com/razorblade23/PyCrucible">PyCrucible</a></td>
+<td>uv-bootstrap launcher</td>
+</tr>
+<tr>
+<td><code>include_compiler</code></td>
+<td><a href="https://nuitka.net/">Nuitka</a></td>
+<td>source→machine-code compiler</td>
+</tr>
+<tr>
+<td><code>include_freezer</code></td>
+<td><a href="https://pyinstaller.org/">PyInstaller</a></td>
+<td>interpreter+deps freezer</td>
+</tr>
+</tbody>
+</table>
+<p>All three default to <code>false</code> and are freely combinable — there is no <code>when:</code>
+gating and no mutually-exclusive choice variable. The toggle name describes the
+<em>architecture</em>, not the brand, so swapping the underlying tool later (e.g.
+PyCrucible→PyApp) does not require renaming the variable.</p>
+<h3 id="why-architecture-named-booleans-instead-of-one-executable_tool-enum">Why architecture-named booleans instead of one <code>executable_tool</code> enum<a class="headerlink" href="#why-architecture-named-booleans-instead-of-one-executable_tool-enum" title="Permanent link">&para;</a></h3>
+<p>An enum would force the three paths to be mutually exclusive, which is wrong:
+they solve different problems and legitimately coexist. Independent booleans also
+keep the door open to add a fourth architecture later without restructuring.</p>
+<h3 id="why-these-three-tools">Why these three tools<a class="headerlink" href="#why-these-three-tools" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>PyCrucible</strong> for <em>launcher</em> — already in use; smallest artifact; always-current
+  interpreter/deps; trivial CI step. Its true peers (PyApp, UVBox) are the same
+  category, so adding them would be lateral, not new capability.</li>
+<li><strong>Nuitka</strong> for <em>compiler</em> — the mature compile-to-C option; gives runtime speed
+  and source obfuscation that neither a launcher nor a freezer provides. (mypyc
+  is narrower — module-level, not whole-app — so it loses here.)</li>
+<li><strong>PyInstaller</strong> for <em>freezer</em> — the de-facto standard offline bundler: widest
+  ecosystem, GUI support, <code>.spec</code>-file reproducibility. cx_Freeze and py2exe are
+  weaker (smaller community; py2exe is Windows-only) with no upside over it.</li>
+</ul>
+<h3 id="rejected-for-the-categories-we-cover">Rejected for the categories we cover<a class="headerlink" href="#rejected-for-the-categories-we-cover" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>PyApp / UVBox</strong> — same launcher category as PyCrucible.</li>
+<li><strong>cx_Freeze / py2exe</strong> — weaker freezers than PyInstaller.</li>
+<li><strong>Briefcase</strong> — targets native app <em>installers</em> (<code>.app</code>/<code>.msi</code>/<code>.dmg</code>) and
+  GUI/mobile packaging; larger surface, out of scope for "single-file executable".</li>
+<li><strong>PyOxidizer</strong> — archived/unmaintained.</li>
+</ul>
+<h2 id="consequences">Consequences<a class="headerlink" href="#consequences" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>include_pycrucible</code> is <strong>renamed</strong> to <code>include_launcher</code>. This is a breaking
+  rename for existing answers files; there is no automatic migration (Copier does
+  not rename variables), so a <code>copier update</code> of a project that had
+  <code>include_pycrucible: true</code> must set <code>include_launcher: true</code>.</li>
+<li>Two new toggles, <code>include_compiler</code> (Nuitka) and <code>include_freezer</code>
+  (PyInstaller), join it. With all three <code>false</code> (the default) nothing changes.</li>
+<li>Build dependencies live in the uv-managed <code>tool</code> dependency group alongside the
+  existing profiling/Cython tooling, kept current by Renovate like every other
+  pin — consistent with <a href="../003-tox-as-canonical-lint-runner/">ADR-003</a>'s
+  single-source-of-truth stance.</li>
+<li>The release workflow gains a <code>build-freezer</code> (PyInstaller) and a
+  <code>build-compiler</code> (Nuitka) matrix job (Ubuntu/Windows/macOS, <code>fail-fast: false</code>)
+  next to the renamed <code>build-launcher</code> (PyCrucible) job; all three are
+  independent and their artifacts are attached to the still-draft release by
+  <code>attach-github-release</code>. See <a href="../002-release-please-for-release-automation/">ADR-002</a>.</li>
+<li>Each build names its binary <code>&lt;pkg&gt;-&lt;tool&gt;-&lt;os-label&gt;</code> (e.g.
+  <code>myapp-compiler-linux</code>, <code>myapp-freezer-windows.exe</code>) rather than a bare
+  <code>&lt;pkg&gt;</code>. This is required for correctness, not cosmetics: <code>attach-github-release</code>
+  collects every executable artifact with <code>download-artifact</code>'s <code>merge-multiple</code>,
+  which flattens them into one directory by <em>filename</em>. Without the <code>&lt;tool&gt;-&lt;os&gt;</code>
+  qualifier the per-OS binaries (and, with more than one toggle, the per-tool
+  binaries) share a name and silently overwrite each other, dropping platforms
+  from the release. PyCrucible takes the name via <code>-o</code>/<code>output:</code>, Nuitka via
+  <code>--output-filename</code> (it otherwise emits a generic <code>__main__.bin</code>), and
+  PyInstaller — whose <code>.spec</code> <code>name=</code> can't see the CI matrix — is renamed after
+  the build.</li>
+<li>Each enabled toggle also adds a build-only <code>build-&lt;tool&gt;-check</code> job to the PR
+  CI workflow (<code>ci.yml</code>), per-OS and <code>fail-fast: false</code>, that builds the
+  executable on every PR/push so a dependency or Python bump that breaks
+  packaging fails against the offending diff rather than silently at release time
+  (the test suite always runs the source tree, never the built binary). The check
+  verifies the binary was produced, smoke-runs it with <code>--help</code> for a CLI project,
+  and uploads a short-retention preview artifact for reviewers. It mirrors the
+  release build commands but never publishes, and gates the <code>check</code> job.</li>
+<li>All three builds target the package's <code>__main__.py</code> as their single runnable
+  entrypoint, so the component-selection logic (CLI/GUI/TUI/web/MCP/worker → the
+  callable that actually launches the app) lives in <code>__main__.py</code> and nowhere
+  else. <code>__main__.py</code> is generalized from the previous CLI-only form into a
+  universal entry that defines/imports a <code>main()</code> for whichever component is
+  enabled. This keeps the spec, the Nuitka command, and <code>[tool.pycrucible]</code> free
+  of duplicated entrypoint conditionals, and — critically — ensures the produced
+  binary <em>runs</em> the app rather than merely importing a module that defines but
+  never invokes it. Enabling an executable toggle with no runnable component
+  (CLI/GUI/TUI/web/MCP/worker) selected is a degenerate but allowed combination:
+  <code>__main__.main()</code> falls back to raising <code>SystemExit</code> with an explanatory
+  message, so the produced binary builds and exits non-zero with a clear reason
+  rather than silently doing nothing (which would look like a broken binary).</li>
+<li>For PyInstaller a <code>{{github_repo_name}}.spec.jinja</code> is rendered for a
+  reproducible, editable build, and the generated <code>.gitignore</code> un-ignores that
+  one spec (the default <code>*.spec</code> ignore would otherwise keep it uncommitted and
+  break the release workflow's fresh-checkout build); Nuitka's flags live in the
+  mise task and the CI step (Nuitka has no spec-file equivalent); PyCrucible
+  keeps its <code>[tool.pycrucible]</code> config block.</li>
+<li>The mise <code>package</code> task is split into per-architecture tasks
+  (<code>package</code>/<code>compile</code>/<code>freeze</code>) each properly gated. This also fixes a latent
+  bug: <code>mise.toml.jinja</code> wrapped its whole body in one <code>{% raw %}</code> block, so the
+  PyCrucible task previously rendered even when the toggle was off.</li>
+<li>More template surface to test: each toggle must be exercised independently and
+  in combination, the way <code>worker_broker</code> is tested across brokers.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "navigation.footer", "content.code.copy", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,5049 @@
+{
+ "state-json": 2,
+ "generated": "2026-10-11T12:55:41Z",
+ "dashboard": "0.10.0",
+ "linter": "0.20.1.0",
+ "project": {
+  "id": "hasansezertasan---copier-pyproject",
+  "name": "copier-pyproject-adrtest",
+  "context": "context/",
+  "schema": "0.20.1",
+  "config": {
+   "id": "hasansezertasan---copier-pyproject",
+   "canonical": "https://github.com/hasansezertasan/copier-pyproject",
+   "context": "`context/`",
+   "init": "complete",
+   "context-schema": "0.20.1",
+   "capture-confirmation": "confirm-when-unsure",
+   "source-reference": "never",
+   "pinned-version": "0.20.1",
+   "pinned-path": ".agents/skills/keep-the-why/SKILL.md"
+  },
+  "personal_defaults": {},
+  "config_file": ".keep-the-why",
+  "canonical": "https://github.com/hasansezertasan/copier-pyproject",
+  "root": "",
+  "parent": "",
+  "dashboard_state": "",
+  "children": [],
+  "git": {
+   "available": true,
+   "head": "5bdf627",
+   "head_full": "5bdf627cefe6dabb2118a57679bb0eb9175bc182",
+   "branch": "keep-the-why-context",
+   "remote": "github.com/oliver-zehentleitner-aigent/copier-pyproject",
+   "upstream": "github.com/hasansezertasan/copier-pyproject",
+   "fork": {
+    "of": "github.com/hasansezertasan/copier-pyproject",
+    "by": "upstream"
+   },
+   "project_subdir": "",
+   "shallow": false
+  }
+ },
+ "topics": [
+  {
+   "file": "agent-instructions.md",
+   "title": "Agent instructions in generated projects",
+   "index_line": "ai-rulez as the opt-in agent-instruction source: shared prose macros, generated output as build output, no builtins, convergence gates, the default host set.",
+   "entries": 5,
+   "refs_out": [
+    "repo-setup.md",
+    "template-testing.md",
+    "template-updates.md",
+    "gitignore-generation.md",
+    "lint-orchestration.md"
+   ],
+   "refs_in": [
+    "repo-setup.md"
+   ],
+   "status": {
+    "active": 5
+   },
+   "evidence": {
+    "confirmed": 5
+   }
+  },
+  {
+   "file": "architecture-contracts.md",
+   "title": "Architecture contracts",
+   "index_line": "The exhaustive import-linter layers contract and how whole-program analyzers run on the prek gate.",
+   "entries": 2,
+   "refs_out": [
+    "components.md",
+    "lint-orchestration.md"
+   ],
+   "refs_in": [
+    "ci-topology.md",
+    "components.md",
+    "docs-stack.md",
+    "lint-orchestration.md"
+   ],
+   "status": {
+    "active": 2
+   },
+   "evidence": {
+    "confirmed": 2
+   }
+  },
+  {
+   "file": "ci-topology.md",
+   "title": "CI topology of generated projects",
+   "index_line": "Generated-project CI: weekly crons for network-dependent checks, per-component jobs and coverage gates, the asymmetric matrix, draft skipping, smokeshow.",
+   "entries": 6,
+   "refs_out": [
+    "testing-strategy.md",
+    "external-integrations.md",
+    "architecture-contracts.md"
+   ],
+   "refs_in": [
+    "docs-stack.md",
+    "docs-versioning.md",
+    "gitignore-generation.md",
+    "template-testing.md",
+    "testing-strategy.md"
+   ],
+   "status": {
+    "active": 5,
+    "superseded": 1
+   },
+   "evidence": {
+    "confirmed": 6
+   }
+  },
+  {
+   "file": "components.md",
+   "title": "Runnable components and the console root",
+   "index_line": "Runnable components: subcommands over one console root, the CLI framework choice, the dependency guard, no extras, run/dev verbs, the shared application payload.",
+   "entries": 6,
+   "refs_out": [
+    "architecture-contracts.md",
+    "package-distribution.md",
+    "template-updates.md"
+   ],
+   "refs_in": [
+    "architecture-contracts.md",
+    "template-updates.md",
+    "testing-strategy.md"
+   ],
+   "status": {
+    "active": 6
+   },
+   "evidence": {
+    "confirmed": 6
+   }
+  },
+  {
+   "file": "docs-stack.md",
+   "title": "Documentation stack",
+   "index_line": "Sphinx + Shibuya, PR previews, docs linting, the warning allowlist, the docs toggle, executed examples, API-reference rendering.",
+   "entries": 7,
+   "refs_out": [
+    "docs-versioning.md",
+    "external-integrations.md",
+    "architecture-contracts.md",
+    "ci-topology.md",
+    "repo-setup.md"
+   ],
+   "refs_in": [
+    "docs-versioning.md",
+    "repo-setup.md"
+   ],
+   "status": {
+    "active": 7
+   },
+   "evidence": {
+    "confirmed": 7
+   }
+  },
+  {
+   "file": "docs-versioning.md",
+   "title": "Versioned documentation",
+   "index_line": "Build-current-preserve-rest versioned docs, granularity, the manual redeploy, loud gh-pages fetch failures, last-updated stamps, the warning gate's job.",
+   "entries": 6,
+   "refs_out": [
+    "docs-stack.md",
+    "release-automation.md",
+    "ci-topology.md"
+   ],
+   "refs_in": [
+    "docs-stack.md"
+   ],
+   "status": {
+    "active": 6
+   },
+   "evidence": {
+    "confirmed": 6
+   }
+  },
+  {
+   "file": "external-integrations.md",
+   "title": "External integrations and the self-contained default",
+   "index_line": "The self-contained default and the opt-in external services (Sourcery, SonarCloud, all-contributors, benchmarking).",
+   "entries": 3,
+   "refs_out": [
+    "standalone-executables.md"
+   ],
+   "refs_in": [
+    "ci-topology.md",
+    "docs-stack.md",
+    "lint-orchestration.md",
+    "package-distribution.md",
+    "repo-setup.md"
+   ],
+   "status": {
+    "active": 3
+   },
+   "evidence": {
+    "confirmed": 3
+   }
+  },
+  {
+   "file": "gitignore-generation.md",
+   "title": ".gitignore generation",
+   "index_line": "cobo-sealed gitignore, its lockfiles, and the LF-corrupted macOS patterns.",
+   "entries": 2,
+   "refs_out": [
+    "ci-topology.md"
+   ],
+   "refs_in": [
+    "agent-instructions.md",
+    "template-testing.md"
+   ],
+   "status": {
+    "active": 2
+   },
+   "evidence": {
+    "confirmed": 2
+   }
+  },
+  {
+   "file": "lint-orchestration.md",
+   "title": "Lint and type-check orchestration",
+   "index_line": "tox `style` as the sole lint suite, prek stages, Taplo schema fetching, the five type checkers, MegaLinter, semgrep.",
+   "entries": 7,
+   "refs_out": [
+    "architecture-contracts.md",
+    "external-integrations.md"
+   ],
+   "refs_in": [
+    "agent-instructions.md",
+    "architecture-contracts.md"
+   ],
+   "status": {
+    "active": 7
+   },
+   "evidence": {
+    "confirmed": 7
+   }
+  },
+  {
+   "file": "package-distribution.md",
+   "title": "Package distribution",
+   "index_line": "Homebrew/Scoop dispatch, the executable payload precedence, optional PyPI publishing.",
+   "entries": 3,
+   "refs_out": [
+    "external-integrations.md",
+    "standalone-executables.md",
+    "release-automation.md"
+   ],
+   "refs_in": [
+    "components.md"
+   ],
+   "status": {
+    "active": 3
+   },
+   "evidence": {
+    "confirmed": 3
+   }
+  },
+  {
+   "file": "presets.md",
+   "title": "Presets",
+   "index_line": "Archetype presets and what the example input file holds.",
+   "entries": 2,
+   "refs_out": [
+    "standalone-executables.md"
+   ],
+   "refs_in": [],
+   "status": {
+    "active": 2
+   },
+   "evidence": {
+    "confirmed": 2
+   }
+  },
+  {
+   "file": "release-automation.md",
+   "title": "Release automation",
+   "index_line": "release-please, the draft-release flow, the dispatch trigger and publish environment, token workarounds, Commitizen's role, the open re-evaluation, Docker Hub gating, issue notifications.",
+   "entries": 9,
+   "refs_out": [
+    "supply-chain-security.md"
+   ],
+   "refs_in": [
+    "docs-versioning.md",
+    "package-distribution.md",
+    "template-updates.md"
+   ],
+   "status": {
+    "active": 8,
+    "open": 1
+   },
+   "evidence": {
+    "confirmed": 9
+   }
+  },
+  {
+   "file": "repo-setup.md",
+   "title": "Repository configuration as code and maintainer setup",
+   "index_line": "Settings App metadata, rulesets as code, the single maintainer setup doc, the resume-driven repo-setup skill.",
+   "entries": 4,
+   "refs_out": [
+    "external-integrations.md",
+    "docs-stack.md",
+    "agent-instructions.md",
+    "template-updates.md"
+   ],
+   "refs_in": [
+    "agent-instructions.md",
+    "docs-stack.md",
+    "template-updates.md"
+   ],
+   "status": {
+    "active": 4
+   },
+   "evidence": {
+    "confirmed": 4
+   }
+  },
+  {
+   "file": "runtime-logging.md",
+   "title": "Runtime logging and initialization",
+   "index_line": "Console-only degradation, home-directory resolution, and logging ownership boundaries.",
+   "entries": 1,
+   "refs_out": [],
+   "refs_in": [],
+   "status": {
+    "active": 1
+   },
+   "evidence": {
+    "confirmed": 1
+   }
+  },
+  {
+   "file": "standalone-executables.md",
+   "title": "Standalone executables",
+   "index_line": "Launcher/compiler/freezer toggles, binary naming and the single entrypoint, PR-time build checks.",
+   "entries": 3,
+   "refs_out": [],
+   "refs_in": [
+    "external-integrations.md",
+    "package-distribution.md",
+    "presets.md"
+   ],
+   "status": {
+    "active": 3
+   },
+   "evidence": {
+    "confirmed": 3
+   }
+  },
+  {
+   "file": "supply-chain-security.md",
+   "title": "Supply-chain security",
+   "index_line": "Protected build and publication attestations, visibility fallback policies, and layered secret scanning.",
+   "entries": 5,
+   "refs_out": [],
+   "refs_in": [
+    "release-automation.md"
+   ],
+   "status": {
+    "active": 4,
+    "superseded": 1
+   },
+   "evidence": {
+    "confirmed": 4,
+    "unknown": 1
+   }
+  },
+  {
+   "file": "template-testing.md",
+   "title": "Testing the template itself",
+   "index_line": "Testing the template itself: render-and-inspect, formatter-canonical output, the shared collection macro, the single render entrypoint, derived artifacts, the watch loop.",
+   "entries": 6,
+   "refs_out": [
+    "ci-topology.md",
+    "gitignore-generation.md"
+   ],
+   "refs_in": [
+    "agent-instructions.md"
+   ],
+   "status": {
+    "active": 6
+   },
+   "evidence": {
+    "confirmed": 6
+   }
+  },
+  {
+   "file": "template-updates.md",
+   "title": "Template versioning and downstream updates",
+   "index_line": "Renovate's copier manager, no `_tasks`, frozen template pins, adopter-owned retired modules, preservation-first reconciliation.",
+   "entries": 7,
+   "refs_out": [
+    "release-automation.md",
+    "components.md",
+    "repo-setup.md"
+   ],
+   "refs_in": [
+    "agent-instructions.md",
+    "components.md",
+    "repo-setup.md"
+   ],
+   "status": {
+    "active": 6,
+    "superseded": 1
+   },
+   "evidence": {
+    "confirmed": 6,
+    "unknown": 1
+   }
+  },
+  {
+   "file": "templating-engine.md",
+   "title": "Templating engine",
+   "index_line": "Why Copier.",
+   "entries": 1,
+   "refs_out": [],
+   "refs_in": [],
+   "status": {
+    "active": 1
+   },
+   "evidence": {
+    "confirmed": 1
+   }
+  },
+  {
+   "file": "testing-strategy.md",
+   "title": "Testing strategy of generated projects",
+   "index_line": "Generated-project testing: the broker factory, real-broker integration tests, coverage exclusions, headless driver seams, the async axis.",
+   "entries": 5,
+   "refs_out": [
+    "components.md",
+    "ci-topology.md"
+   ],
+   "refs_in": [
+    "ci-topology.md"
+   ],
+   "status": {
+    "active": 5
+   },
+   "evidence": {
+    "confirmed": 5
+   }
+  }
+ ],
+ "entries": [
+  {
+   "id": "agent-instructions.md#ai-rulez-is-the-opt-in-single-source-for-agent-instructions-with-the-prose-in-shared-macros",
+   "uuid": "e1545d12-ac20-426b-9cd5-519e80a56b5f",
+   "file": "agent-instructions.md",
+   "line": 3,
+   "end_line": 35,
+   "title": "ai-rulez is the opt-in single source for agent instructions, with the prose in shared macros",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-035 (`docs/adr/035-ai-rulez-as-the-agent-instruction-source.md`), §1 and §5; issue #309",
+   "verification": null,
+   "revisit_when": "a host stops reading its generated file, ai-rulez leaves PyPI, or a sixth host is expected to open PRs",
+   "see": [
+    {
+     "locator": "repo-setup.md#a-resume-driven-repo-setup-skill-reads-check-blocks-from-the-setup-doc-no-separate-manifest",
+     "uuid": "68ac4665-dcde-456b-aef7-2faaf6fe51f4",
+     "date": "2026-10-11",
+     "file": "repo-setup.md",
+     "anchor": "a-resume-driven-repo-setup-skill-reads-check-blocks-from-the-setup-doc-no-separate-manifest",
+     "remote": null
+    },
+    {
+     "locator": "template-testing.md#collection-literals-are-rendered-through-one-shared-macro",
+     "uuid": "47b21a49-5fc4-46b8-b450-7d9f3225706c",
+     "date": "2026-10-11",
+     "file": "template-testing.md",
+     "anchor": "collection-literals-are-rendered-through-one-shared-macro",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "repo-setup.md",
+    "template-testing.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "agent-instructions.md#generated-host-files-are-build-output-the-template-renders-none-of-them",
+   "uuid": "e827d3fc-e3f6-4852-b2e3-d56180eac949",
+   "file": "agent-instructions.md",
+   "line": 36,
+   "end_line": 67,
+   "title": "Generated host files are build output; the template renders none of them",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-035 §2 and §8 (`docs/adr/035-ai-rulez-as-the-agent-instruction-source.md`)",
+   "verification": null,
+   "revisit_when": "ai-rulez and copier produce identical bytes for the same content, or the template gains a post-render step",
+   "see": [
+    {
+     "locator": "agent-instructions.md#ai-rulez-is-the-opt-in-single-source-for-agent-instructions-with-the-prose-in-shared-macros",
+     "uuid": "e1545d12-ac20-426b-9cd5-519e80a56b5f",
+     "date": "2026-10-11",
+     "file": "agent-instructions.md",
+     "anchor": "ai-rulez-is-the-opt-in-single-source-for-agent-instructions-with-the-prose-in-shared-macros",
+     "remote": null
+    },
+    {
+     "locator": "template-updates.md#copieryml-defines-no-_tasks",
+     "uuid": "86130379-1660-4992-8aba-8b6cd7b4a9f7",
+     "date": "2026-10-11",
+     "file": "template-updates.md",
+     "anchor": "copieryml-defines-no-_tasks",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "template-updates.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "agent-instructions.md#no-builtin-ai-rulez-domains-and-ai-rulez-never-touches-gitignore",
+   "uuid": "e9823c4a-891f-4344-8d64-029dd8d31138",
+   "file": "agent-instructions.md",
+   "line": 68,
+   "end_line": 94,
+   "title": "No builtin ai-rulez domains, and ai-rulez never touches `.gitignore`",
+   "type": [
+    "decision",
+    "constraint"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-035 §3–4 (`docs/adr/035-ai-rulez-as-the-agent-instruction-source.md`)",
+   "verification": null,
+   "revisit_when": "a builtin domain stops contradicting a gate the project enforces, or the gitignore stops being cobo-sealed",
+   "see": [
+    {
+     "locator": "gitignore-generation.md#cobo-generates-the-gitignore-with-a-hash-sealed-fence-and-lockfiles",
+     "uuid": "3e3bc38e-bc1e-4e65-b74d-e91848262157",
+     "date": "2026-10-11",
+     "file": "gitignore-generation.md",
+     "anchor": "cobo-generates-the-gitignore-with-a-hash-sealed-fence-and-lockfiles",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "gitignore-generation.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "agent-instructions.md#two-gates-plus-a-convergence-scenario-over-every-host",
+   "uuid": "b23fd420-5b88-4075-93ad-5122b4f7622e",
+   "file": "agent-instructions.md",
+   "line": 95,
+   "end_line": 131,
+   "title": "Two gates plus a convergence scenario over every host",
+   "type": [
+    "decision",
+    "incident"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-035 §6–7 (`docs/adr/035-ai-rulez-as-the-agent-instruction-source.md`)",
+   "verification": null,
+   "revisit_when": "ai-rulez gains a check mode for preset output, or a host's generated output changes format",
+   "see": [
+    {
+     "locator": "template-testing.md#generated-files-must-be-formatter-canonical-not-merely-valid",
+     "uuid": "9b931598-7e52-4ff1-bb07-ef65c01d5369",
+     "date": "2026-10-11",
+     "file": "template-testing.md",
+     "anchor": "generated-files-must-be-formatter-canonical-not-merely-valid",
+     "remote": null
+    },
+    {
+     "locator": "lint-orchestration.md#the-tox-style-env-is-the-sole-authoritative-lint-suite-prek-is-a-fast-gate-not-a-second-suite",
+     "uuid": "9b74fc8b-a808-4f2b-bdbd-9e4253c1b35a",
+     "date": "2026-10-11",
+     "file": "lint-orchestration.md",
+     "anchor": "the-tox-style-env-is-the-sole-authoritative-lint-suite-prek-is-a-fast-gate-not-a-second-suite",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "lint-orchestration.md",
+    "template-testing.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "agent-instructions.md#no-claude-md-by-default-claude-left-the-preset-defaults-gemini-is-no-longer-offered",
+   "uuid": "1a6849be-72d0-4990-abe2-7a0243cd5e67",
+   "file": "agent-instructions.md",
+   "line": 132,
+   "end_line": 165,
+   "title": "No `CLAUDE.md` by default; `claude` left the preset defaults; `gemini` is no longer offered",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-035, 2026-10 amendment (`docs/adr/035-ai-rulez-as-the-agent-instruction-source.md`)",
+   "verification": null,
+   "revisit_when": "Claude Code stops reading `AGENTS.md` natively, or the maintainers start using Gemini",
+   "see": [
+    {
+     "locator": "agent-instructions.md#ai-rulez-is-the-opt-in-single-source-for-agent-instructions-with-the-prose-in-shared-macros",
+     "uuid": "e1545d12-ac20-426b-9cd5-519e80a56b5f",
+     "date": "2026-10-11",
+     "file": "agent-instructions.md",
+     "anchor": "ai-rulez-is-the-opt-in-single-source-for-agent-instructions-with-the-prose-in-shared-macros",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "architecture-contracts.md#one-exhaustive-import-linter-layers-contract-cli-above-independent-components-above-core-above-utils",
+   "uuid": "3b7cdbee-7c66-4e52-9d7e-8ab0ffe32e56",
+   "file": "architecture-contracts.md",
+   "line": 3,
+   "end_line": 39,
+   "title": "One exhaustive import-linter layers contract: cli above independent components above core above utils",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-014 (`docs/adr/014-import-linter-for-architecture-contracts.md`)",
+   "verification": null,
+   "revisit_when": "`core` starts importing `utils`, a second orchestrator component appears, or a component needs an exception the layers model cannot express",
+   "see": [
+    {
+     "locator": "components.md#secondary-components-are-subcommands-of-one-console-root-not-separate-scripts",
+     "uuid": "3d60ab14-8ff9-47db-b326-d7e82947a6cf",
+     "date": "2026-10-11",
+     "file": "components.md",
+     "anchor": "secondary-components-are-subcommands-of-one-console-root-not-separate-scripts",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "components.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "architecture-contracts.md#whole-program-analyzers-are-local-system-hooks-backed-by-the-style-group",
+   "uuid": "41f3397d-1afb-4e57-a0bd-b5ef85089bfc",
+   "file": "architecture-contracts.md",
+   "line": 40,
+   "end_line": 67,
+   "title": "Whole-program analyzers are local system hooks backed by the `style` group",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-014 §4 (`docs/adr/014-import-linter-for-architecture-contracts.md`); the same delivery is recorded for basedpyright in ADR-005 and sphinx-lint in ADR-011",
+   "verification": null,
+   "revisit_when": "prek gains a way to run repo hooks with the project installed, or the fast gate becomes too slow",
+   "see": [
+    {
+     "locator": "lint-orchestration.md#the-tox-style-env-is-the-sole-authoritative-lint-suite-prek-is-a-fast-gate-not-a-second-suite",
+     "uuid": "9b74fc8b-a808-4f2b-bdbd-9e4253c1b35a",
+     "date": "2026-10-11",
+     "file": "lint-orchestration.md",
+     "anchor": "the-tox-style-env-is-the-sole-authoritative-lint-suite-prek-is-a-fast-gate-not-a-second-suite",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "lint-orchestration.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "ci-topology.md#network-dependent-checks-run-on-a-weekly-cron-never-in-the-merge-gate",
+   "uuid": "3e5b9525-9087-4125-b19f-80f6c226c01f",
+   "file": "ci-topology.md",
+   "line": 3,
+   "end_line": 27,
+   "title": "Network-dependent checks run on a weekly cron, never in the merge gate",
+   "type": [
+    "decision",
+    "constraint"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-011 (`docs/adr/011-docs-linting-and-cross-platform-filename-safety.md`), ADR-012 §4 (`docs/adr/012-cobo-for-gitignore-generation.md`), ADR-031 §3 (`docs/adr/031-single-render-entrypoint.md`); the same posture is cited for `check-security.yml`'s periodic scans",
+   "verification": null,
+   "revisit_when": "a network-dependent check becomes reliable enough to block, or the merge gate gains a retry mechanism",
+   "see": [],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "ci-topology.md#a-single-union-coverage-gate-across-the-whole-matrix",
+   "uuid": "ca90a48d-f648-40b3-ae1a-05f9f21cf411",
+   "file": "ci-topology.md",
+   "line": 28,
+   "end_line": 53,
+   "title": "A single union coverage gate across the whole matrix",
+   "type": [
+    "decision"
+   ],
+   "status": "superseded",
+   "evidence": "confirmed",
+   "source": "ADR-026 §1 (`docs/adr/026-combined-cross-matrix-coverage-and-tokenless-html-host.md`)",
+   "verification": null,
+   "revisit_when": null,
+   "see": [
+    {
+     "locator": "testing-strategy.md#coverage-exclusions-are-per-site-pragmas-and-the-globs-must-match-the-installed-layout",
+     "uuid": "68366ce3-cc8e-4720-aa91-5eb83aaf2e2d",
+     "date": "2026-10-11",
+     "file": "testing-strategy.md",
+     "anchor": "coverage-exclusions-are-per-site-pragmas-and-the-globs-must-match-the-installed-layout",
+     "remote": null
+    }
+   ],
+   "superseded_by": "467b6cc3-775b-4e4c-9a8e-b0d1c3d733ac",
+   "refs": [
+    "testing-strategy.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "superseded",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "ci-topology.md#a-tokenless-public-html-coverage-mirror-via-smokeshow",
+   "uuid": "21119a10-df03-494b-ac84-a57b9b1832c2",
+   "file": "ci-topology.md",
+   "line": 54,
+   "end_line": 75,
+   "title": "A tokenless public HTML coverage mirror via smokeshow",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-026 §2 (`docs/adr/026-combined-cross-matrix-coverage-and-tokenless-html-host.md`)",
+   "verification": null,
+   "revisit_when": "Codecov becomes tokenless for private repositories, or smokeshow changes its rate-limit model",
+   "see": [
+    {
+     "locator": "external-integrations.md#a-freshly-generated-project-is-green-on-first-push-with-zero-external-accounts",
+     "uuid": "392b6dcf-6e9d-441d-bf7b-64ba362578d7",
+     "date": "2026-10-11",
+     "file": "external-integrations.md",
+     "anchor": "a-freshly-generated-project-is-green-on-first-push-with-zero-external-accounts",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "external-integrations.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "ci-topology.md#per-component-markers-path-filtered-jobs-and-one-coverage-gate-per-component",
+   "uuid": "467b6cc3-775b-4e4c-9a8e-b0d1c3d733ac",
+   "file": "ci-topology.md",
+   "line": 76,
+   "end_line": 117,
+   "title": "Per-component markers, path-filtered jobs, and one coverage gate per component",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-028 (`docs/adr/028-per-component-markers-and-path-filtered-ci.md`)",
+   "verification": null,
+   "revisit_when": "a component gains a dependency on another component's tree, or the aggregation action changes how it treats skipped jobs",
+   "see": [
+    {
+     "locator": "ci-topology.md#a-single-union-coverage-gate-across-the-whole-matrix",
+     "uuid": "ca90a48d-f648-40b3-ae1a-05f9f21cf411",
+     "date": "2026-10-11",
+     "file": "ci-topology.md",
+     "anchor": "a-single-union-coverage-gate-across-the-whole-matrix",
+     "remote": null
+    },
+    {
+     "locator": "architecture-contracts.md#one-exhaustive-import-linter-layers-contract-cli-above-independent-components-above-core-above-utils",
+     "uuid": "3b7cdbee-7c66-4e52-9d7e-8ab0ffe32e56",
+     "date": "2026-10-11",
+     "file": "architecture-contracts.md",
+     "anchor": "one-exhaustive-import-linter-layers-contract-cli-above-independent-components-above-core-above-utils",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "architecture-contracts.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "ci-topology.md#asymmetric-matrix-every-interpreter-on-linux-one-representative-elsewhere-style-and-installed-cli-are-separate-jobs",
+   "uuid": "4457f652-2a84-4d70-ab7a-e9d1ebd9c670",
+   "file": "ci-topology.md",
+   "line": 118,
+   "end_line": 145,
+   "title": "Asymmetric matrix: every interpreter on Linux, one representative elsewhere; style and installed-CLI are separate jobs",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-029 (`docs/adr/029-asymmetric-ci-matrix-and-draft-pr-skip.md`); [issue #159](https://github.com/hasansezertasan/copier-pyproject/issues/159)",
+   "verification": null,
+   "revisit_when": "a platform-specific interpreter defect slips through often enough to matter, or a C-extension build no longer differs per OS/interpreter pair",
+   "see": [
+    {
+     "locator": "ci-topology.md#per-component-markers-path-filtered-jobs-and-one-coverage-gate-per-component",
+     "uuid": "467b6cc3-775b-4e4c-9a8e-b0d1c3d733ac",
+     "date": "2026-10-11",
+     "file": "ci-topology.md",
+     "anchor": "per-component-markers-path-filtered-jobs-and-one-coverage-gate-per-component",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "ci-topology.md#every-generated-ci-job-skips-draft-pull-requests",
+   "uuid": "43288d9b-11b3-4d92-8a84-6efe1aa43001",
+   "file": "ci-topology.md",
+   "line": 146,
+   "end_line": 165,
+   "title": "Every generated CI job skips draft pull requests",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-029 (`docs/adr/029-asymmetric-ci-matrix-and-draft-pr-skip.md`)",
+   "verification": null,
+   "revisit_when": "GitHub adds `ready_for_review` to the default trigger set, or drafts need a cheap smoke run",
+   "see": [],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "components.md#secondary-components-are-subcommands-of-one-console-root-not-separate-scripts",
+   "uuid": "3d60ab14-8ff9-47db-b326-d7e82947a6cf",
+   "file": "components.md",
+   "line": 3,
+   "end_line": 42,
+   "title": "Secondary components are subcommands of one console root, not separate scripts",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-019 (`docs/adr/019-components-as-cli-subcommands.md`), including its 2026-09 amendment; issue #203",
+   "verification": null,
+   "revisit_when": "a new kind of runnable component is added, or `typer` becomes unacceptable on the minimal launcher",
+   "see": [
+    {
+     "locator": "architecture-contracts.md#one-exhaustive-import-linter-layers-contract-cli-above-independent-components-above-core-above-utils",
+     "uuid": "3b7cdbee-7c66-4e52-9d7e-8ab0ffe32e56",
+     "date": "2026-10-11",
+     "file": "architecture-contracts.md",
+     "anchor": "one-exhaustive-import-linter-layers-contract-cli-above-independent-components-above-core-above-utils",
+     "remote": null
+    },
+    {
+     "locator": "components.md#the-web-component-gets-run-and-dev-launch-verbs-and-therefore-always-a-console-root",
+     "uuid": "3daefc4a-ee36-44cb-b137-bc9224f2a262",
+     "date": "2026-10-11",
+     "file": "components.md",
+     "anchor": "the-web-component-gets-run-and-dev-launch-verbs-and-therefore-always-a-console-root",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "architecture-contracts.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "components.md#cli-framework-offers-argparse-beside-typer-the-typer-dependency-is-gated-on-root-uses-typer",
+   "uuid": "de9f8183-4328-4678-8611-5e715cffd70d",
+   "file": "components.md",
+   "line": 43,
+   "end_line": 78,
+   "title": "`cli_framework` offers argparse beside Typer; the Typer dependency is gated on `root_uses_typer`",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-020 (`docs/adr/020-cli-framework-choice.md`); [issue #205](https://github.com/hasansezertasan/copier-pyproject/issues/205)",
+   "verification": null,
+   "revisit_when": "demand appears for click as a third choice, or a no-CLI launcher needs to be framework-free",
+   "see": [
+    {
+     "locator": "components.md#secondary-components-are-subcommands-of-one-console-root-not-separate-scripts",
+     "uuid": "3d60ab14-8ff9-47db-b326-d7e82947a6cf",
+     "date": "2026-10-11",
+     "file": "components.md",
+     "anchor": "secondary-components-are-subcommands-of-one-console-root-not-separate-scripts",
+     "remote": null
+    },
+    {
+     "locator": "package-distribution.md#homebrew-and-scoop-are-opt-in-dispatches-the-tap-or-bucket-owns-the-manifest-logic",
+     "uuid": "462ac46c-c9db-4a4a-b8ae-bbe5c14af09f",
+     "date": "2026-10-11",
+     "file": "package-distribution.md",
+     "anchor": "homebrew-and-scoop-are-opt-in-dispatches-the-tap-or-bucket-owns-the-manifest-logic",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "package-distribution.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "components.md#launcher-imports-are-guarded-with-exact-match-preflighted-dependency-errors",
+   "uuid": "70e54068-d43c-40a2-9097-95e7cc14c668",
+   "file": "components.md",
+   "line": 79,
+   "end_line": 125,
+   "title": "Launcher imports are guarded with exact-match, preflighted dependency errors",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-028 (`docs/adr/028-actionable-component-dependency-guard.md`); issues #172 and #268",
+   "verification": null,
+   "revisit_when": "generated projects gain per-component extras, or a dependency stops importing lazily after the guarded block",
+   "see": [
+    {
+     "locator": "components.md#secondary-components-are-subcommands-of-one-console-root-not-separate-scripts",
+     "uuid": "3d60ab14-8ff9-47db-b326-d7e82947a6cf",
+     "date": "2026-10-11",
+     "file": "components.md",
+     "anchor": "secondary-components-are-subcommands-of-one-console-root-not-separate-scripts",
+     "remote": null
+    },
+    {
+     "locator": "components.md#component-dependencies-are-core-dependencies-there-is-no-empty-all-extra",
+     "uuid": "e9b25624-f621-4071-bd99-a7cde620189a",
+     "date": "2026-10-11",
+     "file": "components.md",
+     "anchor": "component-dependencies-are-core-dependencies-there-is-no-empty-all-extra",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "components.md#component-dependencies-are-core-dependencies-there-is-no-empty-all-extra",
+   "uuid": "e9b25624-f621-4071-bd99-a7cde620189a",
+   "file": "components.md",
+   "line": 126,
+   "end_line": 155,
+   "title": "Component dependencies are core dependencies; there is no empty `all` extra",
+   "type": [
+    "decision",
+    "constraint"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-028 (`docs/adr/028-no-empty-all-extra.md`)",
+   "verification": null,
+   "revisit_when": "a component gains a genuinely optional dependency",
+   "see": [],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "components.md#the-web-component-gets-run-and-dev-launch-verbs-and-therefore-always-a-console-root",
+   "uuid": "3daefc4a-ee36-44cb-b137-bc9224f2a262",
+   "file": "components.md",
+   "line": 156,
+   "end_line": 198,
+   "title": "The web component gets `run` and `dev` launch verbs, and therefore always a console root",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-032 (`docs/adr/032-uniform-run-dev-launch-verbs.md`); issue #177",
+   "verification": null,
+   "revisit_when": "FastStream's reload stops requiring its CLI extra, or a second component acquires a prod/dev distinction",
+   "see": [
+    {
+     "locator": "components.md#secondary-components-are-subcommands-of-one-console-root-not-separate-scripts",
+     "uuid": "3d60ab14-8ff9-47db-b326-d7e82947a6cf",
+     "date": "2026-10-11",
+     "file": "components.md",
+     "anchor": "secondary-components-are-subcommands-of-one-console-root-not-separate-scripts",
+     "remote": null
+    },
+    {
+     "locator": "components.md#launcher-imports-are-guarded-with-exact-match-preflighted-dependency-errors",
+     "uuid": "70e54068-d43c-40a2-9097-95e7cc14c668",
+     "date": "2026-10-11",
+     "file": "components.md",
+     "anchor": "launcher-imports-are-guarded-with-exact-match-preflighted-dependency-errors",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "components.md#one-application-payload-in-core-app-py-components-are-adapters-over-it",
+   "uuid": "8bb1e55e-f468-44fc-80a5-d3b3719e5ddc",
+   "file": "components.md",
+   "line": 199,
+   "end_line": 239,
+   "title": "One application payload in `core/app.py`; components are adapters over it",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-033 (`docs/adr/033-shared-app-service-components-as-adapters.md`); issues #178 and #321",
+   "verification": null,
+   "revisit_when": "a component needs a fourth failure behaviour, or a second provider of the payload appears",
+   "see": [
+    {
+     "locator": "architecture-contracts.md#one-exhaustive-import-linter-layers-contract-cli-above-independent-components-above-core-above-utils",
+     "uuid": "3b7cdbee-7c66-4e52-9d7e-8ab0ffe32e56",
+     "date": "2026-10-11",
+     "file": "architecture-contracts.md",
+     "anchor": "one-exhaustive-import-linter-layers-contract-cli-above-independent-components-above-core-above-utils",
+     "remote": null
+    },
+    {
+     "locator": "template-updates.md#retired-template-modules-become-adopter-owned",
+     "uuid": "4dd6729a-697e-4588-a7a7-d37152018b6b",
+     "date": "2026-10-11",
+     "file": "template-updates.md",
+     "anchor": "retired-template-modules-become-adopter-owned",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "architecture-contracts.md",
+    "template-updates.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "docs-stack.md#sphinx-with-the-bare-shibuya-theme-replaces-mkdocs",
+   "uuid": "5133caa8-3231-4d4d-877b-041b315cb87a",
+   "file": "docs-stack.md",
+   "line": 3,
+   "end_line": 37,
+   "title": "Sphinx with the bare Shibuya theme replaces MkDocs",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-006 (`docs/adr/006-sphinx-shibuya-for-documentation.md`)",
+   "verification": null,
+   "revisit_when": "Shibuya stops being published on PyPI, or the Litestar-org reference sites change stack",
+   "see": [],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "docs-stack.md#pr-docs-previews-deploy-to-a-subfolder-of-the-project-s-own-gh-pages-same-repo-only",
+   "uuid": "55a74975-a6e0-4f18-8254-fa27f047e829",
+   "file": "docs-stack.md",
+   "line": 38,
+   "end_line": 70,
+   "title": "PR docs previews deploy to a subfolder of the project's own `gh-pages`, same-repo only",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-010 §1 (`docs/adr/010-pr-docs-previews-and-released-issue-notifications.md`)",
+   "verification": null,
+   "revisit_when": "the preview action ships fork support, or previews need to block merges",
+   "see": [
+    {
+     "locator": "external-integrations.md#a-freshly-generated-project-is-green-on-first-push-with-zero-external-accounts",
+     "uuid": "392b6dcf-6e9d-441d-bf7b-64ba362578d7",
+     "date": "2026-10-11",
+     "file": "external-integrations.md",
+     "anchor": "a-freshly-generated-project-is-green-on-first-push-with-zero-external-accounts",
+     "remote": null
+    },
+    {
+     "locator": "docs-versioning.md#docs-publish-only-the-current-version-and-carry-older-built-versions-forward-from-gh-pages",
+     "uuid": "858025c1-19a6-46f6-a237-01ba6477262a",
+     "date": "2026-10-11",
+     "file": "docs-versioning.md",
+     "anchor": "docs-publish-only-the-current-version-and-carry-older-built-versions-forward-from-gh-pages",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "docs-versioning.md",
+    "external-integrations.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "docs-stack.md#sphinx-lint-and-the-case-conflict-hook-are-always-on-link-checking-is-weekly",
+   "uuid": "726d9de8-c1d3-4974-9019-76c8bb5ffc5b",
+   "file": "docs-stack.md",
+   "line": 71,
+   "end_line": 94,
+   "title": "sphinx-lint and the case-conflict hook are always-on; link checking is weekly",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-011 (`docs/adr/011-docs-linting-and-cross-platform-filename-safety.md`)",
+   "verification": null,
+   "revisit_when": "the matrix drops a case-insensitive platform, or linkcheck becomes reliable enough for PR time",
+   "see": [
+    {
+     "locator": "ci-topology.md#network-dependent-checks-run-on-a-weekly-cron-never-in-the-merge-gate",
+     "uuid": "3e5b9525-9087-4125-b19f-80f6c226c01f",
+     "date": "2026-10-11",
+     "file": "ci-topology.md",
+     "anchor": "network-dependent-checks-run-on-a-weekly-cron-never-in-the-merge-gate",
+     "remote": null
+    },
+    {
+     "locator": "architecture-contracts.md#whole-program-analyzers-are-local-system-hooks-backed-by-the-style-group",
+     "uuid": "41f3397d-1afb-4e57-a0bd-b5ef85089bfc",
+     "date": "2026-10-11",
+     "file": "architecture-contracts.md",
+     "anchor": "whole-program-analyzers-are-local-system-hooks-backed-by-the-style-group",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "architecture-contracts.md",
+    "ci-topology.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "docs-stack.md#sphinx-warnings-use-an-exact-reviewable-allowlist",
+   "uuid": "2a555902-38e7-47d4-a231-445a8e6caa0f",
+   "file": "docs-stack.md",
+   "line": 95,
+   "end_line": 125,
+   "title": "Sphinx warnings use an exact, reviewable allowlist",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "[issue #187](https://github.com/hasansezertasan/copier-pyproject/issues/187), [PR #242](https://github.com/hasansezertasan/copier-pyproject/pull/242); commit [ab6a857](https://github.com/hasansezertasan/copier-pyproject/commit/ab6a8575d401f41fb35ab98a1bf50a2a1ff29fe7); `docs/template-architecture.md`, Sphinx warning gate",
+   "verification": "corroborated — the rendered warning checker compares normalized sets in both directions, and the docs-build environment invokes it",
+   "revisit_when": "Sphinx changes warning formatting or a previously unavoidable warning disappears",
+   "see": [
+    {
+     "locator": "docs-versioning.md#the-sphinx-warning-gate-runs-in-a-job-the-required-check-context-aggregates",
+     "uuid": "bc382803-5aa9-4582-9bad-1c9efef8fc49",
+     "date": "2026-10-11",
+     "file": "docs-versioning.md",
+     "anchor": "the-sphinx-warning-gate-runs-in-a-job-the-required-check-context-aggregates",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "docs-versioning.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "docs-stack.md#the-sphinx-subsystem-is-toggleable-include-docs-default-on-the-maintainer-guide-is-not",
+   "uuid": "e983d1e7-421f-4926-9415-a3da4626f220",
+   "file": "docs-stack.md",
+   "line": 126,
+   "end_line": 152,
+   "title": "The Sphinx subsystem is toggleable (`include_docs`, default on); the maintainer guide is not",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-025 (`docs/adr/025-optional-docs-subsystem.md`); issue #252",
+   "verification": null,
+   "revisit_when": "the six files that hard-reference `docs/maintaining/setup.rst` move, or a preset wants docs off by default",
+   "see": [
+    {
+     "locator": "repo-setup.md#maintainer-repository-setup-has-one-actor-tagged-home-in-the-docs-tree",
+     "uuid": "4e0fcdab-d3b9-4f96-b61d-8e34927af98d",
+     "date": "2026-10-11",
+     "file": "repo-setup.md",
+     "anchor": "maintainer-repository-setup-has-one-actor-tagged-home-in-the-docs-tree",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "repo-setup.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "docs-stack.md#documentation-code-examples-are-executed-not-pasted",
+   "uuid": "2a95e867-8cca-44e9-9844-a7109e5f6a7b",
+   "file": "docs-stack.md",
+   "line": 153,
+   "end_line": 187,
+   "title": "Documentation code examples are executed, not pasted",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-028 (`docs/adr/028-tested-documentation-examples.md`)",
+   "verification": null,
+   "revisit_when": "another Markdown file is adopted as a doctest surface, or the per-component CI jobs stop replacing tox's default env list",
+   "see": [
+    {
+     "locator": "docs-stack.md#the-sphinx-subsystem-is-toggleable-include_docs-default-on-the-maintainer-guide-is-not",
+     "uuid": "e983d1e7-421f-4926-9415-a3da4626f220",
+     "date": "2026-10-11",
+     "file": "docs-stack.md",
+     "anchor": "the-sphinx-subsystem-is-toggleable-include_docs-default-on-the-maintainer-guide-is-not",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "docs-stack.md#the-four-auto-generated-reference-pages-keep-their-current-generators",
+   "uuid": "aa157658-027b-42c3-8a2b-1e6b40b6b739",
+   "file": "docs-stack.md",
+   "line": 188,
+   "end_line": 219,
+   "title": "The four auto-generated reference pages keep their current generators",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-038 (`docs/adr/038-sphinx-api-reference-rendering-strategy.md`), refreshed 2026-10-05",
+   "verification": null,
+   "revisit_when": "a `sphinxcontrib-openapi` pilot confirms OpenAPI 3.1 rendering, an AsyncAPI Sphinx renderer appears, or argparse CLIs are judged to need a reference page",
+   "see": [
+    {
+     "locator": "docs-stack.md#sphinx-with-the-bare-shibuya-theme-replaces-mkdocs",
+     "uuid": "5133caa8-3231-4d4d-877b-041b315cb87a",
+     "date": "2026-10-11",
+     "file": "docs-stack.md",
+     "anchor": "sphinx-with-the-bare-shibuya-theme-replaces-mkdocs",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "docs-versioning.md#docs-publish-only-the-current-version-and-carry-older-built-versions-forward-from-gh-pages",
+   "uuid": "858025c1-19a6-46f6-a237-01ba6477262a",
+   "file": "docs-versioning.md",
+   "line": 3,
+   "end_line": 44,
+   "title": "Docs publish only the current version and carry older built versions forward from `gh-pages`",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-027 §1–2 (`docs/adr/027-versioned-documentation-and-last-updated-stamps.md`); issue #165; the Litestar docs build is the model",
+   "verification": null,
+   "revisit_when": "a Sphinx multiversion tool stops rebuilding old tags, or `conf.py` stops running build-time generators against the live app",
+   "see": [
+    {
+     "locator": "docs-stack.md#sphinx-with-the-bare-shibuya-theme-replaces-mkdocs",
+     "uuid": "5133caa8-3231-4d4d-877b-041b315cb87a",
+     "date": "2026-10-11",
+     "file": "docs-stack.md",
+     "anchor": "sphinx-with-the-bare-shibuya-theme-replaces-mkdocs",
+     "remote": null
+    },
+    {
+     "locator": "docs-stack.md#pr-docs-previews-deploy-to-a-subfolder-of-the-projects-own-gh-pages-same-repo-only",
+     "uuid": "55a74975-a6e0-4f18-8254-fa27f047e829",
+     "date": "2026-10-11",
+     "file": "docs-stack.md",
+     "anchor": "pr-docs-previews-deploy-to-a-subfolder-of-the-projects-own-gh-pages-same-repo-only",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "docs-stack.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "docs-versioning.md#version-granularity-is-a-scaffold-time-question",
+   "uuid": "5d18c9af-73e9-476b-9ba9-544c776812e6",
+   "file": "docs-versioning.md",
+   "line": 45,
+   "end_line": 65,
+   "title": "Version granularity is a scaffold-time question",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-027 §3 (`docs/adr/027-versioned-documentation-and-last-updated-stamps.md`)",
+   "verification": null,
+   "revisit_when": "the pre-1.0 minor-is-breaking bump policy changes",
+   "see": [
+    {
+     "locator": "docs-versioning.md#docs-publish-only-the-current-version-and-carry-older-built-versions-forward-from-gh-pages",
+     "uuid": "858025c1-19a6-46f6-a237-01ba6477262a",
+     "date": "2026-10-11",
+     "file": "docs-versioning.md",
+     "anchor": "docs-publish-only-the-current-version-and-carry-older-built-versions-forward-from-gh-pages",
+     "remote": null
+    },
+    {
+     "locator": "release-automation.md#release-please-is-the-sole-release-orchestrator",
+     "uuid": "7ec8a937-fd4d-41f2-96b7-824fe3be913b",
+     "date": "2026-10-11",
+     "file": "release-automation.md",
+     "anchor": "release-please-is-the-sole-release-orchestrator",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "release-automation.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "docs-versioning.md#the-manual-redeploy-rebuilds-the-latest-published-release-never-head",
+   "uuid": "f0ad70ba-c790-42d2-94f0-152e9527be4f",
+   "file": "docs-versioning.md",
+   "line": 66,
+   "end_line": 99,
+   "title": "The manual redeploy rebuilds the latest published release, never HEAD",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-027 §4 (`docs/adr/027-versioned-documentation-and-last-updated-stamps.md`)",
+   "verification": null,
+   "revisit_when": "release-please stops creating the tag before the release is published, or the build script's granularity stops being baked in",
+   "see": [
+    {
+     "locator": "docs-versioning.md#docs-publish-only-the-current-version-and-carry-older-built-versions-forward-from-gh-pages",
+     "uuid": "858025c1-19a6-46f6-a237-01ba6477262a",
+     "date": "2026-10-11",
+     "file": "docs-versioning.md",
+     "anchor": "docs-publish-only-the-current-version-and-carry-older-built-versions-forward-from-gh-pages",
+     "remote": null
+    },
+    {
+     "locator": "release-automation.md#the-release-is-created-as-a-draft-finalized-after-artifacts-attach",
+     "uuid": "398b3cd9-e57b-4856-b2c7-76752c0ec37f",
+     "date": "2026-10-11",
+     "file": "release-automation.md",
+     "anchor": "the-release-is-created-as-a-draft-finalized-after-artifacts-attach",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "release-automation.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "docs-versioning.md#a-failed-gh-pages-fetch-must-abort-never-fall-through-as-branch-absent",
+   "uuid": "135cfbb5-6c5c-45d8-9239-cf225a819818",
+   "file": "docs-versioning.md",
+   "line": 100,
+   "end_line": 123,
+   "title": "A failed `gh-pages` fetch must abort, never fall through as \"branch absent\"",
+   "type": [
+    "decision",
+    "incident"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-027 §4a (`docs/adr/027-versioned-documentation-and-last-updated-stamps.md`)",
+   "verification": null,
+   "revisit_when": "the deploy stops cleaning the target, or `git fetch` learns to distinguish a missing ref from a transport error",
+   "see": [
+    {
+     "locator": "docs-versioning.md#docs-publish-only-the-current-version-and-carry-older-built-versions-forward-from-gh-pages",
+     "uuid": "858025c1-19a6-46f6-a237-01ba6477262a",
+     "date": "2026-10-11",
+     "file": "docs-versioning.md",
+     "anchor": "docs-publish-only-the-current-version-and-carry-older-built-versions-forward-from-gh-pages",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "docs-versioning.md#per-page-last-updated-comes-from-git-history",
+   "uuid": "7e34868f-a26a-4c89-8189-f5778ad9a04b",
+   "file": "docs-versioning.md",
+   "line": 124,
+   "end_line": 143,
+   "title": "Per-page \"last updated\" comes from git history",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-027 §5 (`docs/adr/027-versioned-documentation-and-last-updated-stamps.md`)",
+   "verification": null,
+   "revisit_when": "a docs job checks out with shallow history",
+   "see": [
+    {
+     "locator": "docs-stack.md#sphinx-warnings-use-an-exact-reviewable-allowlist",
+     "uuid": "2a555902-38e7-47d4-a231-445a8e6caa0f",
+     "date": "2026-10-11",
+     "file": "docs-stack.md",
+     "anchor": "sphinx-warnings-use-an-exact-reviewable-allowlist",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "docs-stack.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "docs-versioning.md#the-sphinx-warning-gate-runs-in-a-job-the-required-check-context-aggregates",
+   "uuid": "bc382803-5aa9-4582-9bad-1c9efef8fc49",
+   "file": "docs-versioning.md",
+   "line": 144,
+   "end_line": 164,
+   "title": "The Sphinx warning gate runs in a job the required `check` context aggregates",
+   "type": [
+    "decision",
+    "incident"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-027, Consequences (`docs/adr/027-versioned-documentation-and-last-updated-stamps.md`)",
+   "verification": null,
+   "revisit_when": "`docs-doctest` is renamed or leaves the `check` aggregation",
+   "see": [
+    {
+     "locator": "docs-stack.md#sphinx-warnings-use-an-exact-reviewable-allowlist",
+     "uuid": "2a555902-38e7-47d4-a231-445a8e6caa0f",
+     "date": "2026-10-11",
+     "file": "docs-stack.md",
+     "anchor": "sphinx-warnings-use-an-exact-reviewable-allowlist",
+     "remote": null
+    },
+    {
+     "locator": "ci-topology.md#per-component-markers-path-filtered-jobs-and-one-coverage-gate-per-component",
+     "uuid": "467b6cc3-775b-4e4c-9a8e-b0d1c3d733ac",
+     "date": "2026-10-11",
+     "file": "ci-topology.md",
+     "anchor": "per-component-markers-path-filtered-jobs-and-one-coverage-gate-per-component",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "ci-topology.md",
+    "docs-stack.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "external-integrations.md#a-freshly-generated-project-is-green-on-first-push-with-zero-external-accounts",
+   "uuid": "392b6dcf-6e9d-441d-bf7b-64ba362578d7",
+   "file": "external-integrations.md",
+   "line": 3,
+   "end_line": 28,
+   "title": "A freshly generated project is green on first push with zero external accounts",
+   "type": [
+    "constraint"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-009, ADR-010, ADR-011, ADR-013, ADR-017, ADR-018, ADR-021, ADR-026, ADR-034 (`docs/adr/`)",
+   "verification": null,
+   "revisit_when": "the template's target audience shifts to teams that provision external services as a matter of course",
+   "see": [],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "external-integrations.md#sourcery-sonarcloud-and-all-contributors-are-independent-opt-in-toggles",
+   "uuid": "e926a0ce-c030-4a76-8b11-41c450bb43f4",
+   "file": "external-integrations.md",
+   "line": 29,
+   "end_line": 66,
+   "title": "Sourcery, SonarCloud and all-contributors are independent opt-in toggles",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-009 (`docs/adr/009-optional-external-quality-community-integrations.md`), including its 2026-07 amendment",
+   "verification": null,
+   "revisit_when": "one of the three services gains a provisioning-free mode, or a fourth integration of the same shape is proposed",
+   "see": [
+    {
+     "locator": "external-integrations.md#a-freshly-generated-project-is-green-on-first-push-with-zero-external-accounts",
+     "uuid": "392b6dcf-6e9d-441d-bf7b-64ba362578d7",
+     "date": "2026-10-11",
+     "file": "external-integrations.md",
+     "anchor": "a-freshly-generated-project-is-green-on-first-push-with-zero-external-accounts",
+     "remote": null
+    },
+    {
+     "locator": "standalone-executables.md#three-architecture-named-executable-toggles-instead-of-one-brand-toggle",
+     "uuid": "d5aed1a0-0b7c-4ac3-9d75-fb9568d9e34d",
+     "date": "2026-10-11",
+     "file": "standalone-executables.md",
+     "anchor": "three-architecture-named-executable-toggles-instead-of-one-brand-toggle",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "standalone-executables.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "external-integrations.md#opt-in-benchmarking-with-pytest-codspeed",
+   "uuid": "841ba12d-3ad2-402e-9c7e-6791b8221952",
+   "file": "external-integrations.md",
+   "line": 67,
+   "end_line": 89,
+   "title": "Opt-in benchmarking with pytest-codspeed",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-034 (`docs/adr/034-opt-in-performance-benchmarking.md`)",
+   "verification": null,
+   "revisit_when": "a benchmarking service becomes usable without an account, or the default CI budget changes",
+   "see": [
+    {
+     "locator": "external-integrations.md#a-freshly-generated-project-is-green-on-first-push-with-zero-external-accounts",
+     "uuid": "392b6dcf-6e9d-441d-bf7b-64ba362578d7",
+     "date": "2026-10-11",
+     "file": "external-integrations.md",
+     "anchor": "a-freshly-generated-project-is-green-on-first-push-with-zero-external-accounts",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "gitignore-generation.md#cobo-generates-the-gitignore-with-a-hash-sealed-fence-and-lockfiles",
+   "uuid": "3e3bc38e-bc1e-4e65-b74d-e91848262157",
+   "file": "gitignore-generation.md",
+   "line": 3,
+   "end_line": 36,
+   "title": "cobo generates the gitignore with a hash-sealed fence and lockfiles",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-012 (`docs/adr/012-cobo-for-gitignore-generation.md`)",
+   "verification": null,
+   "revisit_when": "`github/gitignore` stops being the boilerplate source, or cobo changes its fence or lock format",
+   "see": [
+    {
+     "locator": "ci-topology.md#network-dependent-checks-run-on-a-weekly-cron-never-in-the-merge-gate",
+     "uuid": "3e5b9525-9087-4125-b19f-80f6c226c01f",
+     "date": "2026-10-11",
+     "file": "ci-topology.md",
+     "anchor": "network-dependent-checks-run-on-a-weekly-cron-never-in-the-merge-gate",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "ci-topology.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "gitignore-generation.md#the-fence-is-lf-sealed-which-corrupts-two-macos-character-class-patterns",
+   "uuid": "a5df0a9c-aa53-4a8c-add6-566326352a0e",
+   "file": "gitignore-generation.md",
+   "line": 37,
+   "end_line": 69,
+   "title": "The fence is LF-sealed, which corrupts two macOS character-class patterns",
+   "type": [
+    "decision",
+    "workaround"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-012 §1 (`docs/adr/012-cobo-for-gitignore-generation.md`); cobo#120/#121 (the upstreamed `--eol lf` policy), [cobo#124](https://github.com/hasansezertasan/cobo/issues/124), [issue #111](https://github.com/hasansezertasan/copier-pyproject/issues/111)",
+   "verification": null,
+   "revisit_when": "cobo#124 ships (normalize terminators only, not a mid-line CR) *and* the Copier render preserves a lone carriage return in this file",
+   "see": [],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "lint-orchestration.md#the-tox-style-env-is-the-sole-authoritative-lint-suite-prek-is-a-fast-gate-not-a-second-suite",
+   "uuid": "9b74fc8b-a808-4f2b-bdbd-9e4253c1b35a",
+   "file": "lint-orchestration.md",
+   "line": 3,
+   "end_line": 35,
+   "title": "The tox `style` env is the sole authoritative lint suite; prek is a fast gate, not a second suite",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-003 (`docs/adr/003-tox-as-canonical-lint-runner.md`), including its 2026-06 update",
+   "verification": null,
+   "revisit_when": "a second orchestrator is proposed, or tool versions gain a second pinning location",
+   "see": [],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "lint-orchestration.md#taplo-checks-do-not-fetch-schemas-from-generated-toml-directives",
+   "uuid": "152edfc1-817e-4265-ac23-53d2a730cd5f",
+   "file": "lint-orchestration.md",
+   "line": 36,
+   "end_line": 64,
+   "title": "Taplo checks do not fetch schemas from generated TOML directives",
+   "type": [
+    "workaround",
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "[issue #337](https://github.com/hasansezertasan/copier-pyproject/issues/337), [PR #338](https://github.com/hasansezertasan/copier-pyproject/pull/338); commit [9e86cb8](https://github.com/hasansezertasan/copier-pyproject/commit/9e86cb8fcd8ccebc667d70391531c5a33ccc8de4)",
+   "verification": "corroborated — generated root TOML omits schema directives while the style environment retains Taplo syntax and formatting checks",
+   "revisit_when": "Taplo provides a verified way to retain editor directives without fetching their schemas during checks",
+   "see": [
+    {
+     "locator": "lint-orchestration.md#semgrep-runs-in-the-style-env-against-a-named-registry-ruleset-never-vendored",
+     "uuid": "5068081c-24ce-4c39-9cdf-13e0a7c229b4",
+     "date": "2026-10-11",
+     "file": "lint-orchestration.md",
+     "anchor": "semgrep-runs-in-the-style-env-against-a-named-registry-ruleset-never-vendored",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "lint-orchestration.md#the-prek-gate-runs-at-commit-push-only-hooks-opt-in-per-hook",
+   "uuid": "8fd817b4-fab6-4ce1-b80d-59a2ea93016f",
+   "file": "lint-orchestration.md",
+   "line": 65,
+   "end_line": 84,
+   "title": "The prek gate runs at commit; push-only hooks opt in per hook",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "found while adopting the template in openapipages; reproduced with prek 0.5.5; recorded in ADR-003 (`docs/adr/003-tox-as-canonical-lint-runner.md`)",
+   "verification": "corroborated — a hook with no `stages` ran on `pre-commit`, `pre-push`, `commit-msg` and `manual` when `default_stages` was unset",
+   "revisit_when": "a hook other than `commitizen-branch` needs to run on push",
+   "see": [],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "lint-orchestration.md#five-type-checkers-strict-basedpyright-replaces-pyright",
+   "uuid": "7e130850-494b-427c-a892-a6b3479dd047",
+   "file": "lint-orchestration.md",
+   "line": 85,
+   "end_line": 116,
+   "title": "Five type checkers; strict basedpyright replaces pyright",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-005 (`docs/adr/005-five-type-checkers-basedpyright-strict.md`)",
+   "verification": null,
+   "revisit_when": "`ty` churn becomes a burden, or two checkers stop catching anything the others miss",
+   "see": [],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "lint-orchestration.md#mypy-s-prek-hook-runs-through-uv-like-basedpyright",
+   "uuid": "71f826cd-950d-4112-9cfb-7dad6ee98264",
+   "file": "lint-orchestration.md",
+   "line": 117,
+   "end_line": 141,
+   "title": "mypy's prek hook runs through uv, like basedpyright",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "found while adopting the template in openapipages; recorded in ADR-005 (`docs/adr/005-five-type-checkers-basedpyright-strict.md`)",
+   "verification": "corroborated — the mirrors-mypy `rev` (v2.3.0) had drifted from the `style` group's `mypy==2.4.0` pin, and the hook's `files = \"^src/\"` skipped the `docs/examples` path that `[tool.mypy] files` adds with `include_docs`",
+   "revisit_when": "mypy needs to run without the project's environment, for example in a hook-only CI job without uv",
+   "see": [
+    {
+     "locator": "architecture-contracts.md#whole-program-analyzers-are-local-system-hooks-backed-by-the-style-group",
+     "uuid": "41f3397d-1afb-4e57-a0bd-b5ef85089bfc",
+     "date": "2026-10-11",
+     "file": "architecture-contracts.md",
+     "anchor": "whole-program-analyzers-are-local-system-hooks-backed-by-the-style-group",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "architecture-contracts.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "lint-orchestration.md#megalinter-is-an-opt-in-lean-complement-non-blocking-on-three-levels",
+   "uuid": "f3041701-610f-4418-b297-e9707da5de40",
+   "file": "lint-orchestration.md",
+   "line": 142,
+   "end_line": 180,
+   "title": "MegaLinter is an opt-in lean complement, non-blocking on three levels",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-013 (`docs/adr/013-megalinter-opt-in-lean-complement.md`); prompted by a real run ([hwid#90](https://github.com/hasansezertasan/hwid/actions/runs/30634574244/job/91168813067))",
+   "verification": null,
+   "revisit_when": "prek gains one of the five enabled linters, the `cupcake` flavor drops one, or GitHub changes SARIF ingestion rules",
+   "see": [
+    {
+     "locator": "external-integrations.md#a-freshly-generated-project-is-green-on-first-push-with-zero-external-accounts",
+     "uuid": "392b6dcf-6e9d-441d-bf7b-64ba362578d7",
+     "date": "2026-10-11",
+     "file": "external-integrations.md",
+     "anchor": "a-freshly-generated-project-is-green-on-first-push-with-zero-external-accounts",
+     "remote": null
+    },
+    {
+     "locator": "lint-orchestration.md#the-tox-style-env-is-the-sole-authoritative-lint-suite-prek-is-a-fast-gate-not-a-second-suite",
+     "uuid": "9b74fc8b-a808-4f2b-bdbd-9e4253c1b35a",
+     "date": "2026-10-11",
+     "file": "lint-orchestration.md",
+     "anchor": "the-tox-style-env-is-the-sole-authoritative-lint-suite-prek-is-a-fast-gate-not-a-second-suite",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "external-integrations.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": [
+    {
+     "severity": "warning",
+     "code": "W301",
+     "line": 148,
+     "message": "base64-looking blob (65 chars) — if it needs decoding to be read, it doesn't belong in an entry meant to be read"
+    }
+   ]
+  },
+  {
+   "id": "lint-orchestration.md#semgrep-runs-in-the-style-env-against-a-named-registry-ruleset-never-vendored",
+   "uuid": "5068081c-24ce-4c39-9cdf-13e0a7c229b4",
+   "file": "lint-orchestration.md",
+   "line": 181,
+   "end_line": 216,
+   "title": "semgrep runs in the `style` env against a named registry ruleset, never vendored",
+   "type": [
+    "decision",
+    "constraint"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-032 (`docs/adr/032-semgrep-sast-in-the-style-env.md`); [issue #174](https://github.com/hasansezertasan/copier-pyproject/issues/174)",
+   "verification": null,
+   "revisit_when": "offline determinism outranks rule quality, semgrep gains an on-disk rule cache, or the registry rules' license permits redistribution",
+   "see": [
+    {
+     "locator": "lint-orchestration.md#the-tox-style-env-is-the-sole-authoritative-lint-suite-prek-is-a-fast-gate-not-a-second-suite",
+     "uuid": "9b74fc8b-a808-4f2b-bdbd-9e4253c1b35a",
+     "date": "2026-10-11",
+     "file": "lint-orchestration.md",
+     "anchor": "the-tox-style-env-is-the-sole-authoritative-lint-suite-prek-is-a-fast-gate-not-a-second-suite",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "package-distribution.md#homebrew-and-scoop-are-opt-in-dispatches-the-tap-or-bucket-owns-the-manifest-logic",
+   "uuid": "462ac46c-c9db-4a4a-b8ae-bbe5c14af09f",
+   "file": "package-distribution.md",
+   "line": 3,
+   "end_line": 46,
+   "title": "Homebrew and Scoop are opt-in dispatches; the tap or bucket owns the manifest logic",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-017 (`docs/adr/017-opt-in-homebrew-scoop-distribution.md`); the live reference is the keycast tap and bucket repositories",
+   "verification": null,
+   "revisit_when": "the release build matrix becomes per-architecture, or an ecosystem's own bump tooling changes shape",
+   "see": [
+    {
+     "locator": "external-integrations.md#a-freshly-generated-project-is-green-on-first-push-with-zero-external-accounts",
+     "uuid": "392b6dcf-6e9d-441d-bf7b-64ba362578d7",
+     "date": "2026-10-11",
+     "file": "external-integrations.md",
+     "anchor": "a-freshly-generated-project-is-green-on-first-push-with-zero-external-accounts",
+     "remote": null
+    },
+    {
+     "locator": "package-distribution.md#optional-pypi-publishing",
+     "uuid": "20be7463-ca95-4d01-82c9-71f632d1b4be",
+     "date": "2026-10-11",
+     "file": "package-distribution.md",
+     "anchor": "optional-pypi-publishing",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "external-integrations.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "package-distribution.md#primary-executable-is-the-single-source-for-the-distribution-payload",
+   "uuid": "40888b40-730c-4575-b68c-401b4eeccc06",
+   "file": "package-distribution.md",
+   "line": 47,
+   "end_line": 70,
+   "title": "`primary_executable` is the single source for the distribution payload",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-017 (`docs/adr/017-opt-in-homebrew-scoop-distribution.md`)",
+   "verification": null,
+   "revisit_when": "a fourth executable architecture is added, or the launcher stops needing network access on first run",
+   "see": [
+    {
+     "locator": "standalone-executables.md#three-architecture-named-executable-toggles-instead-of-one-brand-toggle",
+     "uuid": "d5aed1a0-0b7c-4ac3-9d75-fb9568d9e34d",
+     "date": "2026-10-11",
+     "file": "standalone-executables.md",
+     "anchor": "three-architecture-named-executable-toggles-instead-of-one-brand-toggle",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "standalone-executables.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "package-distribution.md#optional-pypi-publishing",
+   "uuid": "20be7463-ca95-4d01-82c9-71f632d1b4be",
+   "file": "package-distribution.md",
+   "line": 71,
+   "end_line": 128,
+   "title": "Optional PyPI publishing",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "[issue #382](https://github.com/hasansezertasan/copier-pyproject/issues/382); maintainer decisions while implementing it, 2026-10-11; ADR-039 (`docs/adr/039-optional-pypi-publishing.md`)",
+   "verification": null,
+   "revisit_when": "the PyPI project name becomes its own question, or Homebrew / Scoop gain a non-PyPI source for a pure-Python package",
+   "see": [
+    {
+     "locator": "release-automation.md#the-workflow_dispatch-trigger-on-releaseyml-stays-the-publish-environment-is-the-containment",
+     "uuid": "0d93a35d-46a3-4ac6-b072-fc07da789842",
+     "date": "2026-10-11",
+     "file": "release-automation.md",
+     "anchor": "the-workflow_dispatch-trigger-on-releaseyml-stays-the-publish-environment-is-the-containment",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "release-automation.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "presets.md#archetype-presets-name-project-shapes-library-is-the-default",
+   "uuid": "a14ee38b-12ed-49c8-b452-12b330cf9d10",
+   "file": "presets.md",
+   "line": 3,
+   "end_line": 39,
+   "title": "Archetype presets name project shapes; library is the default",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-016 (`docs/adr/016-archetype-based-presets.md`); the preset mechanism it reshapes came from [PR #141](https://github.com/hasansezertasan/copier-pyproject/pull/141)",
+   "verification": null,
+   "revisit_when": "a distinct service/worker archetype (worker + broker + database) proves common enough to be a fifth choice",
+   "see": [
+    {
+     "locator": "standalone-executables.md#three-architecture-named-executable-toggles-instead-of-one-brand-toggle",
+     "uuid": "d5aed1a0-0b7c-4ac3-9d75-fb9568d9e34d",
+     "date": "2026-10-11",
+     "file": "standalone-executables.md",
+     "anchor": "three-architecture-named-executable-toggles-instead-of-one-brand-toggle",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "standalone-executables.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "presets.md#the-example-input-file-holds-identity-answers-and-a-preset-only",
+   "uuid": "ef5a9b93-2be9-4b18-a354-4a6c174207fe",
+   "file": "presets.md",
+   "line": 40,
+   "end_line": 62,
+   "title": "The example input file holds identity answers and a preset only",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-016 (`docs/adr/016-archetype-based-presets.md`)",
+   "verification": null,
+   "revisit_when": "the identity questions gain defaults, or non-interactive generation gets another data source",
+   "see": [],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "release-automation.md#release-please-is-the-sole-release-orchestrator",
+   "uuid": "7ec8a937-fd4d-41f2-96b7-824fe3be913b",
+   "file": "release-automation.md",
+   "line": 3,
+   "end_line": 45,
+   "title": "release-please is the sole release orchestrator",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-002 (`docs/adr/002-release-please-for-release-automation.md`); validated against the keycast release pipeline ([keycast#11](https://github.com/hasansezertasan/keycast/pull/11))",
+   "verification": null,
+   "revisit_when": "the open re-evaluation below is decided, or the generated project's version stops being sourced from git tags",
+   "see": [
+    {
+     "locator": "release-automation.md#the-release-automation-choice-is-under-re-evaluation",
+     "uuid": "d9131d49-3c27-48f8-a903-e97caf4acff6",
+     "date": "2026-10-11",
+     "file": "release-automation.md",
+     "anchor": "the-release-automation-choice-is-under-re-evaluation",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "release-automation.md#the-release-is-created-as-a-draft-finalized-after-artifacts-attach",
+   "uuid": "398b3cd9-e57b-4856-b2c7-76752c0ec37f",
+   "file": "release-automation.md",
+   "line": 46,
+   "end_line": 74,
+   "title": "The release is created as a draft, finalized after artifacts attach",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-002 (`docs/adr/002-release-please-for-release-automation.md`); the wrong-version bug caught in [cobo#49](https://github.com/hasansezertasan/cobo/pull/49)",
+   "verification": null,
+   "revisit_when": "release-please creates releases after artifact upload natively, or computes its commit range from drafts",
+   "see": [
+    {
+     "locator": "release-automation.md#release-please-is-the-sole-release-orchestrator",
+     "uuid": "7ec8a937-fd4d-41f2-96b7-824fe3be913b",
+     "date": "2026-10-11",
+     "file": "release-automation.md",
+     "anchor": "release-please-is-the-sole-release-orchestrator",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "release-automation.md#the-workflow-dispatch-trigger-on-release-yml-stays-the-publish-environment-is-the-containment",
+   "uuid": "0d93a35d-46a3-4ac6-b072-fc07da789842",
+   "file": "release-automation.md",
+   "line": 75,
+   "end_line": 101,
+   "title": "The `workflow_dispatch` trigger on `release.yml` stays; the `publish` environment is the containment",
+   "type": [
+    "decision",
+    "constraint"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-002 (`docs/adr/002-release-please-for-release-automation.md`)",
+   "verification": null,
+   "revisit_when": "the GitHub API for re-running a workflow stops requiring the dispatch trigger, or environment deployment-branch policies change",
+   "see": [
+    {
+     "locator": "release-automation.md#the-release-is-created-as-a-draft-finalized-after-artifacts-attach",
+     "uuid": "398b3cd9-e57b-4856-b2c7-76752c0ec37f",
+     "date": "2026-10-11",
+     "file": "release-automation.md",
+     "anchor": "the-release-is-created-as-a-draft-finalized-after-artifacts-attach",
+     "remote": null
+    },
+    {
+     "locator": "supply-chain-security.md#provenance-minting-shares-the-protected-publication-boundary",
+     "uuid": "a0396603-cb34-4151-9d5b-1fc77eb31f6e",
+     "date": "2026-10-11",
+     "file": "supply-chain-security.md",
+     "anchor": "provenance-minting-shares-the-protected-publication-boundary",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "supply-chain-security.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "release-automation.md#release-workflows-use-github-token-with-two-documented-manual-workarounds",
+   "uuid": "bc96b93e-9b9e-4496-8fbb-b215f1d9a04c",
+   "file": "release-automation.md",
+   "line": 102,
+   "end_line": 128,
+   "title": "Release workflows use `GITHUB_TOKEN`, with two documented manual workarounds",
+   "type": [
+    "decision",
+    "workaround"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-002 (`docs/adr/002-release-please-for-release-automation.md`); [issue #332](https://github.com/hasansezertasan/copier-pyproject/issues/332)",
+   "verification": null,
+   "revisit_when": "GitHub lets the workflow token start workflow runs or grants it workflow write access",
+   "see": [
+    {
+     "locator": "release-automation.md#release-please-is-the-sole-release-orchestrator",
+     "uuid": "7ec8a937-fd4d-41f2-96b7-824fe3be913b",
+     "date": "2026-10-11",
+     "file": "release-automation.md",
+     "anchor": "release-please-is-the-sole-release-orchestrator",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "release-automation.md#the-stale-draft-release-comment-link-is-an-accepted-cosmetic-defect",
+   "uuid": "2c6a6034-1936-4026-b10a-93445ace87b1",
+   "file": "release-automation.md",
+   "line": 129,
+   "end_line": 150,
+   "title": "The stale draft-release comment link is an accepted cosmetic defect",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-002 (`docs/adr/002-release-please-for-release-automation.md`); [issue #143](https://github.com/hasansezertasan/copier-pyproject/issues/143), [PR #152](https://github.com/hasansezertasan/copier-pyproject/pull/152)",
+   "verification": null,
+   "revisit_when": "release-please rewrites its release comment after un-drafting, or the draft flow is replaced",
+   "see": [
+    {
+     "locator": "release-automation.md#the-release-is-created-as-a-draft-finalized-after-artifacts-attach",
+     "uuid": "398b3cd9-e57b-4856-b2c7-76752c0ec37f",
+     "date": "2026-10-11",
+     "file": "release-automation.md",
+     "anchor": "the-release-is-created-as-a-draft-finalized-after-artifacts-attach",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "release-automation.md#commitizen-is-a-commit-helper-never-a-release-tool",
+   "uuid": "ee1d2fad-67ab-4f4a-a531-73458da14eb1",
+   "file": "release-automation.md",
+   "line": 151,
+   "end_line": 180,
+   "title": "Commitizen is a commit helper, never a release tool",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-004 (`docs/adr/004-commitizen-as-commit-helper-not-release-tool.md`)",
+   "verification": null,
+   "revisit_when": "the re-evaluation below selects a Commitizen-based orchestrator",
+   "see": [
+    {
+     "locator": "release-automation.md#release-please-is-the-sole-release-orchestrator",
+     "uuid": "7ec8a937-fd4d-41f2-96b7-824fe3be913b",
+     "date": "2026-10-11",
+     "file": "release-automation.md",
+     "anchor": "release-please-is-the-sole-release-orchestrator",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "release-automation.md#the-release-automation-choice-is-under-re-evaluation",
+   "uuid": "d9131d49-3c27-48f8-a903-e97caf4acff6",
+   "file": "release-automation.md",
+   "line": 181,
+   "end_line": 210,
+   "title": "The release-automation choice is under re-evaluation",
+   "type": [
+    "decision"
+   ],
+   "status": "open",
+   "evidence": "confirmed",
+   "source": "ADR-037 (`docs/adr/037-release-automation-reevaluation.md`), a research record last refreshed 2026-10-05; upstream release-please issues [#2515](https://github.com/googleapis/release-please/issues/2515) and [#2605](https://github.com/googleapis/release-please/issues/2605)",
+   "verification": null,
+   "revisit_when": "git-cliff ships prerelease version calculation ([#1380](https://github.com/orhun/git-cliff/issues/1380)), RC series become frequent, or a maintainer picks one of the four options",
+   "see": [
+    {
+     "locator": "release-automation.md#release-please-is-the-sole-release-orchestrator",
+     "uuid": "7ec8a937-fd4d-41f2-96b7-824fe3be913b",
+     "date": "2026-10-11",
+     "file": "release-automation.md",
+     "anchor": "release-please-is-the-sole-release-orchestrator",
+     "remote": null
+    },
+    {
+     "locator": "release-automation.md#commitizen-is-a-commit-helper-never-a-release-tool",
+     "uuid": "ee1d2fad-67ab-4f4a-a531-73458da14eb1",
+     "date": "2026-10-11",
+     "file": "release-automation.md",
+     "anchor": "commitizen-is-a-commit-helper-never-a-release-tool",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "open",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "release-automation.md#optional-docker-hub-configuration-gates-the-publish-fan-out",
+   "uuid": "f6f9eea4-dd38-4a74-98ed-f67e436c393d",
+   "file": "release-automation.md",
+   "line": 211,
+   "end_line": 241,
+   "title": "Optional Docker Hub configuration gates the publish fan-out",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "[PR #51](https://github.com/hasansezertasan/copier-pyproject/pull/51), [shared-gate review discussion](https://github.com/hasansezertasan/copier-pyproject/pull/51#discussion_r3524165040); commit [f48250e](https://github.com/hasansezertasan/copier-pyproject/commit/f48250ebe8b92c880964e892f7c2fb37471a12c4)",
+   "verification": "corroborated — the web release workflow makes both PyPI and Docker publication depend on `docker-publish-preflight`",
+   "revisit_when": "a new irreversible publication channel is added or Docker Hub opt-in semantics change",
+   "see": [],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "release-automation.md#released-issue-notifications-are-one-inline-job-in-release-yml",
+   "uuid": "c8cd015d-12ff-47a7-9447-40b69a2b1a82",
+   "file": "release-automation.md",
+   "line": 242,
+   "end_line": 262,
+   "title": "Released-issue notifications are one inline job in `release.yml`",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-010 §2 (`docs/adr/010-pr-docs-previews-and-released-issue-notifications.md`)",
+   "verification": null,
+   "revisit_when": "the release lifecycle is split across workflows",
+   "see": [
+    {
+     "locator": "release-automation.md#the-release-is-created-as-a-draft-finalized-after-artifacts-attach",
+     "uuid": "398b3cd9-e57b-4856-b2c7-76752c0ec37f",
+     "date": "2026-10-11",
+     "file": "release-automation.md",
+     "anchor": "the-release-is-created-as-a-draft-finalized-after-artifacts-attach",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "repo-setup.md#repository-metadata-via-the-settings-github-app-opt-in-labels-and-branch-protection-stay-out-of-it",
+   "uuid": "dee6eadb-b617-4d64-bbec-7c688bad0604",
+   "file": "repo-setup.md",
+   "line": 3,
+   "end_line": 33,
+   "title": "Repository metadata via the Settings GitHub App, opt-in; labels and branch protection stay out of it",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-018 (`docs/adr/018-repository-settings-as-code.md`)",
+   "verification": null,
+   "revisit_when": "GitHub exposes the About-sidebar activity toggles through an API, or the Settings App gains rulesets support",
+   "see": [
+    {
+     "locator": "external-integrations.md#a-freshly-generated-project-is-green-on-first-push-with-zero-external-accounts",
+     "uuid": "392b6dcf-6e9d-441d-bf7b-64ba362578d7",
+     "date": "2026-10-11",
+     "file": "external-integrations.md",
+     "anchor": "a-freshly-generated-project-is-green-on-first-push-with-zero-external-accounts",
+     "remote": null
+    },
+    {
+     "locator": "repo-setup.md#branch-protection-as-code-through-an-opt-in-rulesets-sync-workflow",
+     "uuid": "3f94789f-94e8-4758-a32d-1e0d72c0140b",
+     "date": "2026-10-11",
+     "file": "repo-setup.md",
+     "anchor": "branch-protection-as-code-through-an-opt-in-rulesets-sync-workflow",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "external-integrations.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "repo-setup.md#branch-protection-as-code-through-an-opt-in-rulesets-sync-workflow",
+   "uuid": "3f94789f-94e8-4758-a32d-1e0d72c0140b",
+   "file": "repo-setup.md",
+   "line": 34,
+   "end_line": 68,
+   "title": "Branch protection as code through an opt-in Rulesets sync workflow",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-021 (`docs/adr/021-repository-ruleset-as-code.md`)",
+   "verification": null,
+   "revisit_when": "the workflow token can manage rulesets, the Settings App supports them, or a project needs required human approvals",
+   "see": [
+    {
+     "locator": "repo-setup.md#repository-metadata-via-the-settings-github-app-opt-in-labels-and-branch-protection-stay-out-of-it",
+     "uuid": "dee6eadb-b617-4d64-bbec-7c688bad0604",
+     "date": "2026-10-11",
+     "file": "repo-setup.md",
+     "anchor": "repository-metadata-via-the-settings-github-app-opt-in-labels-and-branch-protection-stay-out-of-it",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "repo-setup.md#maintainer-repository-setup-has-one-actor-tagged-home-in-the-docs-tree",
+   "uuid": "4e0fcdab-d3b9-4f96-b61d-8e34927af98d",
+   "file": "repo-setup.md",
+   "line": 69,
+   "end_line": 103,
+   "title": "Maintainer repository setup has one actor-tagged home in the docs tree",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-022 (`docs/adr/022-maintainer-setup-as-single-doc-home.md`)",
+   "verification": null,
+   "revisit_when": "the docs site is published before setup starts (making a published URL viable), or the setup guide moves",
+   "see": [
+    {
+     "locator": "docs-stack.md#the-sphinx-subsystem-is-toggleable-include_docs-default-on-the-maintainer-guide-is-not",
+     "uuid": "e983d1e7-421f-4926-9415-a3da4626f220",
+     "date": "2026-10-11",
+     "file": "docs-stack.md",
+     "anchor": "the-sphinx-subsystem-is-toggleable-include_docs-default-on-the-maintainer-guide-is-not",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "docs-stack.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "repo-setup.md#a-resume-driven-repo-setup-skill-reads-check-blocks-from-the-setup-doc-no-separate-manifest",
+   "uuid": "68ac4665-dcde-456b-aef7-2faaf6fe51f4",
+   "file": "repo-setup.md",
+   "line": 104,
+   "end_line": 142,
+   "title": "A resume-driven repo-setup skill reads `[CHECK]` blocks from the setup doc; no separate manifest",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-023 (`docs/adr/023-repo-setup-skill.md`); the pattern follows the `infra-setup` skill in infra-copilot",
+   "verification": null,
+   "revisit_when": "a setup step cannot carry a `[CHECK]` block, or the skill grows a parser instead of an LLM reader",
+   "see": [
+    {
+     "locator": "repo-setup.md#maintainer-repository-setup-has-one-actor-tagged-home-in-the-docs-tree",
+     "uuid": "4e0fcdab-d3b9-4f96-b61d-8e34927af98d",
+     "date": "2026-10-11",
+     "file": "repo-setup.md",
+     "anchor": "maintainer-repository-setup-has-one-actor-tagged-home-in-the-docs-tree",
+     "remote": null
+    },
+    {
+     "locator": "agent-instructions.md#ai-rulez-is-the-opt-in-single-source-for-agent-instructions-with-the-prose-in-shared-macros",
+     "uuid": "e1545d12-ac20-426b-9cd5-519e80a56b5f",
+     "date": "2026-10-11",
+     "file": "agent-instructions.md",
+     "anchor": "ai-rulez-is-the-opt-in-single-source-for-agent-instructions-with-the-prose-in-shared-macros",
+     "remote": null
+    },
+    {
+     "locator": "template-updates.md#copieryml-defines-no-_tasks",
+     "uuid": "86130379-1660-4992-8aba-8b6cd7b4a9f7",
+     "date": "2026-10-11",
+     "file": "template-updates.md",
+     "anchor": "copieryml-defines-no-_tasks",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "agent-instructions.md",
+    "template-updates.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "runtime-logging.md#an-unavailable-home-directory-permits-placeholders-not-shared-temp-logging",
+   "uuid": "1488d613-3cce-4249-ade8-3a6dacbaceec",
+   "file": "runtime-logging.md",
+   "line": 3,
+   "end_line": 32,
+   "title": "An unavailable home directory permits placeholders, not shared-temp logging",
+   "type": [
+    "decision",
+    "constraint"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "[PR #126](https://github.com/hasansezertasan/copier-pyproject/pull/126), [rejection of the temporary-log fallback](https://github.com/hasansezertasan/copier-pyproject/pull/126#issuecomment-5168172412); commit [f47e6fc](https://github.com/hasansezertasan/copier-pyproject/commit/f47e6fc4aa885851b671eb33772b472abcb24f26)",
+   "verification": "corroborated — `core/dirs.py.jinja` distinguishes home resolution from placeholder paths, and `core/logging_setup.py.jinja` disables file logging when home resolution fails",
+   "revisit_when": "logging initialization becomes lazy or the template adopts a verified user-private fallback directory",
+   "see": [],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "standalone-executables.md#three-architecture-named-executable-toggles-instead-of-one-brand-toggle",
+   "uuid": "d5aed1a0-0b7c-4ac3-9d75-fb9568d9e34d",
+   "file": "standalone-executables.md",
+   "line": 3,
+   "end_line": 38,
+   "title": "Three architecture-named executable toggles instead of one brand toggle",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-007 (`docs/adr/007-standalone-executable-toggles.md`)",
+   "verification": null,
+   "revisit_when": "a fourth standalone-executable architecture appears, or a category's strongest tool changes",
+   "see": [],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "standalone-executables.md#executables-are-named-per-tool-and-os-and-all-target-the-package-main-module",
+   "uuid": "1b37b4df-147f-4d71-8249-4003ecfe4302",
+   "file": "standalone-executables.md",
+   "line": 39,
+   "end_line": 73,
+   "title": "Executables are named per tool and OS and all target the package main module",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-007 (`docs/adr/007-standalone-executable-toggles.md`)",
+   "verification": null,
+   "revisit_when": "`attach-github-release` stops flattening downloaded artifacts by filename, or component selection moves out of `__main__.py`",
+   "see": [],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "standalone-executables.md#every-executable-toggle-adds-a-pr-time-build-check-job",
+   "uuid": "69443ac8-be5b-401a-b45d-53d19c54045c",
+   "file": "standalone-executables.md",
+   "line": 74,
+   "end_line": 93,
+   "title": "Every executable toggle adds a PR-time build-check job",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-007 (`docs/adr/007-standalone-executable-toggles.md`)",
+   "verification": null,
+   "revisit_when": "the test suite starts exercising the built binary, or the per-OS build cost outweighs the signal",
+   "see": [],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "supply-chain-security.md#provenance-minting-shares-the-protected-publication-boundary",
+   "uuid": "a0396603-cb34-4151-9d5b-1fc77eb31f6e",
+   "file": "supply-chain-security.md",
+   "line": 3,
+   "end_line": 43,
+   "title": "Provenance minting shares the protected publication boundary",
+   "type": [
+    "decision",
+    "constraint"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "[issue #185](https://github.com/hasansezertasan/copier-pyproject/issues/185), [PR #318](https://github.com/hasansezertasan/copier-pyproject/pull/318), review discussions on [private availability](https://github.com/hasansezertasan/copier-pyproject/pull/318#discussion_r4065991055) and [the trust boundary](https://github.com/hasansezertasan/copier-pyproject/pull/318#discussion_r4065991056); commit [cc7ce42](https://github.com/hasansezertasan/copier-pyproject/commit/cc7ce42b91d56a0a75901606f93e29afa0315ceb)",
+   "verification": "corroborated — the release build uses the `publish` environment, includes gated attestation steps and per-platform bundles, and installation docs constrain signer workflow and ref",
+   "revisit_when": "attestation availability, signer verification, or the publishing environment's branch policy changes",
+   "see": [],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "supply-chain-security.md#relationship-between-github-provenance-and-pypi-attestations",
+   "uuid": "09b24722-bfa5-460a-bbd7-05d8973b5389",
+   "file": "supply-chain-security.md",
+   "line": 44,
+   "end_line": 65,
+   "title": "Relationship between GitHub provenance and PyPI attestations",
+   "type": [
+    "decision"
+   ],
+   "status": "superseded",
+   "evidence": "unknown",
+   "source": "[issue #185](https://github.com/hasansezertasan/copier-pyproject/issues/185), PyPI-side integration question; [PR #318](https://github.com/hasansezertasan/copier-pyproject/pull/318)",
+   "verification": "uncorroborated — the reviewed sources establish the explicit GitHub provenance path, but no resolution of the PyPI-side overlap question was found",
+   "revisit_when": null,
+   "see": [
+    {
+     "locator": "supply-chain-security.md#provenance-minting-shares-the-protected-publication-boundary",
+     "uuid": "a0396603-cb34-4151-9d5b-1fc77eb31f6e",
+     "date": "2026-10-08",
+     "file": "supply-chain-security.md",
+     "anchor": "provenance-minting-shares-the-protected-publication-boundary",
+     "remote": null
+    }
+   ],
+   "superseded_by": "f5495121-8004-4652-b3ac-af71995c263a",
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "superseded",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "supply-chain-security.md#retain-build-provenance-and-publication-attestations-as-distinct-claims",
+   "uuid": "f5495121-8004-4652-b3ac-af71995c263a",
+   "file": "supply-chain-security.md",
+   "line": 66,
+   "end_line": 111,
+   "title": "Retain build provenance and publication attestations as distinct claims",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "current attestation review, 2026-10-08; [PyPI Publish predicate](https://docs.pypi.org/attestations/publish/v1/), [PyPI attestation production](https://docs.pypi.org/attestations/producing-attestations/), [GitHub artifact attestations](https://docs.github.com/en/actions/concepts/security/artifact-attestations); pinned PyPI action [dc37677](https://github.com/pypa/gh-action-pypi-publish/commit/dc37677b2e1c63e2034f94d8a5b11f265b73ba33), `action.yml` defaults and `attestations.py` signing implementation",
+   "verification": "corroborated — the build job emits SLSA provenance, the separate PyPI job uses default Trusted Publishing attestations, and both consume the same distribution artifacts without rebuilding",
+   "revisit_when": "the publishing action changes its default predicate or the workflow changes artifact transfer or attestation storage",
+   "see": [
+    {
+     "locator": "supply-chain-security.md#provenance-minting-shares-the-protected-publication-boundary",
+     "uuid": "a0396603-cb34-4151-9d5b-1fc77eb31f6e",
+     "date": "2026-10-08",
+     "file": "supply-chain-security.md",
+     "anchor": "provenance-minting-shares-the-protected-publication-boundary",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "supply-chain-security.md#unknown-scan-visibility-fails-open-private-audits-remain-useful",
+   "uuid": "8973c4ce-8e76-42fa-b69b-e52fc34eba50",
+   "file": "supply-chain-security.md",
+   "line": 112,
+   "end_line": 146,
+   "title": "Unknown scan visibility fails open; private audits remain useful",
+   "type": [
+    "decision",
+    "workaround"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "[issue #293](https://github.com/hasansezertasan/copier-pyproject/issues/293), [PR #294](https://github.com/hasansezertasan/copier-pyproject/pull/294), [PR #291](https://github.com/hasansezertasan/copier-pyproject/pull/291); commits [0e7fac8](https://github.com/hasansezertasan/copier-pyproject/commit/0e7fac8acb9d7b98f449380791212a7f58ed33f9) and [f19133d](https://github.com/hasansezertasan/copier-pyproject/commit/f19133d059f93c35136a81cb2cdebea017d9cf49)",
+   "verification": "corroborated — CodeQL and Scorecard coalesce visibility sources with a public default; zizmor selects public SARIF or private inline annotations",
+   "revisit_when": "GitHub documents a reliable visibility source for scheduled runs or private scanning availability changes",
+   "see": [],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "supply-chain-security.md#local-and-historical-secret-scanning-cover-different-failure-stages",
+   "uuid": "62d903d7-45bb-4790-b28a-f5dd1934983a",
+   "file": "supply-chain-security.md",
+   "line": 147,
+   "end_line": 173,
+   "title": "Local and historical secret scanning cover different failure stages",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "[issue #175](https://github.com/hasansezertasan/copier-pyproject/issues/175), [PR #236](https://github.com/hasansezertasan/copier-pyproject/pull/236); commit [825f420](https://github.com/hasansezertasan/copier-pyproject/commit/825f420cf4fafcc4444f85b108db84a21b4389e8); `docs/template-architecture.md`, secret scanning",
+   "verification": "corroborated — generated prek config includes detect-secrets and a baseline, while the security workflow retains gitleaks history scanning",
+   "revisit_when": "either scanner's execution stage or baseline-management contract changes",
+   "see": [],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "template-testing.md#render-and-inspect-is-the-fast-matrixed-layer-generate-and-run-stays-separate",
+   "uuid": "c9bcdf52-af5d-4438-9c9f-d55e8226812c",
+   "file": "template-testing.md",
+   "line": 3,
+   "end_line": 36,
+   "title": "Render-and-inspect is the fast matrixed layer; generate-and-run stays separate",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-024 (`docs/adr/024-render-and-inspect-template-test-suite.md`); issue #365 for the parallel run",
+   "verification": null,
+   "revisit_when": "the golden set grows past a couple of stable artifacts, or a root Python project appears",
+   "see": [
+    {
+     "locator": "template-testing.md#toolsrenderpy-is-the-only-place-the-template-is-rendered",
+     "uuid": "f41fa3a2-20e2-4ba5-a3d0-c53a0074a9d0",
+     "date": "2026-10-11",
+     "file": "template-testing.md",
+     "anchor": "toolsrenderpy-is-the-only-place-the-template-is-rendered",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "template-testing.md#generated-files-must-be-formatter-canonical-not-merely-valid",
+   "uuid": "9b931598-7e52-4ff1-bb07-ef65c01d5369",
+   "file": "template-testing.md",
+   "line": 37,
+   "end_line": 80,
+   "title": "Generated files must be formatter-canonical, not merely valid",
+   "type": [
+    "decision",
+    "constraint",
+    "incident"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-030 (`docs/adr/030-generated-files-must-be-formatter-canonical.md`); [issue #213](https://github.com/hasansezertasan/copier-pyproject/issues/213)",
+   "verification": null,
+   "revisit_when": "yamlfmt or taplo change the semantics of the pinned non-default knobs, or the generated project's formatter set changes",
+   "see": [
+    {
+     "locator": "template-testing.md#render-and-inspect-is-the-fast-matrixed-layer-generate-and-run-stays-separate",
+     "uuid": "c9bcdf52-af5d-4438-9c9f-d55e8226812c",
+     "date": "2026-10-11",
+     "file": "template-testing.md",
+     "anchor": "render-and-inspect-is-the-fast-matrixed-layer-generate-and-run-stays-separate",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "template-testing.md#collection-literals-are-rendered-through-one-shared-macro",
+   "uuid": "47b21a49-5fc4-46b8-b450-7d9f3225706c",
+   "file": "template-testing.md",
+   "line": 81,
+   "end_line": 106,
+   "title": "Collection literals are rendered through one shared macro",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-030, 2026-09 amendment (`docs/adr/030-generated-files-must-be-formatter-canonical.md`); the agent-prose macros in the same file are recorded in ADR-035",
+   "verification": null,
+   "revisit_when": "ruff-format changes its magic-trailing-comma or width behaviour, or Copier gains a way to share helpers inside `_subdirectory`",
+   "see": [
+    {
+     "locator": "template-testing.md#generated-files-must-be-formatter-canonical-not-merely-valid",
+     "uuid": "9b931598-7e52-4ff1-bb07-ef65c01d5369",
+     "date": "2026-10-11",
+     "file": "template-testing.md",
+     "anchor": "generated-files-must-be-formatter-canonical-not-merely-valid",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "template-testing.md#tools-render-py-is-the-only-place-the-template-is-rendered",
+   "uuid": "f41fa3a2-20e2-4ba5-a3d0-c53a0074a9d0",
+   "file": "template-testing.md",
+   "line": 107,
+   "end_line": 138,
+   "title": "`tools/render.py` is the only place the template is rendered",
+   "type": [
+    "decision",
+    "constraint"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-031 §1 (`docs/adr/031-single-render-entrypoint.md`); issues #181, #183, #164, #184",
+   "verification": null,
+   "revisit_when": "Copier's API changes, or a root `pyproject.toml` appears (it must keep the repo root importable under pytest)",
+   "see": [
+    {
+     "locator": "template-testing.md#render-and-inspect-is-the-fast-matrixed-layer-generate-and-run-stays-separate",
+     "uuid": "c9bcdf52-af5d-4438-9c9f-d55e8226812c",
+     "date": "2026-10-11",
+     "file": "template-testing.md",
+     "anchor": "render-and-inspect-is-the-fast-matrixed-layer-generate-and-run-stays-separate",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "template-testing.md#the-generated-project-tree-page-is-a-committed-derived-artifact-with-two-drift-guards",
+   "uuid": "54918c4d-49dd-4ce8-94a6-3d472010173f",
+   "file": "template-testing.md",
+   "line": 139,
+   "end_line": 171,
+   "title": "The generated-project tree page is a committed derived artifact with two drift guards",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-031 §2–3 (`docs/adr/031-single-render-entrypoint.md`); generalizes the cobo drift-guard posture of ADR-012",
+   "verification": null,
+   "revisit_when": "copier is pinned in the render path, or another derived artifact joins `regenerate`",
+   "see": [
+    {
+     "locator": "template-testing.md#toolsrenderpy-is-the-only-place-the-template-is-rendered",
+     "uuid": "f41fa3a2-20e2-4ba5-a3d0-c53a0074a9d0",
+     "date": "2026-10-11",
+     "file": "template-testing.md",
+     "anchor": "toolsrenderpy-is-the-only-place-the-template-is-rendered",
+     "remote": null
+    },
+    {
+     "locator": "ci-topology.md#network-dependent-checks-run-on-a-weekly-cron-never-in-the-merge-gate",
+     "uuid": "3e5b9525-9087-4125-b19f-80f6c226c01f",
+     "date": "2026-10-11",
+     "file": "ci-topology.md",
+     "anchor": "network-dependent-checks-run-on-a-weekly-cron-never-in-the-merge-gate",
+     "remote": null
+    },
+    {
+     "locator": "gitignore-generation.md#cobo-generates-the-gitignore-with-a-hash-sealed-fence-and-lockfiles",
+     "uuid": "3e3bc38e-bc1e-4e65-b74d-e91848262157",
+     "date": "2026-10-11",
+     "file": "gitignore-generation.md",
+     "anchor": "cobo-generates-the-gitignore-with-a-hash-sealed-fence-and-lockfiles",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "ci-topology.md",
+    "gitignore-generation.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "template-testing.md#the-watch-loop-is-an-authoring-aid-whose-target-is-validated-before-every-rebake",
+   "uuid": "36ddff82-32d4-4234-a9cf-ea40d694df58",
+   "file": "template-testing.md",
+   "line": 172,
+   "end_line": 190,
+   "title": "The watch loop is an authoring aid whose target is validated before every rebake",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-031 §5 (`docs/adr/031-single-render-entrypoint.md`)",
+   "verification": null,
+   "revisit_when": "the rebake stops removing its target tree",
+   "see": [
+    {
+     "locator": "template-testing.md#toolsrenderpy-is-the-only-place-the-template-is-rendered",
+     "uuid": "f41fa3a2-20e2-4ba5-a3d0-c53a0074a9d0",
+     "date": "2026-10-11",
+     "file": "template-testing.md",
+     "anchor": "toolsrenderpy-is-the-only-place-the-template-is-rendered",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "template-updates.md#renovate-s-copier-manager-delivers-downstream-updates-the-template-keeps-release-please-as-its-tag-source",
+   "uuid": "f26da4b3-8b97-4cfc-9aba-64eba4acf04f",
+   "file": "template-updates.md",
+   "line": 3,
+   "end_line": 42,
+   "title": "Renovate's copier manager delivers downstream updates; the template keeps release-please as its tag source",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-015 (`docs/adr/015-template-self-versioning-and-copier-update-automation.md`); prompted by [hwid#113](https://github.com/hasansezertasan/hwid/pull/113)",
+   "verification": null,
+   "revisit_when": "Renovate fails its artifacts check on conflict markers ([renovate#31600](https://github.com/renovatebot/renovate/issues/31600)), or the copier manager accepts Copier's `gh:` shorthand",
+   "see": [
+    {
+     "locator": "release-automation.md#release-please-is-the-sole-release-orchestrator",
+     "uuid": "7ec8a937-fd4d-41f2-96b7-824fe3be913b",
+     "date": "2026-10-11",
+     "file": "release-automation.md",
+     "anchor": "release-please-is-the-sole-release-orchestrator",
+     "remote": null
+    },
+    {
+     "locator": "template-updates.md#copieryml-defines-no-_tasks",
+     "uuid": "86130379-1660-4992-8aba-8b6cd7b4a9f7",
+     "date": "2026-10-11",
+     "file": "template-updates.md",
+     "anchor": "copieryml-defines-no-_tasks",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "release-automation.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "template-updates.md#copier-yml-defines-no-tasks",
+   "uuid": "86130379-1660-4992-8aba-8b6cd7b4a9f7",
+   "file": "template-updates.md",
+   "line": 43,
+   "end_line": 65,
+   "title": "`copier.yml` defines no `_tasks`",
+   "type": [
+    "decision",
+    "constraint"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-015 (`docs/adr/015-template-self-versioning-and-copier-update-automation.md`); the constraint is re-affirmed in ADR-018, ADR-023, ADR-024 and ADR-035",
+   "verification": null,
+   "revisit_when": "the hosted Renovate App allows `--trust`, or Copier marks tasks safe",
+   "see": [
+    {
+     "locator": "template-updates.md#renovates-copier-manager-delivers-downstream-updates-the-template-keeps-release-please-as-its-tag-source",
+     "uuid": "f26da4b3-8b97-4cfc-9aba-64eba4acf04f",
+     "date": "2026-10-11",
+     "file": "template-updates.md",
+     "anchor": "renovates-copier-manager-delivers-downstream-updates-the-template-keeps-release-please-as-its-tag-source",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "template-updates.md#shipped-template-pins-are-frozen-from-this-repository-s-renovate",
+   "uuid": "86e0af71-9614-42c1-9363-d16170d942a8",
+   "file": "template-updates.md",
+   "line": 66,
+   "end_line": 105,
+   "title": "Shipped `template/**` pins are frozen from this repository's Renovate",
+   "type": [
+    "decision",
+    "constraint"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-020 (`docs/adr/020-freeze-shipped-template-pins-from-renovate.md`); the confirmed conflict source was [PR #196](https://github.com/hasansezertasan/copier-pyproject/pull/196)",
+   "verification": null,
+   "revisit_when": "seed staleness becomes a security concern faster than downstream Renovate catches up, or Renovate learns to skip lines the downstream already moved",
+   "see": [
+    {
+     "locator": "template-updates.md#renovates-copier-manager-delivers-downstream-updates-the-template-keeps-release-please-as-its-tag-source",
+     "uuid": "f26da4b3-8b97-4cfc-9aba-64eba4acf04f",
+     "date": "2026-10-11",
+     "file": "template-updates.md",
+     "anchor": "renovates-copier-manager-delivers-downstream-updates-the-template-keeps-release-please-as-its-tag-source",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "template-updates.md#retired-template-modules-become-adopter-owned",
+   "uuid": "4dd6729a-697e-4588-a7a7-d37152018b6b",
+   "file": "template-updates.md",
+   "line": 106,
+   "end_line": 140,
+   "title": "Retired template modules become adopter-owned",
+   "type": [
+    "decision",
+    "constraint"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "[PR #333](https://github.com/hasansezertasan/copier-pyproject/pull/333), [version-sweep results](https://github.com/hasansezertasan/copier-pyproject/pull/333#issuecomment-5932489770); commits [c150ec3](https://github.com/hasansezertasan/copier-pyproject/commit/c150ec30519c1e1ddcc3fb05ffc7ea3ba4e85709) and [0f7a406](https://github.com/hasansezertasan/copier-pyproject/commit/0f7a4062c251828f00fb27f91d8648d13d4e339d)",
+   "verification": "corroborated — `copier.yml` excludes the retired paths and requires Copier 9.10.3; the update skill records the same compatibility floor",
+   "revisit_when": "Copier changes update-deletion semantics or a retired module is rendered again",
+   "see": [
+    {
+     "locator": "components.md#one-application-payload-in-coreapppy-components-are-adapters-over-it",
+     "uuid": "8bb1e55e-f468-44fc-80a5-d3b3719e5ddc",
+     "date": "2026-10-11",
+     "file": "components.md",
+     "anchor": "one-application-payload-in-coreapppy-components-are-adapters-over-it",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "components.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "template-updates.md#adoption-audits-preserve-behavior-before-consolidating-workflows",
+   "uuid": "dfd6cd98-9d07-4dc4-b58f-d1343d636ea4",
+   "file": "template-updates.md",
+   "line": 141,
+   "end_line": 172,
+   "title": "Adoption audits preserve behavior before consolidating workflows",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "[issue #348](https://github.com/hasansezertasan/copier-pyproject/issues/348), [PR #349](https://github.com/hasansezertasan/copier-pyproject/pull/349); commit [0abcffc](https://github.com/hasansezertasan/copier-pyproject/commit/0abcffc525ed4a558ecb80649a1b6e9a231c5ff5); `docs/template-adoption.md`",
+   "verification": "corroborated — the shipped `template-adoption` skill and its walkthrough compare behavior and preserve customizations; the older update skill now shares that contract",
+   "revisit_when": "the adoption and update skills change their reconciliation contract",
+   "see": [
+    {
+     "locator": "repo-setup.md#a-resume-driven-repo-setup-skill-reads-check-blocks-from-the-setup-doc-no-separate-manifest",
+     "uuid": "68ac4665-dcde-456b-aef7-2faaf6fe51f4",
+     "date": "2026-10-11",
+     "file": "repo-setup.md",
+     "anchor": "a-resume-driven-repo-setup-skill-reads-check-blocks-from-the-setup-doc-no-separate-manifest",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "repo-setup.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "template-updates.md#which-reconciliation-policy-governs-machine-config-and-ci-conflicts",
+   "uuid": "3f155d92-8518-4294-bfcd-26251c36e2e1",
+   "file": "template-updates.md",
+   "line": 173,
+   "end_line": 192,
+   "title": "Which reconciliation policy governs machine-config and CI conflicts?",
+   "type": [
+    "constraint"
+   ],
+   "status": "superseded",
+   "evidence": "unknown",
+   "source": "`skills/update/SKILL.md`, Shared reconciliation; the shipped `template-adoption` skill; [PR #349](https://github.com/hasansezertasan/copier-pyproject/pull/349)",
+   "verification": "uncorroborated — the original justification for category-based precedence could not be established; the conflicting wording found during recovery has since been replaced",
+   "revisit_when": null,
+   "see": [
+    {
+     "locator": "template-updates.md#adoption-audits-preserve-behavior-before-consolidating-workflows",
+     "uuid": "dfd6cd98-9d07-4dc4-b58f-d1343d636ea4",
+     "date": "2026-10-08",
+     "file": "template-updates.md",
+     "anchor": "adoption-audits-preserve-behavior-before-consolidating-workflows",
+     "remote": null
+    }
+   ],
+   "superseded_by": "9a6bf00c-33c1-4f0c-962e-7e960f9d2d58",
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "superseded",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "template-updates.md#update-and-adoption-skills-share-preservation-first-reconciliation",
+   "uuid": "9a6bf00c-33c1-4f0c-962e-7e960f9d2d58",
+   "file": "template-updates.md",
+   "line": 193,
+   "end_line": 227,
+   "title": "Update and adoption skills share preservation-first reconciliation",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "maintainer-approved reconciliation-policy review, 2026-10-08; `docs/template-adoption.md`; `skills/update/SKILL.md`",
+   "verification": "corroborated — the older update skill now preserves custom behavior, requires evidence for equivalence, and delegates repository-settings transitions to `repo-setup`",
+   "revisit_when": "either skill changes its scope or introduces a conflicting reconciliation policy",
+   "see": [
+    {
+     "locator": "template-updates.md#adoption-audits-preserve-behavior-before-consolidating-workflows",
+     "uuid": "dfd6cd98-9d07-4dc4-b58f-d1343d636ea4",
+     "date": "2026-10-08",
+     "file": "template-updates.md",
+     "anchor": "adoption-audits-preserve-behavior-before-consolidating-workflows",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "templating-engine.md#copier-over-cookiecutter-cruft-yeoman-and-github-template-repositories",
+   "uuid": "25fa2def-a118-4f60-9117-89ab50da4cf2",
+   "file": "templating-engine.md",
+   "line": 3,
+   "end_line": 36,
+   "title": "Copier over Cookiecutter, Cruft, Yeoman and GitHub template repositories",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-001 (`docs/adr/001-copier-over-cookiecutter.md`)",
+   "verification": null,
+   "revisit_when": "`copier update` stops being a first-class feature, or a Python-native alternative gains native template-update support",
+   "see": [],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "testing-strategy.md#the-worker-exposes-an-env-injectable-broker-factory-lazy-broker-imports-were-rejected",
+   "uuid": "b00a3a49-7fbf-4d87-98fa-73519b994c8e",
+   "file": "testing-strategy.md",
+   "line": 3,
+   "end_line": 33,
+   "title": "The worker exposes an env-injectable broker factory; lazy broker imports were rejected",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-008 §1 and its implementation revision note (`docs/adr/008-worker-broker-testing-strategy.md`); the pattern was proven in litestar-faststream and [litestar-events#9](https://github.com/hasansezertasan/litestar-events/pull/9)",
+   "verification": null,
+   "revisit_when": "a worker gains a second broker, or FastStream changes how a broker is constructed",
+   "see": [
+    {
+     "locator": "components.md#component-dependencies-are-core-dependencies-there-is-no-empty-all-extra",
+     "uuid": "e9b25624-f621-4071-bd99-a7cde620189a",
+     "date": "2026-10-11",
+     "file": "components.md",
+     "anchor": "component-dependencies-are-core-dependencies-there-is-no-empty-all-extra",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "components.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "testing-strategy.md#real-broker-integration-tests-testcontainers-locally-per-broker-ci-mechanism",
+   "uuid": "73e209d9-60ad-4492-9807-28192b480480",
+   "file": "testing-strategy.md",
+   "line": 34,
+   "end_line": 81,
+   "title": "Real-broker integration tests: testcontainers locally, per-broker CI mechanism",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-008 §2 and its 2026-08 amendment (`docs/adr/008-worker-broker-testing-strategy.md`); issues #169 and #166",
+   "verification": null,
+   "revisit_when": "GitHub service containers can override the image command, Kafka/RabbitMQ gain a usable readiness probe, or Docker becomes available on non-Linux runners",
+   "see": [
+    {
+     "locator": "testing-strategy.md#the-worker-exposes-an-env-injectable-broker-factory-lazy-broker-imports-were-rejected",
+     "uuid": "b00a3a49-7fbf-4d87-98fa-73519b994c8e",
+     "date": "2026-10-11",
+     "file": "testing-strategy.md",
+     "anchor": "the-worker-exposes-an-env-injectable-broker-factory-lazy-broker-imports-were-rejected",
+     "remote": null
+    },
+    {
+     "locator": "ci-topology.md#per-component-markers-path-filtered-jobs-and-one-coverage-gate-per-component",
+     "uuid": "467b6cc3-775b-4e4c-9a8e-b0d1c3d733ac",
+     "date": "2026-10-11",
+     "file": "ci-topology.md",
+     "anchor": "per-component-markers-path-filtered-jobs-and-one-coverage-gate-per-component",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "ci-topology.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "testing-strategy.md#coverage-exclusions-are-per-site-pragmas-and-the-globs-must-match-the-installed-layout",
+   "uuid": "68366ce3-cc8e-4720-aa91-5eb83aaf2e2d",
+   "file": "testing-strategy.md",
+   "line": 82,
+   "end_line": 117,
+   "title": "Coverage exclusions are per-site pragmas, and the globs must match the installed layout",
+   "type": [
+    "decision",
+    "incident"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-008, Consequences — systemic coverage fix (`docs/adr/008-worker-broker-testing-strategy.md`)",
+   "verification": null,
+   "revisit_when": "tox stops installing the built wheel/sdist, or coverage changes how `paths` remapping works",
+   "see": [
+    {
+     "locator": "testing-strategy.md#interactive-components-expose-injected-driver-seams-so-headless-ci-measures-everything-but-the-blocking-call",
+     "uuid": "ffcf90f2-34c7-4673-bbe2-5619c6b23128",
+     "date": "2026-10-11",
+     "file": "testing-strategy.md",
+     "anchor": "interactive-components-expose-injected-driver-seams-so-headless-ci-measures-everything-but-the-blocking-call",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "testing-strategy.md#interactive-components-expose-injected-driver-seams-so-headless-ci-measures-everything-but-the-blocking-call",
+   "uuid": "ffcf90f2-34c7-4673-bbe2-5619c6b23128",
+   "file": "testing-strategy.md",
+   "line": 118,
+   "end_line": 158,
+   "title": "Interactive components expose injected driver seams so headless CI measures everything but the blocking call",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-035 (`docs/adr/035-headless-testing-for-interactive-components.md`); issue #176",
+   "verification": null,
+   "revisit_when": "a component's blocking call becomes swappable at the module level, or a new interactive component is added",
+   "see": [
+    {
+     "locator": "testing-strategy.md#coverage-exclusions-are-per-site-pragmas-and-the-globs-must-match-the-installed-layout",
+     "uuid": "68366ce3-cc8e-4720-aa91-5eb83aaf2e2d",
+     "date": "2026-10-11",
+     "file": "testing-strategy.md",
+     "anchor": "coverage-exclusions-are-per-site-pragmas-and-the-globs-must-match-the-installed-layout",
+     "remote": null
+    },
+    {
+     "locator": "components.md#one-application-payload-in-coreapppy-components-are-adapters-over-it",
+     "uuid": "8bb1e55e-f468-44fc-80a5-d3b3719e5ddc",
+     "date": "2026-10-11",
+     "file": "components.md",
+     "anchor": "one-application-payload-in-coreapppy-components-are-adapters-over-it",
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [
+    "components.md"
+   ],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "testing-strategy.md#async-testing-is-an-explicit-template-axis-async-style",
+   "uuid": "e3dc1ec0-0579-4fc9-ac79-413d64550b9a",
+   "file": "testing-strategy.md",
+   "line": 159,
+   "end_line": 182,
+   "title": "Async testing is an explicit template axis (`async_style`)",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "ADR-036 (`docs/adr/036-async-testing-style.md`)",
+   "verification": null,
+   "revisit_when": "an async-capable component gains trio support, or pytest ships a built-in async runner",
+   "see": [],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-11",
+     "commit": "5bdf627"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Oliver Zehentleitner AIgent",
+      "date": "2026-10-11",
+      "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  }
+ ],
+ "authors": [
+  {
+   "name": "Oliver Zehentleitner AIgent",
+   "created": 90,
+   "touched": 90,
+   "superseded": 3,
+   "first": "2026-10-11",
+   "last": "2026-10-11",
+   "evidence": {
+    "confirmed": 88,
+    "unknown": 2
+   }
+  }
+ ],
+ "anonymized": false,
+ "findings": {
+  "errors": 0,
+  "warnings": 1,
+  "items": [
+   {
+    "severity": "warning",
+    "code": "W301",
+    "path": "context/lint-orchestration.md",
+    "line": 148,
+    "message": "base64-looking blob (65 chars) — if it needs decoding to be read, it doesn't belong in an entry meant to be read"
+   }
+  ]
+ },
+ "exported": true,
+ "bodies": "state.body.json"
+}

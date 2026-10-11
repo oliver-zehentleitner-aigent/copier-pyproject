@@ -1,0 +1,1104 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Copier template for a modern, typed Python package/CLI with uv, hatch, tox, and GitHub automation baked in.">
+      
+      
+      
+        <link rel="canonical" href="https://hasansezertasan.github.io/copier-pyproject/adr/017-opt-in-homebrew-scoop-distribution/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>ADR-017: Opt-in Homebrew tap and Scoop bucket distribution - copier-pyproject</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#adr-017-opt-in-homebrew-tap-and-scoop-bucket-distribution" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="copier-pyproject" class="md-header__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            copier-pyproject
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ADR-017: Opt-in Homebrew tap and Scoop bucket distribution
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="copier-pyproject" class="md-nav__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    copier-pyproject
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../template-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generated-project-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated project trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hook-coverage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated-project check coverage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../template-adoption/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template adoption and update audits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture decision records
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture decision records
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why it is built this way
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Why it is built this way
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../context/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://hasansezertasan.github.io/copier-pyproject/dashboard/live/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard ↗
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Status
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Decision">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#two-independent-opt-in-toggles-gated-on-is_app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two independent, opt-in toggles, gated on is_app
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dispatch-not-generation-the-tapbucket-own-the-manifest-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dispatch, not generation: the tap/bucket own the manifest logic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#binary-vs-pypi-payload-via-primary_executable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Binary-vs-PyPI payload via primary_executable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dispatch-jobs-live-inside-releaseyml-not-a-separate-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dispatch jobs live inside release.yml, not a separate workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross-repo-pat-gated-on-secret-non-blocking-contents-write-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-repo PAT, gated-on-secret, non-blocking, Contents-write only
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documented-one-time-setup-delegated-to-the-packaging-reference-bundle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documented one-time setup, delegated to the packaging reference bundle
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consequences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consequences
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Consequences">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#known-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Known limitations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="adr-017-opt-in-homebrew-tap-and-scoop-bucket-distribution">ADR-017: Opt-in Homebrew tap and Scoop bucket distribution<a class="headerlink" href="#adr-017-opt-in-homebrew-tap-and-scoop-bucket-distribution" title="Permanent link">&para;</a></h1>
+<h2 id="status">Status<a class="headerlink" href="#status" title="Permanent link">&para;</a></h2>
+<p>Accepted (2026-08). Supersedes the in-repo-generation design this ADR
+originally proposed: the generated project no longer renders or pushes a
+formula/manifest itself. See "Dispatch, not generation" below.</p>
+<h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
+<p>Standalone-application projects generated by this template (CLI/GUI/TUI/web/MCP/
+worker — see <a href="../007-standalone-executable-toggles/">ADR-007</a>) are installed
+either from PyPI or as a prebuilt executable attached to a GitHub Release. Two
+package-manager ecosystems that end users commonly expect for command-line
+tools are not covered by either path:</p>
+<ul>
+<li><strong>Homebrew</strong>, via a per-owner "tap" repository (<code>&lt;owner&gt;/homebrew-tap</code>)
+  holding a formula or cask file.</li>
+<li><strong>Scoop</strong> (Windows), via a per-owner "bucket" repository
+  (<code>&lt;owner&gt;/scoop-bucket</code>) holding a manifest file.</li>
+</ul>
+<p>Both ecosystems follow the same shape as the ADR-009 trio (Sourcery,
+SonarCloud, all-contributors): they depend on an <strong>external, per-owner
+repository</strong> the project owner must create out-of-band, and a <strong>cross-repo
+secret</strong> (a PAT, not the workflow's own <code>GITHUB_TOKEN</code>) to reach it. A project
+generated with these always on would fail on first release for every owner who
+has not created the tap/bucket repo, violating the template's self-contained,
+green-on-first-push default.</p>
+<p>Distribution to a tap/bucket is also meaningless for a pure <strong>library</strong> —
+nothing to install as a command-line tool — so the toggles should not even be
+offered in that shape.</p>
+<h2 id="decision">Decision<a class="headerlink" href="#decision" title="Permanent link">&para;</a></h2>
+<h3 id="two-independent-opt-in-toggles-gated-on-is_app">Two independent, opt-in toggles, gated on <code>is_app</code><a class="headerlink" href="#two-independent-opt-in-toggles-gated-on-is_app" title="Permanent link">&para;</a></h3>
+<p><code>copier.yml</code> carries <code>include_homebrew</code> and <code>include_scoop</code>, both
+<code>default: false</code> (seeded from <code>preset_map</code> like every other toggle) and both
+<code>when: "{{ is_app }}"</code>, where <code>is_app</code> is a hidden (<code>when: false</code>) computed
+variable:</p>
+<div class="highlight"><pre><span></span><code><span class="x">is_app: "</span><span class="cp">{{</span> <span class="nv">include_cli</span> <span class="k">or</span> <span class="nv">include_gui</span> <span class="k">or</span> <span class="nv">include_tui</span> <span class="k">or</span> <span class="nv">include_web</span> <span class="k">or</span> <span class="nv">include_mcp</span> <span class="k">or</span> <span class="nv">include_worker</span> <span class="cp">}}</span><span class="x">"</span>
+</code></pre></div>
+<p>They are independent, not a <code>homebrew_scoop</code> enum or a shared parent toggle —
+an owner may want only one ecosystem, mirroring the independent-boolean
+precedent in <a href="../007-standalone-executable-toggles/">ADR-007</a> and
+<a href="../009-optional-external-quality-community-integrations/">ADR-009</a>.</p>
+<h3 id="dispatch-not-generation-the-tapbucket-own-the-manifest-logic">Dispatch, not generation: the tap/bucket own the manifest logic<a class="headerlink" href="#dispatch-not-generation-the-tapbucket-own-the-manifest-logic" title="Permanent link">&para;</a></h3>
+<p>The generated project does <strong>not</strong> compute a formula/cask/manifest, does not
+compute a sha256, and does not open a PR against the tap/bucket. Instead, its
+<code>release.yml</code> fires a <code>repository_dispatch</code> event at the owner's own
+<code>homebrew-tap</code>/<code>scoop-bucket</code> repository (the "keycast" pattern — validated
+against the real <a href="https://github.com/hasansezertasan/keycast"><code>hasansezertasan/keycast</code></a>
+project and its companion
+<a href="https://github.com/hasansezertasan/homebrew-tap"><code>homebrew-tap</code></a>/
+<a href="https://github.com/hasansezertasan/scoop-bucket"><code>scoop-bucket</code></a> repos). A
+listener workflow living <em>in the tap/bucket</em> receives the event and does the
+actual manifest work using each ecosystem's own maintained tooling:</p>
+<ul>
+<li>Homebrew: <code>brew bump-formula-pr</code> / <code>brew bump-cask-pr</code>, plus
+  <code>brew update-python-resources</code> to resolve a formula's Python <code>resource</code>
+  blocks.</li>
+<li>Scoop: the bucket's own <code>checkver</code>/<code>autoupdate</code> scripts (the
+  <code>ScoopInstaller/BucketTemplate</code> convention), or a bucket-provided updater
+  script.</li>
+</ul>
+<p>This is a deliberate change from generating the manifest in the producing
+repo. Reimplementing sha256 computation, PyPI resource resolution, per-OS
+asset-name matching, and Homebrew/Scoop's own audit rules <em>inside every
+generated project</em> means that logic — and its bugs (escaping, <code>checkver</code>
+drift, malformed resource blocks, asset-name mismatches) — is duplicated once
+per generated project instead of living in one place, written with the tools
+each ecosystem already maintains for exactly this job. Dispatching keeps that
+logic in a single downstream location (the tap/bucket itself), reviewable and
+fixable independently of any one generated project.</p>
+<p>A reference listener workflow and setup guide for each ecosystem ships under
+<code>docs/packaging/homebrew-tap/</code> and <code>docs/packaging/scoop-bucket/</code> in the
+generated project — a <strong>rendered reference bundle</strong>, not code the generated
+project runs. It is meant to be copied into the owner's tap/bucket repository
+once, during that repository's one-time setup.</p>
+<h3 id="binary-vs-pypi-payload-via-primary_executable">Binary-vs-PyPI payload via <code>primary_executable</code><a class="headerlink" href="#binary-vs-pypi-payload-via-primary_executable" title="Permanent link">&para;</a></h3>
+<p>Whether the tap/bucket ends up building from a prebuilt binary or a
+PyPI/virtualenv install is decided by a single hidden computed variable,
+<code>primary_executable</code>, so the choice lives in one place rather than being
+re-derived per template:</p>
+<div class="highlight"><pre><span></span><code><span class="x">primary_executable: "</span><span class="cp">{%</span> <span class="k">if</span> <span class="nv">include_freezer</span> <span class="cp">%}</span><span class="x">freezer</span><span class="cp">{%</span> <span class="k">elif</span> <span class="nv">include_compiler</span> <span class="cp">%}</span><span class="x">compiler</span><span class="cp">{%</span> <span class="k">elif</span> <span class="nv">include_launcher</span> <span class="cp">%}</span><span class="x">launcher</span><span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x">"</span>
+</code></pre></div>
+<p>Precedence is <strong><code>freezer</code> &gt; <code>compiler</code> &gt; <code>launcher</code></strong>: PyInstaller
+(<code>freezer</code>) and Nuitka (<code>compiler</code>) produce fully self-contained binaries with
+no runtime dependency, while the PyCrucible launcher (<code>launcher</code>) still needs
+network access on first run to bootstrap Python + deps — the least
+self-contained of the three, so it is the fallback of last resort among
+executable toggles. When none of the three executable toggles are enabled,
+<code>primary_executable</code> is empty and both ecosystems fall back to a PyPI install
+instead of a binary download.</p>
+<p><code>primary_executable</code> selects the <strong>event type</strong> and Homebrew artifact kind:
+non-empty ⇒ a Homebrew <strong>cask</strong> (<code>update-cask</code>, binary asset from the GitHub
+release) and a Scoop binary-zip manifest; empty ⇒ a Homebrew <strong>formula</strong>
+(<code>update-formula</code>, built from the PyPI sdist) and a Scoop pipx manifest. This
+mirrors <code>primary_component</code>'s existing role as the single source of truth for
+console-script precedence (CLI &gt; GUI &gt; TUI &gt; web &gt; MCP &gt; worker) —
+<code>primary_executable</code> is the analogous single source of truth for the
+distribution payload, and no template re-spells the <code>freezer</code>/<code>compiler</code>/
+<code>launcher</code> ordering inline.</p>
+<h3 id="dispatch-jobs-live-inside-releaseyml-not-a-separate-workflow">Dispatch jobs live inside <code>release.yml</code>, not a separate workflow<a class="headerlink" href="#dispatch-jobs-live-inside-releaseyml-not-a-separate-workflow" title="Permanent link">&para;</a></h3>
+<p><code>bump-homebrew</code> and <code>bump-scoop</code> are jobs added to the existing unified
+<code>release.yml</code>, <code>needs: [release-please, finalize-release]</code> (the same
+dependency <code>deploy-docs</code> and <code>notify-released-issues</code> use) — <strong>not</strong> a
+workflow reacting to the <code>release: published</code> event. A <code>release: published</code>
+event fired by <code>finalize-release</code>'s own <code>GITHUB_TOKEN</code> cannot trigger another
+<code>on: release</code> workflow — the same loop-prevention rule already documented for
+<code>deploy-docs</code> in AGENTS.md. Living inside <code>release.yml</code> also gives the jobs
+direct access to <code>needs.release-please.outputs.version</code> without re-deriving it
+from a ref.</p>
+<p>Each job's body is a single <code>gh api repos/&lt;owner&gt;/&lt;tap-or-bucket&gt;/dispatches
+--method POST</code> call carrying an <code>event_type</code> (<code>update-formula</code> /
+<code>update-cask</code> / <code>update-manifest</code>) and a minimal <code>client_payload</code>
+(<code>{formula|cask|package, version}</code>). No formula/manifest content crosses the
+wire — only the package name and version the listener needs to run its own
+bump tooling.</p>
+<h3 id="cross-repo-pat-gated-on-secret-non-blocking-contents-write-only">Cross-repo PAT, gated-on-secret, non-blocking, Contents-write only<a class="headerlink" href="#cross-repo-pat-gated-on-secret-non-blocking-contents-write-only" title="Permanent link">&para;</a></h3>
+<p>Firing a <code>repository_dispatch</code> at a separate <code>homebrew-tap</code>/<code>scoop-bucket</code>
+repository needs a fine-grained PAT scoped to that repo — but the
+<code>POST /repos/{owner}/{repo}/dispatches</code> API requires only <strong>Contents: write</strong>
+on the target repo. The tap/bucket's listener workflow opens its own PR using
+its <em>own</em> <code>GITHUB_TOKEN</code>, not the dispatching PAT, so the PAT needs <strong>no</strong>
+<code>Pull requests</code> scope at all — a narrower grant than the original design in
+this ADR called for.</p>
+<p>Each job follows the same gated-on-secret, non-blocking pattern the template
+already uses for Codecov and the ADR-009 SonarCloud job:</p>
+<ul>
+<li><code>HOMEBREW_TAP_TOKEN</code> gates <code>bump-homebrew</code>, <code>SCOOP_BUCKET_TOKEN</code> gates
+  <code>bump-scoop</code> — both read via <code>GH_TOKEN</code> and an empty-string check, since the
+  <code>secrets</code> context is unavailable directly in <code>if:</code>.</li>
+<li>When the secret is unset, the job <strong>skips with a visible <code>::warning::</code></strong>
+  rather than failing — a project owner who has enabled the toggle but not
+  yet created the tap/bucket repo (or set the secret) never gets a red
+  release.</li>
+<li>Neither job is wired into the <code>check</code> CI gate; both are release-time-only.</li>
+<li>Both jobs declare <code>permissions: {}</code> — the dispatch call authenticates via
+  the PAT in <code>GH_TOKEN</code>, not the workflow's own <code>GITHUB_TOKEN</code>.</li>
+</ul>
+<h3 id="documented-one-time-setup-delegated-to-the-packaging-reference-bundle">Documented one-time setup, delegated to the packaging reference bundle<a class="headerlink" href="#documented-one-time-setup-delegated-to-the-packaging-reference-bundle" title="Permanent link">&para;</a></h3>
+<p>Creating the <code>homebrew-tap</code>/<code>scoop-bucket</code> repository, bootstrapping its
+initial formula/cask/manifest, installing the listener workflow, and minting
+the PAT is manual, one-time, out-of-band setup — not automated by the
+template (mirroring the ADR-009 "install the GitHub App" / "create the
+SonarCloud org" steps). The generated <code>CONTRIBUTING.md</code>'s repository-setup
+section states the PAT/secret requirement per toggle and points to the full
+walkthrough in <code>docs/packaging/homebrew-tap/README.md</code> /
+<code>docs/packaging/scoop-bucket/README.md</code> rather than duplicating it — those
+READMEs are the detailed, ecosystem-specific setup guide (repo creation,
+bootstrapping the initial artifact with <code>brew create</code>/<code>brew tap-new</code> or
+<code>ScoopInstaller/BucketTemplate</code>, installing the listener, and minting the
+PAT with the correct scope).</p>
+<h2 id="consequences">Consequences<a class="headerlink" href="#consequences" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Two <code>copier.yml</code> booleans (<code>include_homebrew</code>, <code>include_scoop</code>), both
+  <code>default: false</code>, both <code>when: "{{ is_app }}"</code> — never asked for a library.</li>
+<li>Two hidden (<code>when: false</code>) computed variables: <code>is_app</code> (any runnable
+  component enabled) and <code>primary_executable</code> (<code>freezer</code> &gt; <code>compiler</code> &gt;
+  <code>launcher</code>, empty ⇒ PyPI fallback).</li>
+<li><code>release.yml.jinja</code> gains <code>bump-homebrew</code>/<code>bump-scoop</code> jobs,
+  <code>needs: [release-please, finalize-release]</code>, each gated on its own
+  secret-presence check and skipping with a <code>::warning::</code> rather than failing
+  when unset. They must stay zizmor/ghalint-green like every workflow:
+  <code>permissions: {}</code>, <code>timeout-minutes</code>, no committed manifest logic to audit.</li>
+<li><code>docs/packaging/homebrew-tap/</code> and <code>docs/packaging/scoop-bucket/</code> ship a
+  reference listener workflow (<code>update-{formula,cask}-dispatch.yml</code> /
+  <code>update-manifest-dispatch.yml</code>) plus a setup <code>README.md</code>, rendered into
+  every generated project as a copy-into-your-tap reference bundle — not code
+  the generated project itself runs.</li>
+<li><code>README.md.jinja</code> and <code>docs/installation.rst.jinja</code> conditionally document
+  the <code>brew install &lt;owner&gt;/tap/&lt;pkg&gt;</code> (or <code>brew install --cask …</code> when
+  <code>primary_executable</code> is set) / <code>scoop bucket add</code> / <code>scoop install &lt;pkg&gt;</code>
+  end-user install flows behind their toggles.</li>
+<li><code>template/.github/CONTRIBUTING.md.jinja</code>'s repository-setup section
+  documents the <code>HOMEBREW_TAP_TOKEN</code>/<code>SCOOP_BUCKET_TOKEN</code> secret (fine-grained
+  PAT, <strong>Contents: write</strong> only, no <code>Pull requests</code> scope) for each enabled
+  toggle, and links to the <code>docs/packaging/*/README.md</code> walkthrough for the
+  rest of the one-time setup.</li>
+<li>The AGENTS.md "Optional components" list carries both toggles, linking here.</li>
+</ul>
+<h3 id="known-limitations">Known limitations<a class="headerlink" href="#known-limitations" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Single-arch binaries.</strong> The release build matrix
+  (<code>build-{launcher,freezer,compiler}</code>) is per-<strong>OS</strong>, not per-architecture, so
+  each formula/manifest can reference only one binary per OS (the runner's
+  native arch). A tap/bucket consumer on a different architecture (e.g.
+  Apple Silicon vs. Intel, when the runner only builds one) does not get a
+  matching binary asset. Extending the build matrix to per-arch is out of
+  scope for this ADR.</li>
+<li><strong>Best-effort Scoop PyPI fallback.</strong> When no executable toggle is enabled,
+  the Scoop manifest falls back to installing from PyPI via <code>pipx</code> rather than
+  a binary — but Scoop's ecosystem and tooling are built around binary
+  downloads, so this fallback is a lower-fidelity, best-effort path. Pairing
+  <code>include_scoop</code> with an executable toggle (per its <code>help</code> text) is the
+  intended combination; the PyPI fallback exists so the toggle still does
+  something useful on its own rather than being blocked on another toggle.</li>
+<li><strong>The listener is not validated by this template's own test suite.</strong> The
+  reference listener workflows under <code>docs/packaging/</code> run inside the
+  tap/bucket repository, not the generated project, so this template's tests
+  can only assert that the dispatch payload and reference bundle render
+  correctly — not that a real tap/bucket successfully bumps a formula. The
+  keycast tap/bucket repos are the live, exercised reference implementation.</li>
+<li><strong>Payload validation is the listener's responsibility.</strong> Because the
+  producing project sends only <code>{package|formula|cask, version}</code> and no
+  manifest content, the listener workflow in the tap/bucket must validate
+  that payload (env-scoped, regex-checked) before acting on it — this ADR's
+  reference listeners do so, but a hand-written listener that skips
+  validation would be trusting unauthenticated-looking input from whatever
+  holds the PAT.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "navigation.footer", "content.code.copy", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1190 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Copier template for a modern, typed Python package/CLI with uv, hatch, tox, and GitHub automation baked in.">
+      
+      
+      
+        <link rel="canonical" href="https://hasansezertasan.github.io/copier-pyproject/adr/035-ai-rulez-as-the-agent-instruction-source/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>ADR-035: ai-rulez as the opt-in single source for agent instructions - copier-pyproject</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#adr-035-ai-rulez-as-the-opt-in-single-source-for-agent-instructions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="copier-pyproject" class="md-header__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            copier-pyproject
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ADR-035: ai-rulez as the opt-in single source for agent instructions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="copier-pyproject" class="md-nav__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    copier-pyproject
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../template-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generated-project-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated project trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hook-coverage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated-project check coverage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../template-adoption/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template adoption and update audits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture decision records
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture decision records
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why it is built this way
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Why it is built this way
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../context/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://hasansezertasan.github.io/copier-pyproject/dashboard/live/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard ↗
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Status
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Decision">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-prose-has-one-source-whichever-way-it-renders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The prose has one source, whichever way it renders
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-generated-output-is-build-output-the-template-renders-none-of-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Generated output is build output — the template renders none of it
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-builtins-false-no-builtin-domains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. builtins = false — no builtin domains
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-gitignore-false-ai-rulez-must-not-touch-gitignore" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. gitignore = false — ai-rulez must not touch .gitignore
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-one-version-pin-in-a-group-nothing-else-drags-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. One version pin, in a group nothing else drags in
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-two-gates-because-a-fixing-hook-alone-is-not-one" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Two gates, because a fixing hook alone is not one
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-the-two-generators-are-proven-to-converge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. The two generators are proven to converge
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-migrating-an-existing-project-in-both-directions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Migrating an existing project, in both directions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consequences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consequences
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#amendment-2026-10-no-claudemd-by-default-no-gemini-host" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Amendment (2026-10): no CLAUDE.md by default, no gemini host
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="adr-035-ai-rulez-as-the-opt-in-single-source-for-agent-instructions">ADR-035: ai-rulez as the opt-in single source for agent instructions<a class="headerlink" href="#adr-035-ai-rulez-as-the-opt-in-single-source-for-agent-instructions" title="Permanent link">&para;</a></h1>
+<h2 id="status">Status<a class="headerlink" href="#status" title="Permanent link">&para;</a></h2>
+<p>Accepted (2026-09), amended (2026-10). Opt-in via <code>include_ai_rulez</code>. Extends
+<a href="../023-repo-setup-skill/">ADR-023</a> (the repo-setup skill) beyond Claude, obeys
+<a href="../012-cobo-for-gitignore-generation/">ADR-012</a>'s sealed <code>.gitignore</code>,
+<a href="../003-tox-as-canonical-lint-runner/">ADR-003</a>'s single lint orchestrator and
+<a href="../030-generated-files-must-be-formatter-canonical/">ADR-030</a>'s
+formatter-canonical rule, and is verified by
+<a href="../024-render-and-inspect-template-test-suite/">ADR-024</a>'s harness. Resolves
+issue #309.</p>
+<h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
+<p>A generated project ships agent instructions for <strong>two</strong> hosts: <code>AGENTS.md</code>
+carries the content (commands, the import-linter package-structure table, the
+conventions, the PR/branch rules) and a five-line <code>CLAUDE.md</code> <code>@AGENTS.md</code>-imports
+it. The <code>repo-setup</code> skill (ADR-023) — the most valuable agent-facing artifact
+the template renders — is authored directly in <code>.claude/skills/</code>, so it is
+<strong>Claude-only</strong>.</p>
+<p>The same project's <code>check-branch-name.yml</code> whitelists the branch prefixes <code>ai</code>,
+<code>copilot</code>, <code>cursor</code>, <code>claude</code> and <code>codex</code>. We already expect five agents to open
+PRs in these repos and hand four of them nothing: no
+<code>.github/copilot-instructions.md</code> (which GitHub's Copilot coding agent and PR
+review read server-side), no <code>.cursor/rules/</code>, no <code>.codex/</code>, no skills anywhere
+but Claude.</p>
+<p>Writing those by hand is the duplication this template exists to remove: five
+formats, five frontmatter dialects, five directory conventions, one body of
+prose that then drifts per host.</p>
+<p><a href="https://github.com/Goldziher/ai-rulez">ai-rulez</a> (MIT, Go, v4.11.5) solves
+exactly this: author rules / context / skills / agents / commands once under
+<code>.ai-rulez/</code>, run <code>ai-rulez generate</code>, get tool-native output for 20 hosts. Two
+properties make it fit <em>this</em> repo rather than merely being a nice tool:</p>
+<ul>
+<li><strong>It ships on PyPI</strong>, so it needs no Node in a generated project and its
+  version can live in a <code>uv</code> dependency group that Renovate's native manager
+  already covers.</li>
+<li><strong>The cobo precedent already exists.</strong> cobo (ADR-012) is a generator whose
+  output is committed and drift-checked. ai-rulez has the same shape — sources
+  in, committed output out, a check that proves they agree — so it slots into a
+  posture this repo has already argued through.</li>
+</ul>
+<h2 id="decision">Decision<a class="headerlink" href="#decision" title="Permanent link">&para;</a></h2>
+<p>Ship it as an <strong>opt-in toggle</strong>, <code>include_ai_rulez</code> (<code>default: false</code>, seeded on
+in the <code>full</code> preset), with an <code>ai_rulez_presets</code> multiselect naming the hosts
+(default <code>codex</code>, <code>copilot</code> — <code>AGENTS.md</code> plus the one GitHub reads itself; see
+"Amendment (2026-10)" for why <code>claude</code> left the defaults). With the toggle off, the hand-written
+<code>AGENTS.md</code> and the Claude-only skills render.</p>
+<p>The default shape now uses <code>AGENTS.md</code> alone, including for Claude Code.
+The former <code>CLAUDE.md</code> import wrapper is no longer rendered, and is no longer
+preserved on update either (see the amendment below); the opt-in ai-rulez
+generator still owns its selected hosts' native output files.</p>
+<h3 id="1-the-prose-has-one-source-whichever-way-it-renders">1. The prose has one source, whichever way it renders<a class="headerlink" href="#1-the-prose-has-one-source-whichever-way-it-renders" title="Permanent link">&para;</a></h3>
+<p>The section bodies of <code>AGENTS.md</code> moved into <code>_macros.jinja</code> (<code>agent_commands</code>,
+<code>agent_package_structure</code>, <code>agent_conventions</code>, <code>agent_pull_requests</code>, …). The
+hand-written <code>AGENTS.md</code> calls them; so do the <code>.ai-rulez/</code> rule and context
+sources. A toggle that produced a second hand-maintained copy of the same
+paragraphs would have re-created, inside the template, the drift it exists to
+remove downstream. The <code>repo-setup</code> skill needs no macro — it is one file whose
+<em>path</em> is conditional (<code>.ai-rulez/skills/…</code> or <code>.claude/skills/…</code>), so there is
+one copy of it either way.</p>
+<p><code>interface_components</code> (<code>copier.yml</code>) was extracted for the same reason: the
+package-structure table's component list is now computed once instead of rebuilt
+in each rendering's Jinja header.</p>
+<h3 id="2-generated-output-is-build-output-the-template-renders-none-of-it">2. Generated output is build output — the template renders none of it<a class="headerlink" href="#2-generated-output-is-build-output-the-template-renders-none-of-it" title="Permanent link">&para;</a></h3>
+<p>The template renders <code>.ai-rulez/</code> and stops. <code>AGENTS.md</code>, <code>CLAUDE.md</code>,
+<code>.github/copilot-instructions.md</code> and the per-host copies of the skill are
+written by the adopter's first <code>ai-rulez generate</code> and committed from there on.</p>
+<p>Rendering them <em>as well</em> was rejected: copier's renderer and ai-rulez's renderer
+produce different bytes for the same content (ai-rulez composes its own heading
+structure and stamps a provenance header with a content hash), so the first
+<code>generate</code> would diff against the render, and every <code>copier update</code> would
+re-render the copier version on top of the generated one — churn and conflicts
+on a file the adopter never touched. As build output it is simply outside the
+3-way merge: the merge surface becomes the small per-rule sources, which merge
+far better than one monolithic <code>AGENTS.md</code>.</p>
+<p>The cost is real and accepted: <strong>a freshly rendered project has no agent
+instruction files until <code>generate</code> runs once</strong>. <code>_message_after_copy</code> carries the
+command as an explicit numbered step, next to <code>git init</code> and <code>uv sync</code>.</p>
+<h3 id="3-builtins-false-no-builtin-domains">3. <code>builtins = false</code> — no builtin domains<a class="headerlink" href="#3-builtins-false-no-builtin-domains" title="Permanent link">&para;</a></h3>
+<p>ai-rulez ships 33 opinionated domains, seven auto-included. They were audited
+against what a generated project's CI already enforces, and every one either
+restates a gate or contradicts it:</p>
+<table>
+<thead>
+<tr>
+<th>Builtin rule</th>
+<th>Says</th>
+<th>The project enforces</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>code-quality/complexity-limits</code></td>
+<td>max cyclomatic complexity 20</td>
+<td>ruff mccabe <strong>5</strong></td>
+</tr>
+<tr>
+<td><code>code-quality/readability-first</code></td>
+<td>max 120 columns</td>
+<td>ruff <strong>88</strong></td>
+</tr>
+<tr>
+<td><code>python/python-conventions</code></td>
+<td>Google-style docstrings, 80%+ coverage</td>
+<td>ruff pydocstyle <strong>pep257</strong>, <code>fail_under = **99**</code></td>
+</tr>
+<tr>
+<td><code>git-workflow/commit-messages</code></td>
+<td>use conventional commits</td>
+<td><code>check-pr-title.yml</code> (blocking)</td>
+</tr>
+<tr>
+<td><code>git-workflow/branch-hygiene</code></td>
+<td>"descriptive branch names"</td>
+<td>Conventional Branch, <code>check-branch-name.yml</code> (blocking)</td>
+</tr>
+</tbody>
+</table>
+<p>A rule an agent obeys and a gate that fails it must never be two
+separately-maintained sentences. Per-domain <code>!</code> exclusions would leave the next
+<code>ai-rulez</code> release free to add a contradicting rule to a domain we opted into, so
+the whole set is off and the shipped rules are only ours. The effect is also the
+one this repo wants on size: the generated instruction file is ~60 lines, in keeping
+with the lean-router posture (#214), instead of ~270 lines of generic advice.</p>
+<h3 id="4-gitignore-false-ai-rulez-must-not-touch-gitignore">4. <code>gitignore = false</code> — ai-rulez must not touch <code>.gitignore</code><a class="headerlink" href="#4-gitignore-false-ai-rulez-must-not-touch-gitignore" title="Permanent link">&para;</a></h3>
+<p>ai-rulez defaults to rewriting <code>.gitignore</code> so its output is ignored. Here that
+would (a) break the cobo-sealed, sha256-verified fence (ADR-012) and fail
+<code>gitignore-drift.yml</code>, and (b) hide the very files that have to be <em>in</em> the
+repository for GitHub to read them. The output is committed.</p>
+<h3 id="5-one-version-pin-in-a-group-nothing-else-drags-in">5. One version pin, in a group nothing else drags in<a class="headerlink" href="#5-one-version-pin-in-a-group-nothing-else-drags-in" title="Permanent link">&para;</a></h3>
+<p><code>ai-rulez==4.11.5</code> lives in a new <code>agents</code> dependency group — its own group for
+the reason <code>sast</code> has one: <code>dev</code> includes <code>style</code> wholesale, so folding it in
+would install it everywhere for a tool only two callers invoke. Upstream ships
+pre-commit hooks, but adopting them would add a second <code>rev</code> pin beside this
+one, the same drift editorconfig-checker and detect-secrets are local hooks to
+avoid. Renovate's native uv manager covers the pin; ADR-020 freezes it in
+<code>template/**</code>.</p>
+<p>The PyPI package is a launcher that downloads the matching Go binary on first
+run and verifies it against the published checksums. When the checksum file
+itself cannot be fetched it warns and proceeds — worth knowing for a repo that
+SHA-pins its actions, and the reason the pin is exact rather than a range.</p>
+<h3 id="6-two-gates-because-a-fixing-hook-alone-is-not-one">6. Two gates, because a fixing hook alone is not one<a class="headerlink" href="#6-two-gates-because-a-fixing-hook-alone-is-not-one" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>prek</strong> runs <code>ai-rulez generate</code> as a <em>fixing</em> hook (there is no <code>--check</code>
+  for preset output; <code>ai-rulez verify</code> covers plugin bundles only). Like the
+  formatters, it rewrites what drifted and fails the run when it had to.</li>
+<li><strong>tox <code>style</code></strong> runs <code>ai-rulez validate</code>, so a malformed source fails the
+  canonical lint runner (ADR-003) even on a clone whose hooks were never
+  installed.</li>
+<li><strong><code>ci.yml</code>'s <code>hooks</code> job</strong> additionally fails on <em>any</em> working-tree change
+  with untracked files included. A fixing hook only fails on a modified
+  <strong>tracked</strong> file, so a project that never committed its generated output would
+  have it regenerated as untracked files and stay green — shipping a repository
+  whose agent instructions exist on no branch. That gate is what makes step 2's
+  "generate once, then commit" safe to rely on.</li>
+</ul>
+<h3 id="7-the-two-generators-are-proven-to-converge">7. The two generators are proven to converge<a class="headerlink" href="#7-the-two-generators-are-proven-to-converge" title="Permanent link">&para;</a></h3>
+<p>A <code>.ai-rulez</code> scenario in <code>template-ci.yml</code> renders the toggle on, runs
+<code>ai-rulez generate</code>, then runs the generated project's own fixing hooks
+(<code>yamlfmt</code>, <code>end-of-file-fixer</code>, <code>trailing-whitespace</code>, <code>markdownlint-cli2</code> —
+which ships <code>fix: true</code> — and <code>typos</code>) over the result and gates on <code>git diff</code>.
+Two generators writing the same tree that disagree on one byte would leave a
+repository that never converges: every <code>prek run</code> rewriting what the last
+<code>generate</code> wrote, and back. ADR-030 demands the proof.</p>
+<p>The scenario selects <strong>every</strong> offered host, not the three defaults. The width of
+the gate is the width of the output it sees, and the defaults
+(<code>codex</code>/<code>copilot</code>) emit markdown alone — which converges. Two hosts do
+not, and both were found only once the scenario covered them:</p>
+<ul>
+<li><code>continue-dev</code> writes the one YAML file ai-rulez emits, and its generated
+  header carries two trailing-space comment lines. <code>trailing-whitespace</code> strips
+  them, the next <code>generate</code> puts them back — the loop above, exactly.</li>
+<li><code>cursor</code> writes <code>.cursor/rules/*.mdc</code>: markdown with frontmatter, whose
+  2-space list continuations fail <code>editorconfig-checker</code> because the anchored
+  <code>\.md$</code> exclude does not reach the extra <code>c</code>.</li>
+</ul>
+<p>A <em>checking</em> hook rejecting generated output is the worse of the two failures: it
+cannot be satisfied at all, because the edit that would satisfy it is erased by
+the next <code>generate</code>. That is the <code>.copier-answers.yml</code> shape, and it gets the
+<code>.copier-answers.yml</code> answer — the hook skips the path a generator owns
+(<code>.continue/prompts/</code> for <code>trailing-whitespace</code>/<code>yamllint</code>/<code>ec</code>, <code>.mdc</code> for
+<code>ec</code>). Those excludes render only under the toggle and are inert unless the host
+that produces the path is selected. So the scenario now also runs the checking
+hooks (<code>check-json</code>, <code>yamllint</code>, and <code>editorconfig-checker</code> via <code>tox -e style</code>)
+and gates on their exit codes, which <code>git diff</code> cannot speak for.</p>
+<h3 id="8-migrating-an-existing-project-in-both-directions">8. Migrating an existing project, in both directions<a class="headerlink" href="#8-migrating-an-existing-project-in-both-directions" title="Permanent link">&para;</a></h3>
+<p>Neither direction is automatic — the template has no <code>_tasks</code> (ADR-015) — so both
+are documented and both fail loudly rather than silently:</p>
+<p><strong>Turning it on.</strong> <code>include_ai_rulez</code> is seeded by the <code>full</code> preset, so the
+first <code>copier update</code> of a <code>full</code>-preset project answers the new question <code>yes</code>
+by default. That update deletes the copier-managed <code>AGENTS.md</code>, adds
+the <code>.ai-rulez/</code> sources and the <code>agents</code> dependency group, and runs no
+generator — leaving the project with no agent instruction files. Dropping the
+toggle from <code>full</code> was rejected: <code>full</code> means every toggle, and a preset that
+quietly omits one is a worse surprise than a loud one. Instead
+<code>_message_after_update</code> prints the two commands (<code>uv lock</code>, then
+<code>ai-rulez generate</code>) and CI is red until their output is committed.</p>
+<p><strong>Turning it off.</strong> The host files are <em>not</em> copier-managed, so an update that
+answers <code>no</code> re-renders <code>AGENTS.md</code> but leaves every other generated
+file (<code>CLAUDE.md</code>, <code>.github/copilot-instructions.md</code>, <code>.codex/skills/…</code>, <code>.cursor/rules/…</code>)
+committed and stale, still feeding instructions to the hosts that read them.
+ai-rulez records exactly what it wrote in <code>.ai-rulez/.generated-manifest.json</code>
+and <code>ai-rulez clean</code> is the inverse of <code>generate</code>, so the retirement is
+mechanical — but it must run <strong>before</strong> the update, while the sources it reads
+still exist:</p>
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>--group<span class="w"> </span>agents<span class="w"> </span>ai-rulez<span class="w"> </span>clean<span class="w"> </span>--force<span class="w"> </span>--keep-gitignore<span class="w">  </span><span class="c1"># first</span>
+copier<span class="w"> </span>update<span class="w">                                                  </span><span class="c1"># then answer no</span>
+</code></pre></div>
+<p><code>--keep-gitignore</code> is belt-and-braces: <code>gitignore = false</code> means there is no
+ai-rulez block to remove, and <code>.gitignore</code> is cobo-sealed (ADR-012).</p>
+<h2 id="consequences">Consequences<a class="headerlink" href="#consequences" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Four more hosts get first-class instructions, and the <code>repo-setup</code> skill stops
+  being Claude-only, for one answer instead of N hand-written files.</li>
+<li>Adding a host later is a <code>copier update</code> with one changed answer.</li>
+<li>A generated project gains a build step it did not have. The failure mode is
+  loud (CI red, with the command in the error message), not silent.</li>
+<li><code>.gitattributes</code> deliberately does <strong>not</strong> mark the output <code>linguist-generated</code>:
+  the path set differs per host and is ai-rulez's contract, so re-encoding it
+  here would be a second copy that rots. The files carry their own DO-NOT-EDIT
+  banner instead.</li>
+<li>MegaLinter's cspell dictionary gains <code>rulez</code>/<code>blake</code> under the toggle; cspell
+  is report-only (ADR-013), so this is noise reduction, not a gate.</li>
+<li>MegaLinter's <code>COPYPASTE_JSCPD</code> will report the generated host files as clones
+  of each other, which they are — three renderings of one source is the whole
+  point. It is left unexcluded on purpose: the exclusion would have to spell out
+  ai-rulez's per-host output paths, the same second copy the <code>.gitattributes</code>
+  decision below refuses, and MegaLinter runs with <code>DISABLE_ERRORS: true</code>
+  (ADR-013), so the cost is a Security-tab finding rather than a red job.</li>
+<li><code>ai-rulez generate</code> writes <code>.ai-rulez/.generated-manifest.json</code> — a generated
+  file inside the source tree. It is committed (it is what <code>ai-rulez clean</code>
+  reads), it is covered by the prek hook's <code>^\.ai-rulez/</code> gate and the
+  <code>documentation</code> labeler glob, and its content is stable for a fixed host set.</li>
+<li><code>ai_rulez_presets</code> is the template's first <strong>list-valued</strong> answer, which
+  surfaced a latent defect: copier writes block sequences unindented, so
+  <code>.copier-answers.yml</code> fails the generated project's own yamllint
+  <code>indentation</code> rule — an unfixable failure, since the file must not be
+  hand-edited. The yamllint hook now skips it, as the yamlfmt hook already did
+  for the same reason. Any future list answer would have hit this.</li>
+<li>The template now has two agent-instruction shapes to keep working. The macro
+  split (step 1) is what keeps that from meaning two copies of the prose, and the
+  harness asserts both shapes render.</li>
+</ul>
+<h2 id="amendment-2026-10-no-claudemd-by-default-no-gemini-host">Amendment (2026-10): no <code>CLAUDE.md</code> by default, no <code>gemini</code> host<a class="headerlink" href="#amendment-2026-10-no-claudemd-by-default-no-gemini-host" title="Permanent link">&para;</a></h2>
+<p>Claude Code now reads <code>AGENTS.md</code> natively, which removes the only reason
+<code>CLAUDE.md</code> existed here. Three things follow:</p>
+<ul>
+<li><strong>The retired wrapper is no longer excluded.</strong> v1.7.0 stopped rendering the
+  <code>@AGENTS.md</code> wrapper but listed <code>CLAUDE.md</code> in <code>_exclude</code>, so updates kept
+  old copies in case an adopter had added guidance to them. That kept a file
+  whose presence makes Claude Code's default mode <em>skip</em> <code>AGENTS.md</code> — the
+  opposite of what the default shape wants. Now <code>copier update</code> deletes the
+  copy a v1.6.0-or-earlier render left behind. A customized copy is deleted
+  too (copier treats a removed template file as removed, edits or not), so the
+  README tells adopters to move unique guidance into <code>AGENTS.md</code> first — or into
+  a <code>.ai-rulez/</code> source when the same update turns the toggle on, since
+  <code>AGENTS.md</code> is then generated output. (The wrapper only ever rendered with the
+  toggle off.) Git
+  history keeps the old content.</li>
+<li><strong><code>claude</code> left the <code>ai_rulez_presets</code> defaults</strong> (now <code>codex</code>, <code>copilot</code>).
+  The <code>codex</code> host already writes <code>AGENTS.md</code>, so <code>claude</code> only adds a duplicate
+  <code>CLAUDE.md</code> plus <code>.claude/</code>. It is still offered. The cost: by default, the
+  per-host <code>repo-setup</code> and <code>template-adoption</code> skills no longer reach Claude
+  Code, which looks for skills under <code>.claude/skills/</code>. Adopters who want them
+  select <code>claude</code>. Recorded answers are kept on update, so existing projects
+  that took the old default still have <code>claude</code>.</li>
+<li><strong><code>gemini</code> is no longer offered.</strong> The maintainers do not use it, and every
+  offered host widens the <code>template-ci</code> convergence scenario (§7) that has to
+  keep passing. Removing a choice has a sharp edge: copier rejects a recorded
+  answer that contains a choice that no longer exists, and on a <code>--defaults</code>
+  update (which is what Renovate runs) it <strong>silently</strong> replaces the whole
+  selection with the new defaults. A project that selected <code>gemini</code> loses every
+  other host it picked too, and its generated <code>GEMINI.md</code>, which copier does not
+  manage, is left stale. Such a project should run
+  <code>ai-rulez clean --force --keep-gitignore</code> before updating, as in §8, then
+  re-select its hosts.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "navigation.footer", "content.code.copy", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

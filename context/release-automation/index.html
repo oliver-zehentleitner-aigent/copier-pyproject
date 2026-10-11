@@ -1,0 +1,1074 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Copier template for a modern, typed Python package/CLI with uv, hatch, tox, and GitHub automation baked in.">
+      
+      
+      
+        <link rel="canonical" href="https://hasansezertasan.github.io/copier-pyproject/context/release-automation/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Release automation - copier-pyproject</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#release-automation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="copier-pyproject" class="md-header__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            copier-pyproject
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Release automation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="copier-pyproject" class="md-nav__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    copier-pyproject
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../template-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generated-project-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated project trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hook-coverage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated-project check coverage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../template-adoption/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template adoption and update audits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture decision records
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture decision records
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why it is built this way
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Why it is built this way
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://hasansezertasan.github.io/copier-pyproject/dashboard/live/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard ↗
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#release-please-is-the-sole-release-orchestrator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        release-please is the sole release orchestrator
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-release-is-created-as-a-draft-finalized-after-artifacts-attach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The release is created as a draft, finalized after artifacts attach
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-workflow_dispatch-trigger-on-releaseyml-stays-the-publish-environment-is-the-containment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The workflow_dispatch trigger on release.yml stays; the publish environment is the containment
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-workflows-use-github_token-with-two-documented-manual-workarounds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Release workflows use GITHUB_TOKEN, with two documented manual workarounds
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-stale-draft-release-comment-link-is-an-accepted-cosmetic-defect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The stale draft-release comment link is an accepted cosmetic defect
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commitizen-is-a-commit-helper-never-a-release-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Commitizen is a commit helper, never a release tool
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-release-automation-choice-is-under-re-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The release-automation choice is under re-evaluation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-docker-hub-configuration-gates-the-publish-fan-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional Docker Hub configuration gates the publish fan-out
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#released-issue-notifications-are-one-inline-job-in-releaseyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Released-issue notifications are one inline job in release.yml
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="release-automation">Release automation<a class="headerlink" href="#release-automation" title="Permanent link">&para;</a></h1>
+<h2 id="release-please-is-the-sole-release-orchestrator">release-please is the sole release orchestrator<a class="headerlink" href="#release-please-is-the-sole-release-orchestrator" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> 7ec8a937-fd4d-41f2-96b7-824fe3be913b
+<strong>Type:</strong> decision
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> ADR-002 (<code>docs/adr/002-release-please-for-release-automation.md</code>); validated against the keycast release pipeline (<a href="https://github.com/hasansezertasan/keycast/pull/11">keycast#11</a>)
+<strong>Revisit when:</strong> the open re-evaluation below is decided, or the generated project's version stops being sourced from git tags
+<strong>See:</strong> release-automation.md#the-release-automation-choice-is-under-re-evaluation — d9131d49-3c27-48f8-a903-e97caf4acff6 — as of 2026-10-11</p>
+<p>Every generated project ships an unconditional release-please pipeline in one
+unified <code>release.yml</code>: Conventional Commits on <code>main</code> open a release PR, its
+merge cuts the tag and release, and every downstream job (build, PyPI,
+executables, Docker, docs, SBOM, notifications) gates on its outputs. The
+former <code>release_automation</code> choice (<code>none</code>, release-please, release-it,
+release-drafter) and the separate <code>cd.yml</code> are gone. Versioning is sourced from
+git tags through hatch-vcs, so release-please never edits a version literal and
+<code>uv.lock</code> cannot desync; <code>bump-minor-pre-major</code> keeps pre-1.0 projects pre-1.0.</p>
+<p><strong>Reason:</strong> offering three tools multiplied the integration surface for a
+feature each project configures once. release-please is Python-native, derives
+the version from commits the template already enforces, and produces a
+reviewable release PR before any tag exists. Two of the three hard-won keycast
+fixes were already in the template, so it was the option with the most
+evidence.</p>
+<p><strong>Rejected alternative:</strong> release-it — JS-oriented, needs a Node runtime, and a
+human picks the bump every time.</p>
+<p><strong>Rejected alternative:</strong> release-drafter — label-driven, writes release notes
+but no <code>CHANGELOG.md</code>.</p>
+<p><strong>Rejected alternative:</strong> keeping a <code>none</code> escape hatch — projects that want no
+automation delete the files after generation; accepted for a template whose
+audience publishes releases.</p>
+<p><strong>Consequence:</strong> the PyPI trusted publisher must register <code>release.yml</code> as the
+workflow. Rendering plus actionlint validate the workflow across option
+combinations, but draft-tag timing, OIDC publishing and reconciliation can only
+be exercised by a live release. The template has no <code>CHANGELOG.md</code> seed file:
+release-please owns the changelog, and a scaffold-time seed would wipe an
+adopting project's release history on update.</p>
+<h2 id="the-release-is-created-as-a-draft-finalized-after-artifacts-attach">The release is created as a draft, finalized after artifacts attach<a class="headerlink" href="#the-release-is-created-as-a-draft-finalized-after-artifacts-attach" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> 398b3cd9-e57b-4856-b2c7-76752c0ec37f
+<strong>Type:</strong> decision
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> ADR-002 (<code>docs/adr/002-release-please-for-release-automation.md</code>); the wrong-version bug caught in <a href="https://github.com/hasansezertasan/cobo/pull/49">cobo#49</a>
+<strong>Revisit when:</strong> release-please creates releases after artifact upload natively, or computes its commit range from drafts
+<strong>See:</strong> release-automation.md#release-please-is-the-sole-release-orchestrator — 7ec8a937-fd4d-41f2-96b7-824fe3be913b — as of 2026-10-11</p>
+<p>release-please creates the GitHub release with <code>draft: true</code> and
+<code>force-tag-creation: true</code>. Build jobs attach wheels, executables and the SBOM
+to the draft; <code>finalize-release</code> un-drafts it and then closes the phantom
+next-release PR and re-dispatches the workflow, bounded.</p>
+<p><strong>Reason:</strong> a public release must never exist without its artifacts, so the
+release stays a draft until they are attached. GitHub withholds a draft's git
+tag until publication, so without forced tag creation the build job would run
+before the tag exists and hatch-vcs would stamp the previous version. The
+phantom PR exists because release-please computes its commit range from the
+latest <em>published</em> release and ignores drafts.</p>
+<p><strong>Rejected alternative:</strong> <code>draft: false</code> — a window with a public release and no
+artifacts.</p>
+<p><strong>Consequence:</strong> docs deployment lives in the same workflow (<code>deploy-docs</code>,
+after finalization) because an event fired by <code>finalize-release</code>'s token cannot
+trigger a separate workflow.</p>
+<h2 id="the-workflow_dispatch-trigger-on-releaseyml-stays-the-publish-environment-is-the-containment">The <code>workflow_dispatch</code> trigger on <code>release.yml</code> stays; the <code>publish</code> environment is the containment<a class="headerlink" href="#the-workflow_dispatch-trigger-on-releaseyml-stays-the-publish-environment-is-the-containment" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> 0d93a35d-46a3-4ac6-b072-fc07da789842
+<strong>Type:</strong> decision
+<strong>Type:</strong> constraint
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> ADR-002 (<code>docs/adr/002-release-please-for-release-automation.md</code>)
+<strong>Revisit when:</strong> the GitHub API for re-running a workflow stops requiring the dispatch trigger, or environment deployment-branch policies change
+<strong>See:</strong> release-automation.md#the-release-is-created-as-a-draft-finalized-after-artifacts-attach — 398b3cd9-e57b-4856-b2c7-76752c0ec37f — as of 2026-10-11
+<strong>See:</strong> supply-chain-security.md#provenance-minting-shares-the-protected-publication-boundary — a0396603-cb34-4151-9d5b-1fc77eb31f6e — as of 2026-10-11</p>
+<p><code>release.yml</code> keeps <code>workflow_dispatch</code>. The publish jobs run in a <code>publish</code>
+environment whose deployment-branch policy is limited to <code>main</code>; the generated
+setup guide ships that policy as a scriptable step with a check, because GitHub
+auto-creates the environment unprotected on first use.</p>
+<p><strong>Reason:</strong> the trigger looks like a publish-escalation surface — a manual run
+executes the workflow file from the selected branch, so the <code>release_created</code>
+guard cannot stop someone with write access from dispatching a guard-free copy
+and minting a trusted-publishing token. But <code>finalize-release</code>'s reconciliation
+re-dispatches the workflow through the API, which requires the trigger.
+GitHub evaluates an environment's branch policy outside the workflow file, so
+the environment contains what the trigger exposes.</p>
+<p><strong>Rejected alternative:</strong> remove the trigger — breaks release-PR reconciliation.</p>
+<h2 id="release-workflows-use-github_token-with-two-documented-manual-workarounds">Release workflows use <code>GITHUB_TOKEN</code>, with two documented manual workarounds<a class="headerlink" href="#release-workflows-use-github_token-with-two-documented-manual-workarounds" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> bc96b93e-9b9e-4496-8fbb-b215f1d9a04c
+<strong>Type:</strong> decision
+<strong>Type:</strong> workaround
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> ADR-002 (<code>docs/adr/002-release-please-for-release-automation.md</code>); <a href="https://github.com/hasansezertasan/copier-pyproject/issues/332">issue #332</a>
+<strong>Revisit when:</strong> GitHub lets the workflow token start workflow runs or grants it workflow write access
+<strong>See:</strong> release-automation.md#release-please-is-the-sole-release-orchestrator — 7ec8a937-fd4d-41f2-96b7-824fe3be913b — as of 2026-10-11</p>
+<p>Release-please runs with the implicit <code>GITHUB_TOKEN</code>. Two consequences are
+handled procedurally in the generated setup guide rather than with a stronger
+credential: the release PR reports no required status contexts until a human
+closes and reopens it, and a merge that changes workflow files between the
+release PR merging and the release run finishing must wait, because the
+release API then refuses tag creation with a 403.</p>
+<p><strong>Reason:</strong> events created with the workflow token do not start workflow runs,
+and the token cannot be granted workflow write access. A PAT or App token would
+fix both but is a standing credential with write access to <code>main</code>; closing and
+reopening the PR (every required context listens for <code>reopened</code>) and pausing
+workflow merges are the cheaper side of that trade. Editing the PR body is not
+equivalent — two of the checks do not listen for <code>edited</code>.</p>
+<p><strong>Rejected alternative:</strong> a PAT or GitHub App token for release-please.</p>
+<h2 id="the-stale-draft-release-comment-link-is-an-accepted-cosmetic-defect">The stale draft-release comment link is an accepted cosmetic defect<a class="headerlink" href="#the-stale-draft-release-comment-link-is-an-accepted-cosmetic-defect" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> 2c6a6034-1936-4026-b10a-93445ace87b1
+<strong>Type:</strong> decision
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> ADR-002 (<code>docs/adr/002-release-please-for-release-automation.md</code>); <a href="https://github.com/hasansezertasan/copier-pyproject/issues/143">issue #143</a>, <a href="https://github.com/hasansezertasan/copier-pyproject/pull/152">PR #152</a>
+<strong>Revisit when:</strong> release-please rewrites its release comment after un-drafting, or the draft flow is replaced
+<strong>See:</strong> release-automation.md#the-release-is-created-as-a-draft-finalized-after-artifacts-attach — 398b3cd9-e57b-4856-b2c7-76752c0ec37f — as of 2026-10-11</p>
+<p>release-please posts its "created releases" comment once, at draft-creation
+time, with the transient <code>untagged-&lt;hash&gt;</code> slug; after finalization that link
+404s. It is left as is.</p>
+<p><strong>Reason:</strong> the release, tag, artifacts and SBOM are all correct; only a link on
+an already-merged PR is dead. <code>draft: false</code> would repair the link but
+reintroduce the no-artifacts window, and having <code>finalize-release</code> patch the
+comment adds API surface for no functional gain.</p>
+<p><strong>Rejected alternative:</strong> patch the comment in <code>finalize-release</code> — still
+available without switching tools, listed as an option in the re-evaluation.</p>
+<h2 id="commitizen-is-a-commit-helper-never-a-release-tool">Commitizen is a commit helper, never a release tool<a class="headerlink" href="#commitizen-is-a-commit-helper-never-a-release-tool" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> ee1d2fad-67ab-4f4a-a531-73458da14eb1
+<strong>Type:</strong> decision
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> ADR-004 (<code>docs/adr/004-commitizen-as-commit-helper-not-release-tool.md</code>)
+<strong>Revisit when:</strong> the re-evaluation below selects a Commitizen-based orchestrator
+<strong>See:</strong> release-automation.md#release-please-is-the-sole-release-orchestrator — 7ec8a937-fd4d-41f2-96b7-824fe3be913b — as of 2026-10-11</p>
+<p>The generated <code>[tool.commitizen]</code> block contains only the convention name. The
+release-coupled keys (tag format, version provider and scheme,
+<code>major_version_zero</code>, changelog-on-bump) were removed, so <code>cz bump</code> has no
+configured tagging or changelog behaviour. The commit-message hooks stay;
+Commitizen is always included (the <code>include_commitizen</code> toggle was dropped
+because its hooks were unconditional anyway).</p>
+<p><strong>Reason:</strong> as shipped, Commitizen was configured as a second complete release
+pipeline that tags the same releases and rewrites the same <code>CHANGELOG.md</code> as
+release-please — a direct conflict the first release decision never compared.
+Versioning, tagging and changelog get exactly one owner; Commitizen keeps the
+orthogonal half, helping to write and lint conforming commits.</p>
+<p><strong>Rejected alternative:</strong> keep both configured as "aligned" — competing tags
+and two changelog writers on one file.</p>
+<p><strong>Consequence:</strong> message linting overlaps the PR-title check under the required
+squash-by-title merge strategy; accepted because the hook gives feedback while
+authoring, before a PR exists.</p>
+<h2 id="the-release-automation-choice-is-under-re-evaluation">The release-automation choice is under re-evaluation<a class="headerlink" href="#the-release-automation-choice-is-under-re-evaluation" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> d9131d49-3c27-48f8-a903-e97caf4acff6
+<strong>Type:</strong> decision
+<strong>Status:</strong> open
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> ADR-037 (<code>docs/adr/037-release-automation-reevaluation.md</code>), a research record last refreshed 2026-10-05; upstream release-please issues <a href="https://github.com/googleapis/release-please/issues/2515">#2515</a> and <a href="https://github.com/googleapis/release-please/issues/2605">#2605</a>
+<strong>Revisit when:</strong> git-cliff ships prerelease version calculation (<a href="https://github.com/orhun/git-cliff/issues/1380">#1380</a>), RC series become frequent, or a maintainer picks one of the four options
+<strong>See:</strong> release-automation.md#release-please-is-the-sole-release-orchestrator — 7ec8a937-fd4d-41f2-96b7-824fe3be913b — as of 2026-10-11
+<strong>See:</strong> release-automation.md#commitizen-is-a-commit-helper-never-a-release-tool — ee1d2fad-67ab-4f4a-a531-73458da14eb1 — as of 2026-10-11</p>
+<p>Two friction points reopened the tool choice: a stable release cut after
+release candidates lists only changes since the last RC (release-please has no
+prerelease/stable distinction and no config remedy; the npm CLI team works
+around the same behaviour by hand), and the draft-then-finalize dance plus
+phantom-PR reconciliation are workarounds layered on release-please's model.
+The research frames tools as commit helpers, changelog engines and release
+orchestrators, and compares Commitizen (<code>cz bump</code>, fixes the RC range with one
+setting, medium effort, reverses the commit-helper decision, loses the
+reviewable release PR) against git-cliff (a changelog engine only; high effort,
+RC math stays hand-written). Four options stand: stay and document, migrate to
+Commitizen, git-cliff inside a bespoke orchestrator, or defer. Until decided,
+nothing changes.</p>
+<p><strong>Why this needs an answer:</strong> both replacements need a standing privileged
+credential or a maintainer-local bump under the <code>full</code> preset's ruleset, and
+<code>release.yml</code> fans out to every generated project while being validated only
+by rendering until a live release runs. Whether the RC gap bites often enough
+to justify that blast radius is a maintainer judgement, not a research result.</p>
+<h2 id="optional-docker-hub-configuration-gates-the-publish-fan-out">Optional Docker Hub configuration gates the publish fan-out<a class="headerlink" href="#optional-docker-hub-configuration-gates-the-publish-fan-out" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> f6f9eea4-dd38-4a74-98ed-f67e436c393d
+<strong>Type:</strong> decision
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> <a href="https://github.com/hasansezertasan/copier-pyproject/pull/51">PR #51</a>, <a href="https://github.com/hasansezertasan/copier-pyproject/pull/51#discussion_r3524165040">shared-gate review discussion</a>; commit <a href="https://github.com/hasansezertasan/copier-pyproject/commit/f48250ebe8b92c880964e892f7c2fb37471a12c4">f48250e</a>
+<strong>Verification:</strong> corroborated — the web release workflow makes both PyPI and Docker publication depend on <code>docker-publish-preflight</code>
+<strong>Revisit when:</strong> a new irreversible publication channel is added or Docker Hub opt-in semantics change</p>
+<p>Docker Hub publication is optional and its credential pair is all-or-nothing:
+neither credential means GHCR-only publication, both enable Docker Hub, and a
+partial pair fails a shared preflight before either PyPI or Docker publication.</p>
+<p><strong>Reason:</strong> PyPI uploads are irreversible. A credential check inside only the
+Docker job would allow PyPI publication to finish concurrently before Docker
+failed, stranding a partially published release. The shared prerequisite rejects
+that known configuration error before the publish jobs fan out; it does not make
+all later external uploads transactional.</p>
+<p><strong>Rejected alternative:</strong> validate the credentials only inside Docker
+publication. Review moved the check into a shared prerequisite specifically to
+prevent the PyPI race. Requiring Docker Hub for every web release is not the
+selected contract; GHCR-only publication remains supported.</p>
+<p>The narrowly scoped ghalint exceptions exist because conditional steps need
+job-scoped credential-presence information and GitHub does not expose the
+secrets context directly in conditions. The token itself is reduced to a
+presence flag, not exposed job-wide. The exceptions are recorded in the
+generated <code>.github/ghalint.yaml</code> rather than disabling that policy globally.</p>
+<h2 id="released-issue-notifications-are-one-inline-job-in-releaseyml">Released-issue notifications are one inline job in <code>release.yml</code><a class="headerlink" href="#released-issue-notifications-are-one-inline-job-in-releaseyml" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> c8cd015d-12ff-47a7-9447-40b69a2b1a82
+<strong>Type:</strong> decision
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> ADR-010 §2 (<code>docs/adr/010-pr-docs-previews-and-released-issue-notifications.md</code>)
+<strong>Revisit when:</strong> the release lifecycle is split across workflows
+<strong>See:</strong> release-automation.md#the-release-is-created-as-a-draft-finalized-after-artifacts-attach — 398b3cd9-e57b-4856-b2c7-76752c0ec37f — as of 2026-10-11</p>
+<p>A <code>notify-released-issues</code> job, gated on a created release and running after
+finalization, uses a single inline <code>github-script</code> step to comment the release
+tag and URL on every issue the release closed. It is always on, with no toggle.</p>
+<p><strong>Reason:</strong> the upstream implementation shipped a committed Python script and a
+JS helper behind a reusable workflow — more moving parts than a single-maintainer
+project needs. Inline in <code>release.yml</code> matches keeping the whole release
+lifecycle in one workflow, and it is zero-config: no closed issues means no
+notification, so it cannot fail an unused feature.</p>
+<p><strong>Rejected alternative:</strong> a separate <code>workflow_call</code> file with committed scripts.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "navigation.footer", "content.code.copy", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

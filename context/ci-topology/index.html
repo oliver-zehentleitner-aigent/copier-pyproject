@@ -1,0 +1,966 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Copier template for a modern, typed Python package/CLI with uv, hatch, tox, and GitHub automation baked in.">
+      
+      
+      
+        <link rel="canonical" href="https://hasansezertasan.github.io/copier-pyproject/context/ci-topology/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>CI topology of generated projects - copier-pyproject</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ci-topology-of-generated-projects" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="copier-pyproject" class="md-header__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            copier-pyproject
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              CI topology of generated projects
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="copier-pyproject" class="md-nav__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    copier-pyproject
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../template-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generated-project-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated project trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hook-coverage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated-project check coverage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../template-adoption/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template adoption and update audits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture decision records
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture decision records
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why it is built this way
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Why it is built this way
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://hasansezertasan.github.io/copier-pyproject/dashboard/live/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard ↗
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#network-dependent-checks-run-on-a-weekly-cron-never-in-the-merge-gate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network-dependent checks run on a weekly cron, never in the merge gate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-single-union-coverage-gate-across-the-whole-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A single union coverage gate across the whole matrix
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-tokenless-public-html-coverage-mirror-via-smokeshow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A tokenless public HTML coverage mirror via smokeshow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#per-component-markers-path-filtered-jobs-and-one-coverage-gate-per-component" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Per-component markers, path-filtered jobs, and one coverage gate per component
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#asymmetric-matrix-every-interpreter-on-linux-one-representative-elsewhere-style-and-installed-cli-are-separate-jobs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asymmetric matrix: every interpreter on Linux, one representative elsewhere; style and installed-CLI are separate jobs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#every-generated-ci-job-skips-draft-pull-requests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Every generated CI job skips draft pull requests
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="ci-topology-of-generated-projects">CI topology of generated projects<a class="headerlink" href="#ci-topology-of-generated-projects" title="Permanent link">&para;</a></h1>
+<h2 id="network-dependent-checks-run-on-a-weekly-cron-never-in-the-merge-gate">Network-dependent checks run on a weekly cron, never in the merge gate<a class="headerlink" href="#network-dependent-checks-run-on-a-weekly-cron-never-in-the-merge-gate" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> 3e5b9525-9087-4125-b19f-80f6c226c01f
+<strong>Type:</strong> decision
+<strong>Type:</strong> constraint
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> ADR-011 (<code>docs/adr/011-docs-linting-and-cross-platform-filename-safety.md</code>), ADR-012 §4 (<code>docs/adr/012-cobo-for-gitignore-generation.md</code>), ADR-031 §3 (<code>docs/adr/031-single-render-entrypoint.md</code>); the same posture is cited for <code>check-security.yml</code>'s periodic scans
+<strong>Revisit when:</strong> a network-dependent check becomes reliable enough to block, or the merge gate gains a retry mechanism</p>
+<p>Checks whose outcome depends on the network or on an upstream that can change
+without a commit here — docs link checking, the cobo gitignore drift check, the
+template's generated-artifact drift check — run on a weekly <code>schedule</code> plus
+<code>workflow_dispatch</code>, never on <code>pull_request</code>, and never join the <code>check</code>
+aggregation. They surface rot as a visible, non-blocking workflow result; a tox
+env or mise task lets a maintainer run each on demand.</p>
+<p><strong>Reason:</strong> a transient 5xx, a rate limit, a site blocking CI, or an upstream
+boilerplate update must never block an unrelated merge. A weekly signal is the
+right cadence for drift that accumulates slowly, and a PR-time check cannot see
+drift caused by something that changed underneath the repository.</p>
+<p><strong>Rejected alternative:</strong> run them on pull requests — flaky red checks on
+unrelated changes.</p>
+<h2 id="a-single-union-coverage-gate-across-the-whole-matrix">A single union coverage gate across the whole matrix<a class="headerlink" href="#a-single-union-coverage-gate-across-the-whole-matrix" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> ca90a48d-f648-40b3-ae1a-05f9f21cf411
+<strong>Type:</strong> decision
+<strong>Status:</strong> superseded
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> ADR-026 §1 (<code>docs/adr/026-combined-cross-matrix-coverage-and-tokenless-html-host.md</code>)
+<strong>Superseded by:</strong> 467b6cc3-775b-4e4c-9a8e-b0d1c3d733ac
+<strong>See:</strong> testing-strategy.md#coverage-exclusions-are-per-site-pragmas-and-the-globs-must-match-the-installed-layout — 68366ce3-cc8e-4720-aa91-5eb83aaf2e2d — as of 2026-10-11</p>
+<p>Each matrix cell combined its per-interpreter data, kept a non-gating report,
+and uploaded a per-OS artifact; one <code>coverage-combine</code> job merged every cell
+and was the only place <code>fail_under = 99</code> was enforced, measuring the union of
+all OS and interpreter cells. <code>relative_files = true</code> made data from different
+runners mergeable, complementing the <code>src</code>/<code>site-packages</code> path remap. The
+combined XML became the one Codecov upload.</p>
+<p><strong>Reason:</strong> per-cell gating measured each OS alone, so a line covered on Linux
+but gated off on Windows was reported inconsistently, and there was no
+authoritative cross-fan-out number. The union is the correct scope. This held
+while the matrix was symmetric — every cell measured the same code.</p>
+<p><strong>Consequence:</strong> once the CI job split into path-filtered per-component jobs, a
+skipped component dropped its subtree from the union and the single gate failed
+on every partial PR; the principle survives per component in the successor.</p>
+<h2 id="a-tokenless-public-html-coverage-mirror-via-smokeshow">A tokenless public HTML coverage mirror via smokeshow<a class="headerlink" href="#a-tokenless-public-html-coverage-mirror-via-smokeshow" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> 21119a10-df03-494b-ac84-a57b9b1832c2
+<strong>Type:</strong> decision
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> ADR-026 §2 (<code>docs/adr/026-combined-cross-matrix-coverage-and-tokenless-html-host.md</code>)
+<strong>Revisit when:</strong> Codecov becomes tokenless for private repositories, or smokeshow changes its rate-limit model
+<strong>See:</strong> external-integrations.md#a-freshly-generated-project-is-green-on-first-push-with-zero-external-accounts — 392b6dcf-6e9d-441d-bf7b-64ba362578d7 — as of 2026-10-11</p>
+<p><code>include_smokeshow</code> (default off, <code>full</code> preset) adds a step that uploads the
+HTML report to an ephemeral public URL with no secret. It runs only on public
+repositories, last in the coverage job, and is best-effort
+(<code>continue-on-error</code>).</p>
+<p><strong>Reason:</strong> Codecov is opt-in and non-blocking, so a self-contained project had
+no hosted, browsable coverage report; smokeshow gives a public project one
+without an account. Its tokenless endpoint has low rate limits, so a transient
+failure must neither fail the job that feeds the required <code>check</code> gate nor
+abort the authoritative Codecov upload; a private report must never be
+published.</p>
+<h2 id="per-component-markers-path-filtered-jobs-and-one-coverage-gate-per-component">Per-component markers, path-filtered jobs, and one coverage gate per component<a class="headerlink" href="#per-component-markers-path-filtered-jobs-and-one-coverage-gate-per-component" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> 467b6cc3-775b-4e4c-9a8e-b0d1c3d733ac
+<strong>Type:</strong> decision
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> ADR-028 (<code>docs/adr/028-per-component-markers-and-path-filtered-ci.md</code>)
+<strong>Revisit when:</strong> a component gains a dependency on another component's tree, or the aggregation action changes how it treats skipped jobs
+<strong>See:</strong> ci-topology.md#a-single-union-coverage-gate-across-the-whole-matrix — ca90a48d-f648-40b3-ae1a-05f9f21cf411 — as of 2026-10-11
+<strong>See:</strong> architecture-contracts.md#one-exhaustive-import-linter-layers-contract-cli-above-independent-components-above-core-above-utils — 3b7cdbee-7c66-4e52-9d7e-8ab0ffe32e56 — as of 2026-10-11</p>
+<p>One pytest marker per enabled component plus <code>core</code>, applied automatically by a
+root <code>conftest.py</code> hook from each test's top-level <code>tests/&lt;dir&gt;/</code>. A
+<code>changes</code> path-filter job emits one boolean per component plus <code>core</code>; the
+monolithic CI job splits into <code>test-core</code> (always) and <code>test-&lt;component&gt;</code> jobs
+gated on their own filter or <code>core</code>. Each <code>coverage-&lt;component&gt;</code> job merges
+that component's OS cells and enforces <code>fail_under = 99</code> scoped to its subtree
+via <code>--include</code>; <code>coverage-core</code> uses <code>--omit</code> of every component and re-adds
+<code>*/_version.py</code> because a CLI <code>--omit</code> overrides the pyproject one. A
+non-gating <code>coverage-report</code> job merges what ran, omitting skipped components so
+their unexecuted files are not reported at zero, and publishes to Codecov,
+smokeshow and SonarCloud. The <code>check</code> gate lists every path-gated job as an
+allowed skip. The default <code>tox run</code> is unchanged.</p>
+<p><strong>Reason:</strong> every component's suite ran on every OS for a one-line change in
+another component, and a contributor had no knob to run only one component.
+<code>core</code> is the escape hatch — it watches dependencies, the shared <code>core/</code> tree,
+root modules and root tests, so a change underpinning every component forces
+the full fan-out, mirroring the import layering. Per-component skipping is
+incompatible with a single union gate, so the gate is decomposed; skipping is
+sound because an unchanged subtree has nothing to regress. The cross-OS union
+is kept <em>within</em> a component, where a per-cell gate would wrongly fail on a
+platform-gated branch. The aggregation action counts a skipped job as a
+failure unless named, hence the allowed-skips list rendered from the same
+component list as <code>needs</code>.</p>
+<p><strong>Consequence:</strong> a full run fans out to more jobs than before; the win is on
+component-scoped PRs. <code>--include</code>/<code>--omit</code> patterns must match both the
+editable and installed layouts (<code>*/</code>-anchored) and are verifiable only through a
+real <code>tox run</code>. Adding a component touches the marker list, the conftest
+directory set, the filters, two jobs and the omit list in lockstep.</p>
+<h2 id="asymmetric-matrix-every-interpreter-on-linux-one-representative-elsewhere-style-and-installed-cli-are-separate-jobs">Asymmetric matrix: every interpreter on Linux, one representative elsewhere; style and installed-CLI are separate jobs<a class="headerlink" href="#asymmetric-matrix-every-interpreter-on-linux-one-representative-elsewhere-style-and-installed-cli-are-separate-jobs" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> 4457f652-2a84-4d70-ab7a-e9d1ebd9c670
+<strong>Type:</strong> decision
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> ADR-029 (<code>docs/adr/029-asymmetric-ci-matrix-and-draft-pr-skip.md</code>); <a href="https://github.com/hasansezertasan/copier-pyproject/issues/159">issue #159</a>
+<strong>Revisit when:</strong> a platform-specific interpreter defect slips through often enough to matter, or a C-extension build no longer differs per OS/interpreter pair
+<strong>See:</strong> ci-topology.md#per-component-markers-path-filtered-jobs-and-one-coverage-gate-per-component — 467b6cc3-775b-4e4c-9a8e-b0d1c3d733ac — as of 2026-10-11</p>
+<p>Each <code>test-*</code> job runs Python 3.10 through 3.14 on Ubuntu and the invoking
+interpreter on macOS and Windows; with <code>include_c_extensions</code> every OS runs all
+five. <code>style</code> runs once on Ubuntu, with mypy additionally run for the win32
+and darwin platforms. With <code>include_cli</code>, a <code>cli-installed</code> job runs the
+installed console-script check on all three OSes. Explicit tox env lists keep
+style and CLI execution out of the component jobs.</p>
+<p><strong>Reason:</strong> cross-platform behaviour needs every OS at one interpreter and
+interpreter compatibility needs every interpreter on one OS; the full
+cross-product repeats two mostly independent dimensions. Type checkers prune
+<code>sys.platform</code> branches against their host, so the platform flags keep static
+coverage of platform-gated code. Marker arguments forwarded to pytest must not
+reach the <code>cli</code> tox env, which would call the installed command with pytest's
+<code>-m</code> option instead of its default argument.</p>
+<p><strong>Consequence:</strong> a defect needing one particular non-Linux OS and a
+non-representative interpreter may pass CI — the accepted cost.</p>
+<h2 id="every-generated-ci-job-skips-draft-pull-requests">Every generated CI job skips draft pull requests<a class="headerlink" href="#every-generated-ci-job-skips-draft-pull-requests" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> 43288d9b-11b3-4d92-8a84-6efe1aa43001
+<strong>Type:</strong> decision
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> ADR-029 (<code>docs/adr/029-asymmetric-ci-matrix-and-draft-pr-skip.md</code>)
+<strong>Revisit when:</strong> GitHub adds <code>ready_for_review</code> to the default trigger set, or drafts need a cheap smoke run</p>
+<p>Every job in <code>ci.yml</code> carries the falsy-safe condition that the pull request is
+not a draft, composed with existing conditions rather than replacing them
+(<code>check</code> keeps <code>always()</code>, SonarCloud its fork guard, component jobs their
+change filters). The <code>pull_request</code> trigger explicitly includes
+<code>ready_for_review</code>. Security and docs-preview workflows still run on drafts.</p>
+<p><strong>Reason:</strong> drafts paid for the whole fan-out before review. <code>!= true</code> keeps
+running on push and manual events where the pull-request object is absent,
+unlike <code>== false</code>. Without <code>ready_for_review</code>, a PR opened as a draft could
+stay permanently skipped after becoming reviewable. Draft PRs skip <code>check</code>
+itself, so they need no allowed-skip entry.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "navigation.footer", "content.code.copy", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

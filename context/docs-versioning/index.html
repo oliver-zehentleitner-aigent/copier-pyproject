@@ -1,0 +1,963 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Copier template for a modern, typed Python package/CLI with uv, hatch, tox, and GitHub automation baked in.">
+      
+      
+      
+        <link rel="canonical" href="https://hasansezertasan.github.io/copier-pyproject/context/docs-versioning/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Versioned documentation - copier-pyproject</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#versioned-documentation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="copier-pyproject" class="md-header__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            copier-pyproject
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Versioned documentation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="copier-pyproject" class="md-nav__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    copier-pyproject
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../template-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generated-project-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated project trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hook-coverage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated-project check coverage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../template-adoption/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template adoption and update audits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture decision records
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture decision records
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why it is built this way
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Why it is built this way
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://hasansezertasan.github.io/copier-pyproject/dashboard/live/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard ↗
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#docs-publish-only-the-current-version-and-carry-older-built-versions-forward-from-gh-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docs publish only the current version and carry older built versions forward from gh-pages
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#version-granularity-is-a-scaffold-time-question" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Version granularity is a scaffold-time question
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-manual-redeploy-rebuilds-the-latest-published-release-never-head" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The manual redeploy rebuilds the latest published release, never HEAD
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-failed-gh-pages-fetch-must-abort-never-fall-through-as-branch-absent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A failed gh-pages fetch must abort, never fall through as "branch absent"
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#per-page-last-updated-comes-from-git-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Per-page "last updated" comes from git history
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-sphinx-warning-gate-runs-in-a-job-the-required-check-context-aggregates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Sphinx warning gate runs in a job the required check context aggregates
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="versioned-documentation">Versioned documentation<a class="headerlink" href="#versioned-documentation" title="Permanent link">&para;</a></h1>
+<h2 id="docs-publish-only-the-current-version-and-carry-older-built-versions-forward-from-gh-pages">Docs publish only the current version and carry older built versions forward from <code>gh-pages</code><a class="headerlink" href="#docs-publish-only-the-current-version-and-carry-older-built-versions-forward-from-gh-pages" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> 858025c1-19a6-46f6-a237-01ba6477262a
+<strong>Type:</strong> decision
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> ADR-027 §1–2 (<code>docs/adr/027-versioned-documentation-and-last-updated-stamps.md</code>); issue #165; the Litestar docs build is the model
+<strong>Revisit when:</strong> a Sphinx multiversion tool stops rebuilding old tags, or <code>conf.py</code> stops running build-time generators against the live app
+<strong>See:</strong> docs-stack.md#sphinx-with-the-bare-shibuya-theme-replaces-mkdocs — 5133caa8-3231-4d4d-877b-041b315cb87a — as of 2026-10-11
+<strong>See:</strong> docs-stack.md#pr-docs-previews-deploy-to-a-subfolder-of-the-projects-own-gh-pages-same-repo-only — 55a74975-a6e0-4f18-8254-fa27f047e829 — as of 2026-10-11</p>
+<p>A generated <code>tools/build_docs.py</code> computes the version slug, enumerates the
+version directories already on <code>gh-pages</code>, writes a generated (gitignored)
+<code>versions.json</code> for Shibuya's native switcher, builds only the current ref,
+copies every other version directory across from <code>gh-pages</code>, writes a root
+redirect to <code>latest</code> (the highest non-prerelease by PEP 440 ordering), and
+deploys with previews excluded from cleaning. Versioned publishing is how a
+docs-enabled project always publishes; it is not a toggle. The version list is
+stateless: <code>gh-pages</code> is the source of truth, and local builds hide the
+switcher because no <code>versions.json</code> exists.</p>
+<p><strong>Reason:</strong> <code>sphinx-multiversion</code> (effectively unmaintained) and
+<code>sphinx-polyversion</code> both rebuild every selected tag on every deploy. This
+template's <code>conf.py</code> runs subprocess generators against the live app, so
+rebuilding a historical tag re-runs that tag's generators against whatever the
+build resolves — fragile, slow, and it forces every past <code>conf.py</code> to keep
+building forever. Litestar's build-current-preserve-rest model avoids that.
+Litestar commits and hand-edits its version list, which is untenable with
+per-minor granularity and automated releases, and having CI commit back to a
+protected <code>main</code> adds real machinery.</p>
+<p><strong>Rejected alternative:</strong> <code>sphinx-multiversion</code> or <code>sphinx-polyversion</code> — the
+rebuild model above.</p>
+<p><strong>Rejected alternative:</strong> a committed <code>versions.json</code> — the hand-edit or
+CI-commit cost above.</p>
+<p><strong>Consequence:</strong> <code>gh-pages</code> becomes load-bearing state; both deploy paths must
+preserve the numeric version-slug directories. An older version's switcher is
+frozen at its build time, so the switcher appears only from the first versioned
+release onward.</p>
+<h2 id="version-granularity-is-a-scaffold-time-question">Version granularity is a scaffold-time question<a class="headerlink" href="#version-granularity-is-a-scaffold-time-question" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> 5d18c9af-73e9-476b-9ba9-544c776812e6
+<strong>Type:</strong> decision
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> ADR-027 §3 (<code>docs/adr/027-versioned-documentation-and-last-updated-stamps.md</code>)
+<strong>Revisit when:</strong> the pre-1.0 minor-is-breaking bump policy changes
+<strong>See:</strong> docs-versioning.md#docs-publish-only-the-current-version-and-carry-older-built-versions-forward-from-gh-pages — 858025c1-19a6-46f6-a237-01ba6477262a — as of 2026-10-11
+<strong>See:</strong> release-automation.md#release-please-is-the-sole-release-orchestrator — 7ec8a937-fd4d-41f2-96b7-824fe3be913b — as of 2026-10-11</p>
+<p><code>docs_version_granularity</code> (asked with <code>include_docs</code>) offers <code>minor</code> (<code>X.Y</code>,
+default), <code>major</code> (<code>X</code>) and <code>full</code> (<code>X.Y.Z</code>). The choice bakes a slicing
+constant into the generated build script, overridable at build time only by the
+manual redeploy.</p>
+<p><strong>Reason:</strong> granularity is the one knob adopters reasonably differ on. <code>minor</code>
+matches the pre-1.0 posture where minors are the breaking bump; a large project
+picks <code>major</code>, an archival one <code>full</code>. Prerelease slugs survive only under
+<code>full</code> and are excluded from <code>latest</code>.</p>
+<h2 id="the-manual-redeploy-rebuilds-the-latest-published-release-never-head">The manual redeploy rebuilds the latest published release, never HEAD<a class="headerlink" href="#the-manual-redeploy-rebuilds-the-latest-published-release-never-head" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> f0ad70ba-c790-42d2-94f0-152e9527be4f
+<strong>Type:</strong> decision
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> ADR-027 §4 (<code>docs/adr/027-versioned-documentation-and-last-updated-stamps.md</code>)
+<strong>Revisit when:</strong> release-please stops creating the tag before the release is published, or the build script's granularity stops being baked in
+<strong>See:</strong> docs-versioning.md#docs-publish-only-the-current-version-and-carry-older-built-versions-forward-from-gh-pages — 858025c1-19a6-46f6-a237-01ba6477262a — as of 2026-10-11
+<strong>See:</strong> release-automation.md#the-release-is-created-as-a-draft-finalized-after-artifacts-attach — 398b3cd9-e57b-4856-b2c7-76752c0ec37f — as of 2026-10-11</p>
+<p><code>gh-pages.yml</code> (manual dispatch only) routes through the build script, checks
+out the tag of the latest <em>published</em> release via the releases API, sets up the
+interpreter after that checkout, restores the build script itself from the
+dispatch ref, and passes the tag's baked granularity back through the
+environment.</p>
+<p><strong>Reason:</strong> a naive root publish would wipe every version directory. The tag
+comes from the API rather than <code>git describe</code> because release-please creates
+the tag the moment the release PR merges and leaves the release a draft until
+publishing succeeds — so <code>git describe</code> would pick an unreleased version in
+exactly the window a redeploy is most likely (right after a failed release).
+The interpreter setup follows the checkout so the tagged docs build on the
+Python the release shipped on. The script is orchestration, same layer as the
+workflow, and an older tagged copy could carry the version-dropping bug the
+loud-fetch rule prevents; its granularity is not orchestration — which slug a
+release occupies is fixed at publish time — so an adopter who changed the
+answer later must not republish a tag under a second slug and repoint <code>latest</code>.</p>
+<p><strong>Rejected alternative:</strong> <code>git describe --tags</code> — selects draft tags.</p>
+<p><strong>Rejected alternative:</strong> use the dispatch revision's granularity — duplicates a
+released version under a new slug.</p>
+<h2 id="a-failed-gh-pages-fetch-must-abort-never-fall-through-as-branch-absent">A failed <code>gh-pages</code> fetch must abort, never fall through as "branch absent"<a class="headerlink" href="#a-failed-gh-pages-fetch-must-abort-never-fall-through-as-branch-absent" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> 135cfbb5-6c5c-45d8-9239-cf225a819818
+<strong>Type:</strong> decision
+<strong>Type:</strong> incident
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> ADR-027 §4a (<code>docs/adr/027-versioned-documentation-and-last-updated-stamps.md</code>)
+<strong>Revisit when:</strong> the deploy stops cleaning the target, or <code>git fetch</code> learns to distinguish a missing ref from a transport error
+<strong>See:</strong> docs-versioning.md#docs-publish-only-the-current-version-and-carry-older-built-versions-forward-from-gh-pages — 858025c1-19a6-46f6-a237-01ba6477262a — as of 2026-10-11</p>
+<p>Both deploy paths probe the branch with <code>git ls-remote --exit-code</code> and branch
+on its exit code: 2 means no such ref, anything else aborts. One layer up, the
+build script's preserve step raises when a version subtree it was handed cannot
+be read; only the <code>latest</code> alias is optional.</p>
+<p><strong>Reason:</strong> the previous <code>fetch || echo</code> swallowed every failure, not only a
+missing ref. The build script then assembled a site with no prior versions and
+the clean deploy deleted every published version directory — one transient
+transport error destroys the documentation archive for every prior release.
+Every slug the preserve step receives came from a listing of that very ref, so
+it provably exists and silently omitting it is the same deletion by another
+route.</p>
+<h2 id="per-page-last-updated-comes-from-git-history">Per-page "last updated" comes from git history<a class="headerlink" href="#per-page-last-updated-comes-from-git-history" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> 7e34868f-a26a-4c89-8189-f5778ad9a04b
+<strong>Type:</strong> decision
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> ADR-027 §5 (<code>docs/adr/027-versioned-documentation-and-last-updated-stamps.md</code>)
+<strong>Revisit when:</strong> a docs job checks out with shallow history
+<strong>See:</strong> docs-stack.md#sphinx-warnings-use-an-exact-reviewable-allowlist — 2a555902-38e7-47d4-a231-445a8e6caa0f — as of 2026-10-11</p>
+<p><code>sphinx-last-updated-by-git</code> is in the <code>docs</code> group; every page footer shows the
+commit date of its source. Any untracked-source warning from the generated
+fragments goes through the warning allowlist, not blanket suppression.</p>
+<p><strong>Reason:</strong> readers could not tell how fresh a page was; git history is a cheap
+offline freshness signal.</p>
+<p><strong>Consequence:</strong> every docs build needs full history (<code>fetch-depth: 0</code>),
+including the CI job that runs the warning gate.</p>
+<h2 id="the-sphinx-warning-gate-runs-in-a-job-the-required-check-context-aggregates">The Sphinx warning gate runs in a job the required <code>check</code> context aggregates<a class="headerlink" href="#the-sphinx-warning-gate-runs-in-a-job-the-required-check-context-aggregates" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> bc382803-5aa9-4582-9bad-1c9efef8fc49
+<strong>Type:</strong> decision
+<strong>Type:</strong> incident
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> ADR-027, Consequences (<code>docs/adr/027-versioned-documentation-and-last-updated-stamps.md</code>)
+<strong>Revisit when:</strong> <code>docs-doctest</code> is renamed or leaves the <code>check</code> aggregation
+<strong>See:</strong> docs-stack.md#sphinx-warnings-use-an-exact-reviewable-allowlist — 2a555902-38e7-47d4-a231-445a8e6caa0f — as of 2026-10-11
+<strong>See:</strong> ci-topology.md#per-component-markers-path-filtered-jobs-and-one-coverage-gate-per-component — 467b6cc3-775b-4e4c-9a8e-b0d1c3d733ac — as of 2026-10-11</p>
+<p><code>tox -e docs-build</code> (Sphinx with warnings captured plus the allowlist checker)
+runs in <code>ci.yml</code>'s <code>docs-doctest</code> job, which <code>check</code> aggregates.</p>
+<p><strong>Reason:</strong> it previously ran only in the docs-preview workflow, which forks
+skip and no protected branch requires, so a PR introducing broken references
+kept every required context green. The doctest job on its own runs the doctest
+builder with no warnings-as-errors and no allowlist, so it never covered this.
+A gate must be checked by which context a protected branch sees, not by whether
+the job runs.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "navigation.footer", "content.code.copy", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

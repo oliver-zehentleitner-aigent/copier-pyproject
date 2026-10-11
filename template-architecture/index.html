@@ -1,0 +1,2507 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Copier template for a modern, typed Python package/CLI with uv, hatch, tox, and GitHub automation baked in.">
+      
+      
+      
+        <link rel="canonical" href="https://hasansezertasan.github.io/copier-pyproject/template-architecture/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../generated-project-trees/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Template architecture - copier-pyproject</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#template-architecture-reference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="copier-pyproject" class="md-header__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            copier-pyproject
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Template architecture
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="copier-pyproject" class="md-nav__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    copier-pyproject
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template architecture
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#template-variables-copieryml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Template Variables (copier.yml)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rendering-the-template-toolsrenderpy-adr-031" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rendering the template (tools/render.py, ADR-031)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shared-jinja-helpers-_macrosjinja" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shared Jinja helpers (_macros.jinja)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generated-project-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generated Project Structure
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Generated Project Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#run-dev-launch-verbs-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        run / dev launch verbs (web)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#devcontainer-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Devcontainer Structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build System
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cicd-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CI/CD Workflows
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#template-self-versioning-this-repo-adr-015" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Template self-versioning (this repo, ADR-015)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#required-merge-strategy-release-please-depends-on-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required Merge Strategy (release-please depends on it)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pypi-trusted-publishing-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PyPI Trusted Publishing Setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PyPI Trusted Publishing Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#template-adoption-and-update-audit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Template adoption and update audit
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../generated-project-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated project trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hook-coverage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated-project check coverage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../template-adoption/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template adoption and update audits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture decision records
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture decision records
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why it is built this way
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Why it is built this way
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../context/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://hasansezertasan.github.io/copier-pyproject/dashboard/live/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard ↗
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#template-variables-copieryml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Template Variables (copier.yml)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rendering-the-template-toolsrenderpy-adr-031" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rendering the template (tools/render.py, ADR-031)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shared-jinja-helpers-_macrosjinja" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shared Jinja helpers (_macros.jinja)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generated-project-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generated Project Structure
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Generated Project Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#run-dev-launch-verbs-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        run / dev launch verbs (web)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#devcontainer-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Devcontainer Structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build System
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cicd-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CI/CD Workflows
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#template-self-versioning-this-repo-adr-015" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Template self-versioning (this repo, ADR-015)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#required-merge-strategy-release-please-depends-on-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required Merge Strategy (release-please depends on it)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pypi-trusted-publishing-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PyPI Trusted Publishing Setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PyPI Trusted Publishing Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#template-adoption-and-update-audit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Template adoption and update audit
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="template-architecture-reference">Template Architecture Reference<a class="headerlink" href="#template-architecture-reference" title="Permanent link">&para;</a></h1>
+<p>For generated hooks, retained replacements, optional checks, and feedback timing,
+see the <a href="../hook-coverage/">generated-project check coverage audit</a>.</p>
+<p>Deep reference for the <code>copier-pyproject</code> template — the detail that used to
+live in <code>AGENTS.md</code>. <code>AGENTS.md</code> is a lean router: it keeps the load-bearing
+agent instructions inline and points here for the "what gets rendered" detail and
+to the <a href="https://github.com/hasansezertasan/copier-pyproject/blob/main/docs/adr">ADRs</a> for the "why". Three sources of truth, no duplication:</p>
+<ul>
+<li><strong><code>copier.yml</code> <code>help:</code></strong> — the one-line prompt shown for each toggle.</li>
+<li><strong>This page</strong> — what each toggle/workflow renders and how the pieces fit.</li>
+<li><strong>The ADR</strong> — why it exists, the trade-offs, the posture.</li>
+</ul>
+<p>When a toggle's rationale changes, edit the ADR. When what it renders changes,
+edit this page and <code>copier.yml</code> help. Do not restate either in <code>AGENTS.md</code>.</p>
+<h2 id="template-variables-copieryml">Template Variables (copier.yml)<a class="headerlink" href="#template-variables-copieryml" title="Permanent link">&para;</a></h2>
+<p>Required inputs:</p>
+<ul>
+<li><code>github_user</code>, <code>github_repo_name</code>, <code>author_full_name</code>, <code>author_email</code>, <code>short_description</code></li>
+</ul>
+<p>Free-form metadata:</p>
+<ul>
+<li><code>package_keywords</code> - extra comma-separated PyPI keywords prepended to the generated
+  <code>keywords</code> list (default empty); the template's own base keywords plus tooling and
+  enabled-component keywords are always appended automatically. (The classifiers list
+  is still auto-generated from enabled components — it carries a <code>TODO</code> marker for the
+  generated project's author to fill in project-specific classifiers.)</li>
+<li><code>repository_topics</code> - comma-separated GitHub repository topics (default empty),
+  asked and used <strong>only</strong> when <code>include_repo_settings</code> is enabled
+  (<code>when: "{{ include_repo_settings }}"</code>). Rendered into
+  <code>.github/settings.yml</code> as the <code>topics:</code> list (lower-cased, space/underscore
+  hyphenated). Left empty, the <code>topics:</code> key is omitted entirely so the Settings
+  App leaves the repository's existing topics untouched. See
+  <a href="../adr/018-repository-settings-as-code/">ADR-018</a>.</li>
+</ul>
+<p>Starting point:</p>
+<ul>
+<li><code>preset</code> - <code>library</code>/<code>tool</code>/<code>web</code>/<code>full</code>. Seeds the default of every
+  <code>include_*</code> toggle via the hidden <code>preset_map</code> computed variable (<code>when: false</code>,
+  never stored) — every preset includes <code>docs</code>; <code>library</code> → <code>docs</code> + <code>examples</code>;
+  <code>tool</code> → <code>docs</code> + <code>cli</code> + <code>tui</code> + <code>pydantic_settings</code>; <code>web</code> → <code>docs</code> + <code>web</code> +
+  <code>pydantic_settings</code> + <code>postgres</code> + <code>redis</code>; <code>full</code> → everything. <code>default:
+  library</code> (the smallest surface, so an unattended <code>--defaults</code> run produces a
+  plain package with docs). Toggles remain asked and
+  stored — the preset only changes defaults; it hides nothing, though
+  dependency-gated sub-questions (the DB UIs, web framework, worker broker, redis
+  backend) still appear only when their parent toggle is enabled, independent of
+  the preset. The <code>minimal</code>/<code>standard</code>/<code>custom</code> presets and the byte-identical
+  <code>--defaults</code> guarantee were removed in
+  <a href="../adr/016-archetype-based-presets/">ADR-016</a>.</li>
+</ul>
+<p>Optional components (all boolean):</p>
+<ul>
+<li><code>include_cli</code> - CLI (<code>cli_framework</code>: Typer, or standard-library <code>argparse</code> for
+  a dependency-free command root exposing the same <code>version</code>/<code>info</code> commands and
+  component subcommands — see <a href="../adr/020-cli-framework-choice/">ADR-020</a>)</li>
+<li><code>include_web</code> - Web app + Dockerfile (framework choice: FastAPI or Litestar)</li>
+<li><code>include_gui</code> - Tkinter GUI</li>
+<li><code>include_tui</code> - Textual TUI</li>
+<li><code>include_mcp</code> - MCP (Model Context Protocol) server</li>
+<li><code>include_worker</code> - FastStream message queue worker</li>
+<li><code>include_c_extensions</code> - Cython support with multi-platform wheels</li>
+<li><code>include_profiling</code> - py-spy, scalene, cProfile tools</li>
+<li><code>include_benchmarks</code> - pytest-codspeed benchmarks and a non-blocking CodSpeed workflow</li>
+<li><code>include_launcher</code> - uv-bootstrap launcher (PyCrucible) — small executable, downloads Python+deps on first run</li>
+<li><code>include_compiler</code> - compiler (Nuitka) — source compiled to a native machine-code executable</li>
+<li><code>include_freezer</code> - offline freezer (PyInstaller) — self-contained bundle, no Python on target</li>
+</ul>
+<p>These three standalone-executable toggles are independent and combinable; each
+  maps to one architectural category (launcher / compiler / freezer). See
+  <a href="../adr/007-standalone-executable-toggles/">ADR-007</a>.
+- <code>include_examples</code> - an <code>examples/</code> folder with simple and advanced usage stubs
+  (enabled by the <code>library</code> preset default)
+- <code>include_docs</code> - the Sphinx documentation subsystem, <strong><code>default: true</code> in every
+  preset</strong> (docs-by-default; off is a deliberate opt-out for a README-only
+  project). Guards the ten Sphinx-site files under <code>docs/</code> (<code>conf.py</code>,
+  <code>check_warnings.py</code>, <code>expected_warnings.txt</code>, <code>index.rst</code>, <code>installation.rst</code>,
+  <code>usage.rst</code>, <code>modules.rst</code>, the <code>web-interface.rst</code>/<code>worker-interface.rst</code>
+  component pages, and the <code>cli-reference.md</code> page — those three also on their
+  component toggles, the CLI page additionally on <code>cli_framework == "typer"</code>), the
+  <code>tools/build_docs.py</code> versioned-docs orchestrator, the <code>docs</code>
+  dependency group, the <code>docs-build</code>/<code>docs-server</code>/<code>docs-linkcheck</code> tox envs, the
+  <code>sphinx-lint</code> entry in the <code>style</code> tox env and prek hook, the <code>sphinx</code> keyword,
+  the <code>docs-preview.yml</code>/<code>docs-linkcheck.yml</code>/<code>gh-pages.yml</code> workflows and the
+  <code>release.yml</code> <code>deploy-docs</code> job, plus the README docs badge/link, <code>SUPPORT.md</code>
+  link, <code>CONTRIBUTING.md</code> docs section, and <code>mise</code> <code>docs-*</code> tasks. <strong>Exception:</strong>
+  <code>docs/maintaining/setup.rst</code> (the maintainer repository-setup guide the
+  <code>repo-setup</code> skill reads, hard-referenced by README/CONTRIBUTING/<code>ci.yml</code>/
+  <code>settings.yml</code>/<code>.sourcery.yaml</code>/<code>sonar-project.properties</code>) always ships — only
+  its GitHub Pages step is <code>include_docs</code>-gated — and with docs off the
+  <code>settings.yml</code> <code>homepage</code> falls back to the repository URL. See
+  <a href="../adr/025-optional-docs-subsystem/">ADR-025</a>.
+- <code>include_pydantic_settings</code> - pydantic-settings for config
+- <code>include_sourcery</code> - Sourcery AI-refactoring config (<code>.sourcery.yaml</code>)
+- <code>include_sonarcloud</code> - SonarCloud static-analysis (<code>sonar-project.properties</code> + a <code>sonar</code> CI job)
+- <code>include_all_contributors</code> - all-contributors config (<code>.all-contributorsrc</code>) + README section
+- <code>include_smokeshow</code> - publish the combined coverage HTML report to a tokenless ephemeral URL via <code>smokeshow</code> (a step in the <code>coverage-report</code> CI job; public repos only, <code>default: false</code>; see <a href="../adr/026-combined-cross-matrix-coverage-and-tokenless-html-host/">ADR-026</a>)
+- <code>include_benchmarks</code> - pytest-codspeed benchmark suite, <code>benchmark</code> tox/mise entry points, and a separate non-blocking CodSpeed workflow (requires <code>CODSPEED_TOKEN</code>; see <a href="../adr/034-opt-in-performance-benchmarking/">ADR-034</a>)</p>
+<p>These are opt-in integrations kept as toggles (not always-on) precisely to
+  preserve the self-contained "green on first push, zero external accounts"
+  default: each is off in the base <code>library</code>/<code>tool</code>/<code>web</code> presets (only the <code>full</code>
+  preset seeds them on), so a plain project never pays for them unasked. <code>include_smokeshow</code> needs no account at all (a
+  tokenless public-repo-only coverage-HTML mirror in the <code>coverage-report</code> job —
+  <a href="../adr/026-combined-cross-matrix-coverage-and-tokenless-html-host/">ADR-026</a>);
+  <code>include_sourcery</code> (config-only, external App) and
+  <code>include_sonarcloud</code> (needs a SonarCloud org + <code>SONAR_TOKEN</code> secret) require
+  out-of-band setup; the <code>sonar</code> job mirrors the Codecov opt-in/non-blocking
+  pattern (gated on the <code>SONAR_TOKEN</code> presence flag, skips fork PRs, visible
+  <code>::notice::</code> skip when unset, not in the <code>check</code> gate). <code>include_all_contributors</code>
+  is more self-contained: besides <code>.all-contributorsrc</code> + the README section, it
+  renders an <code>all-contributors.yml</code> workflow that runs the all-contributors <strong>CLI</strong>
+  (delivered via mise's npm backend, <code>mise exec -- all-contributors generate</code>,
+  mirroring ghalint; version pinned in <code>mise.toml</code> and Renovate-tracked) and opens
+  a PR via <code>peter-evans/create-pull-request</code> (never pushes to the default branch,
+  so <code>persist-credentials: false</code> holds), so the bot/App is optional — it only
+  needs the <em>Allow Actions to create PRs</em> setting release-please already requires.
+  See
+  <a href="../adr/009-optional-external-quality-community-integrations/">ADR-009</a>.
+- <code>include_megalinter</code> - MegaLinter as an opt-in extra CI quality layer
+  (<code>mega-linter.yml</code> + <code>.mega-linter.yml</code>), <code>default: false</code>.</p>
+<p>Unlike the ADR-009 trio, MegaLinter is a self-contained Docker action needing
+  <strong>no</strong> external account — but it was previously shipped <strong>always-on and
+  undocumented</strong>, which both violated the fast/self-contained default and
+  duplicated prek. Now gated, and when enabled it is a <strong>lean complement</strong>: its
+  <code>ENABLE_LINTERS</code> is trimmed to only the linters prek/tox do <strong>not</strong> already
+  cover — <code>BASH_SHELLCHECK</code>, <code>DOCKERFILE_HADOLINT</code> (jinja-gated on <code>include_web</code>,
+  the only config with a Dockerfile), <code>JSON_JSONLINT</code> (scoped to skip the
+  JSONC-with-comments <code>devcontainer.json</code>/<code>.vscode/*.json</code>), and
+  <code>COPYPASTE_JSCPD</code>, and <code>SPELL_CSPELL</code> <strong>scoped to <code>.md</code></strong> (a deeper,
+  dictionary-driven prose complement to prek's fast whole-tree <code>typos</code> — the one
+  deliberate overlap, not a replacement) — never
+  actionlint/yamllint/markdownlint/editorconfig (prek), never Python (tox), never
+  the repository security linters (<code>check-security.yml</code> + CodeQL/Scorecard). It runs
+  on the smaller <strong><code>cupcake</code> flavor</strong> image, which cuts the dominant image-pull
+  cost that made it slow (the effective per-run lever). It runs on every push/PR
+  to the default branch — <strong>no paths filter</strong>, because <code>COPYPASTE_JSCPD</code> scans
+  source so a filter would fire on nearly every PR anyway; an always-run is
+  simpler and more predictable. Non-blocking on three levels: <code>DISABLE_ERRORS:
+  true</code> (reports findings but exits <code>0</code>, so a lint nit never posts a red check —
+  not just the <code>check</code>-gate exclusion and <code>GITHUB_STATUS_REPORTER: false</code>). A
+  project that wants it to gate can require its code-scanning results via branch
+  protection. The job <strong>does</strong> carry
+  <code>security-events: write</code> and pushes MegaLinter's SARIF
+  (<code>SARIF_REPORTER: true</code>) to the code-scanning dashboard via
+  <code>github/codeql-action/upload-sarif</code> — a real Security-tab upload (not just the
+  <code>upload-artifact</code> archive), best-effort (<code>continue-on-error</code>, <code>if: always()</code>)
+  and mirroring <code>zizmor.yml</code>'s free-on-public / GHAS-on-private posture. The
+  MegaLinter-only
+  <code>.shellcheckrc</code> is gated with the toggle; the prek-shared configs
+  (<code>.markdownlint.yml</code>, <code>.github/actionlint.yaml</code>, <code>.github/yamllint.yaml</code>) stay
+  always-on. See
+  <a href="../adr/013-megalinter-opt-in-lean-complement/">ADR-013</a>.
+- <code>include_ai_rulez</code> - agent instructions authored once and generated per host,
+  <code>default: false</code> (seeded on by the <code>full</code> preset). With it <strong>off</strong> the project
+  keeps the hand-written <code>AGENTS.md</code> and the Claude-only
+  <code>repo-setup</code> and <code>template-adoption</code> skills. With it <strong>on</strong> the template renders
+  <a href="https://github.com/Goldziher/ai-rulez">ai-rulez</a> sources instead —
+  <code>.ai-rulez/config.toml</code>, three rules (package structure, key conventions, pull
+  requests), two context files (commands, external references) and the
+  <code>repo-setup</code> and <code>template-adoption</code> skills — and <code>ai-rulez generate</code> fans
+  them out to the hosts named
+  by the <code>ai_rulez_presets</code> multiselect (default <code>codex</code>, <code>copilot</code> — Claude
+  Code reads <code>AGENTS.md</code> natively; <code>claude</code>, <code>cursor</code>, <code>windsurf</code>, <code>cline</code>, <code>continue-dev</code>, <code>amp</code>, <code>junie</code>,
+  <code>opencode</code>, <code>hermes</code> and <code>antigravity</code> are also offered).</p>
+<p>The generated files are <strong>build output the template never renders</strong>:
+  <code>AGENTS.md</code>, <code>.github/copilot-instructions.md</code> and the per-host
+  copies of the skills appear on the adopter's first <code>ai-rulez generate</code> and are
+  committed from there on, which keeps <code>copier update</code>'s 3-way merge on the
+  small rule sources instead of one monolithic instruction file. The prose
+  itself lives in <code>_macros.jinja</code>, shared with the <code>AGENTS.md</code> rendering, so the
+  two shapes cannot drift.</p>
+<p>Wiring: <code>ai-rulez==4.11.5</code> pinned in its own <code>agents</code> dependency group (not
+  <code>style</code>, which <code>dev</code> drags in everywhere); a prek <strong>fixing</strong> hook that
+  regenerates on any <code>.ai-rulez/</code> change; <code>ai-rulez validate</code> in the tox <code>style</code>
+  env; and a <code>ci.yml</code> step that fails when the working tree — untracked files
+  included — is not clean after the hooks, which is what catches a project that
+  never committed the generated output at all. <code>gitignore = false</code> is mandatory
+  (ai-rulez would otherwise rewrite the cobo-sealed <code>.gitignore</code>), and
+  <code>builtins = false</code> because every builtin domain restates or contradicts a gate
+  the generated project already enforces.</p>
+<p>Because the output is not copier-managed, <strong>both</strong> update directions need a
+  manual step and both are documented in ADR-035 §8. Turning the toggle <em>on</em>
+  (which the first <code>copier update</code> of a <code>full</code>-preset project does by default)
+  removes the copier-managed <code>AGENTS.md</code> and generates nothing, so
+  <code>_message_after_update</code> prints <code>uv lock</code> + <code>ai-rulez generate</code> and CI stays red
+  until their output is committed. Turning it <em>off</em> leaves every previously
+  generated host file behind, so <code>ai-rulez clean --force --keep-gitignore</code> must
+  run <strong>before</strong> the update, while the <code>.ai-rulez/</code> sources it reads still exist.
+  A few hosts also need the generated project's own linters to skip the paths
+  ai-rulez owns (<code>.mdc</code> and <code>.continue/prompts/</code>) — those excludes render only
+  under the toggle. See
+  <a href="../adr/035-ai-rulez-as-the-agent-instruction-source/">ADR-035</a>.
+- <code>include_pypi_publish</code> - publish to PyPI on each release via trusted
+  publishing; on in every preset. Off drops the <code>pypi-publish</code> release job,
+  the PyPI publisher setup step, the README PyPI badges and Analysis links, and
+  points the install docs at <code>git+https://github.com/&lt;user&gt;/&lt;repo&gt;</code>; wheels
+  and sdists still attach to every GitHub Release. Because a Homebrew formula
+  and a Scoop pipx manifest install from PyPI, the hidden
+  <code>can_distribute_natively</code> (<code>is_app</code> and PyPI-or-an-executable) gates both
+  distribution toggles. See
+  <a href="../adr/039-optional-pypi-publishing/">ADR-039</a>.
+- <code>include_homebrew</code> - Homebrew tap distribution, <code>default: false</code> and
+  <code>when: "{{ can_distribute_natively }}"</code>-gated (only offered for app-like
+  projects that publish to PyPI or build an executable, not a library). The generated
+  project does not build a formula/cask itself: its <code>release.yml</code> fires a
+  <code>repository_dispatch</code> (<code>update-formula</code>/<code>update-cask</code>) at the owner's own
+  <code>homebrew-tap</code> repo, which owns the manifest logic via <code>brew
+  bump-formula-pr</code>/<code>bump-cask-pr</code> + <code>brew update-python-resources</code>. A
+  reference listener workflow + setup guide ships under
+  <code>docs/packaging/homebrew-tap/</code> for copying into that tap repo. Needs a
+  <code>HOMEBREW_TAP_TOKEN</code> secret: a fine-grained PAT with <strong>Contents: write</strong>
+  only on the tap repo (no <code>Pull requests</code> scope — the tap opens its own PR
+  with its own <code>GITHUB_TOKEN</code>). See
+  <a href="../adr/017-opt-in-homebrew-scoop-distribution/">ADR-017</a>.
+- <code>include_scoop</code> - Scoop bucket distribution (opt-in), the same
+  dispatch-not-generation pattern: <code>release.yml</code> fires <code>update-manifest</code> at
+  the owner's own <code>scoop-bucket</code> repo, which owns the manifest via its own
+  <code>checkver</code>/<code>autoupdate</code> (or updater script). A reference listener + setup
+  guide ships under <code>docs/packaging/scoop-bucket/</code>. Needs a
+  <code>SCOOP_BUCKET_TOKEN</code> secret with the same <strong>Contents: write</strong>-only PAT
+  scope. Both toggles pick a binary (Homebrew cask / Scoop binary-zip
+  manifest) vs. PyPI (Homebrew formula / Scoop pipx manifest) payload via the
+  <code>primary_executable</code> precedence (<code>freezer</code> &gt; <code>compiler</code> &gt; <code>launcher</code>; empty
+  ⇒ PyPI fallback). See
+  <a href="../adr/017-opt-in-homebrew-scoop-distribution/">ADR-017</a>.
+- <code>include_repo_settings</code> - repository metadata as code: a <code>.github/settings.yml</code>
+  (description/homepage/topics + squash-merge flags) synced by the "Settings"
+  GitHub App, <code>default: false</code>. Opt-in like the ADR-009 integrations because the
+  App is an external install (and it escalates push→admin — mitigated via the
+  shipped CODEOWNERS + "Require review from Code Owners"). Labels are NOT managed
+  here — they stay App-free in <code>labels.yml</code>/<code>label-sync.yml</code>. The "Include in the
+  home page" sidebar toggles are not settable via any API (UI-only). See
+  <a href="../adr/018-repository-settings-as-code/">ADR-018</a>.
+- <code>include_repo_ruleset</code> - repository branch protection as code: a
+  <code>.github/rulesets/main.json</code> (squash-only, linear history, required CI checks —
+  the actual job names this template ships, Trivy gated on <code>include_web</code>) applied
+  by an App-free, idempotent <code>ruleset-sync.yml</code> workflow (list → find by name →
+  PUT/POST), <code>default: false</code> and <code>full</code>-preset only. Opt-in and independent of
+  <code>include_repo_settings</code> (the "Settings" App cannot manage rulesets). The
+  workflow needs a <code>REPO_ADMIN_TOKEN</code> fine-grained PAT (Administration: read &amp;
+  write) — the Actions <code>GITHUB_TOKEN</code> has no <code>administration</code> scope — and
+  warn-and-skips when the secret is absent (ADR-017 posture).
+  <code>required_approving_review_count</code> is 0 (checks strictly enforced, no
+  human-approval requirement, no <code>bypass_actors</code>) so solo maintainers and
+  release-please/Renovate are not blocked. See
+  <a href="../adr/021-repository-ruleset-as-code/">ADR-021</a>.</p>
+<p>Framework/broker choices (when parent option is enabled):</p>
+<ul>
+<li><code>web_framework</code> - fastapi/litestar (when <code>include_web</code> is true)</li>
+<li><code>worker_broker</code> - kafka/nats/rabbitmq/redis (when <code>include_worker</code> is true)</li>
+</ul>
+<p>Testing choices:</p>
+<ul>
+<li><code>async_style</code> - <code>none</code>/<code>asyncio</code>/<code>anyio</code>. Async test runner for generated tests:
+  <code>none</code> (synchronous tests only), <code>asyncio</code> (pytest-asyncio strict mode with explicit
+  markers), or <code>anyio</code> (runs marked tests across both asyncio and trio backends).
+  Defaults to <code>asyncio</code> when <code>include_web</code>, <code>include_tui</code>, <code>include_mcp</code>, or <code>include_worker</code>
+  is enabled, and <code>none</code> otherwise. When TUI, MCP, or worker is enabled, validation
+  constrains the choice to <code>asyncio</code> or <code>anyio</code> because those components ship async tests.
+  See <a href="../adr/036-async-testing-style/">ADR-036</a>.</li>
+</ul>
+<p>Devcontainer services:</p>
+<ul>
+<li><code>include_postgres</code> - PostgreSQL service</li>
+<li><code>include_redis</code> - Redis/Valkey service</li>
+<li><code>redis_backend</code> - redis/valkey image (when <code>include_redis</code> is true)</li>
+<li><code>include_pgadmin</code> - pgAdmin UI (when <code>include_postgres</code> is true)</li>
+<li><code>include_adminer</code> - Adminer UI (when <code>include_postgres</code> is true)</li>
+<li><code>include_dbeaver</code> - CloudBeaver database management UI</li>
+<li><code>include_vpn</code> - OpenVPN client</li>
+</ul>
+<p>Always included (no toggle): a Keep-a-Changelog <code>CHANGELOG.md</code> <strong>created and
+maintained by release-please</strong> — the template does <strong>not</strong> ship a
+<code>CHANGELOG.md.jinja</code> seed file. release-please generates <code>CHANGELOG.md</code> on its
+first release PR (per <code>changelog-path</code> in <code>.github/release-please-config.json</code>).
+Do not re-add a seed template: a scaffold-time <code>CHANGELOG.md</code> overwrites the
+existing changelog when an already-published project adopts the template via
+<code>copier copy</code>/<code>copier update</code>, wiping its release history (this happened during a
+real template adoption). Codecov coverage upload (<code>.github/codecov.yml</code> + CI step), Renovate
+dependency management (<code>.github/renovate.json</code> extends the shared preset
+<code>github&gt;hasansezertasan/renovate-config:python</code>, which carries the base
+<code>config:recommended</code> + <code>helpers:pinGitHubActionDigests</code> policy and the prek-hook
+<code>customManagers</code> regex; Dependabot and the <code>none</code> opt-out were removed — there is
+no longer a <code>dependency_management</code> option), a <code>CITATION.cff</code>
+file with a <code>validate-citation.yml</code> workflow (the <code>include_citation</code> toggle was
+removed — it is now always rendered and validated via
+<code>citation-file-format/cffconvert-github-action</code>), and mise
+(<code>mise.toml</code> + devcontainer feature) for tool version management and task
+running. Pants and Trunk were removed entirely — the tox <code>style</code> env is the sole
+lint/build orchestrator (see <a href="../adr/003-tox-as-canonical-lint-runner/">ADR-003</a>).</p>
+<p><strong>import-linter</strong> enforces the generated package's architecture: one always-on
+<code>layers</code> contract (in <code>[tool.importlinter]</code>) keeps the component group
+(<code>web</code>/<code>gui</code>/<code>tui</code>/<code>mcp</code>/<code>worker</code>) mutually independent, with <code>cli</code> as an
+orchestrator layer above them (the <code>{{pkg}}</code> Typer root, whose subcommands
+lazy-import those components to launch them — see ADR-019), all layered above
+<code>core</code> above <code>utils</code>. The <code>cli</code> layer is present whenever <code>include_console_root</code>
+is true (see the entry-points section below), not only when <code>include_cli</code> is set.
+<code>core</code> is also where the shared application payload lives (<code>core/app.py</code>,
+ADR-033): it is already the layer directly beneath the component group, so the
+sharing needs no new layer and the contract is unchanged.
+The component layers are Jinja-conditional on the enabled toggles (omitted when
+none are enabled, leaving a <code>core &gt; utils</code> contract), so no <code>ignore_imports</code> is
+needed. The contract is <strong>exhaustive</strong> (<code>containers = ["{{pkg}}"]</code>,
+<code>exhaustive = true</code>): a subpackage of <code>{{pkg}}</code> that is not named in <code>layers</code>
+breaks the contract, so a new top-level subpackage cannot silently accrete at the
+package root — the fix is to place the code inside an existing layer, or to add
+the new layer deliberately. <code>exhaustive_ignores</code> carries the non-layer
+foundations (<code>__main__</code>, <code>__metadata__</code>, <code>_version</code>, and <code>_c_extension</code> when
+<code>include_c_extensions</code>). The generated <code>AGENTS.md</code> documents the matching
+placement table for AI agents.
+Delivered via the <code>style</code> group + a <code>lint-imports</code> command run from <strong>both</strong> the
+tox <code>style</code> env and a prek <code>local</code> <code>system</code> hook (<code>uv run --locked --group style
+lint-imports</code>) — the same dual-run, single-version-source pattern as
+<code>basedpyright</code>, since import-linter is likewise a whole-program analyzer that
+needs the installed package and a <code>grimp</code> import-graph build. It is <strong>not</strong>
+eligible as an upstream prek <strong>repo hook</strong> (those run in an isolated venv without
+the project installed); the <code>local</code> <code>system</code> hook shells out through <code>uv run</code>,
+which syncs and resolves the package. <strong>slotscheck</strong> (which imports <code>src/</code> to
+verify <code>__slots__</code>) is delivered the same dual-run way and for the same reason —
+whereas the redundant type checkers <code>ty</code>/<code>pyrefly</code>/<code>zuban</code> stay style-env-only so
+the fast gate carries one representative type checker (basedpyright), not five.
+See <a href="../adr/014-import-linter-for-architecture-contracts/">ADR-014</a>.</p>
+<p><strong>semgrep</strong> is the rules-database SAST layer over <code>src/</code>, delivered
+style-env-only for the same reason <code>ty</code>/<code>pyrefly</code>/<code>zuban</code> are: it keeps no
+on-disk rule cache, so a prek hook would make a registry request on every <code>git
+commit</code> and fail for an offline contributor. Pinned in its own <code>sast</code> group —
+Renovate tracks it through the native <code>pep621</code> manager, and keeping it out of
+<code>style</code> (which <code>dev</code> includes wholesale) spares every plain <code>uv sync</code> and every
+Windows/macOS CI cell a ~215 MB install of a tool only the Linux <code>style</code> job
+runs — and invoked as
+<code>semgrep scan --config p/python --error --metrics=off src</code> — the ruleset is
+<em>named</em> rather than <code>--config auto</code> so rule selection does not depend on
+language auto-detection, and <code>--metrics=off</code> keeps scan telemetry off the wire.
+Two consequences worth knowing: the run is <strong>not hermetic</strong> (rules are fetched
+at scan time, so a semgrep release can turn a green <code>main</code> red and a registry
+outage fails the env), and findings <strong>overlap</strong> ruff — <code>select = ["ALL"]</code> turns
+all of flake8-bandit (<code>S</code>) on, so an md5 call trips both <code>S324</code> and
+<code>insecure-hash-algorithm-md5</code>, and such a line needs both <code># noqa</code> and
+<code># nosemgrep: &lt;rule-id&gt;</code>. The genuine marginal value is the cross-statement
+taint rules ruff's per-node checks cannot express. The rules are <strong>not</strong> vendored
+into the template: the registry rules are under the Semgrep Rules License v1.0
+("You may not distribute the rules"), which forbids shipping them to adopters.
+See <a href="../adr/032-semgrep-sast-in-the-style-env/">ADR-032</a>.</p>
+<p>Also always included (no toggle): structured GitHub issue forms
+(<code>.github/ISSUE_TEMPLATE/bug_report.yml</code> + <code>feature_request.yml</code> + <code>config.yml</code>,
+the latter disabling blank issues) whose <code>component</code> dropdown is Jinja-gated to
+only list enabled runnable components (<code>include_console_root</code>/<code>include_cli</code>/
+<code>include_gui</code>/<code>include_tui</code>/<code>include_web</code>/<code>include_mcp</code>/<code>include_worker</code>) and
+whose <code>uvx</code>/<code>pipx</code> install options and required OS field appear only when a
+runnable component (or, for OS, a C extension) makes them meaningful, a
+<code>pull_request_template.md</code> with a real task-list checklist (feeding
+<code>task-completed-check.yml</code>) and a fillable <code>Closes #</code> line (feeding
+<code>check-linked-issues.yml</code>), a <code>SUPPORT.md</code> community-health file (points to
+docs/issues/discussions and cross-references <code>SECURITY.md</code>/<code>CONTRIBUTING.md</code>), a
+<code>.gitattributes</code> (LF normalization matching the ruff/EditorConfig policy, Linguist
+overrides marking <code>_version.py</code>/<code>CHANGELOG.md</code>/<code>uv.lock</code>/<code>cobo.lock</code> as generated
+and <code>docs/</code>
+as documentation, <code>export-ignore</code> archive hygiene, and an <code>export-subst</code> entry
+for <code>.git_archival.txt</code>), and AI-agent onboarding
+file — a concise <code>AGENTS.md</code> (the cross-tool standard, also read by Claude Code)
+so there is a single source of truth.
+<code>AGENTS.md</code> intentionally carries <strong>no</strong> commit-attribution/<code>Co-Authored-By</code> block.
+When <code>include_ai_rulez</code> is enabled, that file is replaced by the <code>.ai-rulez/</code>
+sources the host-specific files are generated from, alongside every other host's native
+config (<a href="../adr/035-ai-rulez-as-the-agent-instruction-source/">ADR-035</a>).</p>
+<p>The default <code>AGENTS.md</code>-only shape requires Claude Code v2.1.277 or later for
+direct loading (v2.1.281 or later for sessions such as Amazon Bedrock or those
+with telemetry disabled). Claude Code's default instruction mode skips
+<code>AGENTS.md</code> if a <code>CLAUDE.md</code>, <code>.claude/CLAUDE.md</code>, or <code>CLAUDE.local.md</code> exists in
+the working directory or an ancestor; the global <code>~/.claude/CLAUDE.md</code> does not
+count. Adopters retaining those project or ancestor files can set <strong>Project
+instructions</strong> to <code>claude-md-and-agents-md</code> in <code>/config</code>. Older clients or
+sessions with AGENTS.md support disabled need an adopter-maintained <code>CLAUDE.md</code>
+containing <code>@AGENTS.md</code>. The template does not render that compatibility wrapper.
+See the <a href="https://code.claude.com/docs/en/memory#when-claude-code-reads-agents-md">official loading rules</a>.</p>
+<p>The retired <code>CLAUDE.md</code> wrapper is not excluded: <code>copier update</code> deletes the
+copy an older render left behind, including adopter customizations (git history
+keeps them). Only projects with <code>include_ai_rulez</code> off ever had it, so their
+<code>AGENTS.md</code> is hand-written: move any unique guidance there before updating, or
+into a <code>.ai-rulez/</code> rule source if the same update turns the toggle on.</p>
+<p>Also always included (no toggle): a <code>.git_archival.txt</code> (setuptools-scm's stable
+<code>node</code>/<code>node-date</code>/<code>describe-name</code> <code>$Format:...$</code> template). Paired with the
+<code>.gitattributes</code> <code>export-subst</code> entry, <code>git archive</code>/GitHub source tarballs (the
+install flow documented in <code>docs/installation.rst</code>) expand it to the real
+tag-derived version, so hatch-vcs recovers the correct version without a <code>.git</code>
+directory instead of stamping the <code>[tool.hatch.version] fallback-version</code> literal.
+That fallback is kept at the obvious sentinel <code>0.0.0</code> (used only when an archive
+has no reachable tag), not a plausible-looking <code>0.1.0</code>.</p>
+<p>Commitizen (Conventional Commit authoring/linting) is <strong>always included</strong> — it
+is no longer gated behind an <code>include_commitizen</code> option. release-please still
+owns versioning/changelog; Commitizen only authors/lints messages (see
+<a href="../adr/004-commitizen-as-commit-helper-not-release-tool/">ADR-004</a>).</p>
+<p>The <code>.gitignore</code> is <strong>always</strong> managed by
+<a href="https://github.com/hasansezertasan/cobo">cobo</a> (no toggle, like mise/renovate),
+replacing the ad-hoc gibo workflow. <code>template/.gitignore.jinja</code> is a cobo-sealed
+fenced block (<code># &gt;&gt;&gt; cobo:begin &gt;&gt;&gt;</code> … <code># &lt;&lt;&lt; cobo:end sha256=… &lt;&lt;&lt;</code>) of the
+macOS/Windows/Linux/VisualStudioCode/Python boilerplates from <code>github/gitignore</code>,
+followed by the <code>### Generated by the author</code> section that carries the
+project-specific overrides (the <code>include_freezer</code> spec negation and
+<code>include_c_extensions</code> generated-C ignore live <strong>below</strong> the fence — the fence
+must stay verbatim boilerplate). The block is sealed with cobo's <strong><code>--eol lf</code></strong>
+policy (cobo ≥ 0.4.0) so it survives this template's LF-everywhere normalization
+(Copier's Jinja render + git <code>eol=lf</code>); a byte-exact seal would make <code>cobo check</code>
+report <code>locally modified</code> forever in generated projects. Two lockfiles ship:
+root <code>cobo.lock</code> (two fragments — <code>template/.gitignore.jinja</code> <strong>and</strong> this repo's
+own <code>.gitignore</code>, which is cobo-managed too as dogfooding) and
+<code>template/cobo.lock</code> (<code>path = .gitignore</code>, shipped to generated projects). cobo
+is delivered to generated projects as a mise tool (<code>pipx:cobo</code>, Renovate-tracked)
+with a <code>mise run gitignore-check</code> task and a weekly, non-blocking
+<code>gitignore-drift.yml</code> workflow (<code>cobo update &amp;&amp; cobo check --strict</code> on <code>schedule</code> +
+<code>workflow_dispatch</code> only — not in the <code>check</code> gate; network-flaky, same posture
+as <code>docs-linkcheck</code>). <strong>Regenerate</strong> from the repo root with <code>cobo update &amp;&amp; cobo
+sync</code> (re-renders the fenced region in place, preserving the author section and
+the <code>eol = "lf"</code> policy); refresh <code>template/cobo.lock</code> the same way from a scratch
+dir dumping with <code>--eol lf --out .gitignore --lock</code>. Do <strong>not</strong> hand-edit inside
+the fence (it breaks the sha256). See
+<a href="../adr/012-cobo-for-gitignore-generation/">ADR-012</a>.</p>
+<p>Git hooks are <strong>always included</strong> (there is no <code>include_precommit</code>
+option). They are run via <a href="https://prek.j178.dev">prek</a>, a Rust-native
+pre-commit replacement, configured by a native <code>prek.toml</code> (not a
+<code>.pre-commit-config.yaml</code>). The dependency group is <code>prek</code> and contains only
+<code>prek</code>; both the tox <code>prek</code> env (<code>tox run -e prek</code>) and the CI <code>hooks</code> job invoke
+<code>prek run --all-files</code>. One of those hooks is <code>zizmor</code>
+(<code>zizmorcore/zizmor-pre-commit</code>), which statically audits the GitHub Actions
+workflows — it is the <strong>blocking</strong> half of the workflow-hardening setup (see the
+<code>zizmor.yml</code> item under CI/CD Workflows below). Because <code>prek run --all-files</code>
+runs in the CI <code>hooks</code> job, a workflow security regression fails CI with no extra
+job. NOTE: verify zizmor changes with the <strong>prek hook</strong> (<code>prek run zizmor
+--all-files</code>), not a bare <code>uvx zizmor</code> — the two can pin different zizmor versions
+whose default-persona <code>dangerous-triggers</code> behavior differs, and the prek hook is
+what actually gates generated projects.</p>
+<p><strong>detect-secrets</strong> is a local, pre-commit-stage secret scanner (<code>local</code> <code>system</code>
+hook via <code>uv run --locked --group style detect-secrets-hook --baseline
+.secrets.baseline</code>) that catches a secret at <code>git commit</code> time, before it ever
+enters history. It checks changed files against the committed
+<code>.secrets.baseline</code> (generated with <code>detect-secrets scan</code>), so only <em>new</em>
+potential secrets are flagged — not the already-triaged false positives already
+recorded in the baseline. It layers with, and does not replace, the
+history-spanning <code>gitleaks</code> scan in <code>check-security.yml</code> (see Supply-chain
+security below): local prevention at the commit stage vs. CI detection across
+full git history. A secret that slips a contributor's local hook is still
+caught in CI, since <code>prek run --all-files</code> runs this hook there too. Baseline
+maintenance (triaging a hit, or regenerating the baseline when the tree
+legitimately changes shape) is documented for contributors in
+<code>CONTRIBUTING.md</code>'s "Secret Scanning" section; Renovate tracks the tool version
+(the <code>style</code> group pin) but cannot manage the baseline's content.</p>
+<p>The tox <code>style</code> env (backed by the uv-managed <code>style</code> dependency group) is the
+canonical lint/type-check runner for the full suite; the prek-run <code>prek.toml</code> is
+the fast local/CI gate. Its hook <code>rev</code> pins are kept current by Renovate (a
+<code>customManagers</code> regex entry supplied by the shared preset
+<code>.github/renovate.json</code> extends — <code>github&gt;hasansezertasan/renovate-config:python</code>
+— since Renovate's built-in pre-commit manager only reads
+<code>.pre-commit-config.yaml</code>). There is no pre-commit.ci integration and no
+<code>sync-with-uv</code> hook — Renovate owns every bump, including the tools shared with
+the uv <code>style</code> group.</p>
+<p>The tox <code>style</code> env is the <em>single</em> lint/type-check orchestrator for a generated
+project — there is no Pants or Trunk config to drift against it (both were
+removed; see <a href="../adr/003-tox-as-canonical-lint-runner/">ADR-003</a>).</p>
+<p><strong>Formatter-canonical output</strong>
+(<a href="../adr/030-generated-files-must-be-formatter-canonical/">ADR-030</a>). Every
+shipped file is emitted in the exact form the generated project's own formatters
+produce, not merely in a valid one — otherwise the adopter's first
+<code>prek run --all-files</code> rewrites it, that project's <code>hooks</code> CI job fails, and each
+<code>copier update</code> carries drift nobody authored. Two shipped configs make the
+hand-written layout the canonical one instead of letting width-driven reflow
+decide it: <code>.github/yamlfmt.yml</code> sets <code>retain_line_breaks_single: true</code> (the
+basic formatter otherwise drops every blank line, including the deliberate
+between-job structure of a 1,300-line <code>ci.yml</code>), and <code>.taplo.toml</code> sets
+<code>array_auto_expand</code>/<code>array_auto_collapse</code>/<code>align_comments</code> to <code>false</code> (so a
+generated file's canonical form does not depend on which components are enabled,
+and a Renovate bump of one pin cannot break the gate on a line nothing touched).
+The <code>style</code> env's taplo runs <code>--check --diff</code> rather than fix mode — in fix mode
+it repaired its own input and exited 0, so the drift was invisible. The
+matrixed guard is this repo's own <code>.github/workflows/template-ci.yml</code>: its
+<code>render</code> job runs the rendered project's <code>yamlfmt</code>/<code>end-of-file-fixer</code>/
+<code>trailing-whitespace</code> hooks per scenario and then asserts <code>git diff
+--exit-code</code>, so a fixing hook that rewrites a file and still exits 0 is caught
+too.</p>
+<p><strong>editorconfig-checker</strong> enforces <code>.editorconfig</code> (the source of truth) on the
+axes no other tool owns — indent style/size and charset on config/markup files.
+It is delivered via the uv <code>style</code> group (PyPI wrapper, command <code>ec</code>), invoked
+in both the tox <code>style</code> env and a prek <code>local</code> hook. Unlike typos
+(whose PyPI wrapper tracks its Go release tags), the <code>editorconfig-checker</code>
+PyPI wrapper lags the Go releases, so a separate upstream prek <code>rev</code> pin would
+drift permanently out of sync with the <code>style</code> group — hence the <code>local</code> hook
+(single version source, like <code>basedpyright</code>) rather than an upstream repo hook.
+Its <code>.editorconfig-checker.json</code> disables the checks other tools already own
+(trailing whitespace + final newline → prek builtins; line endings →
+<code>.gitattributes</code>/ruff; <code>*.py</code> line length → ruff) and excludes <code>.rst</code>/<code>.md</code>/<code>.py</code>
+whose indentation is semantic/marker-relative (Sphinx, markdownlint, and ruff
+are their authorities). Adding <code>.jsonc</code>/<code>.cff</code> to the 2-space <code>.editorconfig</code>
+glob was a genuine correctness fix it surfaced (both were defaulting to 4).</p>
+<p><strong>ghalint</strong> enforces GitHub Actions workflow <em>security policy</em> (a different axis
+from actionlint's <em>correctness</em>): least-privilege per-job <code>permissions</code>,
+<code>persist-credentials: false</code> on checkouts, per-job <code>timeout-minutes</code>, full-length
+action SHA pins, and secret-handling policy. It ships <strong>no</strong> PyPI wrapper and
+<strong>no</strong> pre-commit hook, so it cannot join the uv <code>style</code> group or be a standard
+prek repo hook; it is delivered via <strong>mise</strong> (<code>[tools]</code>
+<code>"aqua:suzuki-shunsuke/ghalint"</code>, aqua backend named explicitly) and invoked as a
+prek <code>local</code> system hook that invokes it through <code>mise exec -- ghalint run</code> so
+the mise-managed binary resolves deterministically after <code>mise install</code> without
+requiring an activated mise shell (shims on PATH) — only <code>mise</code> itself need be on
+PATH. The CI <code>hooks</code> job therefore runs <code>jdx/mise-action</code> (SHA-pinned) before
+<code>prek run</code> so both <code>mise</code> and the binary exist. All shipped workflows are hardened to pass ghalint's strict
+defaults; the only exception is a <strong>web-only</strong> <code>.github/ghalint.yaml</code> that
+excludes the <code>job_secrets</code> policy for exactly the <code>docker-publish-preflight</code> and
+<code>docker-publish</code> jobs (they must expose <code>DOCKERHUB_USERNAME</code> at job-env because
+GitHub <code>if:</code> conditions cannot read the <code>secrets</code> context or step-level env).
+The two docs-push jobs (<code>gh-pages.yml</code> <code>deploy</code>, <code>release.yml</code>
+<code>deploy-docs</code>) set <code>persist-credentials: false</code> and publish via
+<code>JamesIves/github-pages-deploy-action</code> (SHA-pinned), which authenticates from its
+<code>token</code> input (default <code>github.token</code>) without ever writing the token into
+<code>.git/config</code> — replacing the earlier hand-rolled <code>git remote set-url</code> +
+<code>ghp-import</code> push. <code>.nojekyll</code> is emitted by the <code>sphinx.ext.githubpages</code>
+extension at build time (so <code>_static/</code> is served), not by the deploy step.</p>
+<h2 id="rendering-the-template-toolsrenderpy-adr-031">Rendering the template (<code>tools/render.py</code>, ADR-031)<a class="headerlink" href="#rendering-the-template-toolsrenderpy-adr-031" title="Permanent link">&para;</a></h2>
+<p>Every consumer that renders the template calls one module — there is no second
+<code>copier copy</code> spelling anywhere in the repo (<a href="../adr/031-single-render-entrypoint/">ADR-031</a>):</p>
+<table>
+<thead>
+<tr>
+<th>Consumer</th>
+<th>How it renders</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>render harness (ADR-024)</td>
+<td>the <code>render</code> fixture in <code>tests/conftest.py</code> wraps <code>tools.render.render</code></td>
+</tr>
+<tr>
+<td><code>template-ci.yml</code> render matrix</td>
+<td><code>uv run tools/render.py render ../rendered --data …</code></td>
+</tr>
+<tr>
+<td><code>mise run example</code></td>
+<td><code>uv run tools/render.py render example</code></td>
+</tr>
+<tr>
+<td><code>mise run regenerate</code></td>
+<td><code>regenerate()</code> — rewrites the committed derived artifacts</td>
+</tr>
+<tr>
+<td><code>mise run watch</code></td>
+<td><code>watch()</code> — re-renders <code>.watch-render/</code> on every save</td>
+</tr>
+</tbody>
+</table>
+<p><code>tools/render.py</code> carries PEP 723 metadata, so <code>uv run tools/render.py …</code>
+resolves copier itself — no root Python project, no mise shim. Answers layer
+<code>IDENTITY</code> (a neutral <code>octocat</code>/<code>example</code> pair, used by the harness so golden
+files do not move with a maintainer's own inputs) → <code>--data-file</code> (defaults to
+<code>.example-input.yml</code> on the CLI) → explicit <code>--data key=value</code> pairs.</p>
+<p>Subcommands:</p>
+<ul>
+<li><code>render DST [--data k=v]… [--data-file F] [--ref REF]</code> — one render.</li>
+<li><code>regenerate</code> — rewrites every committed derived artifact. Today that is
+  <code>docs/generated-project-trees.md</code>, the exact file set each of the four presets
+  produces, captured from a real render instead of typed by hand. Run it when a
+  change adds or removes a generated file and commit the diff;
+  <code>tests/test_doc_trees.py</code> fails in the blocking <code>render-tests</code> job when the
+  page is stale. <code>artifact-drift.yml</code> re-runs it weekly (schedule +
+  <code>workflow_dispatch</code>, non-blocking) to catch the drift a PR check cannot see —
+  an unpinned copier release changing what the template emits. Future derived
+  artifacts (schemas, references) plug in here and inherit both guards.</li>
+<li><code>watch [--out DIR] [--data k=v]…</code> — authoring loop, watches <code>template/</code>,
+  <code>copier.yml</code> and <code>.example-input.yml</code>, renders into the gitignored
+  <code>.watch-render/</code>, prints a per-rebake status line, and keeps going when a
+  render fails. Needs <code>watchfiles</code>, which <code>mise run watch</code> supplies with
+  <code>uv run --with watchfiles</code>; it is never wired into CI.</li>
+</ul>
+<p><code>example/</code> stays gitignored — a pure smoke-test target of the same entrypoint,
+not a drift-checked artifact (an untracked tree has no diff to check).</p>
+<h2 id="shared-jinja-helpers-_macrosjinja">Shared Jinja helpers (<code>_macros.jinja</code>)<a class="headerlink" href="#shared-jinja-helpers-_macrosjinja" title="Permanent link">&para;</a></h2>
+<p><code>_macros.jinja</code> at the <strong>repository root</strong> holds helpers several templates need.
+It sits outside <code>_subdirectory</code>, so copier treats it as a template <em>input</em> and
+can never render it into a generated project — no <code>_exclude</code> override required
+(which would replace copier's default exclude list wholesale). Templates import
+it on their first line.</p>
+<p>It carries <code>py_collection(name, items, kind)</code>, which emits a Python
+tuple or list literal in the exact byte form ruff-format produces: one line when
+the whole statement fits in 88 columns, otherwise one element per line with a
+trailing comma. The right form depends on values only known at render time (the
+package name, the broker module, how many components are enabled), so a template
+that always picks one ships a file the adopter's first <code>prek run --all-files</code>
+rewrites — see <a href="../adr/030-generated-files-must-be-formatter-canonical/">ADR-030</a>.
+Used by <code>__main__.py</code>, <code>cli/app.py</code> and <code>tests/test_main.py</code> for <code>__all__</code>, the
+component dependency allowlists, and the guard tuples.</p>
+<p>It also carries the <code>agent_*()</code> macros — the agent-instruction prose (commands,
+package structure, conventions, pull requests, external references). They exist
+because that prose has <strong>two</strong> renderings: the hand-written <code>AGENTS.md</code>, and the
+<code>.ai-rulez/</code> rule and context sources when <code>include_ai_rulez</code> is on. Both call
+the same macro, so a toggle meant to remove per-host duplication downstream
+cannot introduce per-shape duplication inside the template
+(<a href="../adr/035-ai-rulez-as-the-agent-instruction-source/">ADR-035</a>). The
+<code>repo-setup</code> and <code>template-adoption</code> skills each use one file whose <em>path</em>
+the toggle picks; neither needs a macro.
+Edit the prose in <code>_macros.jinja</code>, never in one of the two renderings.</p>
+<h2 id="generated-project-structure">Generated Project Structure<a class="headerlink" href="#generated-project-structure" title="Permanent link">&para;</a></h2>
+<p>See <a href="../generated-project-trees/"><code>generated-project-trees.md</code></a> for the generated,
+always-current file list per preset; the prose below explains what the modules
+do.</p>
+<p>Root modules in <code>src/{{github_repo_name}}/</code>:</p>
+<ul>
+<li><code>__init__.py</code>, <code>__main__.py</code>, <code>__metadata__.py</code> - Package setup</li>
+<li><code>_version.py</code> - Auto-generated by hatch-vcs (excluded from coverage)</li>
+</ul>
+<p>Subpackages (each with an <code>__init__.py</code>):</p>
+<ul>
+<li><code>core/</code> - Core infrastructure (always included):</li>
+<li><code>app.py</code> - The version/runtime payload <strong>every</strong> interface renders
+    (<code>version()</code>, <code>info()</code>, <code>info_or_unknown()</code>, <code>MetadataUnavailableError</code>).
+    Each component is an adapter over it — the CLI exits 1, the web app answers
+    503, the MCP tool returns error text, the GUI/TUI show <code>unknown</code>, the worker
+    falls back to <code>0.0.0</code> — so the payload and the metadata lookup exist once
+    rather than once per component. Rendered only when a runnable component
+    exists (<code>primary_component</code>); a library has nothing to report through it,
+    so it ships no placeholder (#321; <code>_exclude</code> keeps an existing project's
+    copy on <code>copier update</code>). Its failure path is exercised through
+    the shared <code>missing_metadata</code> fixture in <code>tests/conftest.py</code>, which reaches
+    every component's error branch by patching this one module
+    (<a href="../adr/033-shared-app-service-components-as-adapters/">ADR-033</a>).</li>
+<li><code>dirs.py</code> - Project directory locations (<code>~/.&lt;package&gt;</code>)</li>
+<li><code>logging_setup.py</code> - Centralized logging</li>
+<li><code>config.py</code> - Configuration (uses pydantic-settings if enabled). When
+    <code>include_pydantic_settings</code> is on, the docs build renders a Configuration
+    reference straight from the live <code>Settings</code> model: <code>docs/conf.py</code> loads the
+    <code>sphinxcontrib.autodoc_pydantic</code> extension and the conditional
+    <code>docs/configuration.rst</code> page carries an <code>autopydantic_settings</code> directive, so
+    the documented fields, types, defaults, constraints, and env-var names never
+    drift from the model. The docs dependency group gains <code>autodoc-pydantic</code> under
+    the <code>include_pydantic_settings</code> guard.</li>
+<li><code>utils/</code> - Dependency-free helpers (always included, as just its
+  docstring-only <code>__init__.py</code>: the layer ships so the exhaustive import-linter
+  contract names it, but with no placeholder module in it.
+  <code>tests/test_placeholder_modules.py</code> fails any non-<code>__init__.py</code> module under
+  <code>src/</code> whose body is empty apart from a docstring, <code>pass</code>/<code>...</code>, or a
+  <code>__future__</code> import, #321. <code>copier.yml</code>'s <code>_exclude</code> lists the dropped
+  path so <code>copier update</code> leaves an existing project's copy alone)</li>
+<li><code>cli/</code> - the <code>pkg</code> Typer root (present when <code>include_console_root</code>). With
+  <code>include_cli</code> it is the full CLI (<code>version</code>/<code>info</code> commands + component
+  subcommands); without <code>include_cli</code> it is a minimal launcher (component
+  subcommands + a default callback, no <code>version</code>/<code>info</code>). With <code>include_cli</code> and
+  <code>cli_framework == "typer"</code>, the docs build generates a CLI reference straight
+  from the live app: <code>docs/conf.py</code> shells <code>typer {{pkg}}.cli.app utils docs</code>
+  into the gitignored <code>docs/_generated/cli.md</code>, and the conditional
+  <code>docs/cli-reference.md</code> page <code>{include}</code>s it (heading-demoted) so the
+  documented commands/options — including the enabled component subcommands —
+  never drift from <code>--help</code>. The <code>sphinx-click</code> route is unusable here because
+  current Typer vendors its own Click (<code>typer._click</code>), so <code>TyperGroup</code> fails
+  <code>sphinx-click</code>'s <code>isinstance(..., click.Command)</code> check.
+  <a href="https://github.com/sphinx-contrib/typer"><code>sphinxcontrib-typer</code></a> was also
+  evaluated — it works, but the build-time generation keeps the CLI reference
+  uniform with the worker/web generators and pulls in no extra extension. The
+  <code>argparse</code> variant has no generated reference</li>
+<li><code>web/</code> - FastAPI/Litestar with <code>/version</code> and <code>/info</code> endpoints (conditional).
+  The docs build emits the web app's <a href="https://www.openapis.org/">OpenAPI</a> schema
+  straight from the live <code>{{github_repo_name}}.web.app:app</code> object into the
+  gitignored <code>docs/_generated/openapi.yaml</code>, and the conditional
+  <code>docs/web-interface.rst</code> page <code>literalinclude</code>s it — a versioned,
+  machine-readable HTTP contract (routes, response schemas, status codes) that
+  stays in lockstep with the code. Generation is framework-specific: <strong>Litestar</strong>
+  uses its first-party CLI (<code>litestar ... schema openapi --output</code>), while
+  <strong>FastAPI</strong> has no file exporter, so <code>docs/conf.py</code> dumps <code>app.openapi()</code> to
+  <code>openapi.{json,yaml}</code> (JSON via the stdlib, YAML via <code>pyyaml</code>, added to the
+  docs group under the <code>include_web</code>+FastAPI guard).</li>
+<li><code>gui/</code> - Tkinter GUI launcher (conditional)</li>
+<li><code>tui/</code> - Textual TUI (conditional)</li>
+<li><code>mcp/</code> - MCP server with <code>version</code> and <code>info</code> tools (conditional)</li>
+<li><code>worker/</code> - FastStream message queue worker (conditional). The broker is built
+  by a <code>build_broker(url=None)</code> factory that registers the subscriber/publisher
+  and resolves the connection at call time (not import time), so tests can point
+  a fresh, self-contained broker at a throwaway instance (e.g. testcontainers)
+  without import-order/caching pitfalls; the module still exposes a default
+  <code>broker = build_broker()</code> for the entry point. See
+  <a href="../adr/008-worker-broker-testing-strategy/">ADR-008</a>. The docs build emits the
+  worker's <a href="https://www.asyncapi.com/">AsyncAPI</a> schema straight from the live
+  <code>app</code> object (<code>docs/conf.py</code> shells <code>faststream docs gen</code> into the gitignored
+  <code>docs/_generated/asyncapi.yaml</code>), and the conditional <code>docs/worker-interface.rst</code>
+  page <code>literalinclude</code>s it — a versioned, machine-readable request/response
+  contract that stays in lockstep with the code. The docs dependency group gains
+  <code>faststream[cli]</code> + <code>pyyaml</code> under the <code>include_worker</code> guard.</li>
+<li><code>scripts/worker_probe.py</code> (conditional on <code>include_worker</code>) - a dev-only
+  helper that publishes one <code>VersionRequest</code> via <code>build_broker()</code> and prints
+  the <code>VersionResponse</code>, importing <code>REQUESTS_DESTINATION</code>/<code>RESPONSES_DESTINATION</code>
+  from <code>worker/app.py</code> rather than re-literalizing them. Lives under
+  <code>scripts/</code> (outside <code>src/</code>) so it ships in neither the sdist nor the wheel
+  and stays outside coverage/import-linter's reach. Run via the <code>worker-probe</code>
+  mise task (<code>mise run worker-probe</code>) against a broker started by the
+  devcontainer or <code>docker compose</code>.</li>
+</ul>
+<p>Other conditional files:</p>
+<ul>
+<li><code>_c_extension.pyx</code>, <code>.pxd</code>, <code>.pyi</code> - Cython extension files</li>
+<li><code>profile.py</code> - Profiling script</li>
+<li><code>&lt;pkg&gt;.spec</code> - PyInstaller spec file (conditional on <code>include_freezer</code>)</li>
+</ul>
+<p>Test packages mirror source structure in <code>tests/</code>:</p>
+<ul>
+<li><code>tests/cli/</code>, <code>tests/web/</code>, <code>tests/gui/</code>, <code>tests/tui/</code>, <code>tests/mcp/</code>, <code>tests/worker/</code> (each conditional)</li>
+<li><code>tests/worker/</code> holds both the in-memory <code>Test&lt;Broker&gt;</code> unit tests (always run)
+  and a broker round-trip integration test marked <code>integration</code> (excluded from
+  the default run). Its <code>_broker_url</code> context manager reads a single seam: if the broker's
+  env var (<code>REDIS_URL</code>/<code>NATS_URL</code>/<code>KAFKA_BOOTSTRAP_SERVERS</code>/<code>RABBITMQ_URL</code>) is
+  set it connects to that live broker directly, otherwise it starts a
+  testcontainer (Docker required for the local path). In CI, <strong>redis</strong> and
+  <strong>nats</strong> run against a GitHub Actions <code>services:</code> container that the runner
+  starts and injects before the job (<strong>redis</strong> is health-gated; <strong>nats</strong> has no
+  container health check and relies on the test's own connect-retry), while
+  <strong>kafka</strong> and <strong>rabbitmq</strong> stay on testcontainers — a per-broker CI mechanism
+  derived from the <code>ci_service</code> field on <code>worker_broker_spec</code> (present ⇒
+  <code>services:</code>; its <code>image</code>/<code>port</code>/<code>health_cmd</code>/<code>url</code> render the block), no extra
+  question. See
+  <a href="../adr/008-worker-broker-testing-strategy/">ADR-008</a> (incl. the issue #169
+  amendment).</li>
+</ul>
+<p>Entry points configured in <code>pyproject.toml</code> (console-script wiring — see
+<strong><a href="../adr/019-components-as-cli-subcommands/">ADR-019</a></strong>): the
+highest-precedence enabled component (<strong>CLI &gt; GUI &gt; TUI &gt; web &gt; MCP &gt; worker</strong>)
+is the <em>primary</em> and owns the bare <code>pkg</code> command, wired to <code>pkg.__main__:main</code>
+(the single entrypoint standalone builds also target). Every <em>other</em> enabled
+component is exposed as a <strong>subcommand of the <code>pkg</code> Typer root</strong>
+(<code>pkg &lt;name&gt;</code> — <code>interactive</code> for the TUI, else the component name), <strong>not</strong> a
+separate <code>pkg-&lt;name&gt;</code> console script. The precedence lives in <strong>one</strong> place — the
+<code>primary_component</code> computed variable in <code>copier.yml</code> (empty for a library) —
+and every template (<code>pyproject</code>, <code>README</code>, <code>docs/usage</code>, <code>docs/installation</code>,
+<code>.vscode/launch.json</code>, tox) derives the primary and each subcommand from it: a
+component <code>X</code> is a subcommand exactly when <code>primary_component != "X"</code>. Do
+<strong>not</strong> re-spell the precedence as inline <code>include_x or include_y …</code> conditions.</p>
+<p>The <code>pkg</code> Typer root lives in the <code>cli/</code> package. It exists whenever
+<code>include_console_root</code> (a hidden <code>when: false</code> computed var) is true —
+<code>include_cli or include_web or (≥2 of gui/tui/web/mcp/worker enabled)</code>. When
+<code>include_cli</code> is off, <code>cli/</code> is a <em>minimal launcher</em> (no <code>version</code>/<code>info</code>; bare
+<code>pkg</code> launches the primary via an <code>@app.callback(invoke_without_command=True)</code>
+default, secondaries are subcommands). <code>include_web</code> is listed because the
+<code>run</code>/<code>dev</code> verbs need a root to live on (<a href="../adr/032-uniform-run-dev-launch-verbs/">ADR-032</a>);
+a web-only project therefore gets the minimal launcher and a <code>typer</code> runtime
+dependency, with bare <code>pkg</code> unchanged. Any <em>other</em> single-component non-CLI app
+has <strong>no</strong> root and does <strong>not</strong> pull in <code>typer</code> — bare <code>pkg</code> launches that
+component directly via <code>__main__</code>, through the <code>_load_component()</code> guard
+described above.
+<code>include_console_root</code> is the single source of truth for the <code>cli/</code>
+package/test-dir guards, the <code>typer</code> core dependency, the import-linter <code>cli</code>
+layer, and the <code>__main__.py</code> branch.</p>
+<ul>
+<li><code>project.scripts</code>: bare <code>pkg = "pkg.__main__:main"</code> when the primary is a
+  console component <strong>or</strong> when a GUI primary shares a console root with other
+  components (so the <code>pkg &lt;name&gt;</code> subcommands keep a real terminal on Windows).
+  No <code>pkg-&lt;name&gt;</code> entries are emitted.</li>
+<li><code>project.gui-scripts</code>: <code>pkg = "pkg.__main__:main"</code> <strong>only when GUI is the
+  sole runnable component</strong> (windowless launcher, no console window on Windows);
+  there is never a bare-name collision across the two tables. A non-primary GUI
+  is reached via the <code>pkg gui</code> subcommand, not a <code>pkg-gui</code> gui-script.</li>
+</ul>
+<p>The CLI framework choice (Typer) is recorded in
+<a href="../adr/020-cli-framework-choice/">ADR-020</a>.</p>
+<p>Each launcher command wraps its lazy component import in a private
+<code>_component_dependencies(component, *dependencies)</code> context manager, so a
+missing known dependency exits 1 with a message naming the component, the
+missing module, and <code>uv sync</code> — instead of a bare <code>ModuleNotFoundError</code>
+traceback. The match is <strong>exact</strong>, so an application import defect (a typo'd
+<code>from &lt;dep&gt;.user_plugin import X</code>) propagates with its traceback intact. The
+guard is emitted only when the root actually lazy-imports something (derived
+from <code>primary_component</code>, so a CLI-only project renders without it) and covers
+the minimal launcher's default callback too.</p>
+<p>Dependencies the component imports <em>later</em> than that block — <code>uvicorn</code> (used
+when the web app calls <code>uvicorn.run()</code>), <code>textual</code>, <code>tkinter</code> (imported only
+when the GUI draws), and <code>faststream.&lt;broker&gt;</code> (a guarded re-export that raises
+a nameless <code>ImportError</code>) — are imported eagerly by a <code>_preflight(module)</code> helper
+inside the guard, which names the module when the interpreter does not. The GUI
+passes a different <code>hint=</code> naming the platform's Tk package (<code>python3-tk</code>,
+<code>python3-tkinter</code>, or a <code>python-tk@X.Y</code> pinned to <code>sys.version_info</code>), because
+<code>tkinter</code> is a standard-library extension module that no dependency sync can
+install; its allowlist covers the <code>_tkinter</code> C extension too. The worker's
+allowlist names <code>faststream.&lt;broker&gt;</code> rather than the broker client. MCP is
+preflighted too — its transitive dependencies (e.g. <code>anyio</code>) can surface nested
+failures with unhelpful names that the preflight normalizes to <code>mcp</code>.</p>
+<p><code>__main__.py</code> additionally loads the root through <code>_load_console_root()</code>, which
+preflights and applies the same translation to the modules imported at the root's
+<em>module</em> scope: <code>typer</code>, plus <code>pydantic</code>/<code>pydantic_settings</code> via <code>core.logging_setup</code> →
+<code>core.config</code> when <code>include_pydantic_settings</code>. <code>root_dependencies</code> is computed
+from the enabled toggles, so a pure argparse root with no settings renders
+without that guard.</p>
+<h3 id="run-dev-launch-verbs-web"><code>run</code> / <code>dev</code> launch verbs (web)<a class="headerlink" href="#run-dev-launch-verbs-web" title="Permanent link">&para;</a></h3>
+<p>When <code>include_web</code> is enabled the console root also carries
+<code>&lt;pkg&gt; run [module:attribute]</code> and <code>&lt;pkg&gt; dev [module:attribute]</code>, sharing one
+<code>_run_web(app_path, *, dev_mode)</code> that differs only in that flag. <code>run</code> uses the
+<code>{PROJECT}_HOST</code>/<code>{PROJECT}_PORT</code> bind; <code>dev</code> adds <code>reload=True</code> and forces a
+<code>127.0.0.1</code> bind. <code>web/app.py</code> owns the launch itself: <code>resolve_app_path</code>
+validates the <code>module:attribute</code> shape (defaulting to <code>DEFAULT_APP_PATH</code>,
+i.e. <code>&lt;pkg&gt;.web.app:app</code>) and <code>run_server</code> hands the <em>import string</em> to uvicorn,
+which is the only form autoreload can re-import.</p>
+<p><code>include_console_root</code> is therefore true whenever <code>include_web</code> is, so a
+web-only project (the <code>web</code> preset) gains a minimal launcher — and with it a
+<code>typer</code> runtime dependency and a <code>cli/</code> package — rather than a second console
+script alongside the ADR-019 scheme. Bare <code>&lt;pkg&gt;</code> still launches the primary
+component. Where web is not primary, <code>&lt;pkg&gt; web</code> remains and is literally
+<code>&lt;pkg&gt; run</code> with no target. The worker keeps <code>&lt;pkg&gt; worker</code> only: its reload
+lives in <code>faststream[cli]</code>, which stays a docs-group dependency. See
+<a href="../adr/032-uniform-run-dev-launch-verbs/">ADR-032</a>.</p>
+<p>A project with exactly <strong>one</strong> runnable component has no console root at all, so
+<code>__main__.py</code> binds that component directly — the ADR-007 standalone-executable
+entrypoint. It renders a sibling <code>_load_component()</code> with the same preflight,
+exact-match rule and hints, covering the component's own dependencies <em>and</em> the
+settings stack the import chain reaches through <code>core.logging_setup</code> →
+<code>core.config</code>. Because that merged allowlist mixes real distributions with
+<code>tkinter</code>, the hint is picked per <em>module</em>: the Tk hint for <code>tkinter</code>/<code>_tkinter</code>,
+<code>uv sync</code> for everything else. The five per-component <code>elif</code> branches
+<code>__main__.py</code> used to carry are now one block parameterized by <code>sole_component</code>.</p>
+<p>A library consumer's own <code>import &lt;pkg&gt;.web.app</code> stays <strong>unguarded</strong> and raises a
+plain <code>ModuleNotFoundError</code> — deliberately: they are already reading a traceback
+in their own code, where the failing import and its caller are both visible, and
+a module-scope guard would run on every successful import forever.</p>
+<p><code>launcher_components</code>, <code>need_import_guard</code>, <code>launched_components</code>,
+<code>component_label</code>, <code>component_dependencies</code>, <code>component_preflight</code>,
+<code>preflight_used</code>, <code>root_dependencies</code>, <code>sole_component</code>,
+<code>sole_component_dependencies</code> and <code>sole_component_preflight</code> are <code>when: false</code>
+computed variables in <code>copier.yml</code>, read by <code>cli/app.py.jinja</code>,
+<code>__main__.py.jinja</code> and both test modules so the four cannot drift. The two
+guards live in different files and never coexist in one project, so
+<code>component_dependencies</code> is the only thing that can catch them disagreeing about
+what a component depends on.</p>
+<p>The rationale — why the hint is <code>uv sync</code> and never <code>pip install pkg[&lt;extra&gt;]</code>,
+why matching is exact, why some dependencies need an eager import, why Tk is
+special, and why direct library imports are out of scope — is recorded in
+<a href="../adr/028-actionable-component-dependency-guard/">ADR-028</a>.</p>
+<h2 id="devcontainer-structure">Devcontainer Structure<a class="headerlink" href="#devcontainer-structure" title="Permanent link">&para;</a></h2>
+<p>The <code>.devcontainer/docker-compose.yml.jinja</code> consolidates all services:</p>
+<ul>
+<li><code>devcontainer</code> - Main development container (always included)</li>
+<li>Uses <code>ghcr.io/astral-sh/uv:python3.14-bookworm-slim</code> image directly (no Dockerfile)</li>
+<li><code>devcontainer.json.jinja</code> features: <code>git:1</code> and <code>mise:1</code> (both always)</li>
+<li>When <code>include_vpn</code> is true, devcontainer sets <code>network_mode: "service:vpn"</code> and depends on the <code>vpn</code> service so all traffic routes through the VPN tunnel</li>
+<li><code>depends_on</code> waits on <code>condition: service_healthy</code> for services that define a healthcheck (postgres, redis, kafka, rabbitmq) and <code>service_started</code> for the rest (nats, vpn)</li>
+<li>Database services (conditional):</li>
+<li><code>postgres</code> - PostgreSQL with healthcheck (conditional on <code>include_postgres</code>)</li>
+<li><code>redis</code> - Redis/Valkey with healthcheck (conditional on <code>include_redis</code> or a <code>redis</code> worker broker; image set by <code>redis_backend</code>)</li>
+<li><code>pgadmin</code> / <code>adminer</code> - DB UIs behind the <code>tools</code> compose profile (conditional on <code>include_pgadmin</code> / <code>include_adminer</code>)</li>
+<li>Message broker services (conditional on <code>include_worker</code> + <code>worker_broker</code>):</li>
+<li><code>kafka</code> - Bitnami Kafka (KRaft mode), healthcheck via <code>kafka-topics.sh</code></li>
+<li><code>nats</code> - NATS with JetStream (no healthcheck; minimal image)</li>
+<li><code>rabbitmq</code> - RabbitMQ with management UI, healthcheck via <code>rabbitmq-diagnostics</code></li>
+<li><code>redis</code> - Redis (shared with the database <code>redis</code> service above)</li>
+<li><code>cloudbeaver</code> - DBeaver CloudBeaver (conditional on <code>include_dbeaver</code>)</li>
+<li><code>vpn</code> - OpenVPN client sidecar (conditional on <code>include_vpn</code>)</li>
+<li>Uses <code>dperson/openvpn-client</code> with <code>NET_ADMIN</code> cap and <code>/dev/net/tun</code> device</li>
+<li>Mounts <code>./vpn:/vpn</code> — drop <code>.ovpn</code> config + optional <code>vpn.auth</code> credentials there</li>
+<li>Conditional <code>vpn/</code> subdir is rendered with a README and <code>.gitignore</code> (whitelists README only)</li>
+<li>Devcontainer shares the vpn service's network namespace via <code>network_mode</code>; port forwards must be declared on the <code>vpn</code> service rather than <code>devcontainer</code></li>
+</ul>
+<h2 id="build-system">Build System<a class="headerlink" href="#build-system" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Builder</strong>: <code>hatchling</code> with <code>hatch-vcs</code> plugin</li>
+<li><strong>Versioning</strong>: Git tags via hatch-vcs; archive/tarball installs recover the
+  tag via <code>.git_archival.txt</code> (<code>export-subst</code>), and the <code>fallback-version = "0.0.0"</code>
+  sentinel is used only when neither live git metadata nor an expanded
+  <code>.git_archival.txt</code> is available</li>
+<li><strong>Build Command</strong>: <code>uv build</code></li>
+</ul>
+<h2 id="cicd-workflows">CI/CD Workflows<a class="headerlink" href="#cicd-workflows" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>CI</strong> (<code>ci.yml.jinja</code>): Matrix tests on Windows/Ubuntu/macOS, Python 3.10-3.14</li>
+<li><strong>Per-component jobs + path filtering</strong>
+     (<a href="../adr/028-per-component-markers-and-path-filtered-ci/">ADR-028</a>): a
+     <code>changes</code> job (<code>dorny/paths-filter</code>) emits a boolean per component plus
+     <code>core</code>. The test job is split into <code>test-core</code> (always runs) and one
+     <code>test-&lt;component&gt;</code> per enabled component, each gated on
+     <code>needs.changes.outputs.&lt;component&gt; == 'true' || …outputs.core == 'true'</code> and
+     running <code>tox run -- -m "&lt;component&gt; …"</code>. <code>core</code> (deps, shared <code>core/</code>,
+     package-root modules, root <code>conftest.py</code>, root tests, and <code>ci.yml</code> itself)
+     forces the full fan-out. <code>worker-integration</code> carries the same gate. Markers are auto-applied
+     by <code>tests/conftest.py</code>: root-level tests become <code>core</code>, while tests in a
+     component directory use the top-level <code>tests/&lt;dir&gt;/</code>; the default
+     local <code>tox run</code> is unchanged (everything minus <code>integration</code>).</li>
+<li><strong>Asymmetric matrix + draft policy</strong>
+     (<a href="../adr/029-asymmetric-ci-matrix-and-draft-pr-skip/">ADR-029</a>): component
+     tests run all supported interpreters on Ubuntu and one representative
+     interpreter on macOS/Windows; C-extension renders keep the full grid.
+     <code>style</code> runs once on Linux and sweeps mypy's win32/darwin platform axis.
+     An <code>include_cli</code> render gets a dedicated three-OS <code>cli-installed</code> job, so
+     the real console script is checked without receiving pytest marker args.
+     Every <code>ci.yml</code> job is draft-gated, and <code>ready_for_review</code> starts a fresh run.</li>
+<li><strong>Docs keep their own job.</strong> Because the component <code>test-*</code> jobs pass
+     <code>tox run -- -m …</code> (which replaces tox's default env list), an
+     <code>include_docs</code> render gets a dedicated <code>docs-doctest</code> job running
+     <code>tox run -e docs-build</code> then <code>tox run -e docs-doctest</code>; it is part of the
+     <code>check</code> gate (<a href="../adr/028-tested-documentation-examples/">ADR-028</a>). The
+     <code>docs-build</code> step is what makes the Sphinx warning gate <em>gate</em>: it pairs
+     <code>sphinx-build -w</code> with <code>docs/check_warnings.py</code>, whereas <code>docs-doctest</code> is
+     <code>-b doctest</code> with no <code>-W</code>. <code>docs-preview.yml</code> runs the same gate but is
+     skipped for fork PRs and is not a required context, so it can never block a
+     merge on its own
+     (<a href="../adr/027-versioned-documentation-and-last-updated-stamps/">ADR-027</a>).
+     The job checks out at <code>fetch-depth: 0</code> — <code>sphinx-last-updated-by-git</code> warns
+     "Git clone too shallow" on a depth-1 clone and the gate turns that into an
+     error. Per-component
+     examples (<code>cli_usage.py</code>, <code>web_usage.py</code>, …) are Jinja-gated on their
+     toggle and <code>literalinclude</code>d into the corresponding <code>usage.rst</code> section;
+     <code>tests/test_docs_examples.py</code> rglobs every <code>docs/examples/*.py</code> and
+     imports them all, so a broken import fails the suite.
+     The top-level <code>README.md</code> is separately collected by the ordinary pytest
+     run as the intentionally small Markdown doctest surface; Markdown under
+     <code>tests/</code> is held out by <code>collect_ignore_glob</code> in <code>tests/conftest.py</code>, since
+     <code>--doctest-glob</code> matches basenames (ADR-028).</li>
+<li><strong>Per-component coverage gates</strong>
+     (<a href="../adr/028-per-component-markers-and-path-filtered-ci/">ADR-028</a>, decomposing
+     <a href="../adr/026-combined-cross-matrix-coverage-and-tokenless-html-host/">ADR-026</a>):
+     each <code>test-&lt;component&gt;</code> cell <code>coverage combine</code>s its per-interpreter data,
+     keeps a non-gating <code>--fail-under=0</code> report for fast feedback, and uploads
+     <code>coverage-&lt;component&gt;-&lt;os&gt;</code> (<code>include-hidden-files: true</code>). A
+     <code>coverage-&lt;component&gt;</code> job then merges that component's OS cells and enforces
+     <code>fail_under = 99</code> <strong>scoped</strong> to the subtree (<code>--include="*/&lt;pkg&gt;/&lt;c&gt;/*,*/tests/&lt;c&gt;/*"</code>;
+     <code>coverage-core</code> instead <code>--omit</code>s every component). The union principle is
+     preserved <em>within</em> each component (its cross-OS cells), not across all code —
+     and <code>check</code> lists each path-gated job in alls-green's <code>allowed-skips</code> (a skip
+     otherwise counts as a failure), so a path-skipped, unchanged component keeps
+     the <code>check</code> gate green. A central
+     non-gating <code>coverage-report</code> job (<code>if: !cancelled() &amp;&amp; draft != true</code>) merges whatever ran,
+     renders combined HTML/XML, and handles Codecov/smokeshow. <code>relative_files =
+     true</code> (pyproject) lets cross-runner paths merge, complementing the
+     <code>[tool.coverage.paths]</code> remap. When <code>include_sonarcloud</code>, the <code>coverage-xml</code>
+     artifact the <code>sonar</code> job consumes comes from <code>coverage-report</code>
+     (<code>sonar</code> now <code>needs: coverage-report</code>).</li>
+<li>Codecov upload (from <code>coverage-report</code>) runs whenever the repo is public
+     <strong>or</strong> a <code>CODECOV_TOKEN</code> secret is set — two job-level presence flags gate it
+     because the <code>secrets</code> context is unavailable in <code>if:</code>: <code>CODECOV_TOKEN_SET</code>
+     (<code>secrets.CODECOV_TOKEN != ''</code>) and <code>REPO_IS_PUBLIC</code>
+     (<code>!github.event.repository.private</code>). On a <strong>public</strong> repo the codecov-action
+     uploads tokenless, so owner pushes and fork PRs both report coverage with no
+     secret; the token is only needed for a <strong>private</strong> repo (or to dodge
+     tokenless rate-limits). Only a private repo with no token hits the
+     <code>::notice::</code> visible skip instead of failing the run — coverage reporting is
+     best-effort (the upload step's <code>fail_ci_if_error</code> defaults to false), not
+     load-bearing for a green build. Setup is documented in the generated
+     project's <code>docs/maintaining/setup.rst</code> "Repository setup" guide.</li>
+<li>When <code>include_smokeshow</code> is set, <code>coverage-report</code> additionally publishes the
+     combined <code>htmlcov/</code> to a tokenless ephemeral public URL via
+     <code>smokeshow upload htmlcov</code> (public repos only) — an account-free browsable
+     coverage report alongside Codecov. See ADR-026.</li>
+<li>When <code>include_launcher</code>/<code>include_freezer</code>/<code>include_compiler</code> are set, adds
+     matching <code>build-{launcher,freezer,compiler}-check</code> jobs (per-OS, <code>fail-fast:
+     false</code>) that build the standalone executable on every PR/push — a build-only
+     packaging guard so a dep/Python bump that breaks bundling fails against the
+     offending diff instead of silently at release time (the test suite never
+     exercises the built binary). Each verifies the binary was produced,
+     smoke-runs it with <code>--help</code> when <code>include_cli</code> is set, and uploads a 7-day
+     preview artifact. They closely follow the <code>release.yml</code> build jobs
+     (same setup + build commands), skipping the release-only rename/publish
+     steps, and they gate the <code>check</code> aggregation job. See
+     <a href="../adr/007-standalone-executable-toggles/">ADR-007</a>.</li>
+<li>When <code>include_worker</code> is set, adds a single <code>worker-integration</code> job —
+     <strong>Ubuntu-only</strong> (Docker is reliably present on GitHub's Ubuntu runners but
+     not macOS/Windows) — that runs <code>tox run -e integration</code> (an on-demand tox
+     env invoking <code>pytest -m integration</code>) against a real <code>worker_broker</code> started
+     via testcontainers. The default OS matrix stays broker-free and fast (the
+     <code>integration</code> marker is deselected by default via the pytest <code>addopts</code>); this
+     job is the only thing exercising the real driver, and it gates the <code>check</code>
+     aggregation job. It is path-gated like the component test jobs (skips its
+     container spin-up unless the worker tree or shared <code>core</code> changed; ADR-028).
+     See <a href="../adr/008-worker-broker-testing-strategy/">ADR-008</a>.</li>
+<li><strong>Release + CD</strong> (<code>release.yml.jinja</code>): one unified workflow (there is
+   no separate <code>cd.yml</code>). Standardized on release-please — no longer configurable
+   (see <a href="../adr/002-release-please-for-release-automation/">ADR-002</a>). Jobs:</li>
+<li><code>release-please</code>: opens/maintains a release PR from Conventional Commits on
+     push to <code>main</code>; on merge, tags the commit and creates a <strong>draft</strong> GitHub
+     Release (<code>draft: true</code> in <code>.github/release-please-config.json</code>). Exposes
+     <code>release_created</code>, <code>tag_name</code>, <code>version</code> as outputs.</li>
+<li>All later jobs gate on <code>needs.release-please.outputs.release_created == 'true'</code>.</li>
+<li><code>build</code>: runs behind the main-only <code>publish</code> environment, builds with uv,
+     and creates GitHub-hosted, Sigstore-signed build provenance plus a
+     release-attachable bundle for every distribution in public repositories
+     (or Enterprise private repositories opted in through
+     <code>ENABLE_PRIVATE_ATTESTATIONS</code>). When
+     <code>include_c_extensions</code> is set, runs as a per-platform <code>fail-fast: false</code>
+     matrix (Ubuntu/Windows/macOS) producing and attesting the multi-platform
+     Cython wheels + sdist; <code>pypi-publish</code> uploads the distributions only.</li>
+<li><code>pypi-publish</code> (when <code>include_pypi_publish</code>, on in every preset): trusted
+     publishing (<code>id-token: write</code>, environment <code>publish</code>). Off, the job and its
+     <code>needs</code> edges are not rendered; <code>build</code> keeps the <code>publish</code> environment for
+     attestation minting, and the distributions still reach the GitHub Release
+     through <code>attach-github-release</code>
+     (<a href="../adr/039-optional-pypi-publishing/">ADR-039</a>).</li>
+<li><code>build-launcher</code> (when <code>include_launcher</code>, PyCrucible) / <code>build-freezer</code>
+     (when <code>include_freezer</code>, PyInstaller) / <code>build-compiler</code> (when
+     <code>include_compiler</code>, Nuitka) / <code>docker-publish</code> (when
+     <code>include_web</code>): conditional matrix jobs. The three executable jobs are
+     independent <code>fail-fast: false</code> matrices producing per-platform artifacts
+     named <code>&lt;repo&gt;-executable-{launcher,freezer,compiler}-&lt;os&gt;</code>, all caught by
+     <code>attach-github-release</code>'s <code>&lt;repo&gt;-executable-*</code> download pattern (see
+     <a href="../adr/007-standalone-executable-toggles/">ADR-007</a>). Docker tags feed
+     <code>needs.release-please.outputs.tag_name</code> into the metadata-action <code>value=</code>
+     because a push-triggered run has no tag ref.</li>
+<li><code>attach-github-release</code>: uploads distributions, provenance bundles, the
+     SBOM, and optional executables to the still-draft release.</li>
+<li><code>finalize-release</code>: un-drafts the release and reconciles the phantom
+     next-release PR (close + re-dispatch — bounded to one re-run).</li>
+<li><code>deploy-docs</code> (<code>needs: finalize-release</code>): runs <code>tools/build_docs.py site</code>
+     and publishes the result via <code>JamesIves/github-pages-deploy-action</code>. Lives in
+     this workflow rather than reacting to <code>release: published</code> because an event
+     fired by <code>finalize-release</code>'s <code>GITHUB_TOKEN</code> cannot trigger another workflow
+     (the same loop-prevention rule that forces the <code>workflow_dispatch</code>
+     re-dispatch above). <code>gh-pages.yml</code> is kept for manual redeploys and is
+     likewise version-aware. Docs are built with Sphinx + the Shibuya theme
+     (autodoc API reference), not MkDocs (see
+     <a href="../adr/006-sphinx-shibuya-for-documentation/">ADR-006</a>). Publishing is
+     <strong>versioned</strong> (<a href="../adr/027-versioned-documentation-and-last-updated-stamps/">ADR-027</a>):
+     only the released version is built (its slug set by the
+     <code>docs_version_granularity</code> question — <code>X.Y</code>/<code>X</code>/<code>X.Y.Z</code>); prior versions are
+     copied untouched from the <code>gh-pages</code> branch (never rebuilt), a <code>latest</code> alias
+     tracks the newest, and a root <code>index.html</code> redirects to it. The switcher is
+     Shibuya-native, fed from a generated (gitignored) <code>docs/_static/versions.json</code>
+     via <code>html_context</code>, and each page footer carries a <code>sphinx-last-updated-by-git</code>
+     date. Both <code>deploy-docs</code> and the manual <code>gh-pages.yml</code> set
+     <code>clean-exclude: pr-preview/**</code> so a release never wipes the live PR previews
+     <code>docs-preview.yml</code> maintains under that path (see ADR-010 below); the numeric
+     version-slug directories (e.g. <code>0.3/</code>) are re-supplied in <code>./site</code> each run.
+     The manual <code>gh-pages.yml</code> checks out the latest <strong>published</strong> release's tag
+     before building so a manual redeploy never overwrites released docs with
+     unreleased <code>main</code> — via <code>gh api .../releases/latest</code>, not <code>git describe</code>,
+     which would pick up the tag release-please creates while the release is
+     still a draft. <code>setup-python</code>/<code>setup-uv</code> run <em>after</em> that checkout so the
+     tagged docs build on the interpreter the release shipped on. It then
+     restores <code>tools/build_docs.py</code> from the dispatch ref (orchestration, like
+     the workflow file itself) but carries the tag's baked
+     <code>DEFAULT_VERSION_GRANULARITY</code> across that swap via
+     <code>DOCS_VERSION_GRANULARITY</code>, so a granularity answer changed since the last
+     release cannot republish that tag under a second slug and repoint <code>latest</code>
+     at the duplicate. Both jobs
+     fetch <code>gh-pages</code> through an <code>ls-remote</code> guard (exit 2 = absent, anything
+     else aborts): a swallowed transport error would make <code>build_docs.py</code>
+     assemble a site with no prior versions, and the clean-on-deploy would then
+     delete the whole published archive. <code>preserve_from_gh_pages()</code> enforces the
+     same rule one layer up — a version slug came from a <code>git ls-tree</code> of the
+     branch, so failing to read it back raises instead of silently dropping it
+     (only the <code>latest</code> alias is optional).</li>
+<li><code>notify-released-issues</code> (<code>needs: finalize-release</code>): a single
+     <code>actions/github-script</code> step that maps the release's commit range
+     (previous published tag → this tag) to the PRs that carried it, resolves each
+     PR's <code>closingIssuesReferences</code>, and comments the release link on those
+     issues. Inline (no committed script), best-effort. See
+     <a href="../adr/010-pr-docs-previews-and-released-issue-notifications/">ADR-010</a>.</li>
+<li>Versions come from git tags via hatch-vcs, so release-please never edits a
+     static version literal and <code>uv.lock</code> cannot desync.</li>
+<li><strong>PR title linting</strong> (<code>check-pr-title.yml</code>): validates the <strong>PR title</strong> (not
+   individual commits) against Conventional Commits via
+   <code>amannn/action-semantic-pull-request</code>.</li>
+<li><strong>Linked-issue check</strong> (<code>check-linked-issues.yml</code>): fails a PR that has no
+   linked issue (the GitHub <em>Development</em> relationship, created by a <code>Closes #N</code>
+   keyword in the PR body) via <code>nearform-actions/github-action-check-linked-issues</code>.
+   It checks the real <code>closingIssuesReferences</code> relationship, not just body text;
+   apply the <code>no-issue</code> label to bypass the check. Keep it as a required status
+   check alongside <code>check-pr-title</code>.</li>
+<li><strong>PR task-list completion check</strong> (<code>task-completed-check.yml</code>): on
+   <code>pull_request_target</code> (<code>opened</code>/<code>edited</code>), runs
+   <code>kentaro-m/task-completed-checker-action</code> to post a check run that fails while
+   any task-list checkbox in the PR description is unticked. Uses
+   <code>pull_request_target</code> (least-privilege <code>checks: write</code> + <code>pull-requests: read</code>)
+   so the check also runs on fork PRs; wrap throwaway lists in
+   <code>&lt;!-- ignore-task-list-start --&gt;</code> / <code>&lt;!-- ignore-task-list-end --&gt;</code> to skip them.
+   The required context is the <strong>check run</strong> the action publishes (<code>Task
+   Completed Checker</code>), not the job name (<code>Check PR task list</code>) — the job is
+   green even when boxes are unticked. Because a check run is the whole verdict,
+   the <code>[bot]</code>-author skip would leave <em>no</em> context at all and block every
+   Renovate/release PR forever, so a follow-up step publishes that check run as a
+   success on bot PRs.</li>
+<li><strong>Branch-name linting</strong> (<code>check-branch-name.yml</code>): validates the PR's <strong>head
+   branch name</strong> (<code>github.head_ref</code>) against the
+   <a href="https://conventionalbranch.org/">Conventional Branch</a> format
+   (<code>&lt;type&gt;/&lt;description&gt;</code>). Allowed prefixes are exactly the spec's set —
+   <code>feature</code>/<code>feat</code>, <code>bugfix</code>/<code>fix</code>, <code>hotfix</code>, <code>release</code>, <code>chore</code>, plus the
+   AI-agent prefixes <code>ai</code>/<code>copilot</code>/<code>cursor</code>/<code>claude</code>/<code>codex</code> — <strong>not</strong> the
+   broader Conventional Commits type set (<code>docs</code>, <code>style</code>, <code>refactor</code>, etc. are
+   commit types, not branch types). It is a dependency-free inline shell regex (no marketplace action — the
+   maintained options were either abandoned or on a deprecated Node runtime), run
+   under <code>pull_request_target</code> with <code>pull-requests: write</code> so it can post a sticky
+   failure comment on fork PRs, mirroring <code>check-pr-title.yml</code>. The <code>renovate/*</code>
+   and <code>release-please--*</code> automation branches are whitelisted so bot PRs are
+   never blocked. Branch names never reach <code>main</code> (squash-merge uses the PR
+   title), so this is repo hygiene — not load-bearing for release-please. Keep it
+   as a required status check (context: <strong>Validate branch name</strong>) alongside
+   <strong>Validate PR title</strong>, <strong>Verify linked issue</strong>, <strong>Task Completed Checker</strong>
+   (<code>task-completed-check.yml</code>), and <strong>check</strong> — <code>ci.yml</code>'s aggregate gate, the
+   only one of the five that says anything about the code.</li>
+<li><strong>Supply-chain security</strong> (always included, static workflows):</li>
+<li><code>codeql.yml</code>: CodeQL analysis on push/PR to <code>main</code> + weekly schedule.
+     Job-level visibility gate — code scanning needs GitHub Advanced Security on
+     private/internal repos, so it would otherwise fail every run there;
+     skipping keeps private forks green. The condition coalesces <strong>two</strong>
+     visibility sources over a <code>'public'</code> default — <code>||</code> returns the first
+     truthy operand — because neither source covers every trigger on its own:
+     <code>github.event.repository.visibility</code> is documented but empty on
+     <code>schedule</code> (that event carries no payload), while
+     <code>github.repository_visibility</code> is the only source a scheduled run could
+     have but is undocumented (absent from both the contexts and
+     default-environment-variable references, though actionlint models it).
+     Private/internal repos therefore skip on <code>push</code>/<code>pull_request</code> always, and
+     on <code>schedule</code> too if the undocumented property resolves; a public repo
+     always runs either way. Unknown deliberately fails <strong>open</strong> — silently
+     disabling the scan everywhere is a worse failure than the red X the guard
+     removes.</li>
+<li><code>scorecard.yml</code> (<code>ossf/scorecard-action</code>): OpenSSF Scorecard on
+     <code>branch_protection_rule</code>/push/weekly schedule; <code>publish_results: true</code> and
+     <code>id-token: write</code> so the public Scorecard badge (added to the generated
+     README) resolves, uploading SARIF to code-scanning. Public repos only —
+     enforced by a job-level visibility gate, since both the publish and the
+     upload fail on private repos and would leave <code>main</code> permanently red. Uses
+     the same two-source-coalescing condition as <code>codeql.yml</code> above (it shares
+     the payload-less <code>schedule</code> trigger), and likewise fails <strong>open</strong> when
+     visibility is unknowable rather than silently dropping the scan.</li>
+<li><code>dependency-review.yml</code> (<code>actions/dependency-review-action</code>): on <code>pull_request</code>,
+     <strong>fails on high+ severity</strong> vulnerabilities and comments a summary on failure.
+     Job-level <code>if: github.event.repository.visibility == 'public'</code> — the action needs
+     GitHub Advanced Security on private repos, so it would otherwise fail every
+     PR there; skipping keeps private forks green. Needs the repository's
+     <strong>dependency graph</strong> enabled — with it off the action errors ("Dependency
+     review is not supported on this repository") rather than passing empty, so
+     it is a <code>[HUMAN]</code> step in <code>docs/maintaining/setup.rst</code> (UI-only: the
+     <code>security_and_analysis[dependency_graph]</code> PATCH silently no-ops).</li>
+<li><code>check-security.yml.jinja</code>: an active scanning pass on PR/push to <code>main</code> +
+     weekly cron, complementing the three above (which are SAST / repo-posture /
+     PR-diff). Jobs:<ul>
+<li><code>gitleaks</code> (<code>gitleaks/gitleaks-action</code>, always): secret scan over full git
+   history (<code>fetch-depth: 0</code>) — catches secrets CodeQL does not and reaches
+   past commits that GitHub's push protection never guarded. Free for
+   personal accounts/public repos; an org must add a <code>GITLEAKS_LICENSE</code>
+   secret (noted inline in the workflow).</li>
+<li><code>pip-audit</code> (always): <code>uv export</code>s the locked shipped deps
+   (<code>--all-extras --no-dev --no-emit-project --no-hashes</code>) and audits them
+   with <code>uvx pip-audit</code>. Component and settings deps are core
+   <code>dependencies</code> (each console script imports its component
+   unconditionally), so a plain export already covers the whole shipped
+   tree; <code>--all-extras</code> is retained as a harmless safeguard should a future
+   extra reintroduce shipped deps (and applies equally to the release <code>sbom</code>
+   job's export — though that job omits <code>--no-hashes</code>, since the SBOM keeps
+   per-pin integrity hashes; only pip-audit drops them, as its resolver would
+   otherwise demand a hash for every transitive pin).
+   Unlike <code>dependency-review</code> (PR-diff only, GitHub Advisory
+   DB), this re-audits the <em>entire</em> resolved tree against the PyPI Advisory
+   DB on the weekly cron, so a CVE disclosed <em>after</em> a dependency merged is
+   caught while it is still pinned.</li>
+<li><code>trivy-image</code> (<strong><code>include_web</code> only</strong>): builds the generated <code>Dockerfile</code>
+   and scans the image with <code>aquasecurity/trivy-action</code>
+   (<code>severity CRITICAL,HIGH</code>, <code>ignore-unfixed: true</code>, <code>exit-code: 1</code>). Gated
+   on <code>include_web</code> because that is the only configuration that produces a
+   Dockerfile; the filesystem-scan overlap with <code>pip-audit</code> is deliberately
+   avoided (image/OS-layer scanning is the genuine gap).
+   These SHA-pin actions like every other workflow (Renovate
+   <code>helpers:pinGitHubActionDigests</code> keeps them current). This is a standalone
+   workflow (like <code>codeql</code>/<code>scorecard</code>), <em>not</em> wired into the <code>ci.yml</code> <code>check</code>
+   aggregation gate. A CycloneDX <strong>SBOM</strong> (<code>&lt;repo&gt;-sbom.cdx.json</code>) is generated
+   from the locked runtime deps by a <code>sbom</code> job in <code>release.yml</code> and
+   attached to each GitHub Release (via <code>attach-github-release</code>), not kept as a
+   throwaway CI artifact.</li>
+</ul>
+</li>
+<li><strong>Workflow hardening + zizmor</strong> (always included). Every generated workflow
+   follows a strict <a href="https://docs.zizmor.sh/">zizmor</a> posture, enforced two ways:</li>
+<li><strong>Blocking gate:</strong> the <code>zizmor</code> prek hook (see the prek section above) runs
+     in the CI <code>hooks</code> job and locally; it hard-fails on any finding.</li>
+<li><strong>Dashboard:</strong> <code>zizmor.yml</code> (static, <code>zizmorcore/zizmor-action</code>, SHA-pinned)
+     uploads SARIF to the Security tab on push/PR to <code>main</code>. Non-blocking by
+     design (advanced-security mode never fails on findings); least-privilege
+     (<code>permissions: {}</code> top-level, <code>security-events: write</code> on the job) and itself
+     passes the audit it runs. Public repos get code scanning free; private repos
+     need GitHub Advanced Security, and the action's SARIF upload is neither
+     visibility-aware nor <code>continue-on-error</code>, so it would fail every run there.
+     Both <code>advanced-security</code> and <code>annotations</code> are therefore driven off
+     <code>github.event.repository.visibility</code>: SARIF on public repos, mutually-exclusive
+     inline workflow annotations on private ones — the audit still runs either
+     way, only the Security-tab dashboard is lost.</li>
+</ol>
+<p>The hardening conventions every workflow (new or edited) must keep so the gate
+   stays green are <strong>agent instructions</strong>, so they live inline in <code>AGENTS.md</code>'s
+   <strong>Workflow hardening rules</strong> (persist-credentials, top-level <code>permissions: {}</code>,
+   no untrusted <code>${{ }}</code> in <code>run:</code>, and the justified
+   <code># zizmor: ignore[dangerous-triggers]</code> markers on the intentional
+   <code>pull_request_target</code> workflows). Do not remove those markers.</p>
+<p>This repo's OWN workflows (<code>.github/workflows/</code>) get the same treatment plus a
+   <code>zizmor.yml</code> dashboard; this repo's <code>prek.toml</code> scopes the hook with
+   <code>files = '\.github/workflows/.*\.ya?ml$'</code> so it audits the template's static
+   <code>.yml</code> workflows too but skips the un-renderable <code>*.jinja</code> templates (whose
+   rendered form is audited by the generated project's own hook, and end-to-end by
+   rendering a project and running <code>prek run zizmor --all-files</code> in it).
+9. <strong>PR documentation previews</strong> (<code>docs-preview.yml</code>, rendered only when
+   <code>include_docs</code>, static workflow). On <code>pull_request</code>
+   (<code>opened</code>/<code>synchronize</code>/<code>reopened</code>/<code>closed</code>) it builds the Sphinx docs and hands the lifecycle to <code>rossjrw/pr-preview-action</code>
+   (<code>action: auto</code>): deploy to <code>pr-preview/pr-&lt;N&gt;/</code> on <code>gh-pages</code> on
+   open/update, remove on close, with a sticky preview-URL PR comment throughout.
+   Guarded by <code>if: github.event.pull_request.head.repo.full_name ==
+   github.repository</code> to <strong>same-repo PRs only</strong> — a fork PR's <code>GITHUB_TOKEN</code> is
+   read-only and cannot deploy, so forks are skipped cleanly (fork support awaits
+   the action's v2). Plain <code>pull_request</code> (not <code>pull_request_target</code>) means no
+   <code>dangerous-triggers</code> ignore is needed. Not wired into the <code>check</code> gate
+   (best-effort). Previews live under <code>pr-preview/**</code>, disjoint from the root docs
+   deploy, and the two <code>JamesIves</code> publishes carry <code>clean-exclude: pr-preview/**</code>
+   so a release never wipes them. See
+   <a href="../adr/010-pr-docs-previews-and-released-issue-notifications/">ADR-010</a>.
+10. <strong>Docs link check</strong> (<code>docs-linkcheck.yml</code>, rendered only when <code>include_docs</code>, static workflow).
+   Runs Sphinx's <code>linkcheck</code> builder on a <strong>weekly cron</strong> + <code>workflow_dispatch</code>
+   to catch dead links/moved anchors in the docs. Deliberately <strong>not</strong> on
+   <code>pull_request</code> and <strong>not</strong> in the <code>check</code> gate — link checking hits the
+   network and is flaky, so it is non-blocking (same posture as
+   <code>check-security.yml</code>'s cron). A matching on-demand <code>docs-linkcheck</code> tox env
+   lets maintainers run it locally. Two other docs-lint additions ship alongside
+   it: <code>sphinx-lint</code> (a <code>local</code> prek hook backed by the <code>style</code> group + a tox
+   <code>style</code> command, linting the <code>.rst</code> sources) and the <code>check-case-conflict</code>
+   prek builtin (cross-platform filename-collision guard). See
+   <a href="../adr/011-docs-linting-and-cross-platform-filename-safety/">ADR-011</a>.</p>
+<p>The <strong>HTML build itself carries a warning-allowlist gate</strong>: the <code>docs-build</code>
+   tox env builds with <code>sphinx-build -w docs/_build/warnings.txt</code> (write the
+   warning stream to a file rather than <code>-W</code> failing on the first one), then runs
+   <code>docs/check_warnings.py</code>, which normalizes the emitted warnings (path prefixes
+   stripped back to <code>docs/</code>) and diffs them against the committed
+   <code>docs/expected_warnings.txt</code> allowlist. It fails on <strong>both</strong> unexpected new
+   warnings <em>and</em> expected ones that stopped being emitted, so the list can't rot.
+   The allowlist ships effectively empty (comment header only — zero tolerated
+   warnings); a genuinely-unavoidable upstream warning is added as an explicit,
+   reviewable line in the same PR rather than suppressed wholesale. This runs in
+   the local loop (<code>tox run -e docs-build</code>) and in both CI docs builds
+   (<code>docs-preview.yml</code>, <code>release.yml</code>'s <code>deploy-docs</code>), complementing
+   <code>sphinx-lint</code>'s <code>.rst</code>-source checks with build-time semantic warnings (missing
+   xrefs, autodoc import failures).</p>
+<p>Downstream template updates are <strong>not</strong> a shipped workflow — they are handled by
+<strong>Renovate's <a href="https://docs.renovatebot.com/modules/manager/copier/"><code>copier</code> manager</a></strong>
+(ADR-015). Renovate (already the canonical updater, and a documented one-time
+setup) detects the generated project's <code>.copier-answers.yml</code>, watches the template
+repo (<code>_src_path</code>) via the <strong><code>git-tags</code></strong> datasource, and when a newer tag exists
+runs the real <code>copier update</code> and opens a PR with the re-rendered diff. It is on
+by default (the shared preset sets no <code>enabledManagers</code>), so generated projects
+get it via the <code>.copier-answers.yml</code> they already ship — nothing added to the
+template's <code>renovate.json</code>. Renovate's <strong>App token can push <code>.github/workflows/*</code></strong>
+(the repo <code>GITHUB_TOKEN</code> cannot), so no per-repo update PAT is needed. Two things
+make this work and are load-bearing — do not undo them without re-reading ADR-015:
+(1) the template's own release-please (below) must keep cutting <strong>tags</strong>, because
+the copier manager is tag-based, not HEAD-based; (2) <code>copier.yml</code> must define <strong>no
+<code>_tasks</code></strong> — any task forces <code>copier ... --trust</code>, which the <strong>hosted Mend Renovate
+App disables</strong> (<code>allowScripts</code> is self-hosted-only), so a task-bearing template
+breaks the manager. The former <code>_tasks: git init</code> was removed for this reason (the
+scaffold instructions now tell the user to <code>git init</code>). Caveat: Renovate does not
+fail its artifacts check on <code>copier update</code> merge conflicts
+(<a href="https://github.com/renovatebot/renovate/issues/31600">renovate#31600</a>), so a
+copier PR can look mergeable while carrying <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> markers — the generated
+project's <code>docs/maintaining/setup.rst</code> "Template updates" note says to review
+for them.</p>
+<p><strong>Shipped pins under <code>template/**</code> are frozen from this repo's Renovate</strong> (a
+disabled <code>packageRules</code> entry in <code>.github/renovate.json</code> matching
+<code>template/**</code>). This is load-bearing for keeping <code>copier update</code> conflict-free —
+do <strong>not</strong> re-enable it. The shipped literals — the confirmed conflict source is
+the <strong>plain</strong> <code>template/.github/workflows/*.yml</code> action SHAs (the <code>.jinja</code>-suffixed
+files are not matched by Renovate's stock managers), plus any <code>mise.toml.jinja</code>
+tool versions, <code>prek.toml.jinja</code> <code>rev</code> pins, or deps a <code>customManager</code> reaches —
+are <em>seed values only</em>: every generated project
+ships its own Renovate config and owns those bumps thereafter. If this repo also
+bumped them, <code>copier update</code>'s 3-way merge would see both the new template render
+(<em>theirs</em>) and the downstream file (<em>ours</em>) having moved the same literal to
+different values → a conflict on nearly every release. Freezing keeps
+<em>theirs == base</em>, so the downstream's Renovate value always wins the merge
+cleanly. This repo's OWN root workflows/<code>prek.toml</code>/<code>mise.toml</code> stay
+Renovate-managed (template CI stays current); newly-generated projects start with
+slightly-stale-but-valid pins that their own Renovate catches up on the first
+run. To ship less-stale seeds, refresh the <code>template/**</code> pins deliberately (by
+hand or a one-off scoped run) right before cutting a template release — accepting
+that a deliberate bump reintroduces conflicts only for projects that had not yet
+caught up. See
+<a href="../adr/020-freeze-shipped-template-pins-from-renovate/">ADR-020</a>.</p>
+<h2 id="template-self-versioning-this-repo-adr-015">Template self-versioning (this repo, ADR-015)<a class="headerlink" href="#template-self-versioning-this-repo-adr-015" title="Permanent link">&para;</a></h2>
+<p>The template repository <strong>versions itself</strong> with release-please so its changes
+produce semver git tags (<code>v1.0.0</code>, …). These tags are the <strong>datasource Renovate's
+copier manager consumes</strong> in generated projects (see the ADR-015 note above) — so
+tagging is load-bearing, not cosmetic. This is distinct from the
+<code>template/</code>-shipped release-please that versions <em>generated</em> projects. Root-level
+files: <code>.github/release-please-config.json</code> (<code>release-type: "simple"</code> — the repo
+has no source version file, so it maintains only the manifest + <code>CHANGELOG.md</code> +
+tag; <code>draft: false</code>, no release artifacts to attach),
+<code>.github/release-please-manifest.json</code> (seeded <code>{ ".": "0.0.0" }</code>; release-please
+defaults the <em>first</em> release to <strong>v1.0.0</strong> regardless of <code>bump-minor-pre-major</code> —
+add a <code>Release-As</code>/<code>release-as</code> override for the first PR if a <code>0.x</code> start is
+wanted), and <code>.github/workflows/release.yml</code> (a single <code>release-please</code> job on
+push to <code>main</code>, no build/publish jobs). Do <strong>not</strong> add a build/publish step — the
+template is not a distributable package.</p>
+<p><strong>One-time repo setup</strong> (same contract release-please needs everywhere): this
+repo must <strong>squash-merge with the commit message set to the PR title</strong> (already
+its practice — see the <code>feat: … (#NNN)</code> history) so the <code>check-pr-title</code>-validated
+title is what release-please parses on <code>main</code>, and <strong>Settings → Actions → General
+→ Workflow permissions → Allow GitHub Actions to create and approve pull
+requests</strong> must be enabled so <code>release.yml</code> can open its release PR (already
+required by the existing PR-opening automation such as <code>gitignore-drift.yml</code>).
+Enable via <code>gh repo edit hasansezertasan/copier-pyproject --enable-squash-merge
+--enable-merge-commit=false --enable-rebase-merge=false</code> and
+<code>gh api -X PUT repos/hasansezertasan/copier-pyproject/actions/permissions/workflow
+-f default_workflow_permissions=write -F can_approve_pull_request_reviews=true</code>.
+This repo carries a repo-local <code>.claude/skills/repo-setup/</code> skill that automates
+the walk.</p>
+<h2 id="required-merge-strategy-release-please-depends-on-it">Required Merge Strategy (release-please depends on it)<a class="headerlink" href="#required-merge-strategy-release-please-depends-on-it" title="Permanent link">&para;</a></h2>
+<p>release-please derives version bumps and changelog sections solely from the
+Conventional Commit messages that land on <code>main</code>. This template validates the
+<strong>PR title</strong> but not in-PR commits, so generated repos <strong>must use "Squash and
+merge" with the squash commit message set to the PR title</strong> — that is the only
+strategy under which the lint-validated title becomes the commit on <code>main</code>.
+Merge-commit and rebase-merge promote unvalidated branch commits and will cause
+release-please to miss releases or bump them incorrectly.</p>
+<p>Configure each generated repo (Settings → General → Pull Requests):</p>
+<ul>
+<li>Allow squash merging (ideally disable merge commits and rebase merging).</li>
+<li>Set the squash "Default commit message" to <strong>"Pull request title"</strong>.</li>
+<li>Enable <strong>Automatically delete head branches</strong>.</li>
+<li>Keep <code>check-pr-title</code> as a required status check.</li>
+</ul>
+<p>release-please also needs <strong>Settings → Actions → General → Workflow permissions
+→ Allow GitHub Actions to create and approve pull requests</strong> enabled, or it
+cannot open/maintain the release PR. Generated repos should additionally enable
+<strong>release immutability</strong> (Settings → General). The generated project's
+<code>docs/maintaining/setup.rst</code> documents all of these as a one-time "Repository
+setup" guide (published under <strong>Maintainer guide</strong> in the docs site, and
+pointed to from the slimmed contributor-facing <code>CONTRIBUTING.md</code>), including
+ready-to-run <code>gh repo edit</code> / <code>gh api</code> commands and the PyPI trusted-publishing
+registration, each step tagged <code>[AGENT]</code> (scriptable) or <code>[HUMAN]</code>
+(browser-only) so it doubles as a setup-skill manifest — keep that guide in
+sync when these requirements change. See
+<a href="../adr/022-maintainer-setup-as-single-doc-home/">ADR-022</a>.</p>
+<p>Generated projects also ship a <strong><code>repo-setup</code> skill</strong>
+— one template file, under a directory name the <code>include_ai_rulez</code> toggle
+picks: <code>.claude/skills/repo-setup/</code> in the generated project by default, or
+<code>.ai-rulez/skills/repo-setup/</code> when the toggle is on, from which
+<code>ai-rulez generate</code> writes a copy for every selected host. It is a
+resume-driver that
+reads <code>docs/maintaining/setup.rst</code>,
+runs each step's idempotent <strong><code>[CHECK]</code></strong> block (exit 0 = already done), auto-runs
+red <code>[AGENT]</code> steps, and hands off <code>[HUMAN]</code> steps — classifying each step as
+required / deferred (Pages, pre-first-release) / optional so the walk never
+deadlocks and reports every gap at once. The
+<code>[CHECK]</code> tag is single-sourced in the setup doc alongside <code>[AGENT]</code>/<code>[HUMAN]</code>
+(no separate <code>steps.yaml</code>) — <strong>every new setup step must carry one</strong> (a real
+idempotent check, a secret-presence check, or an explicit <code>No scriptable check</code>
+marker). This repo carries a symmetric repo-local <code>.claude/skills/repo-setup/</code>
+for its own bootstrap (squash-merge policy + the deliberately-divergent
+<code>default_workflow_permissions=write</code>, not the generated projects' <code>read</code>). See
+<a href="../adr/023-repo-setup-skill/">ADR-023</a>.</p>
+<p>Bump rules follow <code>.github/release-please-config.json</code>: <code>feat</code> → minor, <code>fix</code>/<code>perf</code> →
+patch, <code>feat!</code>/<code>BREAKING CHANGE</code> → major — but <code>bump-minor-pre-major: true</code>
+keeps breaking changes at a minor bump while pre-1.0.</p>
+<h2 id="pypi-trusted-publishing-setup">PyPI Trusted Publishing Setup<a class="headerlink" href="#pypi-trusted-publishing-setup" title="Permanent link">&para;</a></h2>
+<p>For generated projects to publish to PyPI (only when <code>include_pypi_publish</code>):</p>
+<ol>
+<li>Go to <a href="https://pypi.org/manage/account/publishing/">https://pypi.org/manage/account/publishing/</a></li>
+<li>Add pending publisher with:</li>
+<li>PyPI Project Name: <code>&lt;package-name&gt;</code></li>
+<li>Owner: <code>&lt;github-username&gt;</code></li>
+<li>Repository: <code>&lt;repo-name&gt;</code></li>
+<li>Workflow: <code>release.yml</code> (the publish step is inline in this workflow,
+     so this is the filename PyPI's OIDC check matches — not a reusable <code>cd.yml</code>)</li>
+<li>Environment: <code>publish</code></li>
+</ol>
+<h3 id="template-adoption-and-update-audit">Template adoption and update audit<a class="headerlink" href="#template-adoption-and-update-audit" title="Permanent link">&para;</a></h3>
+<p>Generated projects always ship a <code>template-adoption</code> skill beside <code>repo-setup</code>,
+using the same <code>.claude/skills/</code> or <code>.ai-rulez/skills/</code> delivery convention.
+It establishes an adoption/update baseline, compares existing project behavior
+with template defaults, preserves user work and customizations, and requests
+decisions before consequential cleanup. Post-update audits inspect committed
+changes without rerunning Copier. Workflow removal requires comparing events,
+permissions, dependencies, and live required-status references; unavailable
+settings evidence defers potentially required-check removal. Repository-settings
+mutations stay in <code>repo-setup</code>. See <a href="../template-adoption/">invocation and the prek walkthrough</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href=".." class="md-footer__link md-footer__link--prev" aria-label="Previous: Home">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Home
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../generated-project-trees/" class="md-footer__link md-footer__link--next" aria-label="Next: Generated project trees">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Generated project trees
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.top", "navigation.footer", "content.code.copy", "search.suggest", "search.highlight"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

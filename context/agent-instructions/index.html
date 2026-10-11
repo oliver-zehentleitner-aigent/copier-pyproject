@@ -1,0 +1,957 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Copier template for a modern, typed Python package/CLI with uv, hatch, tox, and GitHub automation baked in.">
+      
+      
+      
+        <link rel="canonical" href="https://hasansezertasan.github.io/copier-pyproject/context/agent-instructions/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Agent instructions in generated projects - copier-pyproject</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#agent-instructions-in-generated-projects" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="copier-pyproject" class="md-header__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            copier-pyproject
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Agent instructions in generated projects
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="copier-pyproject" class="md-nav__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    copier-pyproject
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../template-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generated-project-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated project trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hook-coverage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated-project check coverage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../template-adoption/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template adoption and update audits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture decision records
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture decision records
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why it is built this way
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Why it is built this way
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://hasansezertasan.github.io/copier-pyproject/dashboard/live/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard ↗
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ai-rulez-is-the-opt-in-single-source-for-agent-instructions-with-the-prose-in-shared-macros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ai-rulez is the opt-in single source for agent instructions, with the prose in shared macros
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generated-host-files-are-build-output-the-template-renders-none-of-them" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generated host files are build output; the template renders none of them
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#no-builtin-ai-rulez-domains-and-ai-rulez-never-touches-gitignore" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        No builtin ai-rulez domains, and ai-rulez never touches .gitignore
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#two-gates-plus-a-convergence-scenario-over-every-host" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two gates plus a convergence scenario over every host
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#no-claudemd-by-default-claude-left-the-preset-defaults-gemini-is-no-longer-offered" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        No CLAUDE.md by default; claude left the preset defaults; gemini is no longer offered
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="agent-instructions-in-generated-projects">Agent instructions in generated projects<a class="headerlink" href="#agent-instructions-in-generated-projects" title="Permanent link">&para;</a></h1>
+<h2 id="ai-rulez-is-the-opt-in-single-source-for-agent-instructions-with-the-prose-in-shared-macros">ai-rulez is the opt-in single source for agent instructions, with the prose in shared macros<a class="headerlink" href="#ai-rulez-is-the-opt-in-single-source-for-agent-instructions-with-the-prose-in-shared-macros" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> e1545d12-ac20-426b-9cd5-519e80a56b5f
+<strong>Type:</strong> decision
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> ADR-035 (<code>docs/adr/035-ai-rulez-as-the-agent-instruction-source.md</code>), §1 and §5; issue #309
+<strong>Revisit when:</strong> a host stops reading its generated file, ai-rulez leaves PyPI, or a sixth host is expected to open PRs
+<strong>See:</strong> repo-setup.md#a-resume-driven-repo-setup-skill-reads-check-blocks-from-the-setup-doc-no-separate-manifest — 68ac4665-dcde-456b-aef7-2faaf6fe51f4 — as of 2026-10-11
+<strong>See:</strong> template-testing.md#collection-literals-are-rendered-through-one-shared-macro — 47b21a49-5fc4-46b8-b450-7d9f3225706c — as of 2026-10-11</p>
+<p><code>include_ai_rulez</code> (default off, <code>full</code> preset) with an <code>ai_rulez_presets</code>
+multiselect renders <code>.ai-rulez/</code> sources from which ai-rulez generates each
+host's native instruction files and skill copies. With the toggle off, the
+hand-written <code>AGENTS.md</code> and the Claude-only skills render. The section prose
+lives once in <code>_macros.jinja</code>; both the hand-written file and the rule sources
+call the same macros. The pin lives in its own <code>agents</code> dependency group,
+exact, Renovate-tracked through the native uv manager.</p>
+<p><strong>Reason:</strong> the generated project's branch-name check already whitelists five
+agent prefixes, but only Claude received the repo-setup skill and only two
+hosts received instructions; hand-writing five formats is the duplication the
+template exists to remove. ai-rulez ships on PyPI (no Node) and has the cobo
+shape — sources in, committed output out, a check that proves they agree. A
+second hand-maintained copy of the paragraphs would recreate inside the
+template the drift it removes downstream. Its own group because <code>dev</code> includes
+<code>style</code> wholesale and only two callers invoke the tool; upstream's pre-commit
+hooks would add a second <code>rev</code> pin. The exact pin matters because the PyPI
+launcher downloads a Go binary and proceeds with a warning if the checksum file
+cannot be fetched.</p>
+<p><strong>Rejected alternative:</strong> hand-written per-host files — five dialects drifting.</p>
+<h2 id="generated-host-files-are-build-output-the-template-renders-none-of-them">Generated host files are build output; the template renders none of them<a class="headerlink" href="#generated-host-files-are-build-output-the-template-renders-none-of-them" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> e827d3fc-e3f6-4852-b2e3-d56180eac949
+<strong>Type:</strong> decision
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> ADR-035 §2 and §8 (<code>docs/adr/035-ai-rulez-as-the-agent-instruction-source.md</code>)
+<strong>Revisit when:</strong> ai-rulez and copier produce identical bytes for the same content, or the template gains a post-render step
+<strong>See:</strong> agent-instructions.md#ai-rulez-is-the-opt-in-single-source-for-agent-instructions-with-the-prose-in-shared-macros — e1545d12-ac20-426b-9cd5-519e80a56b5f — as of 2026-10-11
+<strong>See:</strong> template-updates.md#copieryml-defines-no-_tasks — 86130379-1660-4992-8aba-8b6cd7b4a9f7 — as of 2026-10-11</p>
+<p>The template renders <code>.ai-rulez/</code> and stops. <code>AGENTS.md</code>, the Copilot
+instructions and the per-host skill copies are written by the adopter's first
+<code>ai-rulez generate</code> and committed from then on. Turning the toggle on via
+update leaves a project with no instruction files until the generator runs
+(the after-update message names the two commands; CI is red until the output
+is committed). Turning it off requires running ai-rulez's clean command before
+the update, while the sources it reads still exist, because the host files are
+not copier-managed and would otherwise stay committed and stale.</p>
+<p><strong>Reason:</strong> copier's renderer and ai-rulez's renderer produce different bytes
+for the same content (ai-rulez composes its own headings and stamps a
+provenance header with a content hash), so rendering both would diff on first
+generate and every <code>copier update</code> would re-render on top of generated files —
+churn on files the adopter never touched. As build output they sit outside the
+3-way merge, which then covers only the small per-rule sources. Neither
+direction is automatic because the template has no tasks. Dropping the toggle
+from <code>full</code> was rejected: <code>full</code> means every toggle, and a preset that quietly
+omits one is a worse surprise than a loud one.</p>
+<p><strong>Rejected alternative:</strong> render the generated files as well — the churn above.</p>
+<h2 id="no-builtin-ai-rulez-domains-and-ai-rulez-never-touches-gitignore">No builtin ai-rulez domains, and ai-rulez never touches <code>.gitignore</code><a class="headerlink" href="#no-builtin-ai-rulez-domains-and-ai-rulez-never-touches-gitignore" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> e9823c4a-891f-4344-8d64-029dd8d31138
+<strong>Type:</strong> decision
+<strong>Type:</strong> constraint
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> ADR-035 §3–4 (<code>docs/adr/035-ai-rulez-as-the-agent-instruction-source.md</code>)
+<strong>Revisit when:</strong> a builtin domain stops contradicting a gate the project enforces, or the gitignore stops being cobo-sealed
+<strong>See:</strong> gitignore-generation.md#cobo-generates-the-gitignore-with-a-hash-sealed-fence-and-lockfiles — 3e3bc38e-bc1e-4e65-b74d-e91848262157 — as of 2026-10-11</p>
+<p><code>builtins = false</code>: the shipped rules are only the project's own.
+<code>gitignore = false</code>: the generated output is committed and ai-rulez does not
+rewrite the ignore file.</p>
+<p><strong>Reason:</strong> every one of the seven auto-included builtin domains either
+restates a gate or contradicts it — complexity 20 versus ruff's 5, 120 columns
+versus 88, 80% coverage versus 99%, "use conventional commits" versus the
+blocking title check. A rule an agent obeys and a gate that fails it must never
+be two separately maintained sentences, and per-domain exclusions would leave
+the next release free to add a contradiction to a domain opted into. Off
+entirely also keeps the generated file ~60 lines instead of ~270. ai-rulez's
+default gitignore rewrite would break the cobo-sealed fence and hide the very
+files GitHub must find in the repository.</p>
+<p><strong>Rejected alternative:</strong> per-domain <code>!</code> exclusions — the next-release risk.</p>
+<h2 id="two-gates-plus-a-convergence-scenario-over-every-host">Two gates plus a convergence scenario over every host<a class="headerlink" href="#two-gates-plus-a-convergence-scenario-over-every-host" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> b23fd420-5b88-4075-93ad-5122b4f7622e
+<strong>Type:</strong> decision
+<strong>Type:</strong> incident
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> ADR-035 §6–7 (<code>docs/adr/035-ai-rulez-as-the-agent-instruction-source.md</code>)
+<strong>Revisit when:</strong> ai-rulez gains a check mode for preset output, or a host's generated output changes format
+<strong>See:</strong> template-testing.md#generated-files-must-be-formatter-canonical-not-merely-valid — 9b931598-7e52-4ff1-bb07-ef65c01d5369 — as of 2026-10-11
+<strong>See:</strong> lint-orchestration.md#the-tox-style-env-is-the-sole-authoritative-lint-suite-prek-is-a-fast-gate-not-a-second-suite — 9b74fc8b-a808-4f2b-bdbd-9e4253c1b35a — as of 2026-10-11</p>
+<p>prek runs the generator as a fixing hook; tox <code>style</code> runs <code>ai-rulez validate</code>;
+and <code>ci.yml</code>'s hooks job additionally fails on any working-tree change
+including untracked files. A template-ci scenario renders the toggle on with
+<em>every</em> offered host, runs the generator, then the generated project's own
+fixing hooks, and gates on <code>git diff</code>; it also runs the checking hooks and
+gates on their exit codes. Checking hooks skip the paths a generator owns
+(<code>.continue/prompts/</code> for trailing-whitespace, yamllint and the editorconfig
+checker; <code>.mdc</code> for the editorconfig checker), rendered only under the toggle.</p>
+<p><strong>Reason:</strong> there is no check mode for preset output, and a fixing hook only
+fails on a modified <em>tracked</em> file — a project that never committed its output
+would have it regenerated untracked and stay green, shipping instructions that
+exist on no branch. Two generators writing one tree that disagree on a byte
+leave a repository that never converges. The defaults emit markdown alone and
+converge; two hosts found only once the scenario covered every host do not —
+continue-dev's YAML header carries trailing-space comment lines the whitespace
+hook strips and the next generate restores, and cursor's <code>.mdc</code> rules fail the
+editorconfig checker because the <code>\.md$</code> exclude does not reach the extra
+character. A checking hook rejecting generated output cannot be satisfied at
+all, so it gets the <code>.copier-answers.yml</code> answer: skip the generator-owned
+path.</p>
+<p><strong>Consequence:</strong> the width of the gate is the width of the output it sees;
+every offered host widens the scenario that must keep passing.</p>
+<h2 id="no-claudemd-by-default-claude-left-the-preset-defaults-gemini-is-no-longer-offered">No <code>CLAUDE.md</code> by default; <code>claude</code> left the preset defaults; <code>gemini</code> is no longer offered<a class="headerlink" href="#no-claudemd-by-default-claude-left-the-preset-defaults-gemini-is-no-longer-offered" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> 1a6849be-72d0-4990-abe2-7a0243cd5e67
+<strong>Type:</strong> decision
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> ADR-035, 2026-10 amendment (<code>docs/adr/035-ai-rulez-as-the-agent-instruction-source.md</code>)
+<strong>Revisit when:</strong> Claude Code stops reading <code>AGENTS.md</code> natively, or the maintainers start using Gemini
+<strong>See:</strong> agent-instructions.md#ai-rulez-is-the-opt-in-single-source-for-agent-instructions-with-the-prose-in-shared-macros — e1545d12-ac20-426b-9cd5-519e80a56b5f — as of 2026-10-11</p>
+<p>The default shape uses <code>AGENTS.md</code> alone, including for Claude Code. The former
+<code>@AGENTS.md</code> wrapper is neither rendered nor preserved on update any more, so
+an update deletes leftover copies (customized ones too). <code>ai_rulez_presets</code>
+defaults to <code>codex</code> and <code>copilot</code>; <code>claude</code> is still offered but not default;
+<code>gemini</code> was removed from the choices.</p>
+<p><strong>Reason:</strong> Claude Code reads <code>AGENTS.md</code> natively, removing the only reason the
+wrapper existed — and a leftover <code>CLAUDE.md</code> makes Claude Code's default mode
+<em>skip</em> <code>AGENTS.md</code>, the opposite of what the default shape wants. The <code>codex</code>
+host already writes <code>AGENTS.md</code>, so <code>claude</code> only added a duplicate wrapper and
+a <code>.claude/</code> tree. The maintainers do not use Gemini and every offered host
+widens the convergence scenario.</p>
+<p><strong>Rejected alternative:</strong> keep excluding <code>CLAUDE.md</code> from updates to protect
+adopter guidance — kept a file that actively harmed the default; the README
+tells adopters to move unique guidance first, and git history keeps the old
+content.</p>
+<p><strong>Consequence:</strong> by default the per-host skills no longer reach Claude Code,
+which looks under <code>.claude/skills/</code>; adopters who want them select <code>claude</code>.
+Removing a choice has a sharp edge: a <code>--defaults</code> update (what Renovate runs)
+silently replaces a recorded selection containing a removed choice with the new
+defaults, so a project that selected <code>gemini</code> loses every other host too and
+keeps a stale <code>GEMINI.md</code>; such a project cleans before updating and re-selects.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "navigation.footer", "content.code.copy", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

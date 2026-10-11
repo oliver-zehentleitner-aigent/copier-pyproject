@@ -1,0 +1,990 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Copier template for a modern, typed Python package/CLI with uv, hatch, tox, and GitHub automation baked in.">
+      
+      
+      
+        <link rel="canonical" href="https://hasansezertasan.github.io/copier-pyproject/adr/012-cobo-for-gitignore-generation/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>ADR-012: cobo for .gitignore generation - copier-pyproject</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#adr-012-cobo-for-gitignore-generation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="copier-pyproject" class="md-header__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            copier-pyproject
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ADR-012: cobo for .gitignore generation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="copier-pyproject" class="md-nav__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    copier-pyproject
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../template-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generated-project-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated project trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hook-coverage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated-project check coverage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../template-adoption/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template adoption and update audits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture decision records
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture decision records
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why it is built this way
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Why it is built this way
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../context/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://hasansezertasan.github.io/copier-pyproject/dashboard/live/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard ↗
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Status
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Decision">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-lf-sealed-fenced-region-eol-lf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. LF-sealed fenced region (--eol lf)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. LF-sealed fenced region (--eol lf)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#known-tradeoff-lf-corrupted-macos-char-class-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Known tradeoff: LF-corrupted macOS char-class patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-project-overrides-move-below-the-fence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Project overrides move below the fence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-two-lockfiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Two lockfiles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-drift-check-weekly-non-blocking-cron" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Drift check = weekly non-blocking cron
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consequences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consequences
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="adr-012-cobo-for-gitignore-generation">ADR-012: cobo for <code>.gitignore</code> generation<a class="headerlink" href="#adr-012-cobo-for-gitignore-generation" title="Permanent link">&para;</a></h1>
+<h2 id="status">Status<a class="headerlink" href="#status" title="Permanent link">&para;</a></h2>
+<p>Accepted (2026-07). Supersedes the ad-hoc <a href="https://github.com/simonwhitaker/gibo">gibo</a>
+workflow that previously produced <code>template/.gitignore.jinja</code>.</p>
+<h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
+<p><code>template/.gitignore.jinja</code> was generated by <code>gibo</code>, which stacks boilerplates
+from <a href="https://github.com/github/gitignore"><code>github/gitignore</code></a> (macOS, Windows,
+Linux, VisualStudioCode, Python) behind <code>###</code> provenance headers, followed by a
+hand-written <code>### Generated by the author</code> section. <code>gibo</code> was run by hand: there
+was no lockfile, no pin the tooling understood, and no way to detect when the
+upstream boilerplates drifted. Two project-specific overrides were also
+hand-injected <strong>inside</strong> the boilerplate — the <code>include_freezer</code> spec-file
+negation and the <code>include_c_extensions</code> generated-C ignore.</p>
+<p><a href="https://github.com/hasansezertasan/cobo"><code>cobo</code></a> (the maintainer's own "copy
+boilerplates" tool) fetches the <strong>same</strong> <code>github/gitignore</code> templates but adds a
+<code>cobo.lock</code> + <code>check</code>/<code>sync</code> drift-detection model <code>gibo</code> lacks: it writes a
+hash-fenced region (<code># &gt;&gt;&gt; cobo:begin &gt;&gt;&gt;</code> … <code># &lt;&lt;&lt; cobo:end sha256=… &lt;&lt;&lt;</code>) and
+records the upstream commit + per-file blob in <code>cobo.lock</code>.</p>
+<h2 id="decision">Decision<a class="headerlink" href="#decision" title="Permanent link">&para;</a></h2>
+<p>Generate <code>.gitignore</code> with <code>cobo</code>, and ship cobo to generated projects as
+always-included tooling (like mise/renovate — <strong>no</strong> <code>copier.yml</code> toggle).</p>
+<h3 id="1-lf-sealed-fenced-region-eol-lf">1. LF-sealed fenced region (<code>--eol lf</code>)<a class="headerlink" href="#1-lf-sealed-fenced-region-eol-lf" title="Permanent link">&para;</a></h3>
+<p>cobo hash-seals the fenced region, so it must contain verbatim boilerplate.
+But this template enforces <strong>LF everywhere</strong> (<code>.gitattributes</code> <code>* text=auto
+eol=lf</code>, EditorConfig, ruff) and Copier's Jinja renderer normalizes newlines —
+so the lone carriage returns in the macOS boilerplate (<code>Icon[\r]</code>, <code>.HFS+
+Private Directory Data[\r]</code>) are stripped in every generated project. A block
+sealed byte-exact (cobo's default <code>preserve</code>) would therefore report
+<code>locally modified</code> forever under <code>cobo check</code>.</p>
+<p>cobo 0.4.0 added an opt-in <code>--eol lf</code> policy (upstreamed for this migration:
+cobo#120/#121) that LF-normalizes the block <strong>before</strong> sealing, so the seal and
+the on-disk (LF) bytes agree. <code>.gitignore</code> is sealed with <code>--eol lf</code>; the policy
+is persisted on the lock fragment (<code>eol = "lf"</code>) and <code>sync</code> re-applies it. A
+consumer that only runs <code>cobo check</code> needs no configuration — the LF seal is
+self-describing.</p>
+<h4 id="known-tradeoff-lf-corrupted-macos-char-class-patterns">Known tradeoff: LF-corrupted macOS char-class patterns<a class="headerlink" href="#known-tradeoff-lf-corrupted-macos-char-class-patterns" title="Permanent link">&para;</a></h4>
+<p>The macOS boilerplate encodes two filenames whose real name ends in a
+carriage return — the legacy custom-folder icon <code>Icon␍</code> and <code>.HFS+ Private
+Directory Data␍</code> — as single-line character classes (<code>Icon[&lt;CR&gt;]</code>,
+<code>.HFS+ Private Directory Data[&lt;CR&gt;]</code>). The <code>&lt;CR&gt;</code> there is a <strong>semantic</strong> byte
+matched literally, not a line terminator. LF normalization rewrites it to a
+newline, splitting each pattern in two:</p>
+<div class="highlight"><pre><span></span><code>Icon[
+]
+</code></pre></div>
+<p><code>Icon[</code> is now an unterminated char-class, which git's wildmatch treats as a
+non-matching pattern — it matches <strong>nothing</strong> (not even a literal <code>Icon[</code>), so
+it is inert, and the <code>Icon␍</code> file is no longer ignored. The orphaned <code>]</code> is a
+separate pattern that <em>is</em> effective: it ignores a file literally named <code>]</code>.
+Same for the HFS entry. This is accepted as a deliberate tradeoff,
+not "harmless": these are legacy HFS resource-fork artifacts modern macOS rarely
+creates and almost never commits, and there is <strong>no LF-only pattern</strong> that
+matches <code>Icon␍</code> precisely (<code>Icon?</code> over-matches <code>Icons</code>/<code>Icon1</code>/…), so fidelity
+genuinely requires the CR. Keeping the CR is still the wrong call — it fights
+this template's LF-everywhere invariant: EditorConfig <code>end_of_line = lf</code> makes
+the <code>style</code> env's <code>editorconfig-checker</code> fail on the embedded CR, and — the
+decisive blocker — Copier renders <code>.gitignore.jinja</code> through Jinja, whose lexer
+normalizes a lone <code>\r</code> to <code>\n</code> on scaffold (<code>Icon[\r]</code> → <code>Icon[\n]</code>), so an
+<code>eol=preserve</code> seal would be re-corrupted in <strong>every</strong> generated project anyway.
+(Git itself does <strong>not</strong> strip the CR: <code>* text=auto eol=lf</code> only rewrites CRLF
+<em>terminators</em>, leaving a lone mid-line CR intact in the index — but the Jinja
+render happens at scaffold time, before anything is committed, so that does not
+rescue the pattern.)</p>
+<p>The root cobo-level fix — <code>eol=lf</code> should normalize line <em>terminators</em> only,
+not a CR embedded mid-line inside a char-class — is tracked in
+<a href="https://github.com/hasansezertasan/cobo/issues/124">cobo#124</a>. It is
+<strong>necessary but not sufficient</strong>: because Copier's Jinja render also strips the
+lone CR (above), fully restoring the patterns in generated projects would
+<em>additionally</em> require the render to preserve it (a <code>{% raw %}</code> wrap or a Copier
+newline/<code>_envops</code> carve-out scoped to this file). Until both are in place the
+split patterns stand as documented. See also
+<a href="https://github.com/hasansezertasan/copier-pyproject/issues/111">#111</a>.</p>
+<h3 id="2-project-overrides-move-below-the-fence">2. Project overrides move below the fence<a class="headerlink" href="#2-project-overrides-move-below-the-fence" title="Permanent link">&para;</a></h3>
+<p>The <code>include_freezer</code> (<code>!{{github_repo_name}}.spec</code>) and <code>include_c_extensions</code>
+(<code>/src/{{github_repo_name}}/_c_extension.c</code>) conditionals move out of the
+boilerplate into the author section <strong>below</strong> the end fence, where cobo
+preserves them untouched. This keeps the fence verifiable and puts the
+project's own overrides where they belong. The <code>!….spec</code> negation still lands,
+in file order, after the <code>*.spec</code> ignore that sits inside the fence, so it still
+wins.</p>
+<h3 id="3-two-lockfiles">3. Two lockfiles<a class="headerlink" href="#3-two-lockfiles" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Repo root <code>cobo.lock</code> — two fragments: <code>template/.gitignore.jinja</code> (the
+  template source) <strong>and</strong> this repo's own <code>.gitignore</code> (dogfooding — the
+  template repo manages its own gitignore with cobo too). <code>cobo check</code>/<code>sync</code>
+  from the root maintain both.</li>
+<li><code>template/cobo.lock</code> (<code>path = .gitignore</code>) — shipped verbatim to generated
+  projects so their <code>.gitignore</code> is drift-checkable. Because the rendered fence
+  is byte-identical to cobo's LF output, a fresh scaffold passes <code>cobo check</code>.</li>
+</ul>
+<h3 id="4-drift-check-weekly-non-blocking-cron">4. Drift check = weekly non-blocking cron<a class="headerlink" href="#4-drift-check-weekly-non-blocking-cron" title="Permanent link">&para;</a></h3>
+<p><code>gitignore-drift.yml</code> runs <code>cobo update &amp;&amp; cobo check --strict</code> on a weekly <code>schedule</code> +
+<code>workflow_dispatch</code> only — <strong>not</strong> on <code>pull_request</code> and <strong>not</strong> in the <code>check</code>
+aggregation gate. <code>cobo update</code> hits the network, and this template keeps
+network-flaky checks out of the blocking gate (same posture as <code>docs-linkcheck</code>,
+<a href="../011-docs-linting-and-cross-platform-filename-safety/">ADR-011</a>). cobo is also
+delivered as a mise tool (<code>pipx:cobo</code>, Renovate-tracked) with an on-demand
+<code>mise run gitignore-check</code> task. There is <strong>no</strong> blocking prek/CI drift hook.</p>
+<h2 id="consequences">Consequences<a class="headerlink" href="#consequences" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Upstream boilerplate stays hash-verifiable; drift is a weekly maintenance
+  signal rather than a silent rot.</li>
+<li>Regeneration is <code>cobo update &amp;&amp; cobo sync</code> (re-renders the fenced region in
+  place, preserving the author section and the <code>eol = "lf"</code> policy); refresh
+  <code>template/cobo.lock</code> the same way from a scratch dir (<code>path = .gitignore</code>).</li>
+<li>One extra pinned tool (<code>pipx:cobo</code>) in generated projects, Renovate-tracked.</li>
+<li><code>cobo.lock</code> is marked <code>linguist-generated</code> and carries a 2-space EditorConfig
+  stanza (taplo's <code>*.toml</code> glob does not cover <code>.lock</code>).</li>
+<li>The cobo-managed <code>.gitignore</code> is excluded from the <code>trailing-whitespace</code> prek
+  hook: upstream github/gitignore ships trailing whitespace on some comment
+  lines, and trimming it inside the fence would break the sha256 seal. cobo owns
+  that file's exact bytes, so the byte-munging hook must skip it.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "navigation.footer", "content.code.copy", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

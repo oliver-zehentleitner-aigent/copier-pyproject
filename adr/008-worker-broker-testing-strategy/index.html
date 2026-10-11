@@ -1,0 +1,1092 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Copier template for a modern, typed Python package/CLI with uv, hatch, tox, and GitHub automation baked in.">
+      
+      
+      
+        <link rel="canonical" href="https://hasansezertasan.github.io/copier-pyproject/adr/008-worker-broker-testing-strategy/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>ADR-008: Worker broker testing strategy (lazy imports + testcontainers integration) - copier-pyproject</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#adr-008-worker-broker-testing-strategy-lazy-imports-testcontainers-integration" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="copier-pyproject" class="md-header__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            copier-pyproject
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ADR-008: Worker broker testing strategy (lazy imports + testcontainers integration)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="copier-pyproject" class="md-nav__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    copier-pyproject
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../template-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generated-project-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated project trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hook-coverage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated-project check coverage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../template-adoption/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template adoption and update audits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture decision records
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture decision records
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why it is built this way
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Why it is built this way
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../context/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://hasansezertasan.github.io/copier-pyproject/dashboard/live/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard ↗
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Status
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Decision">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-env-injectable-broker-factory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Env-injectable broker factory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-testcontainers-integration-test-dedicated-ci-job" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Testcontainers integration test + dedicated CI job
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-testcontainers-over-github-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why testcontainers over GitHub services:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consequences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consequences
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="adr-008-worker-broker-testing-strategy-lazy-imports-testcontainers-integration">ADR-008: Worker broker testing strategy (lazy imports + testcontainers integration)<a class="headerlink" href="#adr-008-worker-broker-testing-strategy-lazy-imports-testcontainers-integration" title="Permanent link">&para;</a></h1>
+<h2 id="status">Status<a class="headerlink" href="#status" title="Permanent link">&para;</a></h2>
+<p>Accepted (2026-06). Implemented.</p>
+<blockquote>
+<p><strong>Revision (during implementation).</strong> The original draft proposed <em>lazy broker
+imports</em> as item 1. Implementation showed that this buys nothing for this
+worker: it has exactly one broker, <code>faststream[&lt;broker&gt;]</code> is a core runtime
+dependency of the rendered project (so the driver is always present wherever
+the worker is exercised), and the broker is constructed at module top — so the driver is
+imported at module load regardless of where the <code>import</code> statement sits, and
+the top-level package never imports <code>worker.app</code> anyway. The real blocker to
+integration testing was <em>construction at import time</em> (a localhost-bound
+broker singleton that tests can't retarget). Item 1 is therefore an
+<strong>env-injectable broker factory</strong>, which is what actually enables a real
+round-trip integration test. The lazy-import idea is rejected.</p>
+</blockquote>
+<h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
+<p>The <code>include_worker</code> component generates a <a href="https://faststream.ag2.ai/">FastStream</a>
+worker (<code>src/&lt;pkg&gt;/worker/app.py</code>) bound to one broker chosen by <code>worker_broker</code>
+(kafka / nats / rabbitmq / redis). Two observations about its current testing
+story motivated this ADR. Both patterns were proven in
+<a href="https://github.com/hasansezertasan/litestar-faststream"><code>litestar-faststream</code></a>
+and the CI/lint sweep in
+<a href="https://github.com/hasansezertasan/litestar-events/pull/9"><code>litestar-events#9</code></a>,
+and are candidates to fold back into this template.</p>
+<p><strong>1. Broker drivers are imported at module load.</strong> <code>worker/app.py</code> does its
+broker import at the top of the file (e.g. <code>from faststream.kafka import
+KafkaBroker</code>), so importing the package — or any submodule that transitively
+reaches the worker — pulls in the broker's third-party driver
+(<code>aiokafka</code>, <code>nats-py</code>, <code>aio-pika</code>, <code>redis</code>). That couples <em>importability</em> to a
+heavy, often C-backed dependency being installed and loadable on the current
+platform.</p>
+<p><strong>2. There is no integration test against a real broker.</strong> The generated worker
+tests (<code>tests/worker/test_app.py</code>) already use FastStream's in-memory
+<code>Test&lt;Broker&gt;</code> context manager — a genuinely good unit pattern that needs no
+running broker, so that half of the litestar-events PR is already present and is
+<strong>retained</strong> (though the assertions were reworked from <code>.mock</code> introspection to
+observable-behavior checks as a consequence of the factory in item 1 — see
+Consequences). What is missing is any test that
+exercises the worker against a <em>real</em> broker. The CI <code>ci</code> job runs <code>tox run</code>
+across the OS matrix but never starts a broker; the <code>.devcontainer</code> compose file
+defines broker services, but CI does not use the devcontainer. So a regression in
+real serialization, connection handling, or driver compatibility (the exact
+things the in-memory broker stubs out) ships undetected.</p>
+<p>litestar-events solved (2) with <a href="https://testcontainers.com/">testcontainers</a>:
+spin the real broker up in a Docker container per test session, in a CI matrix
+job per backend, instead of relying on statically-declared GitHub <code>services:</code>
+blocks.</p>
+<h2 id="decision">Decision<a class="headerlink" href="#decision" title="Permanent link">&para;</a></h2>
+<p>Adopt both patterns for the generated worker, scoped to <code>include_worker</code>.</p>
+<h3 id="1-env-injectable-broker-factory">1. Env-injectable broker factory<a class="headerlink" href="#1-env-injectable-broker-factory" title="Permanent link">&para;</a></h3>
+<p>Replace the module-level <code>broker = &lt;Broker&gt;(os.getenv(...))</code> singleton (which
+froze the connection at import time and bound the response publisher and
+subscriber to it) with a <code>build_broker(url: str | None = None)</code> factory that:</p>
+<ul>
+<li>resolves the connection at <em>call</em> time (<code>url</code> arg → broker-specific env var →
+  local default), and</li>
+<li>registers the <code>version-requests</code> subscriber and <code>version-responses</code> publisher
+  on the broker it builds, returning that broker fully wired.</li>
+</ul>
+<p>A module-level <code>broker = build_broker()</code> is still created for the entry point
+(<code>main()</code> / <code>FastStream(broker)</code>), so nothing about running the worker changes.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">build_broker</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">KafkaBroker</span><span class="p">:</span>
+    <span class="n">default_url</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"KAFKA_BOOTSTRAP_SERVERS"</span><span class="p">,</span> <span class="s2">"localhost:9092"</span><span class="p">)</span>
+    <span class="n">broker</span> <span class="o">=</span> <span class="n">KafkaBroker</span><span class="p">(</span><span class="n">url</span> <span class="k">if</span> <span class="n">url</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">default_url</span><span class="p">)</span>
+    <span class="n">publisher</span> <span class="o">=</span> <span class="n">broker</span><span class="o">.</span><span class="n">publisher</span><span class="p">(</span><span class="s2">"version-responses"</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+
+    <span class="nd">@broker</span><span class="o">.</span><span class="n">subscriber</span><span class="p">(</span><span class="s2">"version-requests"</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">handle_version_request</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="n">VersionRequest</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span> <span class="n">Logger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="o">...</span>
+        <span class="k">await</span> <span class="n">publisher</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">broker</span>
+
+
+<span class="n">broker</span> <span class="o">=</span> <span class="n">build_broker</span><span class="p">()</span>
+</code></pre></div>
+<p>This is the seam the integration test needs: it calls <code>build_broker(container_url)</code>
+to get a fresh, self-contained broker pointed at a throwaway instance — no
+import-order or module-cache games. The factory returns only the broker (one
+clean type annotation); the subscriber/publisher become closures rather than
+importable module globals, so tests assert on <em>observable behavior</em> (a response
+delivered to a collector subscriber) instead of internal wiring. The handler and
+publisher are no longer importable from the module — the unit test was updated
+accordingly.</p>
+<h3 id="2-testcontainers-integration-test-dedicated-ci-job">2. Testcontainers integration test + dedicated CI job<a class="headerlink" href="#2-testcontainers-integration-test-dedicated-ci-job" title="Permanent link">&para;</a></h3>
+<p>Add an integration test (marked <code>@pytest.mark.integration</code>) that starts the real
+broker via testcontainers and round-trips a message through the actual driver,
+and a CI job that runs only that marker. The job is <strong>Ubuntu-only</strong> (Docker is
+reliably available on GitHub's Ubuntu runners but not macOS/Windows runners) and
+<strong>conditional on <code>include_worker</code></strong>, mirroring how ADR-007's <code>build-*-check</code> jobs
+are conditional on their toggles. It is a per-backend job keyed off
+<code>worker_broker</code>, not a fan-out over all four brokers, because a generated project
+has exactly one broker.</p>
+<p>The default <code>tox run</code> / <code>ci</code> matrix stays broker-free and fast: integration tests
+are deselected there (<code>-m "not integration"</code>) and only the new job opts in
+(<code>-m integration</code>). This keeps the cross-OS matrix honest (it never needs Docker)
+while still gaining real-broker coverage on Linux.</p>
+<h3 id="why-testcontainers-over-github-services">Why testcontainers over GitHub <code>services:</code><a class="headerlink" href="#why-testcontainers-over-github-services" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>services:</code> blocks are static YAML, health-checked by the runner, and only
+  available on Linux runners anyway — so they buy nothing the container approach
+  doesn't, and they can't express per-test lifecycle.</li>
+<li>testcontainers owns the container lifecycle <em>from the test</em>, so the same
+  integration test runs identically on a developer laptop with Docker as it does
+  in CI — no "works in CI only" divergence.</li>
+<li>It composes with the existing <code>.devcontainer</code> services rather than duplicating
+  their definitions into workflow YAML.</li>
+</ul>
+<blockquote>
+<p><strong>Amendment (2026-08, issue #169) — services: as the CI mechanism for
+redis/nats.</strong> The reasoning above stands for the <em>local</em> run and for
+kafka/rabbitmq, but it over-generalized. For fast-starting brokers, a
+runner-provided <code>services:</code> container is lighter in CI: the runner starts it,
+health-gates it where the image offers a usable probe (redis via <code>redis-cli
+ping</code>; nats has none — see below), and injects the connection <em>before</em> the job
+— no in-test Docker orchestration, and readiness owned by the runner rather
+than the test wherever a probe exists. So CI now uses <code>services:</code> for <strong>redis</strong>
+and <strong>nats</strong>, and keeps <strong>testcontainers</strong> for <strong>kafka</strong> (KRaft
+advertised-listeners) and <strong>rabbitmq</strong> (fiddly readiness), where <code>services:</code>
+readiness is not worth the trouble. This is a <em>per-broker CI mechanism</em>, not a
+new question, and what the integration test asserts is unchanged.</p>
+<p>The split lives in <strong>one</strong> place: the <code>ci_service</code> field on <code>worker_broker_spec</code>
+(<code>copier.yml</code>). A broker gets the <code>services:</code> path exactly when it has a
+<code>ci_service</code> — and the image, published port, health command, and injected URL
+all come from that field, so <code>ci.yml.jinja</code> carries no
+<code>{% if worker_broker == … %}</code> chain (the convention noted in issue #166).
+<code>health_cmd: null</code> is the explicit "no usable in-container probe" marker.
+The Redis-compatible image and CLI themselves come from the <code>redis_image</code> /
+<code>redis_cli</code> computed vars, which the devcontainer compose service reads too —
+so a redis→valkey or version bump cannot leave CI and the devcontainer
+disagreeing.</p>
+<p>The seam is the env-injectable factory (item 1). The integration test's
+container startup moved into a <code>_broker_url</code> context manager: if the broker's
+env var (<code>REDIS_URL</code> / <code>NATS_URL</code> / …) is already set — the <code>services:</code> path,
+where the runner points the job at a live broker — it connects to that directly;
+otherwise it starts a throwaway testcontainer. So a local <code>pytest -m
+integration</code> is unchanged (self-contained, Docker-owned-from-the-test), while
+CI for redis/nats skips the in-test container entirely. It is a plain context
+manager rather than a pytest fixture on purpose: the <code>integration</code> test is
+deselected from the default suite, so a fixture consumed only by it reads as
+unused to <code>pytest --dead-fixtures</code> (run in the <code>style</code> env) and would fail that
+gate.</p>
+<p><strong>NATS runs without a container health-check.</strong> Its <code>/healthz</code> monitoring
+endpoint needs a container command (<code>-m 8222</code>), and GitHub Actions service
+containers cannot override the image command (only image/env/ports/options).
+NATS boots in well under a second and the checkout/Python/uv setup steps
+precede the first test line, so the service is long ready; the test's own
+connect-retry (<code>asyncio.wait_for(start(), 120s)</code> + the publish poll loop)
+covers readiness. redis keeps a real <code>--health-cmd</code> gate.</p>
+</blockquote>
+<h2 id="consequences">Consequences<a class="headerlink" href="#consequences" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>worker/app.py</code> exposes <code>build_broker(url=None)</code> and keeps a module-level
+  <code>broker = build_broker()</code>. The previously-importable <code>handle_version_request</code>
+  and <code>version_response_publisher</code> become factory-local closures; the unit test
+  was rewritten to assert on the response delivered to a collector subscriber
+  rather than importing those names.</li>
+<li>A new <code>testcontainers[&lt;broker&gt;]</code> dependency joins the <code>test</code> dependency group
+  (conditional on <code>include_worker</code>), kept current by Renovate like every other
+  pin (ADR-003).</li>
+<li>A new <code>pytest</code> marker <code>integration</code> is registered in <code>pyproject.toml</code>, and the
+  default <code>addopts</code> deselects it (<code>-m "not integration"</code>) so <code>tox run</code> stays
+  Docker-free. An on-demand <code>[tool.tox.env.integration]</code> env (not in <code>env_list</code>,
+  like the <code>worker</code> env) runs <code>pytest -m integration tests/worker</code> with the
+  installed package + the <code>test</code> group.</li>
+<li><code>ci.yml</code> gains one conditional, Ubuntu-only <code>worker-integration</code> job (rendered
+  only when <code>include_worker</code>) that runs <code>tox run -e integration</code> against the chosen
+  broker and gates the <code>check</code> aggregation job, in the same spirit as ADR-007's
+  packaging guards.</li>
+<li>More template surface to test: the worker must now be exercised both in the
+  default broker-free matrix and in the integration job, across the four
+  <code>worker_broker</code> values — the same per-broker testing burden already called for
+  in <a href="../007-standalone-executable-toggles/">ADR-007</a>'s closing note.</li>
+<li>The integration test file is added to coverage <code>omit</code> (run and report). It is
+  imported during default collection but its body is deselected, so without the
+  omit its unexecuted lines would depress coverage below the <code>fail_under</code> gate.</li>
+<li>Filterwarnings: the testcontainers <code>@wait_container_is_ready</code> deprecation is
+  ignored (worker-only, scoped to the <code>testcontainers</code> module — the ini
+  <code>filterwarnings</code> module field is a regex, so the prefix matches), and the
+  <code>integration</code> tox env runs with a broad <code>-W default::DeprecationWarning</code> so
+  third-party deprecations surfaced by a <em>real</em> connection don't abort the run
+  while the default suite stays strict. Module-scoping that <code>-W</code> demotion was
+  attempted and <strong>rejected</strong>: CLI <code>-W</code> module matching is exact (not a regex),
+  and drivers attribute warnings via <code>stacklevel</code> to arbitrary caller modules
+  (the redis driver's <code>lib_name</code> deprecation surfaces through
+  <code>redis.asyncio.connection</code>/faststream frames), so scoped filters miss them
+  and the run aborts. The env also passes <code>--timeout</code> (pytest-timeout) so a
+  wedged container or broker connection fails with a traceback instead of
+  hanging until the CI job timeout.</li>
+<li>
+<p><strong>Systemic coverage fix (done here).</strong> Testing the worker surfaced a
+  pre-existing, systemic gap: <em>no</em> optional-component project reached
+  <code>fail_under = 99</code> out of the box (web ~96%, worker ~95%, gui/tui/mcp lower),
+  because each component's process/UI entrypoints and defensive fallbacks were
+  unexercised and <code>.example-input.yml</code> disables every component so that path was
+  never CI-validated. Rather than fix the worker alone, the gap is closed
+  uniformly (see the coverage exclusion note in <code>AGENTS.md</code>), in two ways:</p>
+</li>
+<li>
+<p><strong>Reachable error handling is tested, not excluded.</strong> The missing-metadata
+    paths that carry real behavior now have unit tests: the web <code>/version</code> and
+    <code>/info</code> 503 responses, the CLI <code>version</code>/<code>info</code> exit-code-1 contract, the
+    GUI/TUI "Version: unknown" degradation, and the MCP error-text response.</p>
+</li>
+<li><strong>Genuinely untestable code carries a per-site <code># pragma: no cover</code></strong>:
+    irreducible blocking calls (<code>_run_app</code>, <code>_run_server</code>, <code>_stdio_transport</code>,
+    and <code>__main__</code> dispatchers), the c-extension
+    <code>except ImportError</code> fallback, and the worker's module-level metadata fallback.
+    (Note: As of <a href="../035-headless-testing-for-interactive-components/">ADR-035</a>,
+    the surrounding entrypoints, UI widgets, worker lifecycle hooks, and CLI
+    subcommands use injected driver seams and are tested without pragmas.)</li>
+</ul>
+<p>An earlier iteration excluded these via blanket <code>[tool.coverage.report]
+  exclude_lines</code> regexes (<code>def main(</code>, <code>async def run_server</code>,
+  <code>except PackageNotFoundError</code>). That was <strong>rejected</strong>: a regex matching a
+  <code>def</code> line excludes the entire function body, so the patterns silently
+  un-measured the <em>tested</em> GUI/TUI <code>main()</code> entrypoints and the web 503
+  handlers, making the <code>fail_under</code> gate structurally blind to exactly the
+  error handling it exists to protect. Per-site pragmas keep each exclusion
+  decision visible and reviewable next to the code it affects.</p>
+<p>The same audit uncovered a subtler, universal defect: the <code>_version.py</code> omit
+  glob was anchored on <code>src/**</code>, but tox/CI installs the built wheel/sdist into
+  <code>.../site-packages/</code>, so the pattern missed the installed copy and reported
+  <code>_version.py</code> at 0% — dragging <em>even the all-disabled base project</em> to ~92%
+  under the real <code>tox</code> path (editable <code>pytest</code> hid it because there the file
+  really is under <code>src/</code>). The omit globs are now anchored to match both
+  layouts (<code>*/_version.py</code>, and <code>*/worker/test_integration.py</code> —
+  directory-anchored so a future <code>test_integration.py</code> in another component,
+  which <em>would</em> run in the default suite, stays measured).</p>
+<p>A related cross-environment defect surfaced only under the <em>full</em> multi-env
+  <code>tox run</code>: <code>[tool.coverage.paths]</code> mapped <code>*/{pkg}/src/{pkg}</code>, which never
+  matches tox's per-env <code>.tox/&lt;env&gt;/.../site-packages/{pkg}</code> install path, so
+  <code>coverage combine</code> kept a separate copy per interpreter and version-gated lines
+  covered in one but not another counted as missed (base fell to ~92% across five
+  envs). The mapping is now <code>["src/{pkg}", "*/site-packages/{pkg}"]</code>, unifying all
+  interpreters onto the canonical <code>src/</code> tree. Verified via the real multi-env
+  <code>tox run</code> install path: every component, every combination, and the base project
+  now report <strong>100%</strong>.
+- <strong>Explicitly out of scope:</strong> the larger litestar-faststream <em>runtime</em>
+  integration (running the FastStream broker inside the Litestar app via a shared
+  lifespan + DI + AsyncAPI). That is a separate feature touching the
+  <code>include_web</code> × <code>include_worker</code> intersection and is not part of this ADR.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "navigation.footer", "content.code.copy", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

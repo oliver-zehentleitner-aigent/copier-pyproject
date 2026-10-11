@@ -1,0 +1,959 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Copier template for a modern, typed Python package/CLI with uv, hatch, tox, and GitHub automation baked in.">
+      
+      
+      
+        <link rel="canonical" href="https://hasansezertasan.github.io/copier-pyproject/context/supply-chain-security/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Supply-chain security - copier-pyproject</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#supply-chain-security" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="copier-pyproject" class="md-header__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            copier-pyproject
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Supply-chain security
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="copier-pyproject" class="md-nav__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    copier-pyproject
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../template-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generated-project-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated project trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hook-coverage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated-project check coverage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../template-adoption/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template adoption and update audits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture decision records
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture decision records
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why it is built this way
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Why it is built this way
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://hasansezertasan.github.io/copier-pyproject/dashboard/live/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard ↗
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#provenance-minting-shares-the-protected-publication-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Provenance minting shares the protected publication boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relationship-between-github-provenance-and-pypi-attestations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relationship between GitHub provenance and PyPI attestations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#retain-build-provenance-and-publication-attestations-as-distinct-claims" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retain build provenance and publication attestations as distinct claims
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unknown-scan-visibility-fails-open-private-audits-remain-useful" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unknown scan visibility fails open; private audits remain useful
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-and-historical-secret-scanning-cover-different-failure-stages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local and historical secret scanning cover different failure stages
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="supply-chain-security">Supply-chain security<a class="headerlink" href="#supply-chain-security" title="Permanent link">&para;</a></h1>
+<h2 id="provenance-minting-shares-the-protected-publication-boundary">Provenance minting shares the protected publication boundary<a class="headerlink" href="#provenance-minting-shares-the-protected-publication-boundary" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> a0396603-cb34-4151-9d5b-1fc77eb31f6e
+<strong>Type:</strong> decision
+<strong>Type:</strong> constraint
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> <a href="https://github.com/hasansezertasan/copier-pyproject/issues/185">issue #185</a>, <a href="https://github.com/hasansezertasan/copier-pyproject/pull/318">PR #318</a>, review discussions on <a href="https://github.com/hasansezertasan/copier-pyproject/pull/318#discussion_r4065991055">private availability</a> and <a href="https://github.com/hasansezertasan/copier-pyproject/pull/318#discussion_r4065991056">the trust boundary</a>; commit <a href="https://github.com/hasansezertasan/copier-pyproject/commit/cc7ce42b91d56a0a75901606f93e29afa0315ceb">cc7ce42</a>
+<strong>Verification:</strong> corroborated — the release build uses the <code>publish</code> environment, includes gated attestation steps and per-platform bundles, and installation docs constrain signer workflow and ref
+<strong>Revisit when:</strong> attestation availability, signer verification, or the publishing environment's branch policy changes</p>
+<p>The release build attests the distributions it produces and retains the
+provenance bundles alongside the release artifacts. Matrix builds attest their
+own outputs. Attestation minting runs behind the same externally protected
+<code>publish</code> environment as package publication, with a main-only deployment policy
+configured during repository setup. Referencing the environment in workflow
+source alone does not prove that an adopter configured its live policy.
+Consumer verification identifies
+the release workflow and the <code>main</code> ref, not only the repository. The workflow
+enables attestation for public repositories and requires explicit opt-in for
+private ones.</p>
+<p><strong>Reason:</strong> repository identity alone does not prove that the intended protected
+release workflow built an artifact. A branch-dispatched workflow could otherwise
+mint repository-backed attestations for arbitrary outputs. GitHub evaluates the
+environment's deployment policy outside the dispatched workflow file, so that
+boundary also protects provenance minting. The private opt-in avoids breaking
+releases on plans without the necessary attestation support.</p>
+<p><strong>Rejected alternative:</strong> leave minting in an unprotected build job and verify
+only repository identity. Review rejected this weaker trust boundary.</p>
+<p><strong>Rejected alternative:</strong> attempt attestations unconditionally on private
+repositories. Review required explicit opt-in to preserve unsupported private
+release paths.</p>
+<p><a href="../../adr/002-release-please-for-release-automation/">ADR-002</a> records why manual release
+dispatch remains necessary and why the environment must have a main-only policy.
+The verification procedure is in generated <code>docs/installation.rst</code>; this entry
+records why its signer constraints and the minting boundary exist.</p>
+<h2 id="relationship-between-github-provenance-and-pypi-attestations">Relationship between GitHub provenance and PyPI attestations<a class="headerlink" href="#relationship-between-github-provenance-and-pypi-attestations" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> 09b24722-bfa5-460a-bbd7-05d8973b5389
+<strong>Type:</strong> decision
+<strong>Status:</strong> superseded
+<strong>Evidence:</strong> unknown
+<strong>Source:</strong> <a href="https://github.com/hasansezertasan/copier-pyproject/issues/185">issue #185</a>, PyPI-side integration question; <a href="https://github.com/hasansezertasan/copier-pyproject/pull/318">PR #318</a>
+<strong>Verification:</strong> uncorroborated — the reviewed sources establish the explicit GitHub provenance path, but no resolution of the PyPI-side overlap question was found
+<strong>See:</strong> supply-chain-security.md#provenance-minting-shares-the-protected-publication-boundary — a0396603-cb34-4151-9d5b-1fc77eb31f6e — as of 2026-10-08
+<strong>Superseded by:</strong> f5495121-8004-4652-b3ac-af71995c263a</p>
+<p>The proposal asked whether the trusted-publishing action's PEP 740 attestations
+make the explicit GitHub provenance step partly redundant, or whether both paths
+serve a deliberate belt-and-suspenders purpose. The implementation retains the
+GitHub path, but the rationale for its relationship to PyPI-side attestations
+could not be recovered. No historical reason for keeping both was established;
+this was not a finding that either mechanism was defective or safe to remove.</p>
+<p>The current decision below resolves the configuration choice from verified
+technical differences. It does not turn that new justification into a claim
+about the original implementation's intent.</p>
+<h2 id="retain-build-provenance-and-publication-attestations-as-distinct-claims">Retain build provenance and publication attestations as distinct claims<a class="headerlink" href="#retain-build-provenance-and-publication-attestations-as-distinct-claims" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> f5495121-8004-4652-b3ac-af71995c263a
+<strong>Type:</strong> decision
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> current attestation review, 2026-10-08; <a href="https://docs.pypi.org/attestations/publish/v1/">PyPI Publish predicate</a>, <a href="https://docs.pypi.org/attestations/producing-attestations/">PyPI attestation production</a>, <a href="https://docs.github.com/en/actions/concepts/security/artifact-attestations">GitHub artifact attestations</a>; pinned PyPI action <a href="https://github.com/pypa/gh-action-pypi-publish/commit/dc37677b2e1c63e2034f94d8a5b11f265b73ba33">dc37677</a>, <code>action.yml</code> defaults and <code>attestations.py</code> signing implementation
+<strong>Verification:</strong> corroborated — the build job emits SLSA provenance, the separate PyPI job uses default Trusted Publishing attestations, and both consume the same distribution artifacts without rebuilding
+<strong>Revisit when:</strong> the publishing action changes its default predicate or the workflow changes artifact transfer or attestation storage
+<strong>See:</strong> supply-chain-security.md#provenance-minting-shares-the-protected-publication-boundary — a0396603-cb34-4151-9d5b-1fc77eb31f6e — as of 2026-10-08</p>
+<p>The current configuration retains both mechanisms. GitHub's build step produces
+SLSA provenance at build time, with workflow/source/run information and artifact
+digests. The pinned PyPI action defaults to a PyPI Publish attestation during
+Trusted Publishing to PyPI or TestPyPI: its predicate body is empty, and its
+certificate identity identifies the publisher. It is not a second structured
+SLSA build statement. PEP 740 defines index-hosted attestation handling rather
+than requiring that all attestations make the same claim.</p>
+<p><strong>Reason:</strong> the claims and consumer channels complement one another. GitHub
+stores build attestations and the template attaches their bundles to releases;
+PyPI exposes publication attestations through its per-file provenance APIs and
+UI. The publishing and release-attachment jobs download the built distributions
+without rebuilding them, preserving the artifact hashes. PyPI's default signing
+does not export the separately created GitHub build-provenance bundle to PyPI.</p>
+<p><strong>Rejected alternative:</strong> remove the explicit GitHub step because PyPI already
+signs attestations. The default publication claim does not replace the structured
+build claim or the build bundle distributed with GitHub Releases.</p>
+<p><strong>Rejected alternative:</strong> disable PyPI's default attestations as duplicate work.
+That would remove the index-hosted publication claim and its discovery channel.
+There is overlapping identity/integrity coverage, but neither path currently
+replaces all of the other's claims and availability.</p>
+<p>GitHub's private-repository entitlement and explicit opt-in govern its build
+attestations only. The PyPI action has no equivalent repository-visibility gate;
+its default path requires Trusted Publishing and uses public Sigstore signing
+infrastructure. API-token publication or an explicit attestation opt-out changes
+that path. Main-only publication depends on the configured GitHub environment policy,
+not inferred merely from a PyPI publisher's repository/workflow registration.</p>
+<p>The verification procedures and availability distinction are in generated
+<code>docs/installation.rst</code>. This is a present decision grounded in the documented
+mechanisms; the original rationale remains unknown in the superseded record.</p>
+<h2 id="unknown-scan-visibility-fails-open-private-audits-remain-useful">Unknown scan visibility fails open; private audits remain useful<a class="headerlink" href="#unknown-scan-visibility-fails-open-private-audits-remain-useful" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> 8973c4ce-8e76-42fa-b69b-e52fc34eba50
+<strong>Type:</strong> decision
+<strong>Type:</strong> workaround
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> <a href="https://github.com/hasansezertasan/copier-pyproject/issues/293">issue #293</a>, <a href="https://github.com/hasansezertasan/copier-pyproject/pull/294">PR #294</a>, <a href="https://github.com/hasansezertasan/copier-pyproject/pull/291">PR #291</a>; commits <a href="https://github.com/hasansezertasan/copier-pyproject/commit/0e7fac8acb9d7b98f449380791212a7f58ed33f9">0e7fac8</a> and <a href="https://github.com/hasansezertasan/copier-pyproject/commit/f19133d059f93c35136a81cb2cdebea017d9cf49">f19133d</a>
+<strong>Verification:</strong> corroborated — CodeQL and Scorecard coalesce visibility sources with a public default; zizmor selects public SARIF or private inline annotations
+<strong>Revisit when:</strong> GitHub documents a reliable visibility source for scheduled runs or private scanning availability changes</p>
+<p>CodeQL and Scorecard use two potential visibility sources and default an unknown
+result to public. Zizmor instead switches its output mode: public repositories
+use the code-scanning dashboard, while private/internal repositories keep the
+audit through inline annotations rather than a potentially unsupported upload.</p>
+<p><strong>Reason:</strong> scheduled runs lack the usual repository event payload, and the
+other visibility property was undocumented and runtime-unverified in the
+investigation. Silently skipping public security scans when both sources are
+empty is a worse failure than an unsupported private run reporting an error.
+Zizmor's push/PR events have the payload needed for its narrower mode selection;
+an unavailable private dashboard does not make the underlying audit useless.</p>
+<p><strong>Rejected alternative:</strong> guard scheduled scans with a single visibility source.
+It could silently disable analysis when that source is absent.</p>
+<p><strong>Rejected alternative:</strong> skip the entire private zizmor job. That discards an
+audit that can still report through annotations without code-scanning support.</p>
+<p>The fallback rationale is confirmed by the sources; actual runtime availability
+of the undocumented visibility property remains unknown. Source inspection
+corroborates the implemented policy, not that property's runtime behavior.
+<a href="../../adr/013-megalinter-opt-in-lean-complement/">ADR-013</a> separately records
+MegaLinter's best-effort SARIF upload posture.</p>
+<h2 id="local-and-historical-secret-scanning-cover-different-failure-stages">Local and historical secret scanning cover different failure stages<a class="headerlink" href="#local-and-historical-secret-scanning-cover-different-failure-stages" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> 62d903d7-45bb-4790-b28a-f5dd1934983a
+<strong>Type:</strong> decision
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> <a href="https://github.com/hasansezertasan/copier-pyproject/issues/175">issue #175</a>, <a href="https://github.com/hasansezertasan/copier-pyproject/pull/236">PR #236</a>; commit <a href="https://github.com/hasansezertasan/copier-pyproject/commit/825f420cf4fafcc4444f85b108db84a21b4389e8">825f420</a>; <code>docs/template-architecture.md</code>, secret scanning
+<strong>Verification:</strong> corroborated — generated prek config includes detect-secrets and a baseline, while the security workflow retains gitleaks history scanning
+<strong>Revisit when:</strong> either scanner's execution stage or baseline-management contract changes</p>
+<p>Generated projects retain both a local, baseline-backed detect-secrets hook and
+history-spanning gitleaks in CI.</p>
+<p><strong>Reason:</strong> historical scanning detects exposure after a secret reaches commit
+history. A local hook can stop that commit before the exposure occurs. The
+committed baseline makes known false positives reviewable instead of requiring
+blanket scanner suppression. Similar-looking scanners are therefore deliberate
+layers, not redundant lint execution.</p>
+<p><strong>Rejected alternative:</strong> rely on historical gitleaks coverage alone. The issue
+identifies the missing before-commit gate as the reason for adding local scanning.
+Alternatives among other local scanning tools, and why they lost to
+detect-secrets, are unknown in the reviewed evidence.</p>
+<p>The baseline maintenance procedure is in generated <code>.github/CONTRIBUTING.md</code>.
+<a href="../../adr/003-tox-as-canonical-lint-runner/">ADR-003</a> covers the general fast-hook versus
+full-suite boundary; this entry records the distinct exposure stages.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "navigation.footer", "content.code.copy", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

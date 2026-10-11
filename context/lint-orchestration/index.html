@@ -1,0 +1,1013 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Copier template for a modern, typed Python package/CLI with uv, hatch, tox, and GitHub automation baked in.">
+      
+      
+      
+        <link rel="canonical" href="https://hasansezertasan.github.io/copier-pyproject/context/lint-orchestration/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Lint and type-check orchestration - copier-pyproject</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lint-and-type-check-orchestration" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="copier-pyproject" class="md-header__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            copier-pyproject
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lint and type-check orchestration
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="copier-pyproject" class="md-nav__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    copier-pyproject
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../template-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generated-project-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated project trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hook-coverage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated-project check coverage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../template-adoption/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template adoption and update audits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture decision records
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture decision records
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why it is built this way
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Why it is built this way
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://hasansezertasan.github.io/copier-pyproject/dashboard/live/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard ↗
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-tox-style-env-is-the-sole-authoritative-lint-suite-prek-is-a-fast-gate-not-a-second-suite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The tox style env is the sole authoritative lint suite; prek is a fast gate, not a second suite
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#taplo-checks-do-not-fetch-schemas-from-generated-toml-directives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Taplo checks do not fetch schemas from generated TOML directives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-prek-gate-runs-at-commit-push-only-hooks-opt-in-per-hook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The prek gate runs at commit; push-only hooks opt in per hook
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#five-type-checkers-strict-basedpyright-replaces-pyright" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Five type checkers; strict basedpyright replaces pyright
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mypys-prek-hook-runs-through-uv-like-basedpyright" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mypy's prek hook runs through uv, like basedpyright
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#megalinter-is-an-opt-in-lean-complement-non-blocking-on-three-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MegaLinter is an opt-in lean complement, non-blocking on three levels
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#semgrep-runs-in-the-style-env-against-a-named-registry-ruleset-never-vendored" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        semgrep runs in the style env against a named registry ruleset, never vendored
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="lint-and-type-check-orchestration">Lint and type-check orchestration<a class="headerlink" href="#lint-and-type-check-orchestration" title="Permanent link">&para;</a></h1>
+<h2 id="the-tox-style-env-is-the-sole-authoritative-lint-suite-prek-is-a-fast-gate-not-a-second-suite">The tox <code>style</code> env is the sole authoritative lint suite; prek is a fast gate, not a second suite<a class="headerlink" href="#the-tox-style-env-is-the-sole-authoritative-lint-suite-prek-is-a-fast-gate-not-a-second-suite" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> 9b74fc8b-a808-4f2b-bdbd-9e4253c1b35a
+<strong>Type:</strong> decision
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> ADR-003 (<code>docs/adr/003-tox-as-canonical-lint-runner.md</code>), including its 2026-06 update
+<strong>Revisit when:</strong> a second orchestrator is proposed, or tool versions gain a second pinning location</p>
+<p>Tool versions live in the uv-managed <code>style</code> dependency group and the tox
+<code>style</code> env runs the full lint/type-check suite from it. Git hooks are always
+included (the <code>include_precommit</code> toggle was removed) and run via prek as a
+fast local and CI gate; Renovate keeps both the prek <code>rev</code> pins and the <code>style</code>
+group current. Pants and Trunk, once default-on orchestrators of the same
+linters, were first demoted to opt-ins and later removed entirely.</p>
+<p><strong>Reason:</strong> a default project shipped three orchestrators (tox, Pants, Trunk)
+pinning <code>ruff</code>, <code>mypy</code>, <code>actionlint</code> and others in three places with three
+update mechanisms, and the pins had already drifted — a contributor could pass
+the local suite and fail CI on a rule that changed between two pinned versions.
+One source of truth makes drift impossible, keeps linting on the uv/tox spine
+the generated project already uses, and leaves one updater. The prek overlap is
+deliberate: fast feedback while editing, authoritative coverage in tox; the
+cost is duplicate execution and at most a brief window between two Renovate
+PRs, not sustained drift.</p>
+<p><strong>Rejected alternative:</strong> keep Pants and Trunk as opt-ins — the intermediate
+state; they solved real problems for some projects, but the option was dropped
+outright once nothing depended on it.</p>
+<p><strong>Consequence:</strong> MegaLinter, when enabled, is scoped so it cannot drift against
+the Python toolchain (see its own entry below).</p>
+<h2 id="taplo-checks-do-not-fetch-schemas-from-generated-toml-directives">Taplo checks do not fetch schemas from generated TOML directives<a class="headerlink" href="#taplo-checks-do-not-fetch-schemas-from-generated-toml-directives" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> 152edfc1-817e-4265-ac23-53d2a730cd5f
+<strong>Type:</strong> workaround
+<strong>Type:</strong> decision
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> <a href="https://github.com/hasansezertasan/copier-pyproject/issues/337">issue #337</a>, <a href="https://github.com/hasansezertasan/copier-pyproject/pull/338">PR #338</a>; commit <a href="https://github.com/hasansezertasan/copier-pyproject/commit/9e86cb8fcd8ccebc667d70391531c5a33ccc8de4">9e86cb8</a>
+<strong>Verification:</strong> corroborated — generated root TOML omits schema directives while the style environment retains Taplo syntax and formatting checks
+<strong>Revisit when:</strong> Taplo provides a verified way to retain editor directives without fetching their schemas during checks
+<strong>See:</strong> lint-orchestration.md#semgrep-runs-in-the-style-env-against-a-named-registry-ruleset-never-vendored — 5068081c-24ce-4c39-9cdf-13e0a7c229b4 — as of 2026-10-11</p>
+<p>Generated root TOML no longer carries the remote schema directive. Editors can
+use SchemaStore's filename mapping, while Taplo still checks syntax and canonical
+formatting without that schema fetch.</p>
+<p><strong>Reason:</strong> a transient remote schema failure could fail the required style gate
+on unchanged source. The investigation found that Taplo 0.9.3 still fetched an
+explicit directive's URL with its no-schema flag, so the apparent offline switch
+did not solve this failure mode.</p>
+<p><strong>Rejected alternative:</strong> retain the directive and rely on the no-schema flag.
+It was tested and rejected because the fetch still occurred. Vendoring a schema
+was discussed with a maintenance cost, but the reviewed sources do not establish
+an explicit verdict on that alternative.</p>
+<p>This constraint applies to the Taplo pass, not to every style tool: the semgrep
+entry below separately accepts a registry dependency.</p>
+<h2 id="the-prek-gate-runs-at-commit-push-only-hooks-opt-in-per-hook">The prek gate runs at commit; push-only hooks opt in per hook<a class="headerlink" href="#the-prek-gate-runs-at-commit-push-only-hooks-opt-in-per-hook" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> 8fd817b4-fab6-4ce1-b80d-59a2ea93016f
+<strong>Type:</strong> decision
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> found while adopting the template in openapipages; reproduced with prek 0.5.5; recorded in ADR-003 (<code>docs/adr/003-tox-as-canonical-lint-runner.md</code>)
+<strong>Verification:</strong> corroborated — a hook with no <code>stages</code> ran on <code>pre-commit</code>, <code>pre-push</code>, <code>commit-msg</code> and <code>manual</code> when <code>default_stages</code> was unset
+<strong>Revisit when:</strong> a hook other than <code>commitizen-branch</code> needs to run on push</p>
+<p><code>default_stages</code> is <code>["pre-commit"]</code>. Hooks that belong on push, such as
+<code>commitizen-branch</code>, declare <code>stages</code> themselves.</p>
+<p><strong>Reason:</strong> <code>["pre-commit", "pre-push"]</code> ran every hook without its own stages
+twice per change, including the whole-project type checkers and pylint, and the
+push run added no coverage the commit run lacked.</p>
+<p><strong>Rejected alternative:</strong> dropping <code>default_stages</code>. prek then treats every
+stage as the default, so file hooks also run on <code>commit-msg</code>.</p>
+<h2 id="five-type-checkers-strict-basedpyright-replaces-pyright">Five type checkers; strict basedpyright replaces pyright<a class="headerlink" href="#five-type-checkers-strict-basedpyright-replaces-pyright" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> 7e130850-494b-427c-a892-a6b3479dd047
+<strong>Type:</strong> decision
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> ADR-005 (<code>docs/adr/005-five-type-checkers-basedpyright-strict.md</code>)
+<strong>Revisit when:</strong> <code>ty</code> churn becomes a burden, or two checkers stop catching anything the others miss</p>
+<p>The <code>style</code> env invokes mypy (two Python versions), basedpyright at its full
+strict ruleset, ty, pyrefly and zuban. pyright is dropped from the group and the
+env. Generated code is fixed to satisfy strict rules rather than relaxing the
+checker; the only suppressions are localized <code># pyright: ignore</code> comments at
+genuine library boundaries (MCP's untyped tool arguments).</p>
+<p><strong>Reason:</strong> basedpyright and zuban were installed but never invoked. Wiring them
+in surfaced two latent bugs the four invoked checkers all missed — a pyright
+venv misconfiguration that pyright tolerated silently, and an invariant-list
+assignment to Textual's <code>BINDINGS</code> that only zuban's mypy-compatible engine
+flagged. basedpyright is a strict superset of pyright, so running both was the
+most redundant pairing in the set.</p>
+<p><strong>Rejected alternative:</strong> relax the strict rules — forfeits the hardening the
+strict bar drove into the generated code.</p>
+<p><strong>Rejected alternative:</strong> keep pyright beside basedpyright — pure redundancy.</p>
+<p><strong>Consequence:</strong> TUI projects gain <code>typing_extensions</code> for <code>@override</code> on
+3.10/3.11; <code>ty</code> is pre-release and kept because it currently passes and adds
+coverage. An earlier zuban miscategorized one finding and forced broadening a
+mypy disable list; zuban 0.9.0 fixed it and the concession was removed.</p>
+<h2 id="mypys-prek-hook-runs-through-uv-like-basedpyright">mypy's prek hook runs through uv, like basedpyright<a class="headerlink" href="#mypys-prek-hook-runs-through-uv-like-basedpyright" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> 71f826cd-950d-4112-9cfb-7dad6ee98264
+<strong>Type:</strong> decision
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> found while adopting the template in openapipages; recorded in ADR-005 (<code>docs/adr/005-five-type-checkers-basedpyright-strict.md</code>)
+<strong>Verification:</strong> corroborated — the mirrors-mypy <code>rev</code> (v2.3.0) had drifted from the <code>style</code> group's <code>mypy==2.4.0</code> pin, and the hook's <code>files = "^src/"</code> skipped the <code>docs/examples</code> path that <code>[tool.mypy] files</code> adds with <code>include_docs</code>
+<strong>Revisit when:</strong> mypy needs to run without the project's environment, for example in a hook-only CI job without uv
+<strong>See:</strong> architecture-contracts.md#whole-program-analyzers-are-local-system-hooks-backed-by-the-style-group — 41f3397d-1afb-4e57-a0bd-b5ef85089bfc — as of 2026-10-11</p>
+<p>The mypy prek hook is a <code>local</code> <code>system</code> hook running mypy from the project's
+locked <code>style</code> group, with <code>pass_filenames = false</code>.</p>
+<p><strong>Reason:</strong> the mirrors-mypy hook ran in an isolated venv. It needed a Jinja
+list in <code>additional_dependencies</code> copying each component's runtime deps, and a
+missed entry failed only on the adopter's first full hook run. It also carried
+a second mypy version that Renovate bumped separately from the <code>style</code> pin, and
+its own file filter. The local hook uses the project's environment, the <code>style</code>
+pin, and <code>[tool.mypy] files</code>, the same as tox.</p>
+<p><strong>Rejected alternative:</strong> keep mirrors-mypy and add a test that its
+<code>additional_dependencies</code> match the runtime deps. That guards one of the three
+drifts and keeps the duplicate version pin.</p>
+<h2 id="megalinter-is-an-opt-in-lean-complement-non-blocking-on-three-levels">MegaLinter is an opt-in lean complement, non-blocking on three levels<a class="headerlink" href="#megalinter-is-an-opt-in-lean-complement-non-blocking-on-three-levels" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> f3041701-610f-4418-b297-e9707da5de40
+<strong>Type:</strong> decision
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> ADR-013 (<code>docs/adr/013-megalinter-opt-in-lean-complement.md</code>); prompted by a real run (<a href="https://github.com/hasansezertasan/hwid/actions/runs/30634574244/job/91168813067">hwid#90</a>)
+<strong>Revisit when:</strong> prek gains one of the five enabled linters, the <code>cupcake</code> flavor drops one, or GitHub changes SARIF ingestion rules
+<strong>See:</strong> external-integrations.md#a-freshly-generated-project-is-green-on-first-push-with-zero-external-accounts — 392b6dcf-6e9d-441d-bf7b-64ba362578d7 — as of 2026-10-11
+<strong>See:</strong> lint-orchestration.md#the-tox-style-env-is-the-sole-authoritative-lint-suite-prek-is-a-fast-gate-not-a-second-suite — 9b74fc8b-a808-4f2b-bdbd-9e4253c1b35a — as of 2026-10-11</p>
+<p><code>include_megalinter</code> (default off) renders the workflow and config. Enabled
+linters are only the gaps prek and tox leave: shellcheck for standalone
+scripts, hadolint (gated on <code>include_web</code>, the only config that renders a
+Dockerfile), jsonlint, copy-paste detection, and cspell scoped to Markdown as a
+deeper dictionary pass beside prek's fast <code>typos</code>. It uses the smaller
+<code>cupcake</code> flavor image, no paths filter, exits 0 (<code>DISABLE_ERRORS</code>), posts no
+commit status, and is not in the <code>check</code> gate; findings reach the Security tab
+through a best-effort SARIF upload of the single aggregate report.</p>
+<p><strong>Reason:</strong> the always-on predecessor was documented nowhere, pulled an ~8 GB
+image on every push (165 s of a 3-minute run was the pull), and five of its six
+linters re-ran checks prek already performed. Unlike the external-service
+integrations it needs no account, so it earned its own decision. A paths filter
+was tried and dropped: copy-paste detection scans source, so the filter fired on
+nearly every PR anyway and only confused. Pointing the SARIF upload at the
+reports directory was rejected because GitHub rejects a file whose runs share a
+tool and category; the aggregate's per-linter runs carry distinct tool names.</p>
+<p><strong>Rejected alternative:</strong> always-on — the posture above.</p>
+<p><strong>Rejected alternative:</strong> drop cspell entirely — an earlier revision did; it was
+reinstated, scoped, during review.</p>
+<p><strong>Consequence:</strong> the best-effort upload fails silently, so the SARIF path is
+verified against a live public repository via the code-scanning API, not by
+rendering, after any change to that step or a major bump. A project wanting
+MegaLinter to gate requires its code-scanning results via branch protection.</p>
+<h2 id="semgrep-runs-in-the-style-env-against-a-named-registry-ruleset-never-vendored">semgrep runs in the <code>style</code> env against a named registry ruleset, never vendored<a class="headerlink" href="#semgrep-runs-in-the-style-env-against-a-named-registry-ruleset-never-vendored" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> 5068081c-24ce-4c39-9cdf-13e0a7c229b4
+<strong>Type:</strong> decision
+<strong>Type:</strong> constraint
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> ADR-032 (<code>docs/adr/032-semgrep-sast-in-the-style-env.md</code>); <a href="https://github.com/hasansezertasan/copier-pyproject/issues/174">issue #174</a>
+<strong>Revisit when:</strong> offline determinism outranks rule quality, semgrep gains an on-disk rule cache, or the registry rules' license permits redistribution
+<strong>See:</strong> lint-orchestration.md#the-tox-style-env-is-the-sole-authoritative-lint-suite-prek-is-a-fast-gate-not-a-second-suite — 9b74fc8b-a808-4f2b-bdbd-9e4253c1b35a — as of 2026-10-11</p>
+<p>semgrep is pinned in its own <code>sast</code> dependency group, runs only in the tox
+<code>style</code> env over <code>src</code> with the <code>p/python</code> registry pack, findings blocking and
+telemetry off. It is not a prek hook, not in <code>check-security.yml</code>, and no
+ruleset is committed.</p>
+<p><strong>Reason:</strong> the registry rules carry the Semgrep Rules License, which forbids
+distribution — a Copier template exists to distribute files, so vendoring them
+is exactly the prohibited act. semgrep keeps no on-disk rule cache, so a prek
+hook would hit the registry on every commit and fail offline; the style-env-only
+placement follows the <code>ty</code>/<code>pyrefly</code>/<code>zuban</code> precedent. The dedicated group
+exists because <code>dev</code> includes <code>style</code> wholesale and the wheel is ~215 MB with a
+native core; only the Linux style job should pay that. <code>--config auto</code> was
+avoided so rule selection is reproducible.</p>
+<p><strong>Rejected alternative:</strong> hand-authored rules — legal and offline, but a
+hand-maintained taint database catching less than the relevant community rules.</p>
+<p><strong>Rejected alternative:</strong> a <code>uvx semgrep</code> job in <code>check-security.yml</code> — pure
+duplication once semgrep is in <code>style</code>, with an unpinned version Renovate did
+not track.</p>
+<p><strong>Consequence:</strong> not hermetic — a new community rule or a registry outage can
+redden an unrelated PR; findings overlap ruff's bandit rules, so a line may need
+both suppressions. The marginal value is cross-statement taint rules ruff
+cannot express.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "navigation.footer", "content.code.copy", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

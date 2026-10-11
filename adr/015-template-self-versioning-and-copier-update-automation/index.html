@@ -1,0 +1,1096 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Copier template for a modern, typed Python package/CLI with uv, hatch, tox, and GitHub automation baked in.">
+      
+      
+      
+        <link rel="canonical" href="https://hasansezertasan.github.io/copier-pyproject/adr/015-template-self-versioning-and-copier-update-automation/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>ADR-015: Automated downstream copier update via Renovate's copier manager - copier-pyproject</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#adr-015-automated-downstream-copier-update-via-renovates-copier-manager" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="copier-pyproject" class="md-header__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            copier-pyproject
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ADR-015: Automated downstream copier update via Renovate's copier manager
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="copier-pyproject" class="md-nav__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    copier-pyproject
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../template-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generated-project-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated project trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hook-coverage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated-project check coverage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../template-adoption/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template adoption and update audits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture decision records
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture decision records
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why it is built this way
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Why it is built this way
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../context/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://hasansezertasan.github.io/copier-pyproject/dashboard/live/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard ↗
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Status
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Decision">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#known-limitation-conflict-prs-can-land-green" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Known limitation: conflict PRs can land "green"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#considered-and-rejected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Considered and rejected
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consequences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consequences
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#retired-template-modules-become-adopter-owned" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retired template modules become adopter-owned
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adoption-audits-preserve-behavior-before-consolidating-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adoption audits preserve behavior before consolidating workflows
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#which-reconciliation-policy-governs-machine-config-and-ci-conflicts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Which reconciliation policy governs machine-config and CI conflicts?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#update-and-adoption-skills-share-preservation-first-reconciliation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Update and adoption skills share preservation-first reconciliation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="adr-015-automated-downstream-copier-update-via-renovates-copier-manager">ADR-015: Automated downstream <code>copier update</code> via Renovate's copier manager<a class="headerlink" href="#adr-015-automated-downstream-copier-update-via-renovates-copier-manager" title="Permanent link">&para;</a></h1>
+<h2 id="status">Status<a class="headerlink" href="#status" title="Permanent link">&para;</a></h2>
+<p>Accepted (2026-08). Prompted by
+<a href="https://github.com/hasansezertasan/hwid/pull/113">hwid#113</a> — a fully
+hand-driven <code>copier update</code> that pinned raw commit SHAs because downstream repos
+had no signal that a template update existed.</p>
+<h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
+<p>Copier ships the propagation mechanism: every generated project carries a
+<code>.copier-answers.yml</code> recording the template revision it was built from
+(<code>_commit</code>), and <code>copier update</code> re-renders the newer template over the project
+with a git 3-way merge. hwid#113 is exactly that, run by hand. Two gaps kept it
+manual:</p>
+<ol>
+<li>Nothing in a generated project <strong>watched for or pulled</strong> template changes.</li>
+<li><code>copier update</code> defaults to the template's latest <strong>git tag</strong>, and the
+   template published none — so a default run found nothing.</li>
+</ol>
+<p>The template <strong>already ships and documents <a href="https://docs.renovatebot.com/">Renovate</a></strong>
+as the canonical updater for everything else (deps, GitHub Action digests, prek
+hook <code>rev</code>s). Renovate has a first-party
+<a href="https://docs.renovatebot.com/modules/manager/copier/"><code>copier</code> manager</a>: it
+detects <code>.copier-answers.yml</code>, and when the template has a newer version it runs
+the real <code>copier update</code> (an <code>updateArtifacts</code> step) and opens a PR with the
+re-rendered diff.</p>
+<h2 id="decision">Decision<a class="headerlink" href="#decision" title="Permanent link">&para;</a></h2>
+<p><strong>Use Renovate's copier manager for downstream template updates.</strong> No bespoke
+workflow ships to generated projects. Two supporting changes make the manager
+work with this template:</p>
+<ol>
+<li><strong>Keep the template's own release-please</strong> (the root-level
+   <code>.github/release-please-config.json</code>, its manifest, and <code>release.yml</code>) as the
+   <strong>tag source</strong>. Renovate's
+   copier manager uses the <code>git-tags</code> datasource with <code>pep440</code> versioning — it
+   detects updates from <strong>version tags</strong>, not the default-branch HEAD — so the
+   template must publish tags. release-please already produces them from the
+   Conventional Commits landing on <code>main</code> (see the <em>self-versioning</em> note in
+   <code>AGENTS.md</code>). A generated project's Renovate reads <code>_src_path</code> from
+   <code>.copier-answers.yml</code>, watches that repo's tags, and bumps <code>_commit</code>.</li>
+</ol>
+<p>This only works when <code>_src_path</code> is a <strong>real git URL</strong>. Copier records
+   <code>_src_path</code> verbatim from the <code>copier copy</code> argument, and the
+   <code>gh:hasansezertasan/copier-pyproject</code> shorthand is Copier-only — it is not a
+   valid git URL, so Renovate's <code>git-tags</code> datasource rejects it (<code>Attempting to
+   use non-git url for git operations</code> → <code>no-result</code>) and never opens an update
+   PR, even though the template has tags. Renovate accepts <code>_src_path</code> only when
+   it starts with <code>git+https://</code>, <code>git+ssh://</code>, <code>git@</code>, or <code>git://</code>, or ends with
+   <code>.git</code>. Scaffold with the <code>.git</code> HTTPS URL
+   (<code>https://github.com/hasansezertasan/copier-pyproject.git</code>); the README
+   scaffold step and the <code>copier-pyproject:adopt</code> skill both use it for this
+   reason. Existing projects that were scaffolded with the <code>gh:</code> shorthand can be
+   fixed by rewriting the <code>_src_path</code> line — <code>copier update</code> re-reads and
+   preserves it.
+2. <strong>Define no <code>_tasks</code> in <code>copier.yml</code>.</strong> Any task marks a template "unsafe",
+   forcing <code>copier ... --trust</code>; <code>--trust</code> is gated behind Renovate's
+   <code>allowScripts</code>, a <strong>self-hosted-only</strong> setting that the <strong>hosted Mend Renovate
+   App disables</strong>. A task-bearing template would therefore make the hosted App's
+   <code>copier update</code> fail with <code>UnsafeTemplateError</code>. Dropping the former
+   <code>_tasks: git init</code> keeps the template updatable by the hosted App; the cost is
+   that the initial <code>copier copy</code> no longer auto-inits git, so the scaffold
+   instructions (README, generated <code>CONTRIBUTING.md</code>) tell the user to run
+   <code>git init</code>.</p>
+<p>The copier manager is enabled by default (Renovate sets no <code>enabledManagers</code>
+restriction in the shared preset chain), so generated projects get it for free
+via the <code>.copier-answers.yml</code> they already ship — no addition to the template's
+<code>renovate.json</code>. Renovate authenticates as its <strong>GitHub App</strong>, whose token <em>can</em>
+push changes to <code>.github/workflows/*</code> (unlike the repo <code>GITHUB_TOKEN</code>), and its
+PRs flow through the same dashboard, labels, and review as every other update.</p>
+<h3 id="known-limitation-conflict-prs-can-land-green">Known limitation: conflict PRs can land "green"<a class="headerlink" href="#known-limitation-conflict-prs-can-land-green" title="Permanent link">&para;</a></h3>
+<p>When a consumer has diverged from the template, <code>copier update</code>'s 3-way merge
+emits conflict markers (or <code>.rej</code> files). Renovate currently does <strong>not</strong> fail its
+artifacts check on such conflicts
+(<a href="https://github.com/renovatebot/renovate/issues/31600">renovate#31600</a>), so a
+copier-update PR can appear mergeable while carrying <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> markers. This is
+inherent to <code>copier update</code> (any runner surfaces the same conflicts), not unique
+to Renovate. The generated <code>CONTRIBUTING.md</code> "Template updates" note tells
+maintainers to review these PRs for conflict markers before merging, and to lean
+on the <code>copier-pyproject:update</code> reconciliation workflow.</p>
+<h2 id="considered-and-rejected">Considered and rejected<a class="headerlink" href="#considered-and-rejected" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>A bespoke <code>copier-update.yml</code> workflow</strong> (weekly <code>copier update
+  --vcs-ref=HEAD</code> + <code>create-pull-request</code>). It works and can track HEAD tag-free,
+  but it is ~50 lines of security-sensitive YAML in every generated project
+  (<code>--trust</code>/<code>--skip-tasks</code>, a write token, draft PRs), and its default
+  <code>GITHUB_TOKEN</code> <strong>cannot push <code>.github/workflows/*</code></strong> (a hard GitHub rule),
+  forcing every consumer to provision a <code>COPIER_UPDATE_TOKEN</code> PAT for the common
+  case. Renovate's App token has no such limitation and adds no per-repo YAML or
+  secret. Reinventing Renovate's job — when the template already depends on
+  Renovate — was not worth it.</li>
+<li><strong><a href="https://github.com/fohte/copier-update-action"><code>fohte/copier-update-action</code></a></strong>
+  — essentially the bespoke workflow packaged as a third-party action. Same
+  token/conflict characteristics, plus an external action to trust with <code>--trust</code>
+  and a token and to SHA-pin. No advantage over Renovate here.</li>
+<li><strong>Dropping the template's own versioning entirely</strong> (HEAD-tracking). Attractive
+  for simplicity, but the copier manager is tag-based, so keeping release-please
+  is the price of using Renovate. The tags are cheap (release-please already runs)
+  and give external adopters a changelog besides.</li>
+</ul>
+<h2 id="consequences">Consequences<a class="headerlink" href="#consequences" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Positive.</strong> One update mechanism for the whole generated project; no bespoke
+  workflow, no per-repo update token, no <code>--trust</code> execution surface. Every
+  generated project inherits it via its existing <code>.copier-answers.yml</code> +
+  Renovate config.</li>
+<li><strong>Requires the Renovate App</strong> (already a documented one-time setup, and the
+  canonical updater here) and <strong>the template to publish tags</strong> (release-please,
+  already present).</li>
+<li><strong>Initial scaffold is not auto-git-init'd</strong> — documented as a one-line manual
+  step.</li>
+<li><strong>Conflict PRs need human review</strong> (renovate#31600) — documented.</li>
+<li><strong>Bootstrapping (one-time).</strong> Existing generated repos start receiving
+  Renovate copier PRs once (a) the Renovate App is installed and (b) the template
+  has at least one tag newer than their recorded <code>_commit</code>. A repo pinned to a raw
+  SHA (pre-tag, like hwid) needs one manual <code>copier update</code> to re-anchor onto a
+  tagged revision first.</li>
+</ul>
+<h2 id="retired-template-modules-become-adopter-owned">Retired template modules become adopter-owned<a class="headerlink" href="#retired-template-modules-become-adopter-owned" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> 4dd6729a-697e-4588-a7a7-d37152018b6b
+<strong>Type:</strong> decision
+<strong>Type:</strong> constraint
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> <a href="https://github.com/hasansezertasan/copier-pyproject/pull/333">PR #333</a>, <a href="https://github.com/hasansezertasan/copier-pyproject/pull/333#issuecomment-5932489770">version-sweep results</a>; commits <a href="https://github.com/hasansezertasan/copier-pyproject/commit/c150ec30519c1e1ddcc3fb05ffc7ea3ba4e85709">c150ec3</a> and <a href="https://github.com/hasansezertasan/copier-pyproject/commit/0f7a4062c251828f00fb27f91d8648d13d4e339d">0f7a406</a>
+<strong>Verification:</strong> corroborated — <code>copier.yml</code> excludes the retired paths and requires Copier 9.10.3; the update skill records the same compatibility floor
+<strong>Revisit when:</strong> Copier changes update-deletion semantics or a retired module is rendered again</p>
+<p>The dropped <code>utils/app.py</code> and library-only <code>core/app.py</code> placeholders are
+excluded from updates, leaving existing copies under the adopter's ownership.
+The custom exclusion list explicitly retains Copier's default exclusions because
+<code>_exclude</code> replaces that list rather than extending it.</p>
+<p><strong>Reason:</strong> an adopter can have replaced a placeholder with real application
+code. Removing the template file can delete that edited copy without conflict
+markers or reject files, so ordinary conflict review cannot catch the loss.
+The recorded version sweep found that Copier 9.6.0–9.10.2 still deleted the
+excluded files; 9.10.3 and later preserved them. The version floor makes an older
+Copier refuse the update instead of silently deleting adopter code.</p>
+<p><strong>Rejected alternative:</strong> let normal template deletion remove the old modules.
+Rejected because the files may no longer be empty placeholders in the adopter.</p>
+<p><strong>Rejected alternative:</strong> use exclusions without raising the Copier minimum.
+Rejected because the version sweep showed the protection was ineffective on
+older supported versions.</p>
+<p>The architectural reason for retiring the placeholders remains in
+<a href="../033-shared-app-service-components-as-adapters/">ADR-033</a>; this entry records
+the distinct ownership and update-safety constraint.</p>
+<h2 id="adoption-audits-preserve-behavior-before-consolidating-workflows">Adoption audits preserve behavior before consolidating workflows<a class="headerlink" href="#adoption-audits-preserve-behavior-before-consolidating-workflows" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> dfd6cd98-9d07-4dc4-b58f-d1343d636ea4
+<strong>Type:</strong> decision
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> <a href="https://github.com/hasansezertasan/copier-pyproject/issues/348">issue #348</a>, <a href="https://github.com/hasansezertasan/copier-pyproject/pull/349">PR #349</a>; commit <a href="https://github.com/hasansezertasan/copier-pyproject/commit/0abcffc525ed4a558ecb80649a1b6e9a231c5ff5">0abcffc</a>; <code>docs/template-adoption.md</code>
+<strong>Verification:</strong> corroborated — the shipped <code>template-adoption</code> skill and its walkthrough compare behavior and preserve customizations; the older update skill now shares that contract
+<strong>Revisit when:</strong> the adoption and update skills change their reconciliation contract</p>
+<p>The shipped adoption skill treats template defaults as evidence to compare with
+existing project behavior, rather than automatic authority to replace it.
+It handles initial adoption, updates, and audits of already-committed updates;
+repository-settings changes remain the responsibility of <code>repo-setup</code>.</p>
+<p><strong>Reason:</strong> two workflows that both run prek can differ in event coverage and
+required-check identity. Consolidating them can discard manual dispatch or leave
+live branch protection waiting for a check that no longer exists. A local
+ruleset file alone cannot establish the live requirements. A post-update audit
+can compare the actual committed baseline and diff without rerunning Copier and
+disturbing the state being inspected.</p>
+<p><strong>Alternatives considered:</strong> retain both workflows, accepting duplicate PR
+execution, or consolidate after preserving event coverage and transitioning the
+required check. The documented walkthrough deliberately makes that choice
+conditional on the adopter's decision and evidence; neither option is rejected
+universally. Deletion without establishing equivalence is excluded because it
+can silently remove functionality or block merges.</p>
+<p>The execution procedure is in <a href="../../template-adoption/">the adoption guide</a>,
+and the repository-settings boundary is in
+<a href="../023-repo-setup-skill/">ADR-023</a>.</p>
+<h2 id="which-reconciliation-policy-governs-machine-config-and-ci-conflicts">Which reconciliation policy governs machine-config and CI conflicts?<a class="headerlink" href="#which-reconciliation-policy-governs-machine-config-and-ci-conflicts" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> 3f155d92-8518-4294-bfcd-26251c36e2e1
+<strong>Type:</strong> constraint
+<strong>Status:</strong> superseded
+<strong>Evidence:</strong> unknown
+<strong>Source:</strong> <code>skills/update/SKILL.md</code>, Shared reconciliation; the shipped <code>template-adoption</code> skill; <a href="https://github.com/hasansezertasan/copier-pyproject/pull/349">PR #349</a>
+<strong>Verification:</strong> uncorroborated — the original justification for category-based precedence could not be established; the conflicting wording found during recovery has since been replaced
+<strong>See:</strong> 015-template-self-versioning-and-copier-update-automation.md#adoption-audits-preserve-behavior-before-consolidating-workflows — dfd6cd98-9d07-4dc4-b58f-d1343d636ea4 — as of 2026-10-08
+<strong>Superseded by:</strong> 9a6bf00c-33c1-4f0c-962e-7e960f9d2d58</p>
+<p>At recovery, the two skills coexisted with conflicting guidance: the older
+update skill selected template-side CI/config hunks by category, while the newer
+adoption skill required behavioral preservation and decisions before
+consequential cleanup. The reviewed historical sources did not establish which
+policy governed their overlap or justify the older precedence rule.</p>
+<p>The question has been resolved by the current decision below, rather than by
+claiming to have recovered the original justification.</p>
+<h2 id="update-and-adoption-skills-share-preservation-first-reconciliation">Update and adoption skills share preservation-first reconciliation<a class="headerlink" href="#update-and-adoption-skills-share-preservation-first-reconciliation" title="Permanent link">&para;</a></h2>
+<p><strong>Id:</strong> 9a6bf00c-33c1-4f0c-962e-7e960f9d2d58
+<strong>Type:</strong> decision
+<strong>Status:</strong> active
+<strong>Evidence:</strong> confirmed
+<strong>Source:</strong> maintainer-approved reconciliation-policy review, 2026-10-08; <code>docs/template-adoption.md</code>; <code>skills/update/SKILL.md</code>
+<strong>Verification:</strong> corroborated — the older update skill now preserves custom behavior, requires evidence for equivalence, and delegates repository-settings transitions to <code>repo-setup</code>
+<strong>Revisit when:</strong> either skill changes its scope or introduces a conflicting reconciliation policy
+<strong>See:</strong> 015-template-self-versioning-and-copier-update-automation.md#adoption-audits-preserve-behavior-before-consolidating-workflows — dfd6cd98-9d07-4dc4-b58f-d1343d636ea4 — as of 2026-10-08</p>
+<p>Both skills use the same preservation-first contract. The older update skill
+runs or reconciles updates; the generated adoption skill additionally handles
+initial adoption and audits of completed updates. Those workflow differences do
+not justify opposite advice about the same project customization.</p>
+<p><strong>Reason:</strong> file category does not establish behavioral equivalence. CI and
+machine configuration can encode adopter-specific event coverage, permissions,
+required-check identity, hooks, and dependencies. Replacing a hunk on the basis
+of its category can discard functioning customizations despite a green lint run.
+Routine maintenance can proceed directly when equivalence is established within
+the requested update; consequential behavior changes need an explicit decision.</p>
+<p>The contract applies to clean merges as well as conflicts. Recovery uses the
+actual pre-update snapshot and preserves later edits: a current base branch can
+lack branch-owned release history, while the index may already hold the reset.</p>
+<p><strong>Rejected alternative:</strong> retain automatic template precedence for CI/config
+hunks. It gives template origin more authority than evidence of the adopter's
+existing behavior. Even action digest updates require checking release effects
+and preserving configured inputs rather than assuming equivalence from the SHA.</p>
+<p>Repository-settings transitions remain with <code>repo-setup</code>; the reconciliation
+procedure is in the skills, not duplicated here. The former policy's historical
+justification remains unknown in the superseded record above.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "navigation.footer", "content.code.copy", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

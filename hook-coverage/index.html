@@ -1,0 +1,1102 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Copier template for a modern, typed Python package/CLI with uv, hatch, tox, and GitHub automation baked in.">
+      
+      
+      
+        <link rel="canonical" href="https://hasansezertasan.github.io/copier-pyproject/hook-coverage/">
+      
+      
+        <link rel="prev" href="../generated-project-trees/">
+      
+      
+        <link rel="next" href="../template-adoption/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Generated-project check coverage - copier-pyproject</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#generated-project-check-coverage" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="copier-pyproject" class="md-header__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            copier-pyproject
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Generated-project check coverage
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="copier-pyproject" class="md-nav__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    copier-pyproject
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../template-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../generated-project-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated project trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated-project check coverage
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated-project check coverage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#default-hooks-and-matching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Default hooks and matching
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#retained-replacements-and-feedback-timing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retained replacements and feedback timing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-specific-and-policy-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project-specific and policy checks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#regression-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regression validation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../template-adoption/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template adoption and update audits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture decision records
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture decision records
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why it is built this way
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Why it is built this way
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../context/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://hasansezertasan.github.io/copier-pyproject/dashboard/live/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard ↗
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#default-hooks-and-matching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Default hooks and matching
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#retained-replacements-and-feedback-timing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retained replacements and feedback timing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-specific-and-policy-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project-specific and policy checks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#regression-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regression validation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="generated-project-check-coverage">Generated-project check coverage<a class="headerlink" href="#generated-project-check-coverage" title="Permanent link">&para;</a></h1>
+<p>This audit records the decisions for issue #351.
+It concerns generated projects, not the template repository's own hooks.
+The <a href="../template-adoption/">adoption/update audit</a> must compare these defaults
+with the adopter's existing checks before retiring a configuration.</p>
+<h2 id="default-hooks-and-matching">Default hooks and matching<a class="headerlink" href="#default-hooks-and-matching" title="Permanent link">&para;</a></h2>
+<p>All new hooks inherit <code>pre-commit</code> and <code>pre-push</code> stages and also run through
+CI's <code>prek run --all-files</code> hooks job.
+Hook IDs and selectors were verified in the pinned upstream manifests:
+<a href="https://github.com/pre-commit/pre-commit-hooks/blob/v6.0.0/.pre-commit-hooks.yaml">pre-commit-hooks v6.0.0</a>
+and <a href="https://github.com/python-jsonschema/check-jsonschema/blob/0.37.4/.pre-commit-hooks.yaml">check-jsonschema 0.37.4</a>.
+The pre-commit-hooks IDs that prek reimplements natively run from <code>repo = "builtin"</code>;
+only <code>debug-statements</code> and <code>check-ast</code> have no builtin and stay on the upstream repo.
+Absent applicable files make file-scoped hooks no-ops.</p>
+<table>
+<thead>
+<tr>
+<th>Candidate</th>
+<th>Decision and scope</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>check-executables-have-shebangs</code></td>
+<td>Add: text <strong>and</strong> executable files must start with a shebang. Binary executables are not selected.</td>
+</tr>
+<tr>
+<td><code>check-symlinks</code></td>
+<td>Add: detect broken symlinks; upstream selects symlinks, not ordinary files.</td>
+</tr>
+<tr>
+<td><code>fix-byte-order-marker</code></td>
+<td>Add: remove leading UTF-8 BOM from text files. Exclude cobo-owned <code>.gitignore</code>, ai-rulez-owned <code>.continue/prompts/</code> output, and <code>.ps1</code>/<code>.psm1</code>/<code>.psd1</code> files (case-insensitive) to preserve Windows PowerShell 5.1 encoding detection.</td>
+</tr>
+<tr>
+<td><code>mixed-line-ending</code></td>
+<td>Add: text files, <code>--fix=auto</code>; normalize mixed endings to the dominant ending, but retain consistent CRLF (permitted for <code>.bat</code>/<code>.ps1</code> by <code>.editorconfig</code>). Same generator-owned exclusions as the BOM fixer; PowerShell files remain eligible. This is not enforcement of universal LF.</td>
+</tr>
+<tr>
+<td><code>check-xml</code></td>
+<td>Add: XML-typed files only; dormant until a project adds XML.</td>
+</tr>
+<tr>
+<td><code>check-github-issue-forms</code></td>
+<td>Add: YAML under root <code>.github/ISSUE_TEMPLATE/</code>, excluding <code>config.yml</code> and <code>config.yaml</code>; Markdown templates are not selected.</td>
+</tr>
+<tr>
+<td><code>check-github-issue-config</code></td>
+<td>Add: root <code>.github/ISSUE_TEMPLATE/config.yml</code> <strong>or</strong> <code>config.yaml</code> (explicit override extends upstream's <code>.yml</code>-only match).</td>
+</tr>
+<tr>
+<td><code>check-renovate</code></td>
+<td>Add: root <code>renovate.json/json5</code>, <code>.github/renovate.json/json5</code>, <code>.gitlab/renovate.json/json5</code>, <code>.renovaterc</code>, and <code>.renovaterc.json/json5</code>; not <code>package.json</code>. Include <code>pyjson5</code> for <code>.json5</code> parsing.</td>
+</tr>
+<tr>
+<td><code>check-dependabot</code></td>
+<td>Add: root <code>.github/dependabot.yml/yaml</code>; dormant because the template generates Renovate, not Dependabot.</td>
+</tr>
+<tr>
+<td><code>check-github-actions</code></td>
+<td>Retain: root <code>action.yml/yaml</code> or <code>.github/actions/**/action.yml/yaml</code> metadata, <strong>not</strong> workflow files.</td>
+</tr>
+<tr>
+<td><code>check-github-workflows</code></td>
+<td>Add: YAML files immediately under root <code>.github/workflows/</code>. Schema validation complements actionlint's workflow expressions/shell checks and zizmor's security analysis; neither action metadata nor the schema alone replaces those checks.</td>
+</tr>
+<tr>
+<td><code>check-json5</code></td>
+<td>Omit this ID: neither pinned provider supplies it. Retain strict <code>check-json</code> for JSON; verified Renovate JSON5 parsing is covered above. Generic JSON5 syntax validation remains an adoption-specific choice requiring a verified provider or a schema-backed local check.</td>
+</tr>
+</tbody>
+</table>
+<p>JSON5 is not synonymous with editor JSONC.
+The global hook exclusions for <code>.devcontainer/devcontainer.json</code> and
+<code>.vscode/launch.json</code> remain; do not feed their comments to strict JSON parsing.
+For commented <code>.json</code> or extensionless <code>.renovaterc</code>, an adopter can configure
+<code>check-renovate</code> with <code>--force-filetype json5</code> and <code>pyjson5</code>;
+strict <code>check-json</code> must also exclude the affected JSON file.</p>
+<p><a href="https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_character_encoding?view=powershell-5.1">Windows PowerShell 5.1</a>
+misinterprets BOM-less UTF-8 source containing non-ASCII characters as ANSI.
+The BOM exception preserves existing script behavior; it does not prescribe
+a project's PowerShell version or replace its EditorConfig encoding policy.</p>
+<h2 id="retained-replacements-and-feedback-timing">Retained replacements and feedback timing<a class="headerlink" href="#retained-replacements-and-feedback-timing" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Prior check or proposed alternative</th>
+<th>Default decision and limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pyupgrade</td>
+<td>Retain Ruff's <code>UP</code> rules (<code>select = ["ALL"]</code>) instead of adding another fixer. Compare target Python version, ignored rules, and per-file ignores before treating an adopter's pyupgrade invocation as replaced.</td>
+</tr>
+<tr>
+<td>Bandit</td>
+<td>Retain Ruff <code>S</code> rules plus semgrep <code>p/python</code> over <code>src</code> in tox style. They overlap Bandit but do not establish exact rule/config equivalence; preserve adopter-specific Bandit coverage until compared. Semgrep feedback is in style/CI, not a dedicated commit hook.</td>
+</tr>
+<tr>
+<td>detect-secrets / gitleaks</td>
+<td>Retain both: baseline-backed detect-secrets checks local files at commit/push and in CI hooks; gitleaks scans history in separate PR/main-push/weekly CI with full checkout. Detectors, scope, and suppressions differ.</td>
+</tr>
+<tr>
+<td>Local pre-push pip-audit</td>
+<td>Keep CI pip-audit: audit exported locked runtime dependencies, excluding dev dependencies and the project itself. This gives later feedback than pre-push, but avoids a network-backed local gate. An opt-in local audit should use the same export scope and fail on export errors.</td>
+</tr>
+<tr>
+<td>Local Taplo formatter</td>
+<td>Keep tox style's Taplo syntax/format checks for root <code>*.toml</code>. <code>check-toml</code> is earlier syntax feedback, not formatting; <code>.lock</code> files are outside that Taplo glob. An adopter may opt into local formatting with the same config/scope.</td>
+</tr>
+<tr>
+<td>Isolated basedpyright / slotscheck hooks</td>
+<td>Keep local <code>system</code> hooks via <code>uv run --locked --group style</code>, sharing the project's pinned tooling and installed dependencies. Basedpyright is Python-file-triggered; slotscheck always scans <code>src</code> without filenames. An isolated environment without project dependencies is not an equivalent replacement.</td>
+</tr>
+</tbody>
+</table>
+<p>The generated CI <code>check</code> aggregate covers hooks and style, with draft PRs skipped.
+Separate security jobs such as gitleaks/pip-audit are not in that aggregate;
+running them is not proof that their status contexts are required by live
+branch protection. This audit does not change repository merge policy.</p>
+<h2 id="project-specific-and-policy-checks">Project-specific and policy checks<a class="headerlink" href="#project-specific-and-policy-checks" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>SQLFluff: optional adoption configuration, no new Copier toggle.</strong>
+  Preserve it when the project contains SQL.
+  Choose dialect, templater, SQL file scope, and lint versus fix behavior from
+  the actual project; a PostgreSQL devcontainer alone does not justify it.
+  Templated SQL may need extra dependencies and project context.</li>
+<li><strong>djLint: optional for standalone HTML/template files, no new Copier toggle.</strong>
+  Its <code>djlint</code> hook selects HTML; <code>djlint-jinja</code> selects Jinja and uses the
+  Jinja profile. Narrow selection to actual HTML templates: not every <code>.jinja</code>
+  file contains HTML. Source inspection of
+  <a href="https://github.com/djlint/djLint/tree/1bc6dede9307d97e875d034dfc70ffaa09d1f0b2">djLint</a>
+  (<code>.pre-commit-hooks.yaml</code>, <code>src/djlint/lint.py</code>, <code>src/djlint/reformat.py</code>)
+  shows whole-file HTML processing, not Python-string extraction.
+  It does <strong>not</strong> supply supported lint/format coverage for HTML embedded in
+  Python strings; broadening its file filter to Python is not a safe replacement.</li>
+<li><strong><code>no-commit-to-branch</code>: documented opt-in, omitted by default.</strong>
+  It prevents local commits to selected branches (upstream defaults: main/master),
+  unlike branch-name CI or Commitizen, which check naming/messages.
+  It is always-run and does not take filenames.
+  If enabled, CI must explicitly set <code>SKIP=no-commit-to-branch</code> for legitimate
+  default-branch runs, including template smoke runs; do not infer a CI exemption
+  from file filters. Live server-side branch protection remains independent.</li>
+</ul>
+<p>No project-specific check should be deleted merely because it is absent from
+these defaults. Record gaps, unverified equivalence, and changes in timing in
+the adoption report, and obtain the adopter's decision before reducing coverage.</p>
+<h2 id="regression-validation">Regression validation<a class="headerlink" href="#regression-validation" title="Permanent link">&para;</a></h2>
+<p><code>tests/test_hook_coverage.py</code> renders all presets with both instruction hosts
+and checks defaults, exclusions, and the explicit issue-config matcher.
+Template CI validates generated schemas/hygiene across its render matrix.
+Its ai-rulez scenario also runs <code>tools/verify_hook_coverage.py</code> through the
+rendered project's own prek dependency group in an isolated fixture repository.
+The probes exercise malformed inputs, unrelated-file skips, JSON5 parsing,
+executable and symlink checks, UTF-8 BOM removal, consistent CRLF preservation,
+generator-owned and PowerShell byte preservation, and second-pass convergence.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../generated-project-trees/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Generated project trees">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Generated project trees
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../template-adoption/" class="md-footer__link md-footer__link--next" aria-label="Next: Template adoption and update audits">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Template adoption and update audits
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.top", "navigation.footer", "content.code.copy", "search.suggest", "search.highlight"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

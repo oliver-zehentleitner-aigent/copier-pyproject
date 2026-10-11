@@ -1,0 +1,1641 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Copier template for a modern, typed Python package/CLI with uv, hatch, tox, and GitHub automation baked in.">
+      
+      
+      
+        <link rel="canonical" href="https://hasansezertasan.github.io/copier-pyproject/adr/037-release-automation-reevaluation/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>ADR-037: Re-evaluating Release Automation — Changelog Engines vs Release Orchestrators - copier-pyproject</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#adr-037-re-evaluating-release-automation-changelog-engines-vs-release-orchestrators" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="copier-pyproject" class="md-header__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            copier-pyproject
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ADR-037: Re-evaluating Release Automation — Changelog Engines vs Release Orchestrators
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="copier-pyproject" class="md-nav__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    copier-pyproject
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../template-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generated-project-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated project trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hook-coverage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated-project check coverage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../template-adoption/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template adoption and update audits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture decision records
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture decision records
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why it is built this way
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Why it is built this way
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../context/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://hasansezertasan.github.io/copier-pyproject/dashboard/live/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard ↗
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Status
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Context">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-we-run-today" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What we run today
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-we-are-re-opening-the-decision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why we are re-opening the decision
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-conceptual-frame-three-roles-in-release-automation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A conceptual frame: three roles in release automation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#research-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Research method
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#findings-the-candidate-landscape" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Findings: the candidate landscape
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Findings: the candidate landscape">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pain-point-1-rc-to-stable-changelog-range" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pain point 1: RC to stable changelog range
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pain-point-2-stale-draft-release-comment-link" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pain point 2: stale draft-release comment link
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deep-comparison-git-cliff-vs-commitizen-as-replacements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deep comparison: git-cliff vs Commitizen as replacements
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deep comparison: git-cliff vs Commitizen as replacements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#git-cliff-as-a-replacement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        git-cliff as a replacement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commitizen-as-a-replacement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Commitizen as a replacement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#effort-and-fit-side-by-side" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Effort and fit, side by side
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#options-under-consideration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Options under consideration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decision-drivers-and-open-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision drivers and open questions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consequences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consequences
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sources
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="adr-037-re-evaluating-release-automation-changelog-engines-vs-release-orchestrators">ADR-037: Re-evaluating Release Automation — Changelog Engines vs Release Orchestrators<a class="headerlink" href="#adr-037-re-evaluating-release-automation-changelog-engines-vs-release-orchestrators" title="Permanent link">&para;</a></h1>
+<h2 id="status">Status<a class="headerlink" href="#status" title="Permanent link">&para;</a></h2>
+<p><strong>Proposed — under discussion. No decision has been made.</strong></p>
+<p>Last refreshed 2026-10-05 against template 1.5.3 (<code>release.yml</code>,
+<code>release-please-action</code> v5.0.0) and the upstream issue states cited below.</p>
+<p>This ADR is a <em>research record</em>. It captures a deliberate re-evaluation of the
+release-automation tooling chosen in
+<a href="../002-release-please-for-release-automation/">ADR-002</a> and refined in
+<a href="../004-commitizen-as-commit-helper-not-release-tool/">ADR-004</a>, the two-pass
+web research behind it, a conceptual framing of the tool landscape, and a
+head-to-head comparison of the two most credible replacements (Commitizen and
+git-cliff). It intentionally stops short of a decision so the options can be
+discussed on the record. If a direction is chosen later, this ADR is updated to
+<strong>Accepted</strong> with the selected option, and it then refines or supersedes ADR-002
+and ADR-004 as noted under "Consequences".</p>
+<h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
+<h3 id="what-we-run-today">What we run today<a class="headerlink" href="#what-we-run-today" title="Permanent link">&para;</a></h3>
+<p>The template standardized on <strong>release-please</strong> (ADR-002) and reduced
+<strong>Commitizen</strong> to a commit-authoring/linting helper only (ADR-004). In the
+generated <code>template/.github/workflows/release.yml.jinja</code>, release-please is not
+merely "the release tool" — it performs <strong>five distinct responsibilities</strong>, and
+up to fourteen downstream jobs (some render only with their toggle) are bolted
+directly to its outputs:</p>
+<ol>
+<li>Parses Conventional Commits and <strong>computes the next version</strong>.</li>
+<li>Opens and maintains the <strong>reviewable Release PR</strong> (accumulate-then-merge).</li>
+<li>On merge, <strong>creates the git tag</strong> (<code>force-tag-creation: true</code>) and a <strong>draft
+   GitHub Release</strong> with generated notes.</li>
+<li><strong>Writes <code>CHANGELOG.md</code></strong> using the project's <code>changelog-sections</code> emoji
+   taxonomy.</li>
+<li>Emits <code>release_created</code> / <code>tag_name</code> / <code>version</code> <strong>outputs</strong> that gate
+   <code>build</code>, <code>pypi-publish</code>, <code>sbom</code>, <code>docker-publish(-preflight)</code>,
+   <code>build-launcher</code>/<code>build-freezer</code>/<code>build-compiler</code>, <code>attach-github-release</code>,
+   <code>finalize-release</code>, <code>bump-homebrew</code>/<code>bump-scoop</code>, <code>deploy-docs</code>, and
+   <code>notify-released-issues</code>.</li>
+</ol>
+<p>Two consequences of release-please's model are load-bearing complexity in the
+workflow today: the <strong>draft → attach SBOM/artifacts/Sigstore provenance
+(<a href="https://github.com/hasansezertasan/copier-pyproject/pull/318">#318</a>) →
+un-draft</strong> sequence (because release-please creates the GitHub Release
+atomically at PR-merge time, before the build artifacts exist), and the <strong>phantom-PR reconciliation</strong> in
+<code>finalize-release</code> (because release-please derives its commit range from the
+latest <em>published</em> release and ignores drafts). Versioning is git-tag-sourced
+via hatch-vcs (<code>dynamic = ["version"]</code>), so release-please never edits a static
+version literal and <code>uv.lock</code> cannot desync.</p>
+<p>A third constraint landed after this research began and is <strong>not specific to
+release-please</strong>: a merge that changes <code>.github/workflows/</code> after the release PR
+merges but before the Release run finishes can make GitHub's release API refuse
+tag/release creation with a 403, because <code>GITHUB_TOKEN</code> cannot be granted
+workflow write access
+(<a href="https://github.com/hasansezertasan/copier-pyproject/issues/332">#332</a>). ADR-002
+now documents the merge pause and recovery
+(<a href="https://github.com/hasansezertasan/copier-pyproject/pull/339">#339</a>). Any
+candidate that creates the tag or release from a workflow with <code>GITHUB_TOKEN</code>
+inherits this; only a model where a maintainer pushes the tag from their own
+clone would plausibly sidestep it (not verified).</p>
+<h3 id="why-we-are-re-opening-the-decision">Why we are re-opening the decision<a class="headerlink" href="#why-we-are-re-opening-the-decision" title="Permanent link">&para;</a></h3>
+<p>Three friction points motivated this review:</p>
+<ol>
+<li><strong>Release-candidate to stable changelog range.</strong> After cutting several
+   prereleases (<code>v1.2.0-rc.1</code>, <code>v1.2.0-rc.2</code>) and then a final stable <code>v1.2.0</code>,
+   the stable release's notes contain only the changes <strong>since the last RC</strong>,
+   not all changes <strong>since the last stable</strong> (<code>v1.1.0</code>). The observed cause is
+   that release-please computes the commit range from the last release marker
+   with no prerelease/stable distinction.</li>
+<li><strong>Stale draft-release comment link.</strong> release-please posts its
+   <code>🤖 Created releases:</code> comment on the merged Release PR once, at
+   draft-creation time, capturing the transient <code>/releases/tag/untagged-&lt;hash&gt;</code>
+   slug. When <code>finalize-release</code> un-drafts the release, GitHub moves it to
+   <code>/releases/tag/vX.Y.Z</code> and the <code>untagged-…</code> link 404s. This is tracked and
+   <strong>accepted</strong> as a cosmetic limitation in
+   <a href="https://github.com/hasansezertasan/copier-pyproject/issues/143">#143</a>
+   (closed) and documented by
+   <a href="https://github.com/hasansezertasan/copier-pyproject/pull/152">#152</a>
+   (merged), which added the inline comment at the <code>finalize-release</code> "Publish
+   the draft release" step and the corresponding ADR-002 Consequences bullet.</li>
+<li><strong>General "unconventional usage" friction</strong> of the release-PR model — the
+   draft dance and phantom-PR reconciliation are workarounds layered on top of
+   release-please's opinions rather than features of it.</li>
+</ol>
+<p>The prior art in ADR-002 compared release-please against release-it and
+release-drafter; ADR-004 compared it against a Commitizen <code>cz bump</code> pipeline.
+This ADR widens the field to the current (2025–2026) landscape and re-frames the
+question around a distinction ADR-002/004 never drew explicitly: the difference
+between a <strong>changelog engine</strong>, a <strong>release orchestrator</strong>, and a <strong>commit
+helper</strong>.</p>
+<h2 id="a-conceptual-frame-three-roles-in-release-automation">A conceptual frame: three roles in release automation<a class="headerlink" href="#a-conceptual-frame-three-roles-in-release-automation" title="Permanent link">&para;</a></h2>
+<p>The candidate tools are frequently compared as if interchangeable, but they
+occupy three different layers. Naming the layers is the point of this section —
+it is the frame for the discussion this ADR is meant to open.</p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Responsibility</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Commit helper</td>
+<td>Author and lint Conventional Commit messages</td>
+<td>Commitizen <code>cz commit</code>, commit hooks</td>
+</tr>
+<tr>
+<td>Changelog engine</td>
+<td>Turn a commit range into release notes / <code>CHANGELOG.md</code></td>
+<td>git-cliff, the changelog half of any tool</td>
+</tr>
+<tr>
+<td>Release orchestrator</td>
+<td>Decide <em>when</em> to release, compute the version, tag, create the GitHub Release, gate downstream jobs</td>
+<td>release-please, semantic-release, <code>cz bump</code>, cocogitto, knope</td>
+</tr>
+</tbody>
+</table>
+<p>The critical insight for this decision: <strong>release-please is a release
+orchestrator, git-cliff is a changelog engine, and Commitizen can act as
+either a commit helper (its role today, per ADR-004) or a release
+orchestrator (<code>cz bump</code>).</strong> A changelog engine cannot replace an orchestrator
+on its own — it fills exactly one of the five responsibilities above. That
+single fact dominates the effort comparison later.</p>
+<p>A second, non-obvious insight: <strong>both named pain points are artifacts of
+release-please's specific orchestration model</strong> ("maintain a Release PR; create
+the GitHub Release atomically at merge; range from the last <em>published</em>
+release"). A tool that instead lets <em>the pipeline</em> sequence
+tag → build → release can create a non-draft release with artifacts already
+attached (eliminating pain point 2's draft dance) and can be pointed at the last
+<em>stable</em> tag for changelog range (addressing pain point 1) — provided the tool
+supports it. Whether each candidate actually supports it is the empirical
+question the research answered.</p>
+<h2 id="research-method">Research method<a class="headerlink" href="#research-method" title="Permanent link">&para;</a></h2>
+<p>Two background "deep-research" passes were run (fan-out web search →
+source fetch → per-claim adversarial verification with a 3-vote majority →
+synthesis). Both preferred <strong>primary sources</strong>: tool source code, config
+schemas, official docs, and specific GitHub issues/PRs.</p>
+<ul>
+<li><strong>Pass 1 (landscape).</strong> 6 angles, 23 sources fetched, 96 claims extracted, 25
+  verified → 23 confirmed, 2 refuted. Established the candidate set and each
+  tool's fit against the hatch-vcs / uv / GitHub Actions / Trusted-Publishing /
+  no-Node constraints.</li>
+<li><strong>Pass 2 (decisive questions).</strong> 6 angles, 21 sources fetched, 75 claims
+  extracted, 25 verified → 23 confirmed, 0 refuted, 2 unverified. Narrowed to
+  the two questions that actually decide the outcome: (1) is release-please's
+  RC→stable changelog range a bug or configurable, and (2) do the leading
+  alternatives accumulate changelog from the last <em>stable</em> across RCs.</li>
+</ul>
+<p><strong>Verification caveat, recorded honestly.</strong> Pass 2's final <em>synthesis</em> step
+failed on a session-usage limit, but all 23 claims were already
+adversarially verified before it did (0 refutations in pass 2), and the
+load-bearing claims were re-checked by hand against the per-agent transcripts:
+the Commitizen <code>changelog_merge_prerelease</code> fix, the Python Semantic Release
+source-code trace, and the npm-team manual-workaround quote each appear in
+multiple independent verifier transcripts quoting primary sources. cocogitto's
+RC-range behavior did <strong>not</strong> survive into the verified top-25. The raw
+extraction leaned toward "cocogitto shares the bug" on the strength of
+cocogitto issue #362, but on re-check that issue concerns <em>version computation</em> from a
+prerelease tag (not the changelog range) and was closed as completed on
+2025-10-21, so it is no evidence either way.</p>
+<h2 id="findings-the-candidate-landscape">Findings: the candidate landscape<a class="headerlink" href="#findings-the-candidate-landscape" title="Permanent link">&para;</a></h2>
+<p>Fit of each researched tool against the template's fixed constraints
+(hatch-vcs git-tag versioning with no static literal edits; uv/tox/prek;
+GitHub Actions + PyPI Trusted Publishing; no Node runtime; squash-by-PR-title
+Conventional Commits).</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Layer</th>
+<th>Runtime</th>
+<th>hatch-vcs fit</th>
+<th>GitHub Release</th>
+<th>Fixes RC changelog</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>release-please (incumbent)</td>
+<td>Orchestrator</td>
+<td>Pure GHA</td>
+<td>Yes (git-tag sourced)</td>
+<td>Yes (draft)</td>
+<td>No</td>
+<td>Baseline</td>
+</tr>
+<tr>
+<td>Commitizen (<code>cz bump</code>)</td>
+<td>Helper → Orchestrator</td>
+<td>Python (installed)</td>
+<td>Yes (<code>scm</code> provider; no version literal)</td>
+<td>No (add <code>gh release</code>)</td>
+<td><strong>Yes</strong> (<code>changelog_merge_prerelease</code>)</td>
+<td>Strongest replacement</td>
+</tr>
+<tr>
+<td>Python Semantic Release</td>
+<td>Orchestrator</td>
+<td>Python (Docker action, no Node)</td>
+<td>Yes if <code>importlib</code> + no <code>version_toml</code></td>
+<td>Immediate</td>
+<td>No (shares the bug)</td>
+<td>Python-native but no gain</td>
+</tr>
+<tr>
+<td>cocogitto (<code>cog bump</code>)</td>
+<td>Orchestrator</td>
+<td>Rust (libgit2)</td>
+<td>Yes (tag-based)</td>
+<td>Via extra step</td>
+<td>Unverified</td>
+<td>Node-free, unproven on RC</td>
+</tr>
+<tr>
+<td>knope</td>
+<td>Orchestrator</td>
+<td>Rust</td>
+<td>Yes (tag-derived with empty <code>versioned_files</code>)</td>
+<td>Yes (<code>Release</code> step)</td>
+<td>No (starts from latest tag)</td>
+<td>Rust orchestrator; supports CC and PR bot, but shares RC truncation</td>
+</tr>
+<tr>
+<td>git-cliff</td>
+<td>Changelog engine</td>
+<td>Rust</td>
+<td>Yes (tag-sourced)</td>
+<td>No (pair with <code>gh release</code>)</td>
+<td><strong>Range yes</strong> (<code>ignore_tags</code>); no prerelease version calc (#1380)</td>
+<td>Not an orchestrator</td>
+</tr>
+<tr>
+<td>semantic-release (JS)</td>
+<td>Orchestrator</td>
+<td>Node</td>
+<td>—</td>
+<td>Immediate</td>
+<td>No</td>
+<td>Excluded by the no-Node constraint (as release-it was in ADR-002)</td>
+</tr>
+<tr>
+<td>changesets</td>
+<td>Orchestrator</td>
+<td>Node</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>JS-ecosystem; extra changeset files</td>
+</tr>
+<tr>
+<td>hatch-regex-commit</td>
+<td>(version source)</td>
+<td>Hatch plugin</td>
+<td><strong>No</strong> (static regex source, mutually exclusive with hatch-vcs)</td>
+<td>No</td>
+<td>No</td>
+<td>Disqualified</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pain-point-1-rc-to-stable-changelog-range">Pain point 1: RC to stable changelog range<a class="headerlink" href="#pain-point-1-rc-to-stable-changelog-range" title="Permanent link">&para;</a></h3>
+<p><strong>Verdict: a genuine release-please limitation with no built-in config remedy.
+Commitizen fixes it with one setting; git-cliff can produce the right range with
+configuration but leaves prerelease <em>version</em> calculation to the orchestrator.</strong></p>
+<p>Evidence for release-please (all primary):</p>
+<ul>
+<li>It finds "the last merged release PR and use[s] the associated commit sha as
+  the previous marker from which to gather commits", with <strong>no documented
+  distinction between prerelease and stable</strong> — so an intervening RC PR becomes
+  the previous marker
+  (<a href="https://github.com/googleapis/release-please/blob/main/docs/manifest-releaser.md">manifest-releaser.md</a>,
+  <a href="https://github.com/googleapis/release-please/blob/main/docs/design.md">design.md</a>).</li>
+<li>The <code>versioning</code> option (<code>default</code> / <code>always-bump-patch</code> / <code>always-bump-minor</code>)
+  controls only the bump <em>size</em>, and <code>prerelease</code> / <code>prerelease-type</code> control
+  only the prerelease label/number — <strong>none re-anchor the changelog range to the
+  last stable tag</strong>
+  (<a href="https://github.com/googleapis/release-please/blob/main/docs/customizing.md">customizing.md</a>).</li>
+<li>Mishandling a prerelease as "latest" is maintainer-labeled <code>type: bug</code>
+  (<a href="https://github.com/googleapis/release-please/issues/2267">#2267</a>); clean
+  prerelease→stable conversion is an <strong>open, unresolved</strong> feature request
+  (<a href="https://github.com/googleapis/release-please/issues/2515">#2515</a>, open since
+  Mar 2025) and there is no answer to "ignore <code>-rc</code> tags"
+  (<a href="https://github.com/googleapis/release-please/issues/2605">#2605</a>).</li>
+<li>Independent confirmation that this bites real projects: the <strong>npm CLI team</strong>
+  works around the identical behavior by hand — "release-please only generates
+  changelogs based on the diff from the previous prerelease. So when coming out
+  of prerelease mode, we combine all the prerelease changelogs and manually
+  update the notes of the GitHub Release after it has been created"
+  (<a href="https://github.com/npm/cli/wiki/Release-Process">npm/cli wiki</a>).</li>
+</ul>
+<p>Per-alternative behavior:</p>
+<ul>
+<li><strong>Commitizen — fixes it.</strong> <code>--merge-prerelease</code> / config
+  <code>changelog_merge_prerelease</code> "Collects changes from prereleases into the next
+  non-prerelease version"
+  (<a href="https://commitizen-tools.github.io/commitizen/commands/changelog/">changelog docs</a>).
+  A bug where it was ignored during <code>cz bump --changelog</code>
+  (<a href="https://github.com/commitizen-tools/commitizen/issues/1694">#1694</a>) was
+  <strong>fixed in v4.11.3, 2026-01-13</strong> ("fix the issue that
+  <code>changelog_merge_prerelease</code> not working on <code>cz bump</code>",
+  <a href="https://github.com/commitizen-tools/commitizen/blob/master/CHANGELOG.md">CHANGELOG</a>).
+  Reliability on the bump path is therefore recent — a real caveat.</li>
+<li><strong>Python Semantic Release — shares the bug.</strong> Verified against PSR's source:
+  it builds its tag lookup from <strong>all</strong> tags (RCs included), walks commits from
+  HEAD until the first matching tag, and sets the released version's changelog
+  <code>elements</code> to exactly that <code>unreleased</code> set — i.e. only commits since the last
+  RC
+  (<a href="https://python-semantic-release.readthedocs.io/en/latest/_modules/semantic_release/changelog/release_history.html">release_history.html</a>).</li>
+<li><strong>cocogitto — unverified.</strong> Did not reach the verified top-25; the issue
+  first read as evidence
+  (<a href="https://github.com/cocogitto/cocogitto/issues/362">#362</a>, closed) is about
+  bump computation from prerelease tags, not the changelog range.</li>
+<li><strong>knope — shares the truncation behavior without changesets.</strong> <code>PrepareRelease</code>
+  natively parses Conventional Commits and supports tag-derived versioning
+  without versioned files (fitting hatch-vcs), while Knope Bot provides release
+  PRs. However, <code>PrepareRelease</code> documents the most recent SemVer tag as its
+  unconditional starting point for commit gathering, with no mechanism analogous
+  to <code>changelog_merge_prerelease</code> or <code>ignore_tags</code> to fold RC commits into a
+  stable release — so an intervening RC tag truncates stable notes just like
+  release-please unless maintainers manually author separate change files.</li>
+<li><strong>git-cliff — can produce the range, but does not version prereleases.</strong>
+  <code>ignore_tags</code> (or <code>--ignore-tags</code>) folds the matched tags' commits into the
+  next tag, so ignoring <code>-rc</code> tags when cutting a stable yields notes from the
+  last stable; an explicit commit range (<code>git cliff v1.1.0..v1.2.0</code>) does the
+  same (<a href="https://git-cliff.org/docs/configuration/git">git config docs</a>). What
+  it lacks is prerelease <em>version calculation</em> for <code>--bumped-version</code>
+  (<a href="https://github.com/orhun/git-cliff/issues/1380">#1380</a>, open; milestoned
+  2.15.0), so the orchestrator must compute RC numbers and choose the tag
+  filter per release (ignore RCs for a stable cut, not for an RC cut).</li>
+</ul>
+<h3 id="pain-point-2-stale-draft-release-comment-link">Pain point 2: stale draft-release comment link<a class="headerlink" href="#pain-point-2-stale-draft-release-comment-link" title="Permanent link">&para;</a></h3>
+<p><strong>Verdict: incidental to release-please's draft flow; a tag-push model
+sidesteps it, but no researched tool "fixes the comment" because no other tool
+posts that comment.</strong></p>
+<p>The <code>untagged-&lt;hash&gt;</code> link exists only because release-please creates the
+GitHub Release as a draft at merge time and comments once with the then-current
+(draft) URL (see #143 / #152). Any pipeline that instead creates the git tag
+first, builds artifacts, and then creates a <strong>non-draft</strong> GitHub Release with
+assets already attached never has an <code>untagged-&lt;hash&gt;</code> phase — so both
+Commitizen and git-cliff variants remove this class of problem as a side effect,
+at the cost of the maintainer owning the tag→build→release sequencing. This is
+not a reason to switch on its own; it is a bonus of <em>any</em> move away from the
+draft-then-publish dance, and #143's option (2) ("have <code>finalize-release</code>
+rewrite the comment") remains available <strong>without</strong> switching tools.</p>
+<h2 id="deep-comparison-git-cliff-vs-commitizen-as-replacements">Deep comparison: git-cliff vs Commitizen as replacements<a class="headerlink" href="#deep-comparison-git-cliff-vs-commitizen-as-replacements" title="Permanent link">&para;</a></h2>
+<p>Because both pain points and the hatch-vcs constraint point at these two tools,
+they are compared here in the concrete shape a migration would take. The
+yardstick is the five responsibilities and the gating contract above.</p>
+<h3 id="git-cliff-as-a-replacement">git-cliff as a replacement<a class="headerlink" href="#git-cliff-as-a-replacement" title="Permanent link">&para;</a></h3>
+<p>git-cliff is a <strong>changelog engine</strong> (plus a version <em>calculator</em> via
+<code>--bumped-version</code>). It does not tag, does not create a GitHub Release, does not
+open a PR, and does not decide whether to release. It therefore replaces exactly
+<strong>one</strong> of release-please's five responsibilities (the changelog, and part of
+the version math); everything else becomes bespoke workflow code.</p>
+<p>A git-cliff pipeline is necessarily a <strong>tag-push / manual-dispatch</strong> model:</p>
+<ol>
+<li>A maintainer (or a small script) creates and pushes the tag — which is
+   ideal for hatch-vcs, since the tag is the version source of truth.</li>
+<li>A workflow on <code>push: tags</code> runs <code>git-cliff --latest</code> for the release notes
+   and <code>git-cliff</code> (full) to regenerate <code>CHANGELOG.md</code>, committed back.</li>
+<li>Build / SBOM / executables run, then <code>gh release create &lt;tag&gt; … dist/*</code>
+   publishes a <strong>non-draft</strong> release with assets already attached.</li>
+</ol>
+<p>Effort is <strong>high</strong>: a new <code>cliff.toml</code> must reproduce the 11-section emoji
+<code>changelog-sections</code> taxonomy; the "is there anything to release" gate, tag
+creation, changelog commit-back, and release creation are all hand-written; and
+pain point 1 is fixable only by hand — the orchestrator must compute RC version
+numbers itself (#1380) and pass <code>--ignore-tags</code> for stable cuts. The net result
+would be <em>more</em> custom workflow code than today, with pain point 1 solved by
+that custom code rather than by the tool. git-cliff's realistic role is as the changelog
+<em>component inside</em> a hand-rolled orchestrator, not as a drop-in replacement.</p>
+<h3 id="commitizen-as-a-replacement">Commitizen as a replacement<a class="headerlink" href="#commitizen-as-a-replacement" title="Permanent link">&para;</a></h3>
+<p><code>cz bump</code> is a <strong>release orchestrator</strong>: in one command it computes the version
+from commits, creates the git tag, and writes <code>CHANGELOG.md</code>. With
+<code>version_provider = "scm"</code> it <strong>never edits a version literal</strong> (the version
+lives only in the tag), matching hatch-vcs exactly — though with
+<code>update_changelog_on_bump</code> it still writes <code>CHANGELOG.md</code> and makes a bump
+commit. It does not open a Release PR and does not create a GitHub
+Release, so a <code>gh release</code> step is added.</p>
+<p><code>cz bump</code> also signals "nothing to release", but it does so by raising
+<code>NoneIncrementExit</code> with exit status 21 rather than a silent exit 0 (see
+<a href="https://commitizen-tools.github.io/commitizen/exit_codes/">Commitizen exit codes</a>).
+In CI, the replacement workflow cannot treat status 21 as a failure, nor can it
+simply swallow it: it must explicitly catch status 21 as a clean no-op and
+synthesize a boolean job output (mirroring release-please's <code>release_created</code>) to
+gate the fourteen downstream jobs (build, PyPI, Docker, Sigstore, etc.). Without
+that custom status trap and output bridge, a no-bump push either fails CI on
+exit 21 or runs the downstream release jobs after a blindly ignored error.</p>
+<p>The <code>[tool.commitizen]</code> block grows from today's single <code>name</code> line back to a
+release configuration (reversing ADR-004's deliberate reduction):</p>
+<div class="highlight"><pre><span></span><code><span class="k">[tool.commitizen]</span>
+<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"cz_conventional_commits"</span>
+<span class="n">version_provider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"scm"</span><span class="w">           </span><span class="c1"># no version literal; hatch-vcs compatible</span>
+<span class="n">tag_format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"v$version"</span>
+<span class="n">version_scheme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"semver2"</span><span class="w">         </span><span class="c1"># v1.2.0-rc.0, not PEP 440 v1.2.0rc0</span>
+<span class="n">update_changelog_on_bump</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">changelog_merge_prerelease</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w">  </span><span class="c1"># fixes pain point 1 (cz &gt;= 4.11.3; template pins 4.17.0)</span>
+<span class="n">major_version_zero</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w">          </span><span class="c1"># mirrors bump-minor-pre-major; 0.x only</span>
+</code></pre></div>
+<p><code>major_version_zero</code> is <strong>not</strong> a drop-in for release-please's
+<code>bump-minor-pre-major</code>: release-please's option silently stops applying after
+1.0, whereas Commitizen
+<a href="https://commitizen-tools.github.io/commitizen/commands/bump/#--major-version-zero">documents</a>
+that <code>cz bump</code> fails on a 1.x+ version while it is set. The template would have
+to render it only for pre-1.0 projects (or the migration would have to remove
+it before the first 1.0 bump).</p>
+<p><code>version_scheme = "semver2"</code> matters: Commitizen defaults to <code>pep440</code>, which
+tags prereleases as <code>v1.2.0rc0</code>, but the <code>docker-publish</code> job parses the tag
+with docker/metadata-action's <code>type=semver</code>, which requires a valid SemVer
+string. release-please emits SemVer prerelease tags today, so the sketch keeps
+them.</p>
+<p>The sketch is <strong>not</strong> changelog-complete as shown. <code>cz_conventional_commits</code>'
+built-in parser (4.17.0) only extracts <code>feat</code>, <code>fix</code>, <code>refactor</code>, <code>perf</code>, and
+breaking changes into changelog context, while the template's
+<code>release-please-config.json</code> publishes emoji sections for <code>docs</code>, <code>test</code>,
+<code>build</code>, <code>ci</code>, and <code>deps</code> too. Because a changelog template can only format
+commits that the parser retained, a custom Jinja template cannot restore categories
+filtered out by the built-in parser. Keeping the template's taxonomy requires
+switching from <code>name = "cz_conventional_commits"</code> to <code>name = "cz_customize"</code> with
+a full <code>[tool.commitizen.customize]</code> table (defining <code>schema_pattern</code>,
+<code>bump_pattern</code>, <code>bump_map</code>, <code>commit_parser</code>, <code>changelog_pattern</code>, <code>change_type_map</code>,
+and <code>change_type_order</code> — without <code>commit_parser</code>, changelog generation exits with
+<code>NoPatternMapError</code>) or authoring a custom Commitizen plugin. Moreover, because
+<code>cz_customize</code> does not inherit the built-in authoring prompts, retaining
+interactive <code>cz commit</code> support requires recreating <code>questions</code> and
+<code>message_template</code> in the config or maintaining a dedicated plugin. This adds
+significant custom configuration or plugin maintenance that narrows the effort
+gap with git-cliff.</p>
+<p>Effort is <strong>medium</strong> and lower than git-cliff: no bespoke version math, the tool
+is already installed, and the version calculation relies on Commitizen rather
+than custom git log parsing; however, the workflow still needs custom shell
+handling to trap exit 21 (<code>NoneIncrementExit</code>) into a <code>release_created</code> output
+for the fourteen downstream jobs, and the changelog needs the <code>cz_customize</code>
+parser table above (in <code>pyproject.toml</code> rather than a separate <code>cliff.toml</code>).
+The real costs are architectural, not lines of code: it <strong>reverses ADR-004</strong>
+(Commitizen becomes a release tool again — the tag/changelog conflict that
+ADR-004 avoided is moot once release-please is gone, but the narrative must be
+rewritten), and it <strong>loses the reviewable Release PR</strong> that ADR-002 valued.</p>
+<h3 id="effort-and-fit-side-by-side">Effort and fit, side by side<a class="headerlink" href="#effort-and-fit-side-by-side" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>git-cliff</th>
+<th>Commitizen</th>
+<th>release-please (today)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Replaces version calc</td>
+<td>Partial (<code>--bumped-version</code>)</td>
+<td>Yes (native)</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Creates git tag</td>
+<td>No (scripted)</td>
+<td>Yes (<code>cz bump</code>)</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Writes CHANGELOG</td>
+<td>Yes (new <code>cliff.toml</code>)</td>
+<td>Yes (needs <code>cz_customize</code> or plugin for docs/test/build/ci/deps)</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>"Should release?" gate</td>
+<td>No (fully bespoke)</td>
+<td>Partial (exits 21; needs custom trap + output bridge for 14 jobs)</td>
+<td>Yes (<code>release_created</code>)</td>
+</tr>
+<tr>
+<td>Creates GitHub Release</td>
+<td>No (<code>gh release</code>)</td>
+<td>No (<code>gh release</code>)</td>
+<td>Yes (draft)</td>
+</tr>
+<tr>
+<td>Reviewable Release PR</td>
+<td>Lost</td>
+<td>Lost</td>
+<td>Yes (its model)</td>
+</tr>
+<tr>
+<td>Fixes pain point 1 (RC)</td>
+<td>With custom code (<code>ignore_tags</code> + own RC math)</td>
+<td>Yes (one setting)</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Fixes pain point 2 (link)</td>
+<td>Incidental</td>
+<td>Incidental</td>
+<td>No (accepted)</td>
+</tr>
+<tr>
+<td>Already in the stack</td>
+<td>No</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Net effort</td>
+<td>High</td>
+<td>Medium</td>
+<td>Baseline</td>
+</tr>
+<tr>
+<td>Reverses an ADR</td>
+<td>No</td>
+<td>Yes (ADR-004)</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>What both alternatives cost regardless:</strong> the reviewable Release PR
+disappears (release-please's signature feature per ADR-002), replaced by a
+tag-push / dispatch trigger. <strong>What both alternatives remove:</strong> the
+draft → un-draft dance <em>and</em> the phantom-PR reconciliation, so the workflow gets
+simpler in those two places.</p>
+<p><strong>What both alternatives must newly solve — credentials and triggers.</strong> release-please
+lands its changelog through a PR and creates the tag from the merge, so it needs only
+<code>GITHUB_TOKEN</code>. A CI-driven replacement instead faces credential constraints depending
+on the architecture:</p>
+<ul>
+<li><strong>Bypassing branch protection:</strong> pushing a bump/changelog commit straight to <code>main</code>
+  is rejected by protected branch rulesets (such as the <code>full</code> preset, ADR-021) unless
+  the pushing identity is granted a bypass — requiring a PAT or GitHub App token with
+  standing bypass permissions, which ADR-002 deliberately avoided;</li>
+<li><strong>Workflow trigger model:</strong> if the design splits release steps across workflows
+  (e.g. git-cliff's canonical <code>push: tags</code> workflow), a tag pushed using <code>GITHUB_TOKEN</code>
+  does not trigger subsequent workflow runs due to GitHub's loop prevention, requiring
+  a PAT or App token. Conversely, if Commitizen preserves the template's single-workflow
+  fan-out where downstream jobs run in the same workflow and check out the new tag ref,
+  no secondary workflow trigger is needed; and</li>
+<li><strong>Changelog ordering (git-cliff):</strong> a changelog committed <em>after</em> the tag leaves the
+  tagged commit without its own changelog entry.</li>
+</ul>
+<p>Thus, a standing privileged credential (PAT or GitHub App token) is required if branch
+protection must be bypassed or if the design relies on a separate tag-triggered workflow.
+Running the bump locally is <strong>not</strong> a clean escape hatch under the <code>full</code> preset either:
+its ruleset has <code>bypass_actors: []</code>, requires a PR, and allows only squash merges, so a
+maintainer cannot push the bump commit to <code>main</code> directly, and squash-merging it through
+a PR rewrites its SHA, leaving the locally created tag off <code>main</code>. A local flow would need a
+two-step "changelog PR, then tag the merged SHA" sequence (e.g. calculating the next tag
+and generating the changelog via <code>cz changelog --unreleased-version="&lt;tag&gt;"</code> in a PR,
+then tagging the merged commit on <code>main</code>) or a ruleset bypass.</p>
+<h2 id="options-under-consideration">Options under consideration<a class="headerlink" href="#options-under-consideration" title="Permanent link">&para;</a></h2>
+<p>No option is selected. They are recorded for discussion.</p>
+<ol>
+<li><strong>Stay on release-please; document and optionally work around.</strong> Treat the
+   RC→stable range as a rare edge case with a known manual remedy (concatenate
+   prerelease sections, as the npm team does), mirroring how pain point 2 is
+   already handled (#143 / #152). Optionally implement #143's option (2) to
+   rewrite the stale comment. Lowest risk; keeps the Release PR; changes nothing
+   structural. Refines ADR-002 with a documented limitation.</li>
+<li><strong>Migrate to Commitizen (<code>cz bump</code>, <code>scm</code> provider).</strong> Genuinely fixes pain
+   point 1, stays Python-native, reuses an installed tool, and removes the draft
+   dance and phantom-PR reconciliation. Costs: rebuild GitHub Release creation +
+   SBOM/artifact attach around <code>gh release</code>, lose the Release PR, and reverse
+   ADR-004. Medium effort on the most safety-critical workflow the template
+   ships. Would supersede ADR-002's tool choice and reverse ADR-004.</li>
+<li><strong>Adopt git-cliff inside a hand-rolled orchestrator.</strong> Highest effort; fixes
+   pain point 1 only through that orchestrator's own RC versioning and
+   per-release <code>--ignore-tags</code> choice. Only worth considering if the changelog
+   <em>formatting</em> (git-cliff's templating) becomes a first-class requirement
+   independent of the release model. Not recommended on current evidence.</li>
+<li><strong>Record research only; defer.</strong> Keep this ADR at Proposed, change nothing,
+   and revisit when git-cliff ships prerelease version calculation (#1380,
+   2.15.0), or when the RC-release workflow becomes frequent enough that the manual workaround is
+   painful in practice.</li>
+</ol>
+<h2 id="decision-drivers-and-open-questions">Decision drivers and open questions<a class="headerlink" href="#decision-drivers-and-open-questions" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>How often do we actually cut RC series?</strong> Pain point 1 only bites when
+  prereleases precede a stable. If RCs are rare, option 1 is likely sufficient.</li>
+<li><strong>How much is the reviewable Release PR worth?</strong> It was a primary reason
+  ADR-002 chose release-please. Options 2 and 3 both discard it.</li>
+<li><strong>Is reversing ADR-004 acceptable?</strong> Option 2 re-promotes Commitizen to a
+  release tool; the ADR-004 reasoning must be re-examined, not just overwritten.</li>
+<li><strong>Template blast radius.</strong> <code>release.yml</code> fans out to every generated project;
+  any change is validated only by rendering + <code>actionlint</code> until a live release
+  exercises it (the ADR-002 validation limit and cobo#49 precedent).</li>
+<li><strong>Is a release credential acceptable?</strong> Options 2 and 3 need a PAT or App
+  token to push to protected <code>main</code> (and to trigger a tag workflow if split
+  across workflows; see "What both alternatives must newly solve"), or a
+  maintainer-local bump.</li>
+<li><strong>Unresolved by research:</strong> cocogitto's RC-range changelog behavior; and
+  whether a Commitizen migration can faithfully reproduce the tag → build →
+  attach SBOM/provenance → publish ordering — an implementation spike would
+  settle it.</li>
+</ul>
+<h2 id="consequences">Consequences<a class="headerlink" href="#consequences" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>If option 1 is chosen:</strong> this ADR is Accepted as "no change; documented
+  limitation"; ADR-002 gains a Consequences bullet for pain point 1 (parallel
+  to the pain-point-2 bullet added by #152), and optionally a <code>finalize-release</code>
+  comment-rewrite step lands for pain point 2. No workflow restructuring.</li>
+<li><strong>If option 2 is chosen:</strong> this ADR supersedes ADR-002's tool selection and
+  reverses ADR-004; <code>release.yml</code>, <code>pyproject.toml</code> <code>[tool.commitizen]</code>, the
+  removal of <code>release-please-config.json</code> / <code>-manifest.json</code>, README, CLAUDE.md,
+  and CONTRIBUTING (PyPI Trusted Publishing still targets <code>release.yml</code>) all
+  change; a release credential (or a maintainer-local bump) is chosen; a live
+  release must validate the new tag → build → attach → publish ordering.</li>
+<li><strong>If option 3 is chosen:</strong> as option 2 plus a bespoke orchestrator and a
+  <code>cliff.toml</code>, and RC version calculation stays hand-written until git-cliff
+  ships #1380.</li>
+<li><strong>If option 4 is chosen:</strong> status stays Proposed; nothing changes; the ADR is
+  the durable record of why the alternatives were not adopted <em>yet</em>.</li>
+</ul>
+<p>Until a decision is made, the pipeline is unchanged: release-please remains the
+orchestrator, Commitizen remains a commit helper (ADR-004), and pain point 2
+remains an accepted, documented cosmetic limitation (#143 / #152).</p>
+<h2 id="sources">Sources<a class="headerlink" href="#sources" title="Permanent link">&para;</a></h2>
+<p>Primary sources cited above, grouped by tool.</p>
+<ul>
+<li>release-please:
+  <a href="https://github.com/googleapis/release-please/blob/main/docs/design.md">design.md</a>,
+  <a href="https://github.com/googleapis/release-please/blob/main/docs/customizing.md">customizing.md</a>,
+  <a href="https://github.com/googleapis/release-please/blob/main/docs/manifest-releaser.md">manifest-releaser.md</a>,
+  <a href="https://github.com/googleapis/release-please/blob/main/schemas/config.json">config schema</a>,
+  issues <a href="https://github.com/googleapis/release-please/issues/2267">#2267</a>,
+  <a href="https://github.com/googleapis/release-please/issues/2447">#2447</a>,
+  <a href="https://github.com/googleapis/release-please/issues/2515">#2515</a>,
+  <a href="https://github.com/googleapis/release-please/issues/2605">#2605</a>,
+  <a href="https://github.com/googleapis/release-please/issues/2769">#2769</a>.</li>
+<li>npm CLI (independent confirmation of pain point 1):
+  <a href="https://github.com/npm/cli/wiki/Release-Process">Release-Process wiki</a>.</li>
+<li>Commitizen:
+  <a href="https://commitizen-tools.github.io/commitizen/config/version_provider/">version_provider</a>,
+  <a href="https://commitizen-tools.github.io/commitizen/commands/bump/">bump</a>,
+  <a href="https://commitizen-tools.github.io/commitizen/commands/changelog/">changelog</a>,
+  <a href="https://commitizen-tools.github.io/commitizen/exit_codes/">exit codes</a>,
+  <a href="https://commitizen-tools.github.io/commitizen/customization/config_file/">cz_customize</a>,
+  <a href="https://github.com/commitizen-tools/commitizen/issues/1694">issue #1694</a>,
+  <a href="https://github.com/commitizen-tools/commitizen/blob/master/CHANGELOG.md">CHANGELOG</a>,
+  <a href="https://github.com/commitizen-tools/commitizen-action">commitizen-action</a>.</li>
+<li>Python Semantic Release:
+  <a href="https://github.com/python-semantic-release/python-semantic-release">repo</a>,
+  <a href="https://python-semantic-release.readthedocs.io/en/latest/">docs</a>,
+  <a href="https://python-semantic-release.readthedocs.io/en/latest/_modules/semantic_release/changelog/release_history.html">release_history source</a>.</li>
+<li>cocogitto:
+  <a href="https://github.com/cocogitto/cocogitto">repo</a>,
+  <a href="https://docs.cocogitto.io/guide/bump.html">bump docs</a>,
+  <a href="https://docs.cocogitto.io/guide/changelog.html">changelog docs</a>,
+  <a href="https://github.com/cocogitto/cocogitto/issues/362">issue #362</a>.</li>
+<li>knope:
+  <a href="https://github.com/knope-dev/knope">repo</a>,
+  <a href="https://knope.tech/reference/config-file/steps/prepare-release/">PrepareRelease</a>,
+  <a href="https://knope.tech/reference/concepts/package/">package versioning</a>,
+  <a href="https://knope.tech/tutorials/bot-workflow/">bot workflow</a>.</li>
+<li>git-cliff:
+  <a href="https://git-cliff.org/docs/configuration/git">git configuration (<code>ignore_tags</code>/<code>count_tags</code>)</a>,
+  <a href="https://github.com/orhun/git-cliff/issues/1380">issue #1380</a>,
+  <a href="https://github.com/orhun/git-cliff/issues/692">issue #692</a>,
+  <a href="https://github.com/orhun/git-cliff/issues/588">issue #588</a>.</li>
+<li>hatch-regex-commit:
+  <a href="https://pypi.org/project/hatch-regex-commit">PyPI</a>,
+  <a href="https://github.com/frankie567/hatch-regex-commit">repo</a>.</li>
+<li>Internal:
+  <a href="https://github.com/hasansezertasan/copier-pyproject/issues/143">#143</a>,
+  <a href="https://github.com/hasansezertasan/copier-pyproject/pull/152">#152</a>,
+  <a href="https://github.com/hasansezertasan/copier-pyproject/pull/318">#318</a>,
+  <a href="https://github.com/hasansezertasan/copier-pyproject/issues/332">#332</a>,
+  <a href="https://github.com/hasansezertasan/copier-pyproject/pull/339">#339</a>,
+  <a href="../002-release-please-for-release-automation/">ADR-002</a>,
+  <a href="../004-commitizen-as-commit-helper-not-release-tool/">ADR-004</a>.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "navigation.footer", "content.code.copy", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

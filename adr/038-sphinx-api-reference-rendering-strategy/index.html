@@ -1,0 +1,1274 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Copier template for a modern, typed Python package/CLI with uv, hatch, tox, and GitHub automation baked in.">
+      
+      
+      
+        <link rel="canonical" href="https://hasansezertasan.github.io/copier-pyproject/adr/038-sphinx-api-reference-rendering-strategy/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>ADR-038: Sphinx API-reference rendering strategy (Typer / pydantic / OpenAPI / AsyncAPI) - copier-pyproject</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#adr-038-sphinx-api-reference-rendering-strategy-typer-pydantic-openapi-asyncapi" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="copier-pyproject" class="md-header__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            copier-pyproject
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ADR-038: Sphinx API-reference rendering strategy (Typer / pydantic / OpenAPI / AsyncAPI)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="copier-pyproject" class="md-nav__button md-logo" aria-label="copier-pyproject" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    copier-pyproject
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hasansezertasan/copier-pyproject" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hasansezertasan/copier-pyproject
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../template-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generated-project-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated project trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hook-coverage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generated-project check coverage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../template-adoption/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template adoption and update audits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture decision records
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture decision records
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why it is built this way
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Why it is built this way
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../context/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://hasansezertasan.github.io/copier-pyproject/dashboard/live/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard ↗
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Status
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Context">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#packages-surveyed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Packages surveyed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-candidates-surveyed-second-pass" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional candidates surveyed (second pass)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Additional candidates surveyed (second pass)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenAPI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asyncapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AsyncAPI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pydantic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pydantic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#embeddable-api-ui-bundles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Embeddable API-UI bundles
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rationale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rationale
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consequences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consequences
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="adr-038-sphinx-api-reference-rendering-strategy-typer-pydantic-openapi-asyncapi">ADR-038: Sphinx API-reference rendering strategy (Typer / pydantic / OpenAPI / AsyncAPI)<a class="headerlink" href="#adr-038-sphinx-api-reference-rendering-strategy-typer-pydantic-openapi-asyncapi" title="Permanent link">&para;</a></h1>
+<h2 id="status">Status<a class="headerlink" href="#status" title="Permanent link">&para;</a></h2>
+<p>Accepted (2026-08; renumbered from 027 and refreshed against template 1.5.3 on
+2026-10-05). Extends <a href="../006-sphinx-shibuya-for-documentation/">ADR-006</a>,
+which chose Sphinx + Shibuya and weighed the <em>CLI</em> generator only, to cover all
+four auto-generated reference pages and to record why the third-party Sphinx
+API-doc extensions surveyed below are (mostly) <strong>not</strong> adopted.</p>
+<h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
+<p>The docs subsystem (<a href="../025-optional-docs-subsystem/">ADR-025</a>) auto-generates
+four reference pages. What they share is one property: when <code>include_docs</code> is
+set, each is derived from the <strong>live app object</strong> at build time, and no schema
+or reference file is hand-maintained or committed. The mechanism differs:</p>
+<ul>
+<li><strong>Subprocess dump</strong> (Typer CLI, Litestar OpenAPI, FastStream AsyncAPI):
+  <code>docs/conf.py</code> runs the generator with <code>check=True</code>, writing into the
+  gitignored <code>docs/_generated/</code> directory, and the page includes the artifact.</li>
+<li><strong>In-process dump</strong> (FastAPI OpenAPI): <code>docs/conf.py</code> imports the app, calls
+  <code>app.openapi()</code>, and writes the schema into <code>docs/_generated/</code> (as
+  <code>openapi.yaml</code> and <code>openapi.json</code>).</li>
+<li><strong>Direct autodoc</strong> (pydantic config): <code>configuration.rst</code> uses
+  <code>autopydantic_settings</code> on the live model; there is no <code>_generated/</code> artifact.</li>
+</ul>
+<p>Either way a broken app breaks the build. Because <code>ci.yml</code>'s <code>docs-doctest</code> job
+runs <code>tox -e docs-build</code> under the required <code>check</code> gate, a generator failure blocks the merge, not just a
+preview.</p>
+<p>The four generators are <strong>not</strong> at the same rendering quality, which is the crux
+of this decision:</p>
+<table>
+<thead>
+<tr>
+<th>Reference</th>
+<th>Toggle</th>
+<th>Mechanism</th>
+<th>Output rendered as</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CLI (Typer)</td>
+<td><code>include_cli</code> + <code>cli_framework == typer</code></td>
+<td><code>python -m typer … utils docs</code> → <code>cli.md</code></td>
+<td>Structured Markdown (MyST <code>{include}</code>)</td>
+</tr>
+<tr>
+<td>Config (pydantic)</td>
+<td><code>include_pydantic_settings</code></td>
+<td><code>autodoc-pydantic</code> <code>.. autopydantic_settings::</code> on the live model</td>
+<td>Structured autodoc directive</td>
+</tr>
+<tr>
+<td>OpenAPI (web)</td>
+<td><code>include_web</code></td>
+<td>Litestar <code>… schema openapi</code> / FastAPI <code>app.openapi()</code> dump → <code>openapi.yaml</code></td>
+<td><strong>Raw YAML</strong> (<code>.. literalinclude::</code> in <code>web-interface.rst</code>)</td>
+</tr>
+<tr>
+<td>AsyncAPI (worker)</td>
+<td><code>include_worker</code></td>
+<td><code>faststream docs gen --yaml</code> → <code>asyncapi.yaml</code></td>
+<td><strong>Raw YAML</strong> (<code>.. literalinclude::</code> in <code>worker-interface.rst</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>The CLI and config references are genuinely <em>rendered</em> documentation. The
+OpenAPI and AsyncAPI references are, today, a syntax-highlighted spec file pasted
+into a page via <code>literalinclude</code> — a reader gets no navigable endpoint/channel
+docs, only the raw schema. That gap is what prompted surveying the Sphinx
+API-doc ecosystem.</p>
+<h3 id="packages-surveyed">Packages surveyed<a class="headerlink" href="#packages-surveyed" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Scope</th>
+<th>Health (re-checked 2026-10)</th>
+<th>Fit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/sphinx-contrib/typer"><code>sphinxcontrib-typer</code></a></td>
+<td><code>.. typer::</code> renders a Typer app (html/svg/text)</td>
+<td>Healthy, MIT</td>
+<td>Redundant — see below</td>
+</tr>
+<tr>
+<td><a href="https://github.com/sphinx-contrib/openapi"><code>sphinxcontrib-openapi</code></a></td>
+<td><code>.. openapi::</code> renders a spec to native rST via httpdomain (2.0/3.0/3.1)</td>
+<td>Mature (~126★), active</td>
+<td><strong>Best fit for a future OpenAPI upgrade</strong></td>
+</tr>
+<tr>
+<td><a href="https://github.com/sphinx-contrib/redoc"><code>sphinxcontrib-redoc</code></a></td>
+<td>Embeds ReDoc JS for OpenAPI</td>
+<td>Older, moderate</td>
+<td>JS embed — offline concern</td>
+</tr>
+<tr>
+<td><a href="https://github.com/SAP/swagger-plugin-for-sphinx"><code>SAP/swagger-plugin-for-sphinx</code></a></td>
+<td>Swagger-UI embed</td>
+<td>Active</td>
+<td><strong>CDN by default</strong> — wrong posture</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Unidocs1/sphinx_openapi"><code>Unidocs1/sphinx_openapi</code></a></td>
+<td><em>Downloads</em> remote specs for ReDoc</td>
+<td>0★, niche</td>
+<td>Irrelevant — specs are generated locally</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mortbauer/asyncapi-sphinx-ext"><code>mortbauer/asyncapi-sphinx-ext</code></a></td>
+<td><code>asyncapi_channels</code>/<code>asyncapi_overview</code> directives</td>
+<td>3★, "early stage", stale</td>
+<td>Not adoptable</td>
+</tr>
+<tr>
+<td><a href="https://github.com/git-pull/gp-sphinx"><code>git-pull/gp-sphinx</code></a></td>
+<td>Whole-<code>conf.py</code> bundle (themes + autodoc collection)</td>
+<td>2★, personal monorepo</td>
+<td>Out of scope — a config framework, not a renderer</td>
+</tr>
+</tbody>
+</table>
+<h3 id="additional-candidates-surveyed-second-pass">Additional candidates surveyed (second pass)<a class="headerlink" href="#additional-candidates-surveyed-second-pass" title="Permanent link">&para;</a></h3>
+<h4 id="cli">CLI<a class="headerlink" href="#cli" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Scope</th>
+<th>Health</th>
+<th>Fit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/tox-dev/sphinx-argparse-cli"><code>sphinx-argparse-cli</code></a></td>
+<td><code>sphinx_argparse_cli</code> directive, sub-command-friendly</td>
+<td>Active, tox-dev org</td>
+<td><strong>Best candidate to fill the <code>argparse</code> gap</strong> (see below)</td>
+</tr>
+<tr>
+<td><a href="https://github.com/sphinx-doc/sphinx-argparse"><code>sphinx-argparse</code></a></td>
+<td><code>argparse</code> directive</td>
+<td>Maintained (sphinx-doc org; the original <code>alex-rudakov</code> repo is inactive)</td>
+<td>argparse baseline; less clean for nested CLIs</td>
+</tr>
+<tr>
+<td><a href="https://github.com/sphinx-contrib/autoprogram"><code>sphinxcontrib-autoprogram</code></a></td>
+<td>Expands an <code>ArgumentParser</code> into <code>program</code>/<code>option</code></td>
+<td>Mature, low activity</td>
+<td>argparse only</td>
+</tr>
+<tr>
+<td><a href="https://pypi.org/project/sphinxcontrib-programoutput/"><code>sphinxcontrib-programoutput</code></a></td>
+<td>Embeds any command's <code>--help</code> stdout</td>
+<td>Mature, low activity</td>
+<td>Framework-agnostic but unstructured</td>
+</tr>
+</tbody>
+</table>
+<h4 id="openapi">OpenAPI<a class="headerlink" href="#openapi" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Scope</th>
+<th>Health</th>
+<th>Fit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://pypi.org/project/sphinx-rapidoc/"><code>sphinx-rapidoc</code></a></td>
+<td>RapiDoc web-component renderer</td>
+<td>Young (2025), low adoption</td>
+<td>JS embed — same offline concern as ReDoc/Swagger</td>
+</tr>
+<tr>
+<td><a href="https://pypi.org/project/sphinxcontrib-swaggerui/"><code>sphinxcontrib-swaggerui</code></a></td>
+<td><code>swaggerui</code> directive, vendors swagger-ui assets</td>
+<td>Stale (last release 0.1.0, 2023; Bitbucket-hosted)</td>
+<td>Vendored (no CDN) but low-maintenance risk</td>
+</tr>
+</tbody>
+</table>
+<h4 id="asyncapi">AsyncAPI<a class="headerlink" href="#asyncapi" title="Permanent link">&para;</a></h4>
+<p>No Sphinx directive exists — these are the build path for a port.</p>
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Scope</th>
+<th>Health</th>
+<th>Fit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/asyncapi/generator"><code>@asyncapi/generator</code></a> + <a href="https://github.com/asyncapi/html-template"><code>@asyncapi/html-template</code></a></td>
+<td>Official spec → static HTML</td>
+<td>Active, official org</td>
+<td>Canonical <code>asyncapi.yaml</code> → browsable docs</td>
+</tr>
+<tr>
+<td><a href="https://github.com/asyncapi/generator"><code>@asyncapi/generator</code></a> + <a href="https://github.com/asyncapi/markdown-template"><code>@asyncapi/markdown-template</code></a></td>
+<td>Official spec → Markdown</td>
+<td>Active, official org</td>
+<td>Markdown output could feed MyST <code>{include}</code></td>
+</tr>
+<tr>
+<td><code>@asyncapi/react-component</code></td>
+<td>Embeddable renderer <code>html-template</code> uses</td>
+<td>Active, official org</td>
+<td>The swagger-ui-dist analog to wrap in a Sphinx directive</td>
+</tr>
+</tbody>
+</table>
+<h4 id="pydantic">pydantic<a class="headerlink" href="#pydantic" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Scope</th>
+<th>Health</th>
+<th>Fit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/canonical/pydantic-kitbash"><code>pydantic-kitbash</code></a></td>
+<td>Canonical's model → config-reference directive</td>
+<td>New/niche, active (Canonical)</td>
+<td>Closest live alternative to autodoc-pydantic</td>
+</tr>
+<tr>
+<td><a href="https://github.com/lnoor/sphinx-jsonschema"><code>sphinx-jsonschema</code></a></td>
+<td>Renders any JSON Schema (<code>model_json_schema()</code>) as tables</td>
+<td>Mature, maintained</td>
+<td>Low-dep fallback route</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Zsailer/sphinx-pydantic"><code>sphinx-pydantic</code></a></td>
+<td><code>pydantic</code> directive via sphinx-jsonschema</td>
+<td><strong>Abandoned</strong> (no release since ~2020)</td>
+<td>Do not adopt</td>
+</tr>
+</tbody>
+</table>
+<h4 id="embeddable-api-ui-bundles">Embeddable API-UI bundles<a class="headerlink" href="#embeddable-api-ui-bundles" title="Permanent link">&para;</a></h4>
+<p>Portable to a Sphinx directive, including the <code>openapipages</code> idea.</p>
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Scope</th>
+<th>Health</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/scalar/scalar"><code>@scalar/api-reference</code></a></td>
+<td>Single-file, no-build OpenAPI UI</td>
+<td>Very active</td>
+</tr>
+<tr>
+<td><a href="https://github.com/stoplightio/elements"><code>@stoplight/elements</code></a></td>
+<td><code>&lt;elements-api&gt;</code> web component (no Sphinx wrapper yet)</td>
+<td>Active</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Redocly/redoc"><code>redoc</code> standalone</a> / <a href="https://www.npmjs.com/package/swagger-ui-dist"><code>swagger-ui-dist</code></a> / <code>rapidoc</code></td>
+<td>Raw embeddable bundles behind the wrappers above</td>
+<td>Active</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hasansezertasan/openapipages"><code>openapipages</code></a></td>
+<td>Framework-agnostic HTML pages for the API-UI bundles above</td>
+<td>Active</td>
+</tr>
+</tbody>
+</table>
+<h2 id="decision">Decision<a class="headerlink" href="#decision" title="Permanent link">&para;</a></h2>
+<p><strong>Keep all four current generators unchanged for now.</strong> Do not adopt any of the
+surveyed extensions in this iteration. Record the OpenAPI upgrade and the
+AsyncAPI ecosystem gap as tracked follow-ups rather than acting on them here.</p>
+<p>Per reference:</p>
+<ul>
+<li><strong>CLI (Typer): keep <code>typer … utils docs</code>.</strong> <code>sphinxcontrib-typer</code> renders more
+  richly but was already weighed and passed over in ADR-006, which found it
+  works but kept <code>typer … utils docs</code> to stay consistent with the worker/web
+  generators and to avoid an extra extension. This ADR adds a further reason:
+  it covers only Typer, so <code>cli_framework == argparse</code> would still need separate
+  handling. No change. <strong>Noted gap:</strong> the CLI reference page is
+  produced <em>only</em> for <code>cli_framework == typer</code>; an <code>argparse</code> CLI currently gets
+  no generated reference. <a href="https://github.com/tox-dev/sphinx-argparse-cli"><code>sphinx-argparse-cli</code></a>
+  (tox-dev, sub-command-aware) is the cleanest candidate to close that gap if we
+  decide argparse CLIs warrant a reference page — a separate follow-up, not
+  resolved here.</li>
+<li><strong>Config (pydantic): keep <code>autodoc-pydantic</code>.</strong> It is the best-in-class option
+  and is already the mechanism. The only live alternatives —
+  <code>pydantic-kitbash</code> (new/niche) and <code>sphinx-jsonschema</code> (JSON-Schema tables) —
+  offer no advantage for our settings-reference use; <code>sphinx-pydantic</code> is
+  abandoned. No change.</li>
+<li><strong>OpenAPI (web): keep the <code>literalinclude</code> dump for now; <code>sphinxcontrib-openapi</code>
+  is the designated future upgrade.</strong> It renders to native rST (no JS, no CDN),
+  which suits the template's self-contained/offline docs posture, unlike the
+  ReDoc and Swagger-UI embedders. The Swagger plugin's CDN-by-default is an
+  outright poor fit for that posture.
+  <code>Unidocs1/sphinx_openapi</code> is irrelevant (download-only). The JS-embed
+  alternatives — <code>sphinx-rapidoc</code> and hand-wrapping a standalone bundle
+  (Scalar, Stoplight Elements, RapiDoc, redoc/swagger-ui-dist, or an
+  <code>openapipages</code>-style port) — are ruled out because they replace native rST
+  with a JS app shipped into the docs. <code>sphinxcontrib-swaggerui</code> vendors its
+  assets (no CDN) but is the same JS embed and adds maintenance risk (no release
+  since 2023). <strong>Open risk to verify
+  before adopting:</strong> <code>sphinxcontrib-openapi</code>'s OpenAPI 3.1 support has
+  historically lagged, and both Litestar and FastAPI emit 3.1 — a pilot must
+  confirm the generated specs render correctly.</li>
+<li><strong>AsyncAPI (worker): keep the <code>literalinclude</code> dump; there is no adoptable
+  renderer.</strong> <code>asyncapi-sphinx-ext</code> is self-described "early stage", stale, and
+  wants channels authored in docstrings rather than consuming a generated
+  <code>asyncapi.yaml</code> — the opposite of our generate-from-live-app model. This is a
+  genuine, unfilled ecosystem gap; a purpose-built directive that renders a
+  generated <code>asyncapi.yaml</code>/<code>.json</code> (e.g. an <code>openapipages</code>-style static
+  renderer) would be novel and is the strongest candidate for an upstream
+  contribution, but is out of scope here. The realistic build path for such a
+  port is the official AsyncAPI stack — <code>@asyncapi/react-component</code> (the
+  embeddable renderer), <code>@asyncapi/generator</code> + <code>@asyncapi/html-template</code>
+  (spec → static HTML), or <code>@asyncapi/generator</code> +
+  <code>@asyncapi/markdown-template</code> (spec → Markdown, feedable into MyST).</li>
+</ul>
+<h2 id="rationale">Rationale<a class="headerlink" href="#rationale" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>The current pattern's value is the live-source property.</strong> Every reference
+  is derived from the live app at build time with nothing committed, using only
+  the generator each framework already ships (plus <code>autodoc-pydantic</code> for
+  config). Each additional extension is one more docs dependency to pin and keep
+  compatible, so the bar for adopting one is a rendering upgrade large enough
+  to justify it.</li>
+<li><strong>That bar is only met for OpenAPI/AsyncAPI</strong>, where today's output is a raw
+  spec dump — not for CLI/config, which already render properly.</li>
+<li><strong>Posture rules out the JS/CDN OpenAPI options.</strong> Native-rST rendering is the
+  only style consistent with the template's offline/self-contained defaults.</li>
+<li><strong>The AsyncAPI gap is real, not an oversight</strong> — no production-grade Sphinx
+  renderer for an AsyncAPI spec file exists, which is why the dump stands.</li>
+</ul>
+<h2 id="consequences">Consequences<a class="headerlink" href="#consequences" title="Permanent link">&para;</a></h2>
+<ul>
+<li>No template changes in this ADR — it records evaluation and direction.</li>
+<li>Follow-up (not committed here): pilot <code>sphinxcontrib-openapi</code> against a
+  generated web project for both <code>web_framework</code> values, checking OpenAPI 3.1
+  rendering; if it clears, a later ADR would swap the web <code>literalinclude</code> for the
+  directive and add the extension to the <code>docs</code> group under the <code>include_web</code>
+  guard.</li>
+<li>Follow-up (not committed here): prototype an AsyncAPI-spec → Sphinx renderer as
+  a potential upstream contribution; if it matures, a later ADR would wire it into
+  the worker reference page.</li>
+<li>Follow-up (not committed here): decide whether an <code>argparse</code> CLI warrants a
+  generated reference page (currently none); if so, <code>sphinx-argparse-cli</code> is the
+  designated candidate.</li>
+<li>ADR-006's CLI-generator rationale is unchanged; this ADR cites it as the
+  precedent for keeping the Typer generator over <code>sphinxcontrib-typer</code>.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "navigation.footer", "content.code.copy", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
