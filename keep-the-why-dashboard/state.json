@@ -1,22 +1,22 @@
 {
  "state-json": 2,
- "generated": "2026-10-12T12:48:09Z",
+ "generated": "2026-10-12T14:42:40Z",
  "dashboard": "0.11.1",
  "linter": "0.20.2.0",
  "project": {
   "id": "hasansezertasan---copier-pyproject",
   "name": "copier-pyproject-adrtest",
   "context": "context/",
-  "schema": "0.20.1",
+  "schema": "0.20.2",
   "config": {
    "id": "hasansezertasan---copier-pyproject",
    "canonical": "https://github.com/hasansezertasan/copier-pyproject",
    "context": "`context/`",
    "init": "complete",
-   "context-schema": "0.20.1",
+   "context-schema": "0.20.2",
    "capture-confirmation": "confirm-when-unsure",
    "source-reference": "never",
-   "pinned-version": "0.20.1",
+   "pinned-version": "0.20.2",
    "pinned-path": ".agents/skills/keep-the-why/SKILL.md",
    "dashboard-state": "https://hasansezertasan.github.io/copier-pyproject/keep-the-why-dashboard/state.json"
   },
@@ -29,8 +29,8 @@
   "children": [],
   "git": {
    "available": true,
-   "head": "7d7ce45",
-   "head_full": "7d7ce45b107231dc93f06740c5d833fc19488157",
+   "head": "721309a",
+   "head_full": "721309a69fd9df0d63534445a4674fbedfbe16c1",
    "branch": "keep-the-why-context",
    "remote": "github.com/oliver-zehentleitner-aigent/copier-pyproject",
    "upstream": "github.com/hasansezertasan/copier-pyproject",
