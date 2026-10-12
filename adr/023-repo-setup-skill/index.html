@@ -795,7 +795,13 @@
 
 <h1 id="adr-023-ship-a-resume-driven-repo-setup-skill-single-sourced-from-the-setup-doc">ADR-023: Ship a resume-driven repo-setup skill, single-sourced from the setup doc<a class="headerlink" href="#adr-023-ship-a-resume-driven-repo-setup-skill-single-sourced-from-the-setup-doc" title="Permanent link">&para;</a></h1>
 <h2 id="status">Status<a class="headerlink" href="#status" title="Permanent link">&para;</a></h2>
-<p>Proposed (2026-08).</p>
+<p>Proposed (2026-08). Superseded in part (2026-10): §3's repo-local skill for this
+repository's own setup was removed; the setup is the two <code>gh</code> commands in
+docs/template-architecture.md (see <a href="../../context/repo-setup/">context/repo-setup.md</a>, entry
+c85feefa-0063-4a34-8030-8c348190b96b). §4 is superseded: the plugin <code>setup</code>
+skill was removed and its last unique gotcha moved into the setup doc (see
+<a href="../../context/companion-skills/">context/companion-skills.md</a>, entry
+d3127820-eee0-4618-bb95-4acf09cb4d68).</p>
 <h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
 <p>A generated project's one-time repository setup — squash-merge policy, workflow
 permissions, branch protection / ruleset sync, PyPI trusted publishing, GitHub

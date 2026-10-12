@@ -389,22 +389,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#adopt-into-an-existing-project-claude-code-plugin" class="md-nav__link">
+  <a href="#adopt-into-an-existing-project" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Adopt into an existing project (Claude Code plugin)
+        Adopt into an existing project
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Adopt into an existing project (Claude Code plugin)">
+    <nav class="md-nav" aria-label="Adopt into an existing project">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#for-humans" class="md-nav__link">
+  <a href="#before-scaffolding-an-existing-package" class="md-nav__link">
     <span class="md-ellipsis">
       
-        For humans
+        Before scaffolding an existing package
       
     </span>
   </a>
@@ -412,10 +412,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#for-agents" class="md-nav__link">
+  <a href="#after-scaffolding" class="md-nav__link">
     <span class="md-ellipsis">
       
-        For agents
+        After scaffolding
       
     </span>
   </a>
@@ -1040,22 +1040,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#adopt-into-an-existing-project-claude-code-plugin" class="md-nav__link">
+  <a href="#adopt-into-an-existing-project" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Adopt into an existing project (Claude Code plugin)
+        Adopt into an existing project
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Adopt into an existing project (Claude Code plugin)">
+    <nav class="md-nav" aria-label="Adopt into an existing project">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#for-humans" class="md-nav__link">
+  <a href="#before-scaffolding-an-existing-package" class="md-nav__link">
     <span class="md-ellipsis">
       
-        For humans
+        Before scaffolding an existing package
       
     </span>
   </a>
@@ -1063,10 +1063,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#for-agents" class="md-nav__link">
+  <a href="#after-scaffolding" class="md-nav__link">
     <span class="md-ellipsis">
       
-        For agents
+        After scaffolding
       
     </span>
   </a>
@@ -1303,6 +1303,7 @@ preset.</p>
 <li><code>include_ai_rulez</code> (author the agent instructions once under <code>.ai-rulez/</code> and generate each AI coding host's native config from them via <a href="https://github.com/Goldziher/ai-rulez">ai-rulez</a>, instead of the hand-written <code>AGENTS.md</code>; the generated files are committed build output, written by <code>ai-rulez generate</code> — see <a href="adr/035-ai-rulez-as-the-agent-instruction-source/">ADR-035</a>)</li>
 <li><code>ai_rulez_presets</code> (asked when <code>include_ai_rulez</code>: which hosts to generate for — <code>codex</code>, <code>copilot</code> by default, plus <code>claude</code>/<code>cursor</code>/<code>windsurf</code>/<code>cline</code>/<code>continue-dev</code>/<code>amp</code>/<code>junie</code>/<code>opencode</code>/<code>hermes</code>/<code>antigravity</code>)</li>
 <li><code>include_repo_ruleset</code> (opt-in branch protection as code — a ruleset + App-free sync workflow enforcing squash-only merges, linear history, and the required CI checks; needs a <code>REPO_ADMIN_TOKEN</code> PAT)</li>
+<li><code>include_repo_settings</code> (repository metadata via the Settings App; installation requires a distinct trusted reviewer and verified code-owner review, so solo maintainers defer the App)</li>
 <li><code>include_postgres</code> (include PostgreSQL service in devcontainer)</li>
 <li><code>include_redis</code> (include Redis/Valkey service in devcontainer)</li>
 <li><code>redis_backend</code> (redis/valkey - when <code>include_redis</code> is enabled, or when a
@@ -1340,7 +1341,7 @@ deletes it, customized or not. Before updating, move any
 project-specific guidance from it into <code>AGENTS.md</code> (or, if the same update turns
 on <code>include_ai_rulez</code>, into a <code>.ai-rulez/</code> rule source, since <code>AGENTS.md</code> then
 becomes generated output).</p>
-<h2 id="adopt-into-an-existing-project-claude-code-plugin">Adopt into an existing project (Claude Code plugin)<a class="headerlink" href="#adopt-into-an-existing-project-claude-code-plugin" title="Permanent link">&para;</a></h2>
+<h2 id="adopt-into-an-existing-project">Adopt into an existing project<a class="headerlink" href="#adopt-into-an-existing-project" title="Permanent link">&para;</a></h2>
 <p>The <code>copier copy</code> flow above is for <strong>new</strong> projects. Adopting this template into an <strong>existing or already-published</strong> package is a different job: <code>copier copy</code> overwrites source, config, docs, and CI, so it must be run as a migrate-and-reconcile rather than a scaffold.</p>
 <p>Generated projects ship a <strong>template-adoption</strong> skill alongside <strong>repo-setup</strong>.
 In a session inside the generated project, ask: "Audit this template adoption/update and reconcile it with our existing
@@ -1350,25 +1351,40 @@ cleanup. The source lives in <code>.claude/skills/template-adoption/SKILL.md</co
 or <code>.ai-rulez/skills/template-adoption/SKILL.md</code> with <code>include_ai_rulez=true</code>;
 <code>ai-rulez generate</code> delivers it to the selected hosts. An agent can also read that
 file directly. See the <a href="template-adoption/">prek walkthrough</a>.</p>
-<p>This repository also doubles as a <a href="https://docs.claude.com/en/docs/claude-code/overview">Claude Code</a> <strong>plugin</strong> (<code>copier-pyproject</code>) that ships three skills covering the template's lifecycle:</p>
-<ul>
-<li><a href="https://github.com/hasansezertasan/copier-pyproject/blob/main/skills/adopt/SKILL.md"><code>copier-pyproject:adopt</code></a> — <strong>first-time adoption</strong> into an existing package: the source-skeleton collision, ruff auto-fix source corruption, the release-please/hatch-vcs version clash, and the placeholder prose the template plants in issue templates and docs.</li>
-<li><a href="https://github.com/hasansezertasan/copier-pyproject/blob/main/skills/update/SKILL.md"><code>copier-pyproject:update</code></a> — <strong>pulling later template changes</strong>: the <code>copier update</code> 3-way-merge flow, reviewing Renovate copier-update PRs, and approving newly-added template questions with a human in the loop.</li>
-<li><a href="https://github.com/hasansezertasan/copier-pyproject/blob/main/skills/setup/SKILL.md"><code>copier-pyproject:setup</code></a> — <strong>one-time repository wiring</strong>: trusted publishing, branch protection, required checks, secrets, and App installs.</li>
-</ul>
-<p>Plugin metadata lives in <a href="https://github.com/hasansezertasan/copier-pyproject/blob/main/.claude-plugin"><code>.claude-plugin/</code></a>.</p>
-<h3 id="for-humans">For humans<a class="headerlink" href="#for-humans" title="Permanent link">&para;</a></h3>
-<p>Install the plugin once from inside Claude Code:</p>
-<div class="highlight"><pre><span></span><code>/plugin marketplace add hasansezertasan/copier-pyproject
-/plugin install copier-pyproject@copier-pyproject
+<h3 id="before-scaffolding-an-existing-package">Before scaffolding an existing package<a class="headerlink" href="#before-scaffolding-an-existing-package" title="Permanent link">&para;</a></h3>
+<p>Give your agent this prompt in the package's repository:</p>
+<div class="highlight"><pre><span></span><code>Adopt https://github.com/hasansezertasan/copier-pyproject.git into this package.
+Use the latest released template version and record its exact tag. First inspect
+the repository and agree with me on explicit --data answers that preserve its
+dependencies, Python support and interfaces. If the latest release is incompatible,
+explain why and agree with me on an alternative.
+The target must ship template-adoption (v1.6.0 or newer); if no compatible
+version does, stop before copying and explain the limitation.
+Require a clean working tree with all project work committed,
+create a dedicated chore/adopt-copier-pyproject branch, and record the baseline commit
+and last published version. If .copier-answers.yml already exists, use the
+update flow instead of a new overwrite copy.
+
+For first adoption, use uvx copier copy --overwrite --defaults with the .git URL,
+--vcs-ref=&lt;recorded-tag&gt;, the agreed --data answers, and . as the destination.
+Before installing
+dependencies, running hooks or committing the output, read the rendered
+skills/template-adoption/SKILL.md under .claude/ or .ai-rulez/ directly and
+follow it to reconcile against the baseline. Preserve our real source, tests,
+identity, release history and custom tooling; ask before consequential changes.
+Then read the sibling repo-setup skill and walk docs/maintaining/setup.rst.
+Report validation results and any remaining setup steps.
 </code></pre></div>
-<p>Then, in a Claude Code session opened <strong>inside the package you are adopting the template into</strong>, describe the task (e.g. "adopt copier-pyproject into this project"). Claude follows the skill's procedure and checks in with you at each decision it cannot make alone — the planted <code>TODO</code> markers, the issue-template example prose, and the release-please version manifest.</p>
-<h3 id="for-agents">For agents<a class="headerlink" href="#for-agents" title="Permanent link">&para;</a></h3>
-<p>Once the plugin is installed the skills are auto-discovered; no explicit invocation is needed. Each triggers on its own whenever a task matches its description: adopting <code>hasansezertasan/copier-pyproject</code> into an existing package (<code>adopt</code>), reconciling a <code>copier update</code> or a Renovate copier-update PR (<code>update</code>), or wiring up releases and repository settings (<code>setup</code>). Working directly from a clone (without installing the plugin), an agent can read the relevant <code>SKILL.md</code> under <a href="https://github.com/hasansezertasan/copier-pyproject/blob/main/skills"><code>skills/</code></a> and follow it as a checklist.</p>
-<blockquote>
-<p>[!NOTE]
-For a brand-new project, ignore the plugin and use <a href="#scaffold-a-project">Scaffold a project</a> above — the skill is only for adopting the template into code that already exists.</p>
-</blockquote>
+<h3 id="after-scaffolding">After scaffolding<a class="headerlink" href="#after-scaffolding" title="Permanent link">&para;</a></h3>
+<p>Copier prints a prompt pointing at the rendered skills. Give your agent:</p>
+<div class="highlight"><pre><span></span><code>Read template-adoption and audit this scaffold against our existing behavior
+before running tools, then use repo-setup to walk docs/maintaining/setup.rst.
+</code></pre></div>
+<p>For a brand-new project, use <code>repo-setup</code> to walk the setup guide after the
+<a href="#generated-project-quickstart">quickstart</a>; there is no existing code to reconcile.</p>
+<p>The companion plugin and its <code>adopt</code>, <code>update</code>, and <code>setup</code> skills are retired.
+If you installed them previously, remove that installation and use the generated
+project's <code>template-adoption</code> and <code>repo-setup</code> skills. No plugin install is needed.</p>
 <h2 id="generated-project-quickstart">Generated project quickstart<a class="headerlink" href="#generated-project-quickstart" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Install dependencies: <code>uv sync</code></li>

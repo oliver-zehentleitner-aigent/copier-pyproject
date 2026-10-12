@@ -930,14 +930,18 @@ claiming to have recovered the original justification.</p>
 <h2 id="update-and-adoption-skills-share-preservation-first-reconciliation">Update and adoption skills share preservation-first reconciliation<a class="headerlink" href="#update-and-adoption-skills-share-preservation-first-reconciliation" title="Permanent link">&para;</a></h2>
 <p><strong>Id:</strong> 9a6bf00c-33c1-4f0c-962e-7e960f9d2d58
 <strong>Type:</strong> decision
-<strong>Status:</strong> active
+<strong>Status:</strong> superseded
 <strong>Evidence:</strong> confirmed
 <strong>Source:</strong> maintainer-approved reconciliation-policy review, 2026-10-08; <code>docs/template-adoption.md</code>; <code>skills/update/SKILL.md</code>
 <strong>Verification:</strong> corroborated — the older update skill now preserves custom behavior, requires evidence for equivalence, and delegates repository-settings transitions to <code>repo-setup</code>
 <strong>Revisit when:</strong> either skill changes its scope or introduces a conflicting reconciliation policy
+<strong>Superseded by:</strong> e4cd1c46-28c3-4241-82c8-d5aac41c293f
 <strong>See:</strong> template-updates.md#adoption-audits-preserve-behavior-before-consolidating-workflows — dfd6cd98-9d07-4dc4-b58f-d1343d636ea4 — as of 2026-10-08</p>
-<p>Both skills use the same preservation-first contract. The older update skill
-runs or reconciles updates; the generated adoption skill additionally handles
+<p>Superseded on 2026-10-12 by <a href="../companion-skills/#every-lifecycle-skill-ships-through-the-template">the companion-skill retirement decision</a>.
+The generated <code>template-adoption</code> skill retains the preservation-first contract;
+the separate root <code>skills/update</code> delivery surface is retired.</p>
+<p>At the time of this decision, both skills used the same preservation-first contract.
+The older update skill ran or reconciled updates; the generated adoption skill additionally handled
 initial adoption and audits of completed updates. Those workflow differences do
 not justify opposite advice about the same project customization.</p>
 <p><strong>Reason:</strong> file category does not establish behavioral equivalence. CI and

@@ -819,7 +819,7 @@ work with this template:</p>
    it starts with <code>git+https://</code>, <code>git+ssh://</code>, <code>git@</code>, or <code>git://</code>, or ends with
    <code>.git</code>. Scaffold with the <code>.git</code> HTTPS URL
    (<code>https://github.com/hasansezertasan/copier-pyproject.git</code>); the README
-   scaffold step and the <code>copier-pyproject:adopt</code> skill both use it for this
+   scaffold step and the shipped <code>template-adoption</code> skill both use it for this
    reason. Existing projects that were scaffolded with the <code>gh:</code> shorthand can be
    fixed by rewriting the <code>_src_path</code> line — <code>copier update</code> re-reads and
    preserves it.
@@ -847,7 +847,7 @@ copier-update PR can appear mergeable while carrying <code>&lt;&lt;&lt;&lt;&lt;&
 inherent to <code>copier update</code> (any runner surfaces the same conflicts), not unique
 to Renovate. The generated <code>CONTRIBUTING.md</code> "Template updates" note tells
 maintainers to review these PRs for conflict markers before merging, and to lean
-on the <code>copier-pyproject:update</code> reconciliation workflow.</p>
+on the shipped <code>template-adoption</code> reconciliation workflow.</p>
 <h2 id="considered-and-rejected">Considered and rejected<a class="headerlink" href="#considered-and-rejected" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>A bespoke <code>copier-update.yml</code> workflow</strong> (weekly <code>copier update

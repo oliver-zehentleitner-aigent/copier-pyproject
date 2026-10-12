@@ -500,6 +500,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#first-adoption-into-an-existing-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        First adoption into an existing package
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#example-adoption-walkthrough" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -788,6 +799,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#first-adoption-into-an-existing-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        First adoption into an existing package
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#example-adoption-walkthrough" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -861,6 +883,20 @@ and records unavailable evidence rather than guessing the baseline.</p>
 <code>.ai-rulez/skills/template-adoption/SKILL.md</code>. An agent without automatic skill
 discovery can read the file directly. Both paths contain the same procedure and
 a self-contained walkthrough, even with <code>include_docs=false</code>.</p>
+<h2 id="first-adoption-into-an-existing-package">First adoption into an existing package<a class="headerlink" href="#first-adoption-into-an-existing-package" title="Permanent link">&para;</a></h2>
+<p>Use the <a href="../#before-scaffolding-an-existing-package">pre-scaffold prompt</a>
+to establish a clean branch, committed baseline, agreed answers and the exact tag
+of the latest released template version. Agree on an alternative only if that
+release is incompatible.
+The target must ship <code>template-adoption</code> (v1.6.0 or newer);
+stop before copying if no compatible version does.
+After copying, read the rendered skill directly before installing
+dependencies, running hooks or committing. Copier's completion message points
+at its actual host path, so ai-rulez generation is not a prerequisite for this
+first read. The skill covers auto-fix settings, source and docs collisions,
+release state, dependencies, and placeholder prose; docs and MegaLinter hazards
+render only when those components are enabled. Finish reconciliation before
+handing repository settings to <code>repo-setup</code>.</p>
 <h2 id="example-adoption-walkthrough">Example adoption walkthrough<a class="headerlink" href="#example-adoption-walkthrough" title="Permanent link">&para;</a></h2>
 <p>This illustrative case follows the overlapping prek workflows raised during
 openapipages' adoption; the event and check names below are examples, not a

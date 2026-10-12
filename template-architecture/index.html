@@ -1268,7 +1268,12 @@ edit this page and <code>copier.yml</code> help. Do not restate either in <code>
   (description/homepage/topics + squash-merge flags) synced by the "Settings"
   GitHub App, <code>default: false</code>. Opt-in like the ADR-009 integrations because the
   App is an external install (and it escalates push→admin — mitigated via the
-  shipped CODEOWNERS + "Require review from Code Owners"). Labels are NOT managed
+  shipped CODEOWNERS + "Require review from Code Owners"). The setup guide's
+  Settings step enables code-owner review through a separate API request or,
+  for ruleset projects, a reviewed change to the committed policy,
+  after a distinct trusted reviewer is available. Initial protection keeps
+  ordinary solo-maintainer PRs mergeable. A prerequisite check gates App installation;
+  unavailable reviewers or unavailable/unverifiable protection defer the App. Labels are NOT managed
   here — they stay App-free in <code>labels.yml</code>/<code>label-sync.yml</code>. The "Include in the
   home page" sidebar toggles are not settable via any API (UI-only). See
   <a href="../adr/018-repository-settings-as-code/">ADR-018</a>.
@@ -2327,11 +2332,20 @@ title is what release-please parses on <code>main</code>, and <strong>Settings �
 requests</strong> must be enabled so <code>release.yml</code> can open its release PR (already
 required by the existing PR-opening automation such as <code>gitignore-drift.yml</code>).
 Enable via <code>gh repo edit hasansezertasan/copier-pyproject --enable-squash-merge
---enable-merge-commit=false --enable-rebase-merge=false</code> and
+--enable-merge-commit=false --enable-rebase-merge=false
+--squash-merge-commit-message=pr-title</code> and
 <code>gh api -X PUT repos/hasansezertasan/copier-pyproject/actions/permissions/workflow
--f default_workflow_permissions=write -F can_approve_pull_request_reviews=true</code>.
-This repo carries a repo-local <code>.claude/skills/repo-setup/</code> skill that automates
-the walk.</p>
+-f default_workflow_permissions=read -F can_approve_pull_request_reviews=true</code>.
+The default stays least-privilege <code>read</code>, as in generated projects: every
+workflow declares its own <code>permissions:</code>, and <code>release.yml</code>'s <code>release-please</code>
+job grants itself the <code>write</code> scopes it needs. Both settings are one-time and
+idempotent to re-apply (in a fork, substitute its <code>OWNER/REPO</code> in every command);
+re-check them first when the release PR stops opening:
+<code>gh api repos/hasansezertasan/copier-pyproject --jq '.allow_squash_merge and
+(.allow_merge_commit | not) and (.allow_rebase_merge | not) and
+.squash_merge_commit_title == "PR_TITLE"'</code> must print <code>true</code>, and
+<code>gh api repos/hasansezertasan/copier-pyproject/actions/permissions/workflow</code>
+must report <code>read</code> and <code>true</code>.</p>
 <h2 id="required-merge-strategy-release-please-depends-on-it">Required Merge Strategy (release-please depends on it)<a class="headerlink" href="#required-merge-strategy-release-please-depends-on-it" title="Permanent link">&para;</a></h2>
 <p>release-please derives version bumps and changelog sections solely from the
 Conventional Commit messages that land on <code>main</code>. This template validates the
@@ -2373,10 +2387,7 @@ deadlocks and reports every gap at once. The
 <code>[CHECK]</code> tag is single-sourced in the setup doc alongside <code>[AGENT]</code>/<code>[HUMAN]</code>
 (no separate <code>steps.yaml</code>) — <strong>every new setup step must carry one</strong> (a real
 idempotent check, a secret-presence check, or an explicit <code>No scriptable check</code>
-marker). This repo carries a symmetric repo-local <code>.claude/skills/repo-setup/</code>
-for its own bootstrap (squash-merge policy + the deliberately-divergent
-<code>default_workflow_permissions=write</code>, not the generated projects' <code>read</code>). See
-<a href="../adr/023-repo-setup-skill/">ADR-023</a>.</p>
+marker). See <a href="../adr/023-repo-setup-skill/">ADR-023</a>.</p>
 <p>Bump rules follow <code>.github/release-please-config.json</code>: <code>feat</code> → minor, <code>fix</code>/<code>perf</code> →
 patch, <code>feat!</code>/<code>BREAKING CHANGE</code> → major — but <code>bump-minor-pre-major: true</code>
 keeps breaking changes at a minor bump while pre-1.0.</p>
@@ -2395,6 +2406,11 @@ keeps breaking changes at a minor bump while pre-1.0.</p>
 <h3 id="template-adoption-and-update-audit">Template adoption and update audit<a class="headerlink" href="#template-adoption-and-update-audit" title="Permanent link">&para;</a></h3>
 <p>Generated projects always ship a <code>template-adoption</code> skill beside <code>repo-setup</code>,
 using the same <code>.claude/skills/</code> or <code>.ai-rulez/skills/</code> delivery convention.
+It includes first-adoption and Copier-update hazards; docs and MegaLinter
+hazards are gated by the generated project's answers. The README's pre-scaffold
+prompt establishes the recoverable baseline, and <code>_message_after_copy</code> points
+at the rendered skill before tools or commits run. No external companion plugin
+or Copier post-copy task is needed.
 It establishes an adoption/update baseline, compares existing project behavior
 with template defaults, preserves user work and customizations, and requests
 decisions before consequential cleanup. Post-update audits inspect committed

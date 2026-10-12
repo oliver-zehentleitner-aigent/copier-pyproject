@@ -792,7 +792,12 @@ documents, and collaborators are per-project.</p>
   <code>settings.yml</code> is inert (CI stays green).</li>
 <li>The App escalates push access to admin. Mitigated by documenting the
   CODEOWNERS + "Require review from Code Owners" pattern in CONTRIBUTING (the
-  template already ships <code>* @&lt;user&gt;</code> CODEOWNERS).</li>
+  template already ships <code>* @&lt;user&gt;</code> CODEOWNERS).
+  The setup guide verifies that requirement and the availability of a distinct
+  trusted reviewer before App installation.
+  Ruleset projects enable it through a reviewed policy change;
+  the default ruleset keeps a solo maintainer's ordinary PRs mergeable.
+  Unavailable reviewers or unavailable/unverifiable protection defer the App.</li>
 <li>The activity-sidebar toggles remain a manual web-UI task, documented as a
   known limitation.</li>
 <li>No <code>_tasks</code> are added, so Renovate's copier manager (ADR-015) is unaffected.</li>

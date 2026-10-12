@@ -1,8 +1,8 @@
 {
  "state-json": 2,
- "generated": "2026-10-12T10:43:41Z",
+ "generated": "2026-10-12T12:10:46Z",
  "dashboard": "0.11.0",
- "linter": "0.20.1.0",
+ "linter": "0.20.2.0",
  "project": {
   "id": "hasansezertasan---copier-pyproject",
   "name": "copier-pyproject-adrtest",
@@ -29,8 +29,8 @@
   "children": [],
   "git": {
    "available": true,
-   "head": "4613c74",
-   "head_full": "4613c74afaef282a1954ddd042fe501fbfd93de3",
+   "head": "7d7ce45",
+   "head_full": "7d7ce45b107231dc93f06740c5d833fc19488157",
    "branch": "keep-the-why-context",
    "remote": "github.com/oliver-zehentleitner-aigent/copier-pyproject",
    "upstream": "github.com/hasansezertasan/copier-pyproject",
@@ -110,6 +110,27 @@
    },
    "evidence": {
     "confirmed": 6
+   }
+  },
+  {
+   "file": "companion-skills.md",
+   "title": "Companion skills",
+   "index_line": "Lifecycle skills ship through the template; prompts bridge the pre-scaffold step.",
+   "entries": 2,
+   "refs_out": [
+    "repo-setup.md"
+   ],
+   "refs_in": [
+    "repo-setup.md",
+    "template-updates.md"
+   ],
+   "status": {
+    "active": 1,
+    "superseded": 1
+   },
+   "evidence": {
+    "confirmed": 1,
+    "inferred": 1
    }
   },
   {
@@ -300,24 +321,26 @@
   {
    "file": "repo-setup.md",
    "title": "Repository configuration as code and maintainer setup",
-   "index_line": "Settings App metadata, rulesets as code, the single maintainer setup doc, the resume-driven repo-setup skill.",
-   "entries": 4,
+   "index_line": "Settings App metadata, rulesets as code, the single maintainer setup doc, the resume-driven repo-setup skill, this repository's own two-command setup.",
+   "entries": 5,
    "refs_out": [
     "external-integrations.md",
     "docs-stack.md",
     "agent-instructions.md",
-    "template-updates.md"
+    "template-updates.md",
+    "companion-skills.md"
    ],
    "refs_in": [
     "agent-instructions.md",
+    "companion-skills.md",
     "docs-stack.md",
     "template-updates.md"
    ],
    "status": {
-    "active": 4
+    "active": 5
    },
    "evidence": {
-    "confirmed": 4
+    "confirmed": 5
    }
   },
   {
@@ -397,7 +420,8 @@
    "refs_out": [
     "release-automation.md",
     "components.md",
-    "repo-setup.md"
+    "repo-setup.md",
+    "companion-skills.md"
    ],
    "refs_in": [
     "agent-instructions.md",
@@ -405,8 +429,8 @@
     "repo-setup.md"
    ],
    "status": {
-    "active": 6,
-    "superseded": 1
+    "active": 5,
+    "superseded": 2
    },
    "evidence": {
     "confirmed": 6,
@@ -1118,6 +1142,98 @@
       "author": "Oliver Zehentleitner AIgent",
       "date": "2026-10-11",
       "commit": "5bdf627"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "companion-skills.md#every-lifecycle-skill-ships-through-the-template",
+   "uuid": "e4cd1c46-28c3-4241-82c8-d5aac41c293f",
+   "file": "companion-skills.md",
+   "line": 3,
+   "end_line": 37,
+   "title": "Every lifecycle skill ships through the template",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": "maintainer decision, 2026-10-12",
+   "verification": null,
+   "revisit_when": "adoption requires executable guidance before a recoverable scaffold can be applied",
+   "see": [
+    {
+     "locator": "companion-skills.md",
+     "uuid": "d3127820-eee0-4618-bb95-4acf09cb4d68",
+     "date": "2026-10-12",
+     "file": "companion-skills.md",
+     "anchor": null,
+     "remote": null
+    }
+   ],
+   "superseded_by": null,
+   "refs": [],
+   "git": {
+    "created": null,
+    "last_touched": {
+     "author": "Hasan Sezer Taşan",
+     "date": "2026-10-12",
+     "commit": "1b2b897"
+    },
+    "status_history": [
+     {
+      "status": "active",
+      "author": "Hasan Sezer Taşan",
+      "date": "2026-10-12",
+      "commit": "1b2b897"
+     }
+    ]
+   },
+   "findings": []
+  },
+  {
+   "id": "companion-skills.md#superseded-proposal-keep-adoption-outside-the-template",
+   "uuid": "d3127820-eee0-4618-bb95-4acf09cb4d68",
+   "file": "companion-skills.md",
+   "line": 38,
+   "end_line": 85,
+   "title": "Superseded proposal: keep adoption outside the template",
+   "type": [
+    "decision"
+   ],
+   "status": "superseded",
+   "evidence": "inferred",
+   "source": "maintainer decision, 2026-10-12; the stub rejection is inferred, not yet confirmed",
+   "verification": null,
+   "revisit_when": "a skill is needed before or outside an adopted project for something other than first adoption, or projects older than v1.6.0 (no `template-adoption`) still need help with their first update",
+   "see": [
+    {
+     "locator": "repo-setup.md",
+     "uuid": "c85feefa-0063-4a34-8030-8c348190b96b",
+     "date": "2026-10-12",
+     "file": "repo-setup.md",
+     "anchor": null,
+     "remote": null
+    }
+   ],
+   "superseded_by": "e4cd1c46-28c3-4241-82c8-d5aac41c293f",
+   "refs": [
+    "repo-setup.md"
+   ],
+   "git": {
+    "created": null,
+    "last_touched": {
+     "author": "Hasan Sezer Taşan",
+     "date": "2026-10-12",
+     "commit": "1b2b897"
+    },
+    "status_history": [
+     {
+      "status": "superseded",
+      "author": "Hasan Sezer Taşan",
+      "date": "2026-10-12",
+      "commit": "1b2b897"
      }
     ]
    },
@@ -3610,7 +3726,7 @@
    "uuid": "68ac4665-dcde-456b-aef7-2faaf6fe51f4",
    "file": "repo-setup.md",
    "line": 104,
-   "end_line": 142,
+   "end_line": 146,
    "title": "A resume-driven repo-setup skill reads `[CHECK]` blocks from the setup doc; no separate manifest",
    "type": [
     "decision"
@@ -3644,6 +3760,14 @@
      "file": "template-updates.md",
      "anchor": "copieryml-defines-no-_tasks",
      "remote": null
+    },
+    {
+     "locator": "repo-setup.md",
+     "uuid": "c85feefa-0063-4a34-8030-8c348190b96b",
+     "date": "2026-10-12",
+     "file": "repo-setup.md",
+     "anchor": null,
+     "remote": null
     }
    ],
    "superseded_by": null,
@@ -3659,8 +3783,8 @@
     },
     "last_touched": {
      "author": "Oliver Zehentleitner AIgent",
-     "date": "2026-10-11",
-     "commit": "5bdf627"
+     "date": "2026-10-12",
+     "commit": "7d7ce45"
     },
     "status_history": [
      {
@@ -3670,6 +3794,37 @@
       "commit": "5bdf627"
      }
     ]
+   },
+   "findings": []
+  },
+  {
+   "id": "repo-setup.md#this-repository-s-own-one-time-setup-is-two-documented-commands-not-a-repo-local-skill",
+   "uuid": "c85feefa-0063-4a34-8030-8c348190b96b",
+   "file": "repo-setup.md",
+   "line": 147,
+   "end_line": 172,
+   "title": "This repository's own one-time setup is two documented commands, not a repo-local skill",
+   "type": [
+    "decision"
+   ],
+   "status": "active",
+   "evidence": "confirmed",
+   "source": null,
+   "verification": null,
+   "revisit_when": "this repository's own setup grows beyond a couple of settings, or has to be re-applied repeatedly (forks, re-created repo, recurring drift)",
+   "see": [],
+   "superseded_by": null,
+   "refs": [
+    "companion-skills.md"
+   ],
+   "git": {
+    "created": null,
+    "last_touched": {
+     "author": "Oliver Zehentleitner AIgent",
+     "date": "2026-10-12",
+     "commit": "7d7ce45"
+    },
+    "status_history": []
    },
    "findings": []
   },
@@ -4686,12 +4841,12 @@
    "uuid": "9a6bf00c-33c1-4f0c-962e-7e960f9d2d58",
    "file": "template-updates.md",
    "line": 193,
-   "end_line": 227,
+   "end_line": 232,
    "title": "Update and adoption skills share preservation-first reconciliation",
    "type": [
     "decision"
    ],
-   "status": "active",
+   "status": "superseded",
    "evidence": "confirmed",
    "source": "maintainer-approved reconciliation-policy review, 2026-10-08; `docs/template-adoption.md`; `skills/update/SKILL.md`",
    "verification": "corroborated — the older update skill now preserves custom behavior, requires evidence for equivalence, and delegates repository-settings transitions to `repo-setup`",
@@ -4706,8 +4861,10 @@
      "remote": null
     }
    ],
-   "superseded_by": null,
-   "refs": [],
+   "superseded_by": "e4cd1c46-28c3-4241-82c8-d5aac41c293f",
+   "refs": [
+    "companion-skills.md"
+   ],
    "git": {
     "created": {
      "author": "Oliver Zehentleitner AIgent",
@@ -4716,8 +4873,8 @@
     },
     "last_touched": {
      "author": "Oliver Zehentleitner AIgent",
-     "date": "2026-10-11",
-     "commit": "5bdf627"
+     "date": "2026-10-12",
+     "commit": "7d7ce45"
     },
     "status_history": [
      {
@@ -5034,7 +5191,7 @@
   {
    "name": "Oliver Zehentleitner AIgent",
    "created": 90,
-   "touched": 90,
+   "touched": 91,
    "superseded": 3,
    "first": "2026-10-11",
    "last": "2026-10-12",
@@ -5043,6 +5200,15 @@
     "unknown": 2,
     "inferred": 1
    }
+  },
+  {
+   "name": "Hasan Sezer Taşan",
+   "created": 0,
+   "touched": 2,
+   "superseded": 1,
+   "first": "2026-10-12",
+   "last": "2026-10-12",
+   "evidence": {}
   }
  ],
  "anonymized": false,
