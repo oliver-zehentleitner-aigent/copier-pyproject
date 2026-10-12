@@ -481,7 +481,7 @@
   <span class="md-ellipsis">
     
   
-    Architecture decision records
+    Architecture decision records (archive)
   
 
     
@@ -497,7 +497,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Architecture decision records
+    Architecture decision records (archive)
   
 
           </label>
@@ -734,17 +734,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#optional-docker-hub-configuration-gates-the-publish-fan-out" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Optional Docker Hub configuration gates the publish fan-out
-      
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -973,31 +962,6 @@ release-please should be wired:</p>
 <li>Conventional Commits become a soft requirement for the version bump to work;
   this aligns with the existing <code>include_commitizen</code> and commit-lint tooling.</li>
 </ul>
-<h2 id="optional-docker-hub-configuration-gates-the-publish-fan-out">Optional Docker Hub configuration gates the publish fan-out<a class="headerlink" href="#optional-docker-hub-configuration-gates-the-publish-fan-out" title="Permanent link">&para;</a></h2>
-<p><strong>Id:</strong> f6f9eea4-dd38-4a74-98ed-f67e436c393d
-<strong>Type:</strong> decision
-<strong>Status:</strong> active
-<strong>Evidence:</strong> confirmed
-<strong>Source:</strong> <a href="https://github.com/hasansezertasan/copier-pyproject/pull/51">PR #51</a>, <a href="https://github.com/hasansezertasan/copier-pyproject/pull/51#discussion_r3524165040">shared-gate review discussion</a>; commit <a href="https://github.com/hasansezertasan/copier-pyproject/commit/f48250ebe8b92c880964e892f7c2fb37471a12c4">f48250e</a>
-<strong>Verification:</strong> corroborated — the web release workflow makes both PyPI and Docker publication depend on <code>docker-publish-preflight</code>
-<strong>Revisit when:</strong> a new irreversible publication channel is added or Docker Hub opt-in semantics change</p>
-<p>Docker Hub publication is optional and its credential pair is all-or-nothing:
-neither credential means GHCR-only publication, both enable Docker Hub, and a
-partial pair fails a shared preflight before either PyPI or Docker publication.</p>
-<p><strong>Reason:</strong> PyPI uploads are irreversible. A credential check inside only the
-Docker job would allow PyPI publication to finish concurrently before Docker
-failed, stranding a partially published release. The shared prerequisite rejects
-that known configuration error before the publish jobs fan out; it does not make
-all later external uploads transactional.</p>
-<p><strong>Rejected alternative:</strong> validate the credentials only inside Docker
-publication. Review moved the check into a shared prerequisite specifically to
-prevent the PyPI race. Requiring Docker Hub for every web release is not the
-selected contract; GHCR-only publication remains supported.</p>
-<p>The narrowly scoped ghalint exceptions exist because conditional steps need
-job-scoped credential-presence information and GitHub does not expose the
-secrets context directly in conditions. The token itself is reduced to a
-presence flag, not exposed job-wide. The exceptions are recorded in the
-generated <code>.github/ghalint.yaml</code> rather than disabling that policy globally.</p>
 
 
 

@@ -481,7 +481,7 @@
   <span class="md-ellipsis">
     
   
-    Architecture decision records
+    Architecture decision records (archive)
   
 
     
@@ -497,7 +497,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Architecture decision records
+    Architecture decision records (archive)
   
 
           </label>
@@ -724,12 +724,13 @@
 <strong>Type:</strong> decision
 <strong>Status:</strong> active
 <strong>Evidence:</strong> confirmed
-<strong>Source:</strong> ADR-016 (<code>docs/adr/016-archetype-based-presets.md</code>); the preset mechanism it reshapes came from <a href="https://github.com/hasansezertasan/copier-pyproject/pull/141">PR #141</a>
+<strong>Source:</strong> ADR-016 (<code>docs/adr/016-archetype-based-presets.md</code>); the preset mechanism it reshapes came from <a href="https://github.com/hasansezertasan/copier-pyproject/pull/141">PR #141</a>; ADR-025 and ADR-039 for the two toggles every preset seeds
 <strong>Revisit when:</strong> a distinct service/worker archetype (worker + broker + database) proves common enough to be a fifth choice
 <strong>See:</strong> standalone-executables.md#three-architecture-named-executable-toggles-instead-of-one-brand-toggle — d5aed1a0-0b7c-4ac3-9d75-fb9568d9e34d — as of 2026-10-11</p>
 <p>The <code>preset</code> question offers <code>library</code> (default; seeds <code>examples</code>), <code>tool</code>
 (<code>cli</code>, <code>tui</code>, <code>pydantic_settings</code>), <code>web</code> (<code>web</code> with FastAPI,
-<code>pydantic_settings</code>, <code>postgres</code>, <code>redis</code>) and <code>full</code> (everything). A preset only
+<code>pydantic_settings</code>, <code>postgres</code>, <code>redis</code>) and <code>full</code> (everything). Every preset
+also seeds <code>docs</code> and <code>pypi_publish</code> on (ADR-025, ADR-039). A preset only
 seeds toggle defaults through the hidden <code>preset_map</code>; every toggle is still
 asked and stored. <code>tool</code> seeds none of the standalone-executable toggles, and
 <code>web</code> seeds neither worker, MCP nor the database UIs.</p>

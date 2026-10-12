@@ -481,7 +481,7 @@
   <span class="md-ellipsis">
     
   
-    Architecture decision records
+    Architecture decision records (archive)
   
 
     
@@ -497,7 +497,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Architecture decision records
+    Architecture decision records (archive)
   
 
           </label>
@@ -751,50 +751,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#retired-template-modules-become-adopter-owned" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Retired template modules become adopter-owned
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#adoption-audits-preserve-behavior-before-consolidating-workflows" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Adoption audits preserve behavior before consolidating workflows
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#which-reconciliation-policy-governs-machine-config-and-ci-conflicts" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Which reconciliation policy governs machine-config and CI conflicts?
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#update-and-adoption-skills-share-preservation-first-reconciliation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Update and adoption skills share preservation-first reconciliation
-      
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -930,105 +886,6 @@ on the <code>copier-pyproject:update</code> reconciliation workflow.</p>
   SHA (pre-tag, like hwid) needs one manual <code>copier update</code> to re-anchor onto a
   tagged revision first.</li>
 </ul>
-<h2 id="retired-template-modules-become-adopter-owned">Retired template modules become adopter-owned<a class="headerlink" href="#retired-template-modules-become-adopter-owned" title="Permanent link">&para;</a></h2>
-<p><strong>Id:</strong> 4dd6729a-697e-4588-a7a7-d37152018b6b
-<strong>Type:</strong> decision
-<strong>Type:</strong> constraint
-<strong>Status:</strong> active
-<strong>Evidence:</strong> confirmed
-<strong>Source:</strong> <a href="https://github.com/hasansezertasan/copier-pyproject/pull/333">PR #333</a>, <a href="https://github.com/hasansezertasan/copier-pyproject/pull/333#issuecomment-5932489770">version-sweep results</a>; commits <a href="https://github.com/hasansezertasan/copier-pyproject/commit/c150ec30519c1e1ddcc3fb05ffc7ea3ba4e85709">c150ec3</a> and <a href="https://github.com/hasansezertasan/copier-pyproject/commit/0f7a4062c251828f00fb27f91d8648d13d4e339d">0f7a406</a>
-<strong>Verification:</strong> corroborated — <code>copier.yml</code> excludes the retired paths and requires Copier 9.10.3; the update skill records the same compatibility floor
-<strong>Revisit when:</strong> Copier changes update-deletion semantics or a retired module is rendered again</p>
-<p>The dropped <code>utils/app.py</code> and library-only <code>core/app.py</code> placeholders are
-excluded from updates, leaving existing copies under the adopter's ownership.
-The custom exclusion list explicitly retains Copier's default exclusions because
-<code>_exclude</code> replaces that list rather than extending it.</p>
-<p><strong>Reason:</strong> an adopter can have replaced a placeholder with real application
-code. Removing the template file can delete that edited copy without conflict
-markers or reject files, so ordinary conflict review cannot catch the loss.
-The recorded version sweep found that Copier 9.6.0–9.10.2 still deleted the
-excluded files; 9.10.3 and later preserved them. The version floor makes an older
-Copier refuse the update instead of silently deleting adopter code.</p>
-<p><strong>Rejected alternative:</strong> let normal template deletion remove the old modules.
-Rejected because the files may no longer be empty placeholders in the adopter.</p>
-<p><strong>Rejected alternative:</strong> use exclusions without raising the Copier minimum.
-Rejected because the version sweep showed the protection was ineffective on
-older supported versions.</p>
-<p>The architectural reason for retiring the placeholders remains in
-<a href="../033-shared-app-service-components-as-adapters/">ADR-033</a>; this entry records
-the distinct ownership and update-safety constraint.</p>
-<h2 id="adoption-audits-preserve-behavior-before-consolidating-workflows">Adoption audits preserve behavior before consolidating workflows<a class="headerlink" href="#adoption-audits-preserve-behavior-before-consolidating-workflows" title="Permanent link">&para;</a></h2>
-<p><strong>Id:</strong> dfd6cd98-9d07-4dc4-b58f-d1343d636ea4
-<strong>Type:</strong> decision
-<strong>Status:</strong> active
-<strong>Evidence:</strong> confirmed
-<strong>Source:</strong> <a href="https://github.com/hasansezertasan/copier-pyproject/issues/348">issue #348</a>, <a href="https://github.com/hasansezertasan/copier-pyproject/pull/349">PR #349</a>; commit <a href="https://github.com/hasansezertasan/copier-pyproject/commit/0abcffc525ed4a558ecb80649a1b6e9a231c5ff5">0abcffc</a>; <code>docs/template-adoption.md</code>
-<strong>Verification:</strong> corroborated — the shipped <code>template-adoption</code> skill and its walkthrough compare behavior and preserve customizations; the older update skill now shares that contract
-<strong>Revisit when:</strong> the adoption and update skills change their reconciliation contract</p>
-<p>The shipped adoption skill treats template defaults as evidence to compare with
-existing project behavior, rather than automatic authority to replace it.
-It handles initial adoption, updates, and audits of already-committed updates;
-repository-settings changes remain the responsibility of <code>repo-setup</code>.</p>
-<p><strong>Reason:</strong> two workflows that both run prek can differ in event coverage and
-required-check identity. Consolidating them can discard manual dispatch or leave
-live branch protection waiting for a check that no longer exists. A local
-ruleset file alone cannot establish the live requirements. A post-update audit
-can compare the actual committed baseline and diff without rerunning Copier and
-disturbing the state being inspected.</p>
-<p><strong>Alternatives considered:</strong> retain both workflows, accepting duplicate PR
-execution, or consolidate after preserving event coverage and transitioning the
-required check. The documented walkthrough deliberately makes that choice
-conditional on the adopter's decision and evidence; neither option is rejected
-universally. Deletion without establishing equivalence is excluded because it
-can silently remove functionality or block merges.</p>
-<p>The execution procedure is in <a href="../../template-adoption/">the adoption guide</a>,
-and the repository-settings boundary is in
-<a href="../023-repo-setup-skill/">ADR-023</a>.</p>
-<h2 id="which-reconciliation-policy-governs-machine-config-and-ci-conflicts">Which reconciliation policy governs machine-config and CI conflicts?<a class="headerlink" href="#which-reconciliation-policy-governs-machine-config-and-ci-conflicts" title="Permanent link">&para;</a></h2>
-<p><strong>Id:</strong> 3f155d92-8518-4294-bfcd-26251c36e2e1
-<strong>Type:</strong> constraint
-<strong>Status:</strong> superseded
-<strong>Evidence:</strong> unknown
-<strong>Source:</strong> <code>skills/update/SKILL.md</code>, Shared reconciliation; the shipped <code>template-adoption</code> skill; <a href="https://github.com/hasansezertasan/copier-pyproject/pull/349">PR #349</a>
-<strong>Verification:</strong> uncorroborated — the original justification for category-based precedence could not be established; the conflicting wording found during recovery has since been replaced
-<strong>See:</strong> 015-template-self-versioning-and-copier-update-automation.md#adoption-audits-preserve-behavior-before-consolidating-workflows — dfd6cd98-9d07-4dc4-b58f-d1343d636ea4 — as of 2026-10-08
-<strong>Superseded by:</strong> 9a6bf00c-33c1-4f0c-962e-7e960f9d2d58</p>
-<p>At recovery, the two skills coexisted with conflicting guidance: the older
-update skill selected template-side CI/config hunks by category, while the newer
-adoption skill required behavioral preservation and decisions before
-consequential cleanup. The reviewed historical sources did not establish which
-policy governed their overlap or justify the older precedence rule.</p>
-<p>The question has been resolved by the current decision below, rather than by
-claiming to have recovered the original justification.</p>
-<h2 id="update-and-adoption-skills-share-preservation-first-reconciliation">Update and adoption skills share preservation-first reconciliation<a class="headerlink" href="#update-and-adoption-skills-share-preservation-first-reconciliation" title="Permanent link">&para;</a></h2>
-<p><strong>Id:</strong> 9a6bf00c-33c1-4f0c-962e-7e960f9d2d58
-<strong>Type:</strong> decision
-<strong>Status:</strong> active
-<strong>Evidence:</strong> confirmed
-<strong>Source:</strong> maintainer-approved reconciliation-policy review, 2026-10-08; <code>docs/template-adoption.md</code>; <code>skills/update/SKILL.md</code>
-<strong>Verification:</strong> corroborated — the older update skill now preserves custom behavior, requires evidence for equivalence, and delegates repository-settings transitions to <code>repo-setup</code>
-<strong>Revisit when:</strong> either skill changes its scope or introduces a conflicting reconciliation policy
-<strong>See:</strong> 015-template-self-versioning-and-copier-update-automation.md#adoption-audits-preserve-behavior-before-consolidating-workflows — dfd6cd98-9d07-4dc4-b58f-d1343d636ea4 — as of 2026-10-08</p>
-<p>Both skills use the same preservation-first contract. The older update skill
-runs or reconciles updates; the generated adoption skill additionally handles
-initial adoption and audits of completed updates. Those workflow differences do
-not justify opposite advice about the same project customization.</p>
-<p><strong>Reason:</strong> file category does not establish behavioral equivalence. CI and
-machine configuration can encode adopter-specific event coverage, permissions,
-required-check identity, hooks, and dependencies. Replacing a hunk on the basis
-of its category can discard functioning customizations despite a green lint run.
-Routine maintenance can proceed directly when equivalence is established within
-the requested update; consequential behavior changes need an explicit decision.</p>
-<p>The contract applies to clean merges as well as conflicts. Recovery uses the
-actual pre-update snapshot and preserves later edits: a current base branch can
-lack branch-owned release history, while the index may already hold the reset.</p>
-<p><strong>Rejected alternative:</strong> retain automatic template precedence for CI/config
-hunks. It gives template origin more authority than evidence of the adopter's
-existing behavior. Even action digest updates require checking release effects
-and preserving configured inputs rather than assuming equivalence from the SHA.</p>
-<p>Repository-settings transitions remain with <code>repo-setup</code>; the reconciliation
-procedure is in the skills, not duplicated here. The former policy's historical
-justification remains unknown in the superseded record above.</p>
 
 
 

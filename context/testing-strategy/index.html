@@ -481,7 +481,7 @@
   <span class="md-ellipsis">
     
   
-    Architecture decision records
+    Architecture decision records (archive)
   
 
     
@@ -497,7 +497,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Architecture decision records
+    Architecture decision records (archive)
   
 
           </label>
@@ -775,8 +775,9 @@ localhost-bound singleton tests cannot retarget. The factory is the seam a real
 round-trip test needs: a fresh broker pointed at a throwaway instance, no
 import-order games.</p>
 <p><strong>Rejected alternative:</strong> lazy broker imports — the reasoning above.</p>
-<p><strong>Rejected alternative:</strong> return the subscriber and publisher as module globals —
-one clean return type, and tests should observe behaviour, not wiring.</p>
+<p><strong>Consequence:</strong> the factory returns only the broker; subscriber and publisher
+become closures rather than importable module globals, so tests assert on
+observable behaviour (a response reaching a collector subscriber), not wiring.</p>
 <h2 id="real-broker-integration-tests-testcontainers-locally-per-broker-ci-mechanism">Real-broker integration tests: testcontainers locally, per-broker CI mechanism<a class="headerlink" href="#real-broker-integration-tests-testcontainers-locally-per-broker-ci-mechanism" title="Permanent link">&para;</a></h2>
 <p><strong>Id:</strong> 73e209d9-60ad-4492-9807-28192b480480
 <strong>Type:</strong> decision
@@ -828,8 +829,10 @@ FastStream inside the Litestar app is explicitly out of scope.</p>
 <strong>Revisit when:</strong> tox stops installing the built wheel/sdist, or coverage changes how <code>paths</code> remapping works
 <strong>See:</strong> testing-strategy.md#interactive-components-expose-injected-driver-seams-so-headless-ci-measures-everything-but-the-blocking-call — ffcf90f2-34c7-4673-bbe2-5619c6b23128 — as of 2026-10-11</p>
 <p>Reachable error handling (web 503s, CLI exit codes, GUI/TUI "unknown"
-degradation, MCP error text) is unit-tested. Only irreducible blocking calls
-and the <code>__main__</code> dispatchers carry a per-site <code># pragma: no cover</code>. The
+degradation, MCP error text) is unit-tested. Only irreducible blocking calls,
+the <code>__main__</code> dispatchers, the c-extension <code>except ImportError</code> fallback and
+the worker's module-level metadata fallback carry a per-site
+<code># pragma: no cover</code>. The
 <code>omit</code> globs are <code>*/</code>-anchored (<code>*/_version.py</code>, <code>*/worker/test_integration.py</code>,
 the latter directory-anchored), and <code>[tool.coverage.paths]</code> maps
 <code>*/site-packages/&lt;pkg&gt;</code> back onto <code>src/&lt;pkg&gt;</code>.</p>
@@ -887,7 +890,7 @@ catches <code>Exception</code> around an injected driver while keeping its speci
 <p><strong>Id:</strong> e3dc1ec0-0579-4fc9-ac79-413d64550b9a
 <strong>Type:</strong> decision
 <strong>Status:</strong> active
-<strong>Evidence:</strong> confirmed
+<strong>Evidence:</strong> inferred
 <strong>Source:</strong> ADR-036 (<code>docs/adr/036-async-testing-style.md</code>)
 <strong>Revisit when:</strong> an async-capable component gains trio support, or pytest ships a built-in async runner</p>
 <p><code>async_style</code> offers <code>none</code>, <code>asyncio</code> and <code>anyio</code>; it defaults to <code>none</code> for a
@@ -901,8 +904,8 @@ select asyncio explicitly.</p>
 it came from this template, while async projects need one that works
 immediately; AnyIO may expose backend assumptions an asyncio-only suite would
 not, so component tests that require asyncio constrain that locally.</p>
-<p><strong>Rejected alternative:</strong> always ship pytest-asyncio — the dependency on a
-synchronous library; alternatives beyond this are not recorded.</p>
+<p><strong>Alternatives:</strong> unknown — ADR-036 records the decision and its reasons, no
+alternative that was in contention.</p>
 
 
 

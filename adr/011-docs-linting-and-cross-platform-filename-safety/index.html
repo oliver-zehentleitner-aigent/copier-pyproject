@@ -481,7 +481,7 @@
   <span class="md-ellipsis">
     
   
-    Architecture decision records
+    Architecture decision records (archive)
   
 
     
@@ -497,7 +497,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Architecture decision records
+    Architecture decision records (archive)
   
 
           </label>
@@ -762,17 +762,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#sphinx-warnings-use-an-exact-reviewable-allowlist" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Sphinx warnings use an exact, reviewable allowlist
-      
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -874,32 +863,6 @@ reserved for the type/lint/format tools.</p>
   the <code>docs-linkcheck.yml</code> workflow.</li>
 <li>No new <code>copier.yml</code> variable — all three are always rendered.</li>
 </ul>
-<h2 id="sphinx-warnings-use-an-exact-reviewable-allowlist">Sphinx warnings use an exact, reviewable allowlist<a class="headerlink" href="#sphinx-warnings-use-an-exact-reviewable-allowlist" title="Permanent link">&para;</a></h2>
-<p><strong>Id:</strong> 2a555902-38e7-47d4-a231-445a8e6caa0f
-<strong>Type:</strong> decision
-<strong>Status:</strong> active
-<strong>Evidence:</strong> confirmed
-<strong>Source:</strong> <a href="https://github.com/hasansezertasan/copier-pyproject/issues/187">issue #187</a>, <a href="https://github.com/hasansezertasan/copier-pyproject/pull/242">PR #242</a>; commit <a href="https://github.com/hasansezertasan/copier-pyproject/commit/ab6a8575d401f41fb35ab98a1bf50a2a1ff29fe7">ab6a857</a>; <code>docs/template-architecture.md</code>, Sphinx warning gate
-<strong>Verification:</strong> corroborated — the rendered warning checker compares normalized sets in both directions, and the docs-build environment invokes it
-<strong>Revisit when:</strong> Sphinx changes warning formatting or a previously unavoidable warning disappears</p>
-<p>The docs-build gate captures Sphinx warnings and compares them with a committed
-allowlist. It rejects both new unexpected warnings and expected warnings that
-are no longer emitted. The default allowlist is empty. Normalization removes
-machine-specific path prefixes and folds Windows separators, while preserving
-line numbers. Sphinx's <code>nitpicky</code> mode remains off.</p>
-<p><strong>Reason:</strong> an individually justified upstream warning should not force a choice
-between permanently red documentation builds and broad warning suppression.
-Exact entries make exceptions reviewable; the reverse comparison prevents
-obsolete exceptions from accumulating silently.</p>
-<p><strong>Rejected alternative:</strong> make every warning fatal directly through Sphinx's
-warning-as-error mode. It was superseded by the allowlist so unavoidable
-exceptions can coexist with a regression gate.</p>
-<p><strong>Alternative deferred:</strong> enable <code>nitpicky</code> immediately. The issue anticipated
-a noisy initial cross-reference cleanup and left this for a separate pass.
-Removing line numbers was also considered but not selected; no further reason
-for that choice was established in the reviewed sources.</p>
-<p><a href="../027-versioned-documentation-and-last-updated-stamps/">ADR-027</a> records why
-this gate belongs in the required CI path, rather than only in docs previews.</p>
 
 
 

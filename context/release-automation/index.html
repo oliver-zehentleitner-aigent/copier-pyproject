@@ -481,7 +481,7 @@
   <span class="md-ellipsis">
     
   
-    Architecture decision records
+    Architecture decision records (archive)
   
 
     
@@ -497,7 +497,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Architecture decision records
+    Architecture decision records (archive)
   
 
           </label>
@@ -803,11 +803,13 @@
 <strong>Evidence:</strong> confirmed
 <strong>Source:</strong> ADR-002 (<code>docs/adr/002-release-please-for-release-automation.md</code>); validated against the keycast release pipeline (<a href="https://github.com/hasansezertasan/keycast/pull/11">keycast#11</a>)
 <strong>Revisit when:</strong> the open re-evaluation below is decided, or the generated project's version stops being sourced from git tags
-<strong>See:</strong> release-automation.md#the-release-automation-choice-is-under-re-evaluation — d9131d49-3c27-48f8-a903-e97caf4acff6 — as of 2026-10-11</p>
+<strong>See:</strong> release-automation.md#the-release-automation-choice-is-under-re-evaluation — d9131d49-3c27-48f8-a903-e97caf4acff6 — as of 2026-10-11
+<strong>See:</strong> package-distribution.md#optional-pypi-publishing — 20be7463-ca95-4d01-82c9-71f632d1b4be — as of 2026-10-12</p>
 <p>Every generated project ships an unconditional release-please pipeline in one
 unified <code>release.yml</code>: Conventional Commits on <code>main</code> open a release PR, its
-merge cuts the tag and release, and every downstream job (build, PyPI,
-executables, Docker, docs, SBOM, notifications) gates on its outputs. The
+merge cuts the tag and release, and every downstream job (build, PyPI — optional
+since ADR-039 —, executables, Docker, docs, SBOM, notifications) gates on its
+outputs. The
 former <code>release_automation</code> choice (<code>none</code>, release-please, release-it,
 release-drafter) and the separate <code>cd.yml</code> are gone. Versioning is sourced from
 git tags through hatch-vcs, so release-please never edits a version literal and

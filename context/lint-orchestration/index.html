@@ -481,7 +481,7 @@
   <span class="md-ellipsis">
     
   
-    Architecture decision records
+    Architecture decision records (archive)
   
 
     
@@ -497,7 +497,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Architecture decision records
+    Architecture decision records (archive)
   
 
           </label>
@@ -797,8 +797,9 @@ deliberate: fast feedback while editing, authoritative coverage in tox; the
 cost is duplicate execution and at most a brief window between two Renovate
 PRs, not sustained drift.</p>
 <p><strong>Rejected alternative:</strong> keep Pants and Trunk as opt-ins — the intermediate
-state; they solved real problems for some projects, but the option was dropped
-outright once nothing depended on it.</p>
+state this ADR first established; its 2026-06 update dropped them outright so
+that the tox <code>style</code> env is the sole orchestrator and nothing can drift against
+it.</p>
 <p><strong>Consequence:</strong> MegaLinter, when enabled, is scoped so it cannot drift against
 the Python toolchain (see its own entry below).</p>
 <h2 id="taplo-checks-do-not-fetch-schemas-from-generated-toml-directives">Taplo checks do not fetch schemas from generated TOML directives<a class="headerlink" href="#taplo-checks-do-not-fetch-schemas-from-generated-toml-directives" title="Permanent link">&para;</a></h2>

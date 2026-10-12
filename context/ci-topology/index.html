@@ -481,7 +481,7 @@
   <span class="md-ellipsis">
     
   
-    Architecture decision records
+    Architecture decision records (archive)
   
 
     
@@ -497,7 +497,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Architecture decision records
+    Architecture decision records (archive)
   
 
           </label>
@@ -792,7 +792,8 @@ unrelated changes.</p>
 <strong>Superseded by:</strong> 467b6cc3-775b-4e4c-9a8e-b0d1c3d733ac
 <strong>See:</strong> testing-strategy.md#coverage-exclusions-are-per-site-pragmas-and-the-globs-must-match-the-installed-layout — 68366ce3-cc8e-4720-aa91-5eb83aaf2e2d — as of 2026-10-11</p>
 <p>Each matrix cell combined its per-interpreter data, kept a non-gating report,
-and uploaded a per-OS artifact; one <code>coverage-combine</code> job merged every cell
+and uploaded a per-OS artifact; one <code>coverage-combine</code> job (today's
+<code>coverage-report</code>) merged every cell
 and was the only place <code>fail_under = 99</code> was enforced, measuring the union of
 all OS and interpreter cells. <code>relative_files = true</code> made data from different
 runners mergeable, complementing the <code>src</code>/<code>site-packages</code> path remap. The

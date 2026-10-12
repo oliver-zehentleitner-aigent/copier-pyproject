@@ -481,7 +481,7 @@
   <span class="md-ellipsis">
     
   
-    Architecture decision records
+    Architecture decision records (archive)
   
 
     
@@ -497,7 +497,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Architecture decision records
+    Architecture decision records (archive)
   
 
           </label>
@@ -745,28 +745,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#taplo-checks-do-not-fetch-schemas-from-generated-toml-directives" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Taplo checks do not fetch schemas from generated TOML directives
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-prek-gate-runs-at-commit-push-only-hooks-opt-in-per-hook" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The prek gate runs at commit; push-only hooks opt in per hook
-      
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -920,44 +898,6 @@ toolchain or rewrite generated projects during CI.</p>
   pyrefly) is a separate concern not addressed here; see future work on trimming
   preview-stage checkers.</li>
 </ul>
-<h2 id="taplo-checks-do-not-fetch-schemas-from-generated-toml-directives">Taplo checks do not fetch schemas from generated TOML directives<a class="headerlink" href="#taplo-checks-do-not-fetch-schemas-from-generated-toml-directives" title="Permanent link">&para;</a></h2>
-<p><strong>Id:</strong> 152edfc1-817e-4265-ac23-53d2a730cd5f
-<strong>Type:</strong> workaround
-<strong>Type:</strong> decision
-<strong>Status:</strong> active
-<strong>Evidence:</strong> confirmed
-<strong>Source:</strong> <a href="https://github.com/hasansezertasan/copier-pyproject/issues/337">issue #337</a>, <a href="https://github.com/hasansezertasan/copier-pyproject/pull/338">PR #338</a>; commit <a href="https://github.com/hasansezertasan/copier-pyproject/commit/9e86cb8fcd8ccebc667d70391531c5a33ccc8de4">9e86cb8</a>
-<strong>Verification:</strong> corroborated — generated root TOML omits schema directives while the style environment retains Taplo syntax and formatting checks
-<strong>Revisit when:</strong> Taplo provides a verified way to retain editor directives without fetching their schemas during checks</p>
-<p>Generated root TOML no longer carries the remote schema directive. Editors can
-use SchemaStore's filename mapping, while Taplo still checks syntax and canonical
-formatting without that schema fetch.</p>
-<p><strong>Reason:</strong> a transient remote schema failure could fail the required style gate
-on unchanged source. The investigation found that Taplo 0.9.3 still fetched an
-explicit directive's URL with its no-schema flag, so the apparent offline switch
-did not solve this failure mode.</p>
-<p><strong>Rejected alternative:</strong> retain the directive and rely on the no-schema flag.
-It was tested and rejected because the fetch still occurred. Vendoring a schema
-was discussed with a maintenance cost, but the reviewed sources do not establish
-an explicit verdict on that alternative.</p>
-<p>This constraint applies to the Taplo pass, not to every style tool:
-<a href="../032-semgrep-sast-in-the-style-env/">ADR-032</a> separately accepts Semgrep's
-registry dependency. The formatter-canonical requirement remains in
-<a href="../030-generated-files-must-be-formatter-canonical/">ADR-030</a>.</p>
-<h2 id="the-prek-gate-runs-at-commit-push-only-hooks-opt-in-per-hook">The prek gate runs at commit; push-only hooks opt in per hook<a class="headerlink" href="#the-prek-gate-runs-at-commit-push-only-hooks-opt-in-per-hook" title="Permanent link">&para;</a></h2>
-<p><strong>Type:</strong> decision
-<strong>Status:</strong> active
-<strong>Evidence:</strong> confirmed
-<strong>Source:</strong> found while adopting the template in openapipages; reproduced with prek 0.5.5
-<strong>Verification:</strong> corroborated — a hook with no <code>stages</code> ran on <code>pre-commit</code>, <code>pre-push</code>, <code>commit-msg</code> and <code>manual</code> when <code>default_stages</code> was unset
-<strong>Revisit when:</strong> a hook other than <code>commitizen-branch</code> needs to run on push</p>
-<p><code>default_stages</code> is <code>["pre-commit"]</code>. Hooks that belong on push, such as
-<code>commitizen-branch</code>, declare <code>stages</code> themselves.</p>
-<p><strong>Reason:</strong> <code>["pre-commit", "pre-push"]</code> ran every hook without its own stages
-twice per change, including the whole-project type checkers and pylint, and the
-push run added no coverage the commit run lacked.</p>
-<p><strong>Rejected alternative:</strong> dropping <code>default_stages</code>. prek then treats every
-stage as the default, so file hooks also run on <code>commit-msg</code>.</p>
 
 
 

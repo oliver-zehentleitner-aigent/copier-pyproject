@@ -481,7 +481,7 @@
   <span class="md-ellipsis">
     
   
-    Architecture decision records
+    Architecture decision records (archive)
   
 
     
@@ -497,7 +497,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Architecture decision records
+    Architecture decision records (archive)
   
 
           </label>
@@ -815,7 +815,8 @@ docstring autodoc surfaced and was removed.</p>
 hands deploy, removal on close and a sticky comment to a purpose-built action,
 publishing under <code>pr-preview/pr-&lt;N&gt;/</code> on the project's own <code>gh-pages</code>. It runs
 only when the head repository is the repository itself; fork PRs skip cleanly.
-It is always on and not in the <code>check</code> gate.</p>
+It renders only when <code>include_docs</code> is on (ADR-025) and is not in the <code>check</code>
+gate.</p>
 <p><strong>Reason:</strong> the upstream pattern deployed to a separate repository with a
 GitHub App token — a second repo and App to provision. Same-repo <code>pull_request</code>
 carries a write token and needs no dangerous-triggers ignore because untrusted

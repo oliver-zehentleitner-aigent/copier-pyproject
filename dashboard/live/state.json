@@ -1,6 +1,6 @@
 {
  "state-json": 2,
- "generated": "2026-10-11T15:39:23Z",
+ "generated": "2026-10-12T10:17:34Z",
  "dashboard": "0.11.0",
  "linter": "0.20.1.0",
  "project": {
@@ -28,8 +28,8 @@
   "children": [],
   "git": {
    "available": true,
-   "head": "0b74d88",
-   "head_full": "0b74d8836480f30be1590a4837bac53632a26c92",
+   "head": "875a972",
+   "head_full": "875a972af4ca828308fa56c4b221efd4a856a6f0",
    "branch": "keep-the-why-context",
    "remote": "github.com/oliver-zehentleitner-aigent/copier-pyproject",
    "upstream": "github.com/hasansezertasan/copier-pyproject",
@@ -248,7 +248,8 @@
     "release-automation.md"
    ],
    "refs_in": [
-    "components.md"
+    "components.md",
+    "release-automation.md"
    ],
    "status": {
     "active": 3
@@ -279,6 +280,7 @@
    "index_line": "release-please, the draft-release flow, the dispatch trigger and publish environment, token workarounds, Commitizen's role, the open re-evaluation, Docker Hub gating, issue notifications.",
    "entries": 9,
    "refs_out": [
+    "package-distribution.md",
     "supply-chain-security.md"
    ],
    "refs_in": [
@@ -440,7 +442,8 @@
     "active": 5
    },
    "evidence": {
-    "confirmed": 5
+    "confirmed": 4,
+    "inferred": 1
    }
   }
  ],
@@ -874,7 +877,7 @@
    "uuid": "ca90a48d-f648-40b3-ae1a-05f9f21cf411",
    "file": "ci-topology.md",
    "line": 28,
-   "end_line": 53,
+   "end_line": 54,
    "title": "A single union coverage gate across the whole matrix",
    "type": [
     "decision"
@@ -906,8 +909,8 @@
     },
     "last_touched": {
      "author": "Oliver Zehentleitner AIgent",
-     "date": "2026-10-11",
-     "commit": "5bdf627"
+     "date": "2026-10-12",
+     "commit": "875a972"
     },
     "status_history": [
      {
@@ -924,8 +927,8 @@
    "id": "ci-topology.md#a-tokenless-public-html-coverage-mirror-via-smokeshow",
    "uuid": "21119a10-df03-494b-ac84-a57b9b1832c2",
    "file": "ci-topology.md",
-   "line": 54,
-   "end_line": 75,
+   "line": 55,
+   "end_line": 76,
    "title": "A tokenless public HTML coverage mirror via smokeshow",
    "type": [
     "decision"
@@ -975,8 +978,8 @@
    "id": "ci-topology.md#per-component-markers-path-filtered-jobs-and-one-coverage-gate-per-component",
    "uuid": "467b6cc3-775b-4e4c-9a8e-b0d1c3d733ac",
    "file": "ci-topology.md",
-   "line": 76,
-   "end_line": 117,
+   "line": 77,
+   "end_line": 118,
    "title": "Per-component markers, path-filtered jobs, and one coverage gate per component",
    "type": [
     "decision"
@@ -1034,8 +1037,8 @@
    "id": "ci-topology.md#asymmetric-matrix-every-interpreter-on-linux-one-representative-elsewhere-style-and-installed-cli-are-separate-jobs",
    "uuid": "4457f652-2a84-4d70-ab7a-e9d1ebd9c670",
    "file": "ci-topology.md",
-   "line": 118,
-   "end_line": 145,
+   "line": 119,
+   "end_line": 146,
    "title": "Asymmetric matrix: every interpreter on Linux, one representative elsewhere; style and installed-CLI are separate jobs",
    "type": [
     "decision"
@@ -1083,8 +1086,8 @@
    "id": "ci-topology.md#every-generated-ci-job-skips-draft-pull-requests",
    "uuid": "43288d9b-11b3-4d92-8a84-6efe1aa43001",
    "file": "ci-topology.md",
-   "line": 146,
-   "end_line": 165,
+   "line": 147,
+   "end_line": 166,
    "title": "Every generated CI job skips draft pull requests",
    "type": [
     "decision"
@@ -1497,7 +1500,7 @@
    "uuid": "55a74975-a6e0-4f18-8254-fa27f047e829",
    "file": "docs-stack.md",
    "line": 38,
-   "end_line": 70,
+   "end_line": 71,
    "title": "PR docs previews deploy to a subfolder of the project's own `gh-pages`, same-repo only",
    "type": [
     "decision"
@@ -1538,8 +1541,8 @@
     },
     "last_touched": {
      "author": "Oliver Zehentleitner AIgent",
-     "date": "2026-10-11",
-     "commit": "5bdf627"
+     "date": "2026-10-12",
+     "commit": "875a972"
     },
     "status_history": [
      {
@@ -1556,8 +1559,8 @@
    "id": "docs-stack.md#sphinx-lint-and-the-case-conflict-hook-are-always-on-link-checking-is-weekly",
    "uuid": "726d9de8-c1d3-4974-9019-76c8bb5ffc5b",
    "file": "docs-stack.md",
-   "line": 71,
-   "end_line": 94,
+   "line": 72,
+   "end_line": 95,
    "title": "sphinx-lint and the case-conflict hook are always-on; link checking is weekly",
    "type": [
     "decision"
@@ -1616,8 +1619,8 @@
    "id": "docs-stack.md#sphinx-warnings-use-an-exact-reviewable-allowlist",
    "uuid": "2a555902-38e7-47d4-a231-445a8e6caa0f",
    "file": "docs-stack.md",
-   "line": 95,
-   "end_line": 125,
+   "line": 96,
+   "end_line": 126,
    "title": "Sphinx warnings use an exact, reviewable allowlist",
    "type": [
     "decision"
@@ -1667,8 +1670,8 @@
    "id": "docs-stack.md#the-sphinx-subsystem-is-toggleable-include-docs-default-on-the-maintainer-guide-is-not",
    "uuid": "e983d1e7-421f-4926-9415-a3da4626f220",
    "file": "docs-stack.md",
-   "line": 126,
-   "end_line": 152,
+   "line": 127,
+   "end_line": 153,
    "title": "The Sphinx subsystem is toggleable (`include_docs`, default on); the maintainer guide is not",
    "type": [
     "decision"
@@ -1718,8 +1721,8 @@
    "id": "docs-stack.md#documentation-code-examples-are-executed-not-pasted",
    "uuid": "2a95e867-8cca-44e9-9844-a7109e5f6a7b",
    "file": "docs-stack.md",
-   "line": 153,
-   "end_line": 187,
+   "line": 154,
+   "end_line": 188,
    "title": "Documentation code examples are executed, not pasted",
    "type": [
     "decision"
@@ -1767,8 +1770,8 @@
    "id": "docs-stack.md#the-four-auto-generated-reference-pages-keep-their-current-generators",
    "uuid": "aa157658-027b-42c3-8a2b-1e6b40b6b739",
    "file": "docs-stack.md",
-   "line": 188,
-   "end_line": 219,
+   "line": 189,
+   "end_line": 220,
    "title": "The four auto-generated reference pages keep their current generators",
    "type": [
     "decision"
@@ -2285,8 +2288,8 @@
     },
     "last_touched": {
      "author": "Oliver Zehentleitner AIgent",
-     "date": "2026-10-11",
-     "commit": "5bdf627"
+     "date": "2026-10-12",
+     "commit": "875a972"
     },
     "status_history": [
      {
@@ -2396,7 +2399,7 @@
    "uuid": "9b74fc8b-a808-4f2b-bdbd-9e4253c1b35a",
    "file": "lint-orchestration.md",
    "line": 3,
-   "end_line": 35,
+   "end_line": 36,
    "title": "The tox `style` env is the sole authoritative lint suite; prek is a fast gate, not a second suite",
    "type": [
     "decision"
@@ -2417,8 +2420,8 @@
     },
     "last_touched": {
      "author": "Oliver Zehentleitner AIgent",
-     "date": "2026-10-11",
-     "commit": "5bdf627"
+     "date": "2026-10-12",
+     "commit": "875a972"
     },
     "status_history": [
      {
@@ -2435,8 +2438,8 @@
    "id": "lint-orchestration.md#taplo-checks-do-not-fetch-schemas-from-generated-toml-directives",
    "uuid": "152edfc1-817e-4265-ac23-53d2a730cd5f",
    "file": "lint-orchestration.md",
-   "line": 36,
-   "end_line": 64,
+   "line": 37,
+   "end_line": 65,
    "title": "Taplo checks do not fetch schemas from generated TOML directives",
    "type": [
     "workaround",
@@ -2485,8 +2488,8 @@
    "id": "lint-orchestration.md#the-prek-gate-runs-at-commit-push-only-hooks-opt-in-per-hook",
    "uuid": "8fd817b4-fab6-4ce1-b80d-59a2ea93016f",
    "file": "lint-orchestration.md",
-   "line": 65,
-   "end_line": 84,
+   "line": 66,
+   "end_line": 85,
    "title": "The prek gate runs at commit; push-only hooks opt in per hook",
    "type": [
     "decision"
@@ -2525,8 +2528,8 @@
    "id": "lint-orchestration.md#five-type-checkers-strict-basedpyright-replaces-pyright",
    "uuid": "7e130850-494b-427c-a892-a6b3479dd047",
    "file": "lint-orchestration.md",
-   "line": 85,
-   "end_line": 116,
+   "line": 86,
+   "end_line": 117,
    "title": "Five type checkers; strict basedpyright replaces pyright",
    "type": [
     "decision"
@@ -2565,8 +2568,8 @@
    "id": "lint-orchestration.md#mypy-s-prek-hook-runs-through-uv-like-basedpyright",
    "uuid": "71f826cd-950d-4112-9cfb-7dad6ee98264",
    "file": "lint-orchestration.md",
-   "line": 117,
-   "end_line": 141,
+   "line": 118,
+   "end_line": 142,
    "title": "mypy's prek hook runs through uv, like basedpyright",
    "type": [
     "decision"
@@ -2616,8 +2619,8 @@
    "id": "lint-orchestration.md#megalinter-is-an-opt-in-lean-complement-non-blocking-on-three-levels",
    "uuid": "f3041701-610f-4418-b297-e9707da5de40",
    "file": "lint-orchestration.md",
-   "line": 142,
-   "end_line": 180,
+   "line": 143,
+   "end_line": 181,
    "title": "MegaLinter is an opt-in lean complement, non-blocking on three levels",
    "type": [
     "decision"
@@ -2673,7 +2676,7 @@
     {
      "severity": "warning",
      "code": "W301",
-     "line": 148,
+     "line": 149,
      "message": "base64-looking blob (65 chars) — if it needs decoding to be read, it doesn't belong in an entry meant to be read"
     }
    ]
@@ -2682,8 +2685,8 @@
    "id": "lint-orchestration.md#semgrep-runs-in-the-style-env-against-a-named-registry-ruleset-never-vendored",
    "uuid": "5068081c-24ce-4c39-9cdf-13e0a7c229b4",
    "file": "lint-orchestration.md",
-   "line": 181,
-   "end_line": 216,
+   "line": 182,
+   "end_line": 217,
    "title": "semgrep runs in the `style` env against a named registry ruleset, never vendored",
    "type": [
     "decision",
@@ -2894,14 +2897,14 @@
    "uuid": "a14ee38b-12ed-49c8-b452-12b330cf9d10",
    "file": "presets.md",
    "line": 3,
-   "end_line": 39,
+   "end_line": 40,
    "title": "Archetype presets name project shapes; library is the default",
    "type": [
     "decision"
    ],
    "status": "active",
    "evidence": "confirmed",
-   "source": "ADR-016 (`docs/adr/016-archetype-based-presets.md`); the preset mechanism it reshapes came from [PR #141](https://github.com/hasansezertasan/copier-pyproject/pull/141)",
+   "source": "ADR-016 (`docs/adr/016-archetype-based-presets.md`); the preset mechanism it reshapes came from [PR #141](https://github.com/hasansezertasan/copier-pyproject/pull/141); ADR-025 and ADR-039 for the two toggles every preset seeds",
    "verification": null,
    "revisit_when": "a distinct service/worker archetype (worker + broker + database) proves common enough to be a fifth choice",
    "see": [
@@ -2926,8 +2929,8 @@
     },
     "last_touched": {
      "author": "Oliver Zehentleitner AIgent",
-     "date": "2026-10-11",
-     "commit": "5bdf627"
+     "date": "2026-10-12",
+     "commit": "875a972"
     },
     "status_history": [
      {
@@ -2944,8 +2947,8 @@
    "id": "presets.md#the-example-input-file-holds-identity-answers-and-a-preset-only",
    "uuid": "ef5a9b93-2be9-4b18-a354-4a6c174207fe",
    "file": "presets.md",
-   "line": 40,
-   "end_line": 62,
+   "line": 41,
+   "end_line": 63,
    "title": "The example input file holds identity answers and a preset only",
    "type": [
     "decision"
@@ -2985,7 +2988,7 @@
    "uuid": "7ec8a937-fd4d-41f2-96b7-824fe3be913b",
    "file": "release-automation.md",
    "line": 3,
-   "end_line": 45,
+   "end_line": 47,
    "title": "release-please is the sole release orchestrator",
    "type": [
     "decision"
@@ -3003,10 +3006,20 @@
      "file": "release-automation.md",
      "anchor": "the-release-automation-choice-is-under-re-evaluation",
      "remote": null
+    },
+    {
+     "locator": "package-distribution.md#optional-pypi-publishing",
+     "uuid": "20be7463-ca95-4d01-82c9-71f632d1b4be",
+     "date": "2026-10-12",
+     "file": "package-distribution.md",
+     "anchor": "optional-pypi-publishing",
+     "remote": null
     }
    ],
    "superseded_by": null,
-   "refs": [],
+   "refs": [
+    "package-distribution.md"
+   ],
    "git": {
     "created": {
      "author": "Oliver Zehentleitner AIgent",
@@ -3015,8 +3028,8 @@
     },
     "last_touched": {
      "author": "Oliver Zehentleitner AIgent",
-     "date": "2026-10-11",
-     "commit": "5bdf627"
+     "date": "2026-10-12",
+     "commit": "875a972"
     },
     "status_history": [
      {
@@ -3033,8 +3046,8 @@
    "id": "release-automation.md#the-release-is-created-as-a-draft-finalized-after-artifacts-attach",
    "uuid": "398b3cd9-e57b-4856-b2c7-76752c0ec37f",
    "file": "release-automation.md",
-   "line": 46,
-   "end_line": 74,
+   "line": 48,
+   "end_line": 76,
    "title": "The release is created as a draft, finalized after artifacts attach",
    "type": [
     "decision"
@@ -3082,8 +3095,8 @@
    "id": "release-automation.md#the-workflow-dispatch-trigger-on-release-yml-stays-the-publish-environment-is-the-containment",
    "uuid": "0d93a35d-46a3-4ac6-b072-fc07da789842",
    "file": "release-automation.md",
-   "line": 75,
-   "end_line": 101,
+   "line": 77,
+   "end_line": 103,
    "title": "The `workflow_dispatch` trigger on `release.yml` stays; the `publish` environment is the containment",
    "type": [
     "decision",
@@ -3142,8 +3155,8 @@
    "id": "release-automation.md#release-workflows-use-github-token-with-two-documented-manual-workarounds",
    "uuid": "bc96b93e-9b9e-4496-8fbb-b215f1d9a04c",
    "file": "release-automation.md",
-   "line": 102,
-   "end_line": 128,
+   "line": 104,
+   "end_line": 130,
    "title": "Release workflows use `GITHUB_TOKEN`, with two documented manual workarounds",
    "type": [
     "decision",
@@ -3192,8 +3205,8 @@
    "id": "release-automation.md#the-stale-draft-release-comment-link-is-an-accepted-cosmetic-defect",
    "uuid": "2c6a6034-1936-4026-b10a-93445ace87b1",
    "file": "release-automation.md",
-   "line": 129,
-   "end_line": 150,
+   "line": 131,
+   "end_line": 152,
    "title": "The stale draft-release comment link is an accepted cosmetic defect",
    "type": [
     "decision"
@@ -3241,8 +3254,8 @@
    "id": "release-automation.md#commitizen-is-a-commit-helper-never-a-release-tool",
    "uuid": "ee1d2fad-67ab-4f4a-a531-73458da14eb1",
    "file": "release-automation.md",
-   "line": 151,
-   "end_line": 180,
+   "line": 153,
+   "end_line": 182,
    "title": "Commitizen is a commit helper, never a release tool",
    "type": [
     "decision"
@@ -3290,8 +3303,8 @@
    "id": "release-automation.md#the-release-automation-choice-is-under-re-evaluation",
    "uuid": "d9131d49-3c27-48f8-a903-e97caf4acff6",
    "file": "release-automation.md",
-   "line": 181,
-   "end_line": 210,
+   "line": 183,
+   "end_line": 212,
    "title": "The release-automation choice is under re-evaluation",
    "type": [
     "decision"
@@ -3347,8 +3360,8 @@
    "id": "release-automation.md#optional-docker-hub-configuration-gates-the-publish-fan-out",
    "uuid": "f6f9eea4-dd38-4a74-98ed-f67e436c393d",
    "file": "release-automation.md",
-   "line": 211,
-   "end_line": 241,
+   "line": 213,
+   "end_line": 243,
    "title": "Optional Docker Hub configuration gates the publish fan-out",
    "type": [
     "decision"
@@ -3387,8 +3400,8 @@
    "id": "release-automation.md#released-issue-notifications-are-one-inline-job-in-release-yml",
    "uuid": "c8cd015d-12ff-47a7-9447-40b69a2b1a82",
    "file": "release-automation.md",
-   "line": 242,
-   "end_line": 262,
+   "line": 244,
+   "end_line": 264,
    "title": "Released-issue notifications are one inline job in `release.yml`",
    "type": [
     "decision"
@@ -4761,7 +4774,7 @@
    "uuid": "b00a3a49-7fbf-4d87-98fa-73519b994c8e",
    "file": "testing-strategy.md",
    "line": 3,
-   "end_line": 33,
+   "end_line": 34,
    "title": "The worker exposes an env-injectable broker factory; lazy broker imports were rejected",
    "type": [
     "decision"
@@ -4793,8 +4806,8 @@
     },
     "last_touched": {
      "author": "Oliver Zehentleitner AIgent",
-     "date": "2026-10-11",
-     "commit": "5bdf627"
+     "date": "2026-10-12",
+     "commit": "875a972"
     },
     "status_history": [
      {
@@ -4811,8 +4824,8 @@
    "id": "testing-strategy.md#real-broker-integration-tests-testcontainers-locally-per-broker-ci-mechanism",
    "uuid": "73e209d9-60ad-4492-9807-28192b480480",
    "file": "testing-strategy.md",
-   "line": 34,
-   "end_line": 81,
+   "line": 35,
+   "end_line": 82,
    "title": "Real-broker integration tests: testcontainers locally, per-broker CI mechanism",
    "type": [
     "decision"
@@ -4870,8 +4883,8 @@
    "id": "testing-strategy.md#coverage-exclusions-are-per-site-pragmas-and-the-globs-must-match-the-installed-layout",
    "uuid": "68366ce3-cc8e-4720-aa91-5eb83aaf2e2d",
    "file": "testing-strategy.md",
-   "line": 82,
-   "end_line": 117,
+   "line": 83,
+   "end_line": 120,
    "title": "Coverage exclusions are per-site pragmas, and the globs must match the installed layout",
    "type": [
     "decision",
@@ -4902,8 +4915,8 @@
     },
     "last_touched": {
      "author": "Oliver Zehentleitner AIgent",
-     "date": "2026-10-11",
-     "commit": "5bdf627"
+     "date": "2026-10-12",
+     "commit": "875a972"
     },
     "status_history": [
      {
@@ -4920,8 +4933,8 @@
    "id": "testing-strategy.md#interactive-components-expose-injected-driver-seams-so-headless-ci-measures-everything-but-the-blocking-call",
    "uuid": "ffcf90f2-34c7-4673-bbe2-5619c6b23128",
    "file": "testing-strategy.md",
-   "line": 118,
-   "end_line": 158,
+   "line": 121,
+   "end_line": 161,
    "title": "Interactive components expose injected driver seams so headless CI measures everything but the blocking call",
    "type": [
     "decision"
@@ -4979,14 +4992,14 @@
    "id": "testing-strategy.md#async-testing-is-an-explicit-template-axis-async-style",
    "uuid": "e3dc1ec0-0579-4fc9-ac79-413d64550b9a",
    "file": "testing-strategy.md",
-   "line": 159,
-   "end_line": 182,
+   "line": 162,
+   "end_line": 185,
    "title": "Async testing is an explicit template axis (`async_style`)",
    "type": [
     "decision"
    ],
    "status": "active",
-   "evidence": "confirmed",
+   "evidence": "inferred",
    "source": "ADR-036 (`docs/adr/036-async-testing-style.md`)",
    "verification": null,
    "revisit_when": "an async-capable component gains trio support, or pytest ships a built-in async runner",
@@ -5001,8 +5014,8 @@
     },
     "last_touched": {
      "author": "Oliver Zehentleitner AIgent",
-     "date": "2026-10-11",
-     "commit": "5bdf627"
+     "date": "2026-10-12",
+     "commit": "875a972"
     },
     "status_history": [
      {
@@ -5023,10 +5036,11 @@
    "touched": 90,
    "superseded": 3,
    "first": "2026-10-11",
-   "last": "2026-10-11",
+   "last": "2026-10-12",
    "evidence": {
-    "confirmed": 88,
-    "unknown": 2
+    "confirmed": 87,
+    "unknown": 2,
+    "inferred": 1
    }
   }
  ],
@@ -5039,7 +5053,7 @@
     "severity": "warning",
     "code": "W301",
     "path": "context/lint-orchestration.md",
-    "line": 148,
+    "line": 149,
     "message": "base64-looking blob (65 chars) — if it needs decoding to be read, it doesn't belong in an entry meant to be read"
    }
   ]
